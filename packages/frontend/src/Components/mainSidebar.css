@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    justify-content: start;
+    justify-content: space-between;
     /* align-items: center; */
     padding-top: 1.5rem;
     z-index: 10000;
@@ -18,6 +18,12 @@
     margin-left: 0.8rem;
     font-size: 1rem;
     background: none;
+  }
+
+  .menu-bars2 {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
   }
   
   .nav-menu {
@@ -65,12 +71,18 @@
   
   .nav-menu-items {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
   
   .navbar-toggle {
     background-color: #131832;
     width: 100%;
-    height: 158px;
+    /* height: 158px; */
     display: flex;
     justify-content: start;
     align-items: center;

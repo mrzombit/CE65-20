@@ -27,20 +27,20 @@ function App() {
         {/* <p>asdasd</p> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/ProfilePage" element={<ProfilePage />} />
-          <Route path="/AccountPage" element={<AccountPage />} />
-          <Route path="/LoginPage" element={<LoginPage />} />
-          <Route path="/RegisterPage" element={<RegisterPage />} />
-          <Route path="/SubscriptionPage" element={<SubscriptionPage />} />
-          <Route path="/WorkSpacePage" element={<WorkSpacePage />} />
-          <Route path="/ComparePage" element={<ComparePage />} />
-          <Route path="/MiscellaneousPage" element={<MiscellaneousPage />} />
-          <Route path="/OperationCostPage" element={<OperationCostPage />} />
-          <Route path="/ProjectConfigPage" element={<ProjectConfigPage />} />
-          <Route path="/RevenuePage" element={<RevenuePage />} />
-          <Route path="/TotalInvestmentPage" element={<TotalInvestmentPage />} />
-          <Route path="/StatementsPage" element={<StatementsPage />} />   
-          <Route path="/FFCPage" element={<FFCPage />} />   
+          <Route path="/Profile" element={<ProfilePage />} />
+          <Route path="/Account" element={<AccountPage />} />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/Register" element={<RegisterPage />} />
+          <Route path="/Subscription" element={<SubscriptionPage />} />
+          <Route path="/WorkSpace" element={<WorkSpacePage />} />
+          <Route path="/Compare" element={<ComparePage />} />
+          <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
+          <Route path="/OperationCost" element={<OperationCostPage />} />
+          <Route path="/ProjectConfig" element={<ProjectConfigPage />} />
+          <Route path="/Revenue" element={<RevenuePage />} />
+          <Route path="/TotalInvestment" element={<TotalInvestmentPage />} />
+          <Route path="/Statements" element={<StatementsPage />} />   
+          <Route path="/FFC" element={<FFCPage />} />   
         </Routes>
       </div>
     </Router>
