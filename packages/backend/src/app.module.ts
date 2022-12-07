@@ -3,9 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose'; // add this
 import { BlogModule } from './blog/blog.module';
+import { MONGODB_CONNECTION } from './app.properties'
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/nest-blog-project', { useNewUrlParser: true }),
+    MongooseModule.forRoot(MONGODB_CONNECTION, {
+      useNewUrlParser: true,
+    }),
     BlogModule,
   ],
   controllers: [AppController],

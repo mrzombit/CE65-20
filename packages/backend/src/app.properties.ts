@@ -1,0 +1,1 @@
+export const MONGODB_CONNECTION = `mongodb+srv://mrzombit:game1000@cluster0.brxcz.mongodb.net/Blog?retryWrites=true&w=majority`
