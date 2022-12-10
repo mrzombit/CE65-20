@@ -5,11 +5,16 @@
   margin-left: 50px;
 }
 
-.butt {
+.butt { 
+  display: flex;
   background-color: #5558b0;
   color: white;
   height: 40px;
   border-radius: 10px;
+  border: #5558b0;
+  padding: 1rem;
+  align-items: center;
+ 
 }
 
 .butt:hover {

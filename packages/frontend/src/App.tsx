@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import MainSidebar from "./Components/mainSidebar";
+import MainSidebar from "./Components/mainSidebar/mainSidebar";
 import ProfilePage from "./Pages/profilePage/profilePage";
 import AccountPage from "./Pages/accountPage/accountPage";
 import LandingPage from "./Pages/landingPage/landingPage";
@@ -24,7 +24,6 @@ function App() {
     <Router>
       <MainSidebar />
       <div className="App">
-        {/* <p>asdasd</p> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/Profile" element={<ProfilePage />} />
