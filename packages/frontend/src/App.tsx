@@ -33,13 +33,13 @@ function App() {
           <Route path="/Subscription" element={<SubscriptionPage />} />
           <Route path="/WorkSpace" element={<WorkSpacePage />} />
           <Route path="/Compare" element={<ComparePage />} />
-          <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
-          <Route path="/OperationCost" element={<OperationCostPage />} />
           <Route path="/ProjectConfig" element={<ProjectConfigPage />} />
-          <Route path="/Revenue" element={<RevenuePage />} />
           <Route path="/TotalInvestment" element={<TotalInvestmentPage />} />
-          <Route path="/Statements" element={<StatementsPage />} />   
-          <Route path="/FFC" element={<FFCPage />} />   
+          <Route path="/OperationCost" element={<OperationCostPage />} />
+          <Route path="/Revenue" element={<RevenuePage />} />
+          <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
+          <Route path="/FFC" element={<FFCPage />} />
+          <Route path="/Statements" element={<StatementsPage />} />
         </Routes>
       </div>
     </Router>
