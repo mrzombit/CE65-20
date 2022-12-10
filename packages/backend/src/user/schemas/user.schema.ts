@@ -8,7 +8,7 @@ export const UserSchema = new mongoose.Schema({
     email: String,
     phone_number: String,
     password: String,
-    payment_detail: String,
+    payment_detail: Object,
     subscription_plan_id: String,
     project_ids: [String],
     is_cooperation: Boolean,
