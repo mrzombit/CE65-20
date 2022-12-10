@@ -1,25 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import "./App.css";
+import MainSidebar from "./Components/mainSidebar/mainSidebar";
+import ProfilePage from "./Pages/profilePage/profilePage";
+import AccountPage from "./Pages/accountPage/accountPage";
+import LandingPage from "./Pages/landingPage/landingPage";
+import LoginPage from "./Pages/loginPage/loginPage";
+import RegisterPage from "./Pages/registerPage/registerPage";
+import SubscriptionPage from "./Pages/subscriptionPage/subscriptionPage";
+import WorkSpacePage from "./Pages/workSpacePage/workSpacePage";
+import ComparePage from "./Pages/comparePage/comparePage";
+import MiscellaneousPage from "./Pages/BizTools/miscellaneousPage/miscellaneousPage";
+import OperationCostPage from "./Pages/BizTools/operationCostPage/operationCostPage";
+import ProjectConfigPage from "./Pages/BizTools/projectConfigPage/projectConfigPage";
+import RevenuePage from "./Pages/BizTools/revenuePage/revenuePage";
+import TotalInvestmentPage from "./Pages/BizTools/totalInvestmentPage/totalInvestmentPage";
+import StatementsPage from "./Pages/Checkbiz/statementsPage/statementsPage";
+import FFCPage from "./Pages/Checkbiz/ffcPage/ffcPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <MainSidebar />
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/Profile" element={<ProfilePage />} />
+          <Route path="/Account" element={<AccountPage />} />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/Register" element={<RegisterPage />} />
+          <Route path="/Subscription" element={<SubscriptionPage />} />
+          <Route path="/WorkSpace" element={<WorkSpacePage />} />
+          <Route path="/Compare" element={<ComparePage />} />
+          <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
+          <Route path="/OperationCost" element={<OperationCostPage />} />
+          <Route path="/ProjectConfig" element={<ProjectConfigPage />} />
+          <Route path="/Revenue" element={<RevenuePage />} />
+          <Route path="/TotalInvestment" element={<TotalInvestmentPage />} />
+          <Route path="/Statements" element={<StatementsPage />} />   
+          <Route path="/FFC" element={<FFCPage />} />   
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
