@@ -9,7 +9,6 @@ import { FcGoogle } from "react-icons/fc";
 import ConditionalLink from "../../Components/common/conditionalLink";
 
 function LoginPage() {
-  const [users, setUsers] = useState([]);
   const [user, setUser] = useState();
   const { register, handleSubmit } = useForm();
   const [auth, setAuth] = useState({ token: "", status: false, username: "" })
