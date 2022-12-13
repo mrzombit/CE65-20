@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ffcPage() {
+function FFCPage() {
   return (
-    <div>ffcPage</div>
+    <div>FFCPage</div>
   )
 }
 
-export default ffcPage
+export default FFCPage

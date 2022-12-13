@@ -1,6 +1,6 @@
 import { CreateUserDTO } from './dto/create-user.dto';
 import { User } from './interfaces/user.interface';
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException  } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -8,8 +8,30 @@ import { InjectModel } from '@nestjs/mongoose';
 export class UserService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
 
+    async getUserByUsername(username: string) {
+      return this.userModel.findOne({
+          username
+        })
+        .exec();
+    }
+
+    async getUserByEmail(email: string) {
+      return this.userModel.findOne({
+          email
+        })
+        .exec();
+    }
+
     async addUser(createUserDTO: CreateUserDTO): Promise<User> {
         const newUser = await new this.userModel(createUserDTO);
+        const user_username = await this.getUserByUsername(newUser.username);
+        if (user_username) {
+          throw new BadRequestException();
+        }
+        const user_email = await this.getUserByEmail(newUser.email);
+        if (user_email) {
+          throw new BadRequestException();
+        }
         return newUser.save();
       }  
         
@@ -35,4 +57,19 @@ export class UserService {
           .findByIdAndRemove(userID);
         return deletedUser;
       }
+
+      async findOne(username: string): Promise<User | undefined> {
+        return this.userModel.findOne({
+          username
+        })
+        .exec();
+      }
+
+      private readonly users = [
+        {
+          userId: 1,
+          username: 'erika123',
+          password: 'changeme',
+        },
+      ];
 }

@@ -2,6 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
+
+import DBTest1 from "./Pages/.test/dbTest1";
+import DBTest2 from "./Pages/.test/dbTest2";
+
 import MainSidebar from "./Components/mainSidebar/mainSidebar";
 import ProfilePage from "./Pages/profilePage/profilePage";
 import AccountPage from "./Pages/accountPage/accountPage";
@@ -25,7 +29,8 @@ function App() {
       <MainSidebar />
       <div className="App">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          {/* <Route path="/" element={<LandingPage />} /> */}
+          <Route path="/" element={<DBTest1/>} />
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/Account" element={<AccountPage />} />
           <Route path="/Login" element={<LoginPage />} />

@@ -18,10 +18,10 @@ import { ProjectModule } from './project/project.module';
 import { ServiceModule } from './service/service.module';
 import { InvestmentTableModule } from './investment-table/investment-table.module';
 import { ServiceTableModule } from './service-table/service-table.module';
-import { SubscriptionPlanController } from './subscription-plan/subscription-plan.controller';
 import { TransactionModule } from './transaction/transaction.module';
 import { UserModule } from './user/user.module';
 import { SubscriptionPlanModule } from './subscription-plan/subscription-plan.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -46,8 +46,9 @@ import { SubscriptionPlanModule } from './subscription-plan/subscription-plan.mo
     SubscriptionPlanModule,
     TransactionModule,
     UserModule,
+    AuthModule,
   ],
-  controllers: [AppController, SubscriptionPlanController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
