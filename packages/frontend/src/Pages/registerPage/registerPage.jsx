@@ -6,39 +6,39 @@ import { AiOutlineCheckCircle, AiFillCheckCircle } from "react-icons/ai";
 
 function registerPage() {
   return (
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-sm-6">
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-sm-6">
           <img
             src={require("../../Assets/register-img.png")}
-            class="card-img-2"
+            className="card-img-2"
             style={{ transform: "scale(0.7) translate(-12%, 8%)" }}
           />
         </div>
-        <div class="col-sm-4 lp-re" style={{ transform: " translate(0%, 10%)" }}>
-          <p class="head-font-re">Register</p>
+        <div className="col-sm-4 lp-re" style={{ transform: " translate(0%, 10%)" }}>
+          <p className="head-font-re">Register</p>
           <p className="low-font-re">Create your account</p>
-          <div class="text-field-re my-4">
+          <div className="text-field-re my-4">
             <input type="text" required />
             <label>Name</label>
           </div>
-          <div class="text-field-re my-4">
+          <div className="text-field-re my-4">
             <input type="text" required />
             <label>Surname</label>
           </div>
-          <div class="text-field-re my-4">
+          <div className="text-field-re my-4">
             <input type="text" required />
             <label>Username</label>
           </div>
-          <div class="text-field-re my-4">
+          <div className="text-field-re my-4">
             <input type="email" required />
             <label>Email</label>
           </div>
-          <div class="text-field-re my-3">
+          <div className="text-field-re my-3">
             <input type="password" required />
             <label>Password</label>
           </div>
-          <div class="text-field-re my-3">
+          <div className="text-field-re my-3">
             <input type="password" required />
             <label>Password</label>
           </div>
@@ -54,7 +54,7 @@ function registerPage() {
               </Link>
             </div>
             <Link to="/Workspace" style={{ textDecoration: "none" }}>
-              <button type="button" class="btn re-butt">
+              <button type="button" className="btn re-butt">
                 Sign up
               </button>
             </Link>

@@ -1,0 +1,17 @@
+.statement-body {
+    margin-left: 16rem;
+    margin-top: 1rem;
+  }
+
+.statement-block {
+    display: flex;
+    width: 63%;
+    height: 230px;
+    /* background-color: #ECECEC; */
+    justify-content: flex-start;
+    align-items: center;
+    /* transform: translate(13%,2%); */
+    border-radius: 20px;
+    /* padding-left: 2%; */
+    margin-left: 1.5%;
+}

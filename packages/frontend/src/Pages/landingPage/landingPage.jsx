@@ -8,8 +8,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 function landingPage() {
   return (
     <div className="py-4" style={{ marginBottom: "0rem" }}>
-      <div class="d-flex justify-content-between px-5">
-        <p class="logo-font">BIZCHECK</p>
+      <div className="d-flex justify-content-between px-5">
+        <p className="logo-font">BIZCHECK</p>
 
         <Dropdown as={ButtonGroup}>
           <Button href="/Login" className="butt">Sign in</Button>
@@ -34,7 +34,7 @@ function landingPage() {
             <p className="head-text-card">BIZ TOOLS</p>
             <img
               src={require("../../Assets/biztools-card.png")}
-              class="card-img-2"
+              className="card-img-2"
               style={{ transform: "scale(1) translate(0%, 0%)" }}
             />
           </div>
@@ -42,7 +42,7 @@ function landingPage() {
             <p className="head-text-card">CHECK BIZ</p>
             <img
               src={require("../../Assets/checkbiz-card.png")}
-              class="card-img-2"
+              className="card-img-2"
               style={{ transform: "scale(1) translate(0%, 0%)" }}
             />
           </div>
@@ -52,7 +52,7 @@ function landingPage() {
               <p className="head-text-card">STATEMENTS</p>
               <img
                 src={require("../../Assets/statement-card.png")}
-                class="card-img-2"
+                className="card-img-2"
                 style={{ transform: "scale(1) translate(70%, -30%)" }}
               />
             </div>
@@ -61,7 +61,7 @@ function landingPage() {
                 <p className="head-text-card">SENSITIVITY</p>
                 <img
                   src={require("../../Assets/sensitivity-card.png")}
-                  class="card-img-2"
+                  className="card-img-2"
                   style={{ transform: "scale(1) translate(-10%, -35%)" }}
                 />
               </div>
@@ -69,7 +69,7 @@ function landingPage() {
                 <p className="head-text-card">COMPARE</p>
                 <img
                   src={require("../../Assets/compare-card.png")}
-                  class="card-img-2"
+                  className="card-img-2"
                   style={{ transform: "scale(1) translate(25%, 15%)" }}
                 />
               </div>

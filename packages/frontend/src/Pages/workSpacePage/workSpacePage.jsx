@@ -36,7 +36,7 @@ function workSpacePage() {
           <VscListUnordered className="ss-font-icon m-2" />
           <CiGrid41 className="ss-font-icon m-2" />
           <input
-            class="form-control mr-sm-2 ss-font-search m-2"
+            className="form-control mr-sm-2 ss-font-search m-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
