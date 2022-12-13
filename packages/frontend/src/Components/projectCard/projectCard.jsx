@@ -5,7 +5,6 @@ import { SiHomeassistantcommunitystore } from "react-icons/si";
 
 function projectCard(props) {
   return (
-    <div>
       <div className="pj-card">
         <div className="pj-card-icon">
           <SiHomeassistantcommunitystore />
@@ -20,7 +19,6 @@ function projectCard(props) {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

@@ -3,16 +3,14 @@ import "./workSpacePage.css";
 import Bizbutton from "../../Components/bizButton/bizButton";
 import {
   VscAdd,
-  VscPass,
   VscListUnordered,
   VscDiff,
-  VscHome,
-  VscGripper,
   VscExtensions,
   VscListSelection,
 } from "react-icons/vsc";
 import { CiGrid41 } from "react-icons/ci";
 import ProjectCard from "../../Components/projectCard/projectCard";
+import { Link } from "react-router-dom";
 
 function workSpacePage() {
   return (
@@ -46,10 +44,13 @@ function workSpacePage() {
           <VscListSelection className="ss-font-icon m-2" />
         </div>
       </div>
-      <div className="d-flex my-5">
-        <ProjectCard name="Pet Shop" lastEdit="Edited 2 hours ago"/>
-        <ProjectCard name="My Cafe" lastEdit="Edited 2 hours ago"/>
-        <ProjectCard name="Hotel Del Lu Na" lastEdit="Edited 2 hours ago"/>
+      <div className="d-flex my-3">
+        <Link to="/ProjectConfig" className="no-text-link">
+          <ProjectCard name="Pet Shop" lastEdit="Edited 2 hours ago" />
+        </Link>
+
+        <ProjectCard name="My Cafe" lastEdit="Edited 2 hours ago" />
+        <ProjectCard name="Hotel Del Lu Na" lastEdit="Edited 2 hours ago" />
       </div>
     </div>
   );

@@ -11,11 +11,11 @@
     position: fixed;
     top: 0px;
     width: 3rem;
+    align-items: center;
   }
 
   
   .menu-bars {
-    margin-left: 0.8rem;
     font-size: 1rem;
     background: none;
   }
@@ -74,8 +74,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: 3rem;
+    justify-content: flex-start;
+    padding-top: 6.4rem;
     padding-bottom: 3rem;
   }
   

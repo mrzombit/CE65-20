@@ -18,23 +18,26 @@ function mainSidebar() {
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <div className="navbar">
-          <Link to="#" className="menu-bars" style={{ marginBottom: "0rem" }}>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-          <div className="menu-bars2" >
-            <Link to="/" className="mb-4">
-              <VscHome />
+          <div className="menu-bars2">
+            <Link to="#" className="menu-bars" >
+              <FaIcons.FaBars onClick={showSidebar} />
             </Link>
-            <Link to="/WorkSpace">
-              <VscExtensions />
-            </Link>
+            <div className="menu-bars2" style={{ marginTop: "4rem" }}>
+              <Link to="/" className="mb-4">
+                <VscHome />
+              </Link>
+              <Link to="/WorkSpace">
+                <VscExtensions />
+              </Link>
+            </div>
           </div>
           <Link to="/Profile" className="menu-bars mb-4">
             <VscAccount />
           </Link>
         </div>
 
-        <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
+        {/* <nav className={sidebar ? "nav-menu active" : "nav-menu"}> */}
+        <nav className="nav-menu">
           {/* <ul className='nav-menu-items' onClick={showSidebar}> */}
           <ul className="nav-menu-items">
             <li className="navbar-toggle">
