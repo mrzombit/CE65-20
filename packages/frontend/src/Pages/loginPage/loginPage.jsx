@@ -1,10 +1,63 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from "react";
-import "./loginPage.css";
-import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
-function loginPage() {
+import "./loginPage.css";
+import { Link, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import ConditionalLink from "../../Components/common/conditionalLink";
+
+function LoginPage() {
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState();
+  const { register, handleSubmit } = useForm();
+  const [auth, setAuth] = useState({ token: "", status: false, username: "" })
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.status) {
+      const config = {
+        params: { username: auth.username },
+        headers: { Authorization: `Bearer ${auth.token}` }
+      };
+      axios.get("http://localhost:5000/user/username",
+        config,
+      )
+        .then(res => {
+          console.log("response!");
+          console.log(res)
+          setUser(res.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    }
+    if (user)
+      navigate('/Workspace');
+  }, [auth, user]);
+
+  const doSubmit = (input) => {
+    // const doSubmit = (inp) => {
+    // const input = { username: "erika4", password: "test123" }
+    const params = new URLSearchParams();
+    params.append('username', input.username);
+    params.append('password', input.password);
+    axios.post("http://localhost:5000/auth/auth/login"
+      , params,)
+      .then(res => {
+        setAuth({
+          token: res.data.access_token,
+          status: true,
+          username: input.username
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("Wrong username or password!")
+      })
+  }
+
   return (
     <div class="container">
       <div class="row justify-content-center">
@@ -16,45 +69,56 @@ function loginPage() {
           />
         </div>
         <div class="col-sm-4 lp" style={{ transform: " translate(0%, 20%)" }}>
-          <p class="head-font ">Welcome back </p>
-          <p className="low-font">Sign in to your account</p>
+          <form onSubmit={handleSubmit(doSubmit)}>
+            <p class="head-font ">Welcome back </p>
+            <p className="low-font">Sign in to your account</p>
 
-          <div class="text-field my-4">
-            <input type="text" required />
-            <label>Username</label>
-          </div>
+            <div class="form-group text-field my-4">
+              <input type="username"
+                class="form-control"
+                id="exampleInputUsername1"
+                aria-describedby="usernameHelp"
+                {...register('username', { required: true })}
+                required />
+              <label>Username</label>
+            </div>
 
-          <div class="text-field my-3">
-            <input type="password" required />
-            <label>Password</label>
-          </div>
+            <div class="form-group text-field my-3">
+              <input type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                {...register('password', { required: true })}
+                required />
+              <label>Password</label>
+            </div>
 
-          <div className="d-flex justify-content-between">
-            <Link className="link-text">
-              <p>Forget Password ?</p>
-            </Link>
-            <Link  to="/Workspace" style={{ textDecoration: "none" }} >
-              <button type="button" class="btn login-butt">
-                Sign in
+            <div className="d-flex justify-content-between">
+              <Link className="link-text">
+                <p>Forget Password ?</p>
+              </Link>
+              <ConditionalLink condition={user} to="/Workspace" style={{ textDecoration: "none" }} >
+                <button type="submit" class="btn login-butt">
+                  Sign in
+                </button>
+              </ConditionalLink>
+            </div>
+            <hr></hr>
+            <div className=" d-flex justify-content-center">
+              <button type="button" class="btn gg-butt my-2">
+                <FcGoogle className="mx-3 gg-icon" /> Sign in with Google
               </button>
-            </Link>
-          </div>
-          <hr></hr>
-          <div className=" d-flex justify-content-center">
-            <button type="button" class="btn gg-butt my-2">
-              <FcGoogle className="mx-3 gg-icon" /> Sign in with Google
-            </button>
-          </div>
-          <div className="d-flex justify-content-center my-2">
-            <p>Don't have an account ? &nbsp;</p>
-            <Link to="/Register" style={{ textDecoration: "none"}}>
-              <p>Sign up</p>
-            </Link>
-          </div>
+            </div>
+            <div className="d-flex justify-content-center my-2">
+              <p>Don't have an account ? &nbsp;</p>
+              <Link to="/Register" style={{ textDecoration: "none" }}>
+                <p>Sign up</p>
+              </Link>
+            </div>
+          </form>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
-export default loginPage;
+export default LoginPage;

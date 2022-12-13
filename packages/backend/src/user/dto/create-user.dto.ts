@@ -4,7 +4,7 @@ export class CreateUserDTO {
     readonly username: string;
     readonly email: string;
     readonly phone_number: string;
-    readonly password: string;
+    password: string;
     readonly payment_detail: JSON;
     readonly subscription_plan_id: string;
     readonly project_ids: [string];

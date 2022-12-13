@@ -29,8 +29,9 @@ function App() {
       <MainSidebar />
       <div className="App">
         <Routes>
-          {/* <Route path="/" element={<LandingPage />} /> */}
-          <Route path="/" element={<DBTest1/>} />
+          <Route path="/" element={<LandingPage />} />
+          {/* <Route path="/" element={<DBTest1/>} /> */}
+          {/* <Route path="/" element={<DBTest2/>} /> */}
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/Account" element={<AccountPage />} />
           <Route path="/Login" element={<LoginPage />} />

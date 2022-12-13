@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt';
 import { ValidateObjectId } from './shared/pipes/validate-object-id.pipes';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserService } from './user.service';
@@ -15,29 +16,59 @@ export class UserController {
 
   constructor(private userService: UserService) { }
 
-  @Post('/post')
-  async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
-    const newUser = await this.userService.addUser(createUserDTO);
+  // @Post('/post')
+  // async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
+  //   const newUser = await this.userService.addUser(createUserDTO);
+  //   return res.status(HttpStatus.OK).json({
+  //     message: 'User has been submitted successfully!',
+  //     post: newUser,
+  //   });
+  // }
+
+  @Post('/signup')
+  async createUser(
+    @Res() res,
+    @Body() createUserDTO: CreateUserDTO,
+  ) {
+    const saltOrRounds = 10;
+    const shallowHashPassword = await bcrypt.hash(createUserDTO.password, saltOrRounds);
+    createUserDTO.password = shallowHashPassword
+    const newUser = await this.userService.createUser(
+      createUserDTO
+    );
     return res.status(HttpStatus.OK).json({
-      message: 'User has been submitted successfully!',
+      message: 'User has been created successfully!',
       post: newUser,
     });
   }
-  
-  @Get('post/:userID') //"../user/post/1"
-  async getUser(@Res() res, @Param('userID', new ValidateObjectId()) userID) {
-    const user = await this.userService.getUser(userID);
+
+  @Get('getUser/:username') //"../user/post/1"
+  async getUser(@Res() res, @Param('username', new ValidateObjectId()) username) {
+    const user = await this.userService.getUser(username);
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }
     return res.status(HttpStatus.OK).json(user);
   }
 
-  async getUserByUsername(@Res() res, @Param('username', new ValidateObjectId()) username) {
-    const user = await this.userService.getUserByUsername(username);
+  @Get('post/:userID') //"../user/post/1"
+  async getUserByID(@Res() res, @Param('userID', new ValidateObjectId()) userID) {
+    const user = await this.userService.getUserByID(userID);
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }
+    return res.status(HttpStatus.OK).json(user);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('username')
+  async getUserByUsername(
+    @Res() res,
+    @Query('username') username,
+  ) {
+    console.log(`\ncontroller> ${username}`)
+    const user = await this.userService.findOne(username);
+    console.log(`restult > ${user.username}`)
     return res.status(HttpStatus.OK).json(user);
   }
 
@@ -74,4 +105,5 @@ export class UserController {
       user: deletedUser,
     });
   }
+
 }
