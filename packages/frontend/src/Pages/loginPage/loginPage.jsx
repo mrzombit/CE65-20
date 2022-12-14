@@ -58,12 +58,12 @@ function LoginPage() {
   }
 
   return (
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-sm-6">
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-sm-6">
           <img
             src={require("../../Assets/login-img.png")}
-            class="card-img-2"
+            className="card-img-2"
             style={{ transform: "scale(0.7) translate(-10%, 0%)" }}
           />
         </div>
