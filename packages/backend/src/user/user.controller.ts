@@ -16,15 +16,6 @@ export class UserController {
 
   constructor(private userService: UserService) { }
 
-  // @Post('/post')
-  // async addUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
-  //   const newUser = await this.userService.addUser(createUserDTO);
-  //   return res.status(HttpStatus.OK).json({
-  //     message: 'User has been submitted successfully!',
-  //     post: newUser,
-  //   });
-  // }
-
   @Post('/signup')
   async createUser(
     @Res() res,
@@ -93,6 +84,25 @@ export class UserController {
       user: editedUser,
     });
   }
+
+  @Put('/update')
+  async updateUser(
+    @Res() res,
+    @Query('username') username,
+    @Body() createUserDTO: CreateUserDTO,
+  ) {
+    const user = await this.userService.findOne(username)
+    console.log(user);
+    const updatedUser = await this.userService.editUser(user._id, createUserDTO);
+    if (!updatedUser) {
+      throw new NotFoundException('User does not exist!');
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'User has been successfully updated',
+      user: updatedUser,
+    });
+  }
+
 
   @Delete('/delete')
   async deleteUser(@Res() res, @Query('userID', new ValidateObjectId()) userID) {

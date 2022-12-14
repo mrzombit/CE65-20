@@ -41,6 +41,7 @@ export class UserService {
       .findByIdAndUpdate(userID, createUserDTO, { new: true });
     return editedUser;
   }
+
   async deleteUser(userID): Promise<any> {
     const deletedUser = await this.userModel
       .findByIdAndRemove(userID);
