@@ -1,9 +1,9 @@
 import React from 'react'
 
-function subscriptionPage() {
+function SubscriptionPage() {
   return (
     <div>subscriptionPage</div>
   )
 }
 
-export default subscriptionPage
+export default SubscriptionPage

@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 
-function landingPage() {
+function LandingPage() {
   return (
     <div className="py-4" style={{ marginBottom: "0rem" }}>
       <div className="d-flex justify-content-between px-5">
@@ -81,4 +81,4 @@ function landingPage() {
   );
 }
 
-export default landingPage;
+export default LandingPage;

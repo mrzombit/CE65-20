@@ -2,7 +2,7 @@ import React from "react";
 import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
 import BizHeader from "../../../Components/bizHeader/bizHeader";
 
-function projectConfigPage() {
+function ProjectConfigPage() {
   return (
     <div>
       <BizSidebar />
@@ -13,4 +13,4 @@ function projectConfigPage() {
   );
 }
 
-export default projectConfigPage;
+export default ProjectConfigPage;

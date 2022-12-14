@@ -8,7 +8,7 @@ import { IconContext } from "react-icons";
 import * as IoIcons from "react-icons/io";
 import { VscAccount, VscHome, VscExtensions } from "react-icons/vsc";
 
-function mainSidebar() {
+function MainSidebar() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [sidebar, setSidebar] = useState(false);
 
@@ -62,4 +62,4 @@ function mainSidebar() {
   );
 }
 
-export default mainSidebar;
+export default MainSidebar;

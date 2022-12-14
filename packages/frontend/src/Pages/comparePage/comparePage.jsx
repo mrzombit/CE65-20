@@ -1,9 +1,9 @@
 import React from 'react'
 
-function comparePage() {
+function ComparePage() {
   return (
     <div>comparePage</div>
   )
 }
 
-export default comparePage
+export default ComparePage

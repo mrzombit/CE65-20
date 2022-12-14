@@ -3,7 +3,7 @@ import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
 import BizHeader from "../../../Components/bizHeader/bizHeader";
 import BizTableInvestment from "../../../Components/bizTable/bizTableInvestment";
 
-function operationCostPage() {
+function OperationCostPage() {
   return (
     <div>
       <BizSidebar />
@@ -16,4 +16,4 @@ function operationCostPage() {
   );
 }
 
-export default operationCostPage;
+export default OperationCostPage;

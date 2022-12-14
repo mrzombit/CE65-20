@@ -3,7 +3,7 @@ import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
 import BizHeader from "../../../Components/bizHeader/bizHeader";
 import BizTableInvestment from "../../../Components/bizTable/bizTableInvestment";
 
-function miscellaneousPage() {
+function MiscellaneousPage() {
   return (
     <div>
       <BizSidebar />
@@ -18,4 +18,4 @@ function miscellaneousPage() {
   );
 }
 
-export default miscellaneousPage;
+export default MiscellaneousPage;

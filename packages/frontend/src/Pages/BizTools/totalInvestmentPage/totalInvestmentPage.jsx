@@ -3,7 +3,7 @@ import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
 import BizHeader from "../../../Components/bizHeader/bizHeader";
 import BizTableInvestment from "../../../Components/bizTable/bizTableInvestment";
 
-function totalInvestmentPage() {
+function TotalInvestmentPage() {
   return (
     <div>
       <BizSidebar />
@@ -16,4 +16,4 @@ function totalInvestmentPage() {
   );
 }
 
-export default totalInvestmentPage;
+export default TotalInvestmentPage;

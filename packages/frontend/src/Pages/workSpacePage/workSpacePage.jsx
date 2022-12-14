@@ -12,7 +12,7 @@ import { CiGrid41 } from "react-icons/ci";
 import ProjectCard from "../../Components/projectCard/projectCard";
 import { Link } from "react-router-dom";
 
-function workSpacePage() {
+function WorkSpacePage() {
   return (
     <div className="ws">
       <p className="head-text-ws mt-4">Work Space</p>
@@ -56,4 +56,4 @@ function workSpacePage() {
   );
 }
 
-export default workSpacePage;
+export default WorkSpacePage;
