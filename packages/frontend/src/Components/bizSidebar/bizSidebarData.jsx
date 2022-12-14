@@ -12,7 +12,7 @@ export const bizSidebarData_biztools = [
   {
     title: 'Project Config',
     path: '/ProjectConfig',
-    icon: <BsCashCoin />,
+    icon: <SiNounproject />,
     cName: 'nav-text'
   },
   {
