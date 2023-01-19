@@ -18,6 +18,7 @@ import RevenuePage from "./Pages/BizTools/revenuePage/revenuePage";
 import TotalInvestmentPage from "./Pages/BizTools/totalInvestmentPage/totalInvestmentPage";
 import StatementsPage from "./Pages/Checkbiz/statementsPage/statementsPage";
 import FFCPage from "./Pages/Checkbiz/ffcPage/ffcPage";
+import NewInvestmentProject from "./Components/newInvestmentProject/newInvestmentProject";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
           <Route path="/FFC" element={<FFCPage />} />
           <Route path="/Statements" element={<StatementsPage />} />
+          {/* <Route path="/NewInvestmentProject" element={<NewInvestmentProject />} /> */}
         </Routes>
       </div>
     </Router>

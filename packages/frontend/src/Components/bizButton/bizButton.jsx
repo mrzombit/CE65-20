@@ -5,7 +5,7 @@ import "./bizButton.css";
 function bizButton(props) {
   
   return (
-    <button className="btn biz-butt">
+    <button onClick={props.onClick} className="btn biz-butt" >
         <div className="biz-butt-icon">
           {props.icon}
         </div>
