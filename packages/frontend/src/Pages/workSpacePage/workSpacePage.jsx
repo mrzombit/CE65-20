@@ -24,34 +24,34 @@ function workSpacePage() {
         close={() => setNewProjectPopupState(false)}
       ></NewInvestmentProject>
       <div className="ws">
-        <p className="head-text-ws mt-4">Work Space</p>
+        <p className="head-text-ws mt-4">ธุรกิจของฉัน</p>
         <hr className="line"></hr>
         <div className="d-flex mt-4">
           <div className="d-flex">
             {/* <Link to="/NewInvestmentProject" className="no-text-link"> */}
             <Bizbutton
               onClick={() => setNewProjectPopupState(true)}
-              name="New FFC Project"
-              details="Financial Feasibility Casvas"
+              name="สร้างโปรเจกธุรกิจใหม่"
+              details="ประเมินความเป็นไปได้ของธุรกิจของคุณ"
               icon={<VscExtensions />}
               add={<VscAdd />}
             />
 
             {/* </Link> */}
             <Bizbutton
-              name="Compare FFC Project 0/4"
-              details="Click to select FFC Project"
+              name="เปรียบเทียบระหว่างธุรกิจ 0/4"
+              details="เปรียบเทียบความน่าลงทุนระหว่างธุรกิจ"
               icon={<VscDiff />}
             />
           </div>
           <div className="ss-group">
-            <p className="ss-font-text m-2">Recent</p>
+            <p className="ss-font-text m-2">ล่าสุด</p>
             <VscListUnordered className="ss-font-icon m-2" />
             <CiGrid41 className="ss-font-icon m-2" />
             <input
-              className="form-control mr-sm-2 ss-font-search m-2"
+              className="form-control mr-sm-2 ss-font-search m-2 ss-font-text"
               type="search"
-              placeholder="Search"
+              placeholder="ค้นหา"
               aria-label="Search"
             />
             <VscListSelection className="ss-font-icon m-2" />
