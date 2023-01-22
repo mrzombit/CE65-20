@@ -11,7 +11,7 @@
 }
 .new-pj-card {
   width: 630px;
-  height: 550px;
+  height: 574px;
   background-color: white;
   margin: auto;
   border-radius: 20px;
@@ -52,4 +52,16 @@
 
 .label-newInvest-pj {
     font-size: 12px;
+}
+
+.template-scroll {
+  display: flex;
+  /* flex-direction: row; */
+  width: 590px;
+  height: 110px;
+  /* background-color: rgb(118, 165, 165); */
+  cursor: grab;
+  overflow-x: scroll;
+  margin: 8px 0px 0px 0px;
+  
 }

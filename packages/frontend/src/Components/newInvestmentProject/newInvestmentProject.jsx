@@ -4,6 +4,7 @@ import onClickOutside from "react-onclickoutside";
 import BizTextInfo from "../bizTextInfo/bizTextInfo";
 import { AiOutlineClose } from "react-icons/ai";
 import BizLogo from "../bizLogo/bizLogo";
+import ProjectTempleteCard from "../projectTempleteCard/projectTempleteCard";
 
 function newInvestmentProject(props) {
   return props.trigger ? (
@@ -31,7 +32,7 @@ function newInvestmentProject(props) {
                 <div className="input-container ">
                   {/* <BizTextInfo title="Project Logo"/> */}
                   <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
-                  <BizLogo/>
+                  <BizLogo />
                   {/* <div
                     className="input-newInvest-pj"
                     style={{ height: "160px", width: "160px" }}
@@ -130,7 +131,16 @@ function newInvestmentProject(props) {
             </form>
           </div>
           <hr></hr>
-          <p>Continue with</p>
+          <div>สร้างโปรเจคธุรกิจจากเทมเพลตที่มี</div>
+          <div className="template-scroll">
+            <div><ProjectTempleteCard /></div>
+            <div><ProjectTempleteCard /></div>
+            <div><ProjectTempleteCard /></div>
+            <div><ProjectTempleteCard /></div>
+            <div><ProjectTempleteCard /></div>
+            <div><ProjectTempleteCard /></div>
+            <div><ProjectTempleteCard /></div>
+          </div>
         </div>
       </div>
     </div>

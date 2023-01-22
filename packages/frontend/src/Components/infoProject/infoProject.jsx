@@ -3,6 +3,7 @@ import "./infoProject.css";
 import onClickOutside from "react-onclickoutside";
 import BizTextInfo from "../bizTextInfo/bizTextInfo";
 import { AiOutlineClose } from "react-icons/ai";
+import BizLogo from "../bizLogo/bizLogo";
 
 function infoProject(props) {
   return (
@@ -31,13 +32,14 @@ function infoProject(props) {
                 <div className="input-container ">
                   {/* <BizTextInfo title="Project Logo"/> */}
                   <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
-                  <div
+                  <BizLogo />
+                  {/* <div
                     className="input-newInvest-pj"
                     style={{ height: "160px", width: "160px" }}
                     type="text"
                     name="uname"
                     required
-                  ></div>
+                  ></div> */}
                 </div>
                 <div className="flex-col">
                   <div className="input-container">
@@ -128,7 +130,7 @@ function infoProject(props) {
               </div> */}
             </form>
           </div>
-       
+         
         </div>
       </div>
     </div>
