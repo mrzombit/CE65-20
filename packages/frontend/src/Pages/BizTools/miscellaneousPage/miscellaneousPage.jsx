@@ -7,12 +7,11 @@ function miscellaneousPage() {
   return (
     <div>
       <BizSidebar />
-      <div>
-        <BizHeader title="Miscellaneous Table" infoPath="/" btnName="" />
-        <BizTableInvestment name="Equity Contribution"/>
-        <BizTableInvestment name="Equity Repayment"/>
-        <BizTableInvestment name="Debt Issuance & Repayment"/>
-
+      <BizHeader title="Miscellaneous Table" infoPath="/" btnName="" />
+      <div className="m-bt">
+        <BizTableInvestment name="Equity Contribution" />
+        <BizTableInvestment name="Equity Repayment" />
+        <BizTableInvestment name="Debt Issuance & Repayment" />
       </div>
     </div>
   );

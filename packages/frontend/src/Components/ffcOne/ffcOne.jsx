@@ -5,7 +5,18 @@ import "./ffcOne.css";
 function ffcOne() {
   return (
     <div className="ffc-body-text">
-      <TitleFFC title="Investment Rationale" />
+      <div className="ffc-body">
+        <div>
+          <div><TitleFFC title="เหตุผลในการลงทุน" /></div>
+          <textarea
+            className="input-newInvest-pj"
+            style={{ height: "300px", width: "1000px" }}
+            type="textarea"
+            name="uname"
+            required
+          />
+        </div>
+      </div>
     </div>
   );
 }

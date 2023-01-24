@@ -1,11 +1,17 @@
 import React from 'react'
 import TitleFFC from "../titleFFC/titleFFC";
 import "../ffcOne/ffcOne.css";
+import BizTableInvestment from '../bizTable/bizTableInvestment';
 
 function ffctwo() {
   return (
     <div className="ffc-body-text">
-      <TitleFFC title="Capital Rationale" />
+      <div className="ffc-body">
+        <div>
+          <div><TitleFFC title="การลงทุน" /></div>
+          <div><BizTableInvestment/></div>
+        </div>
+      </div>
     </div>
   )
 }

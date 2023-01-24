@@ -5,7 +5,7 @@ import { AiFillInfoCircle } from "react-icons/ai";
 function titleFFC(props) {
   return (
     <IconContext.Provider value={{ color: "#9fa7c2" }}>
-      <div>
+      <div className="ffc-title">
         {props.title}&nbsp;
         {/* {props.icon} */}
         <AiFillInfoCircle />
