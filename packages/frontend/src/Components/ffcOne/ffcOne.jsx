@@ -4,10 +4,12 @@ import "./ffcOne.css";
 
 function ffcOne() {
   return (
-    <div className="ffc-body-text">
-      <div className="ffc-body">
+    <div className="ffc-content">
+      <div className="ffc-body-content">
         <div>
-          <div><TitleFFC title="เหตุผลในการลงทุน" /></div>
+          <div>
+            <TitleFFC title="เหตุผลในการลงทุน" />
+          </div>
           <textarea
             className="input-newInvest-pj"
             style={{ height: "300px", width: "1000px" }}

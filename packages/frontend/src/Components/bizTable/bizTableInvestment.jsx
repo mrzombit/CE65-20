@@ -6,7 +6,7 @@ import { AiFillUpCircle } from "react-icons/ai";
 function bizTableInvestment(props) {
   return (
     <div class="bt">
-      <table class="table container" >
+      <table class="table container tb-con" >
         <thead>
           <tr>
             <th scope="col">{props.name}</th>
