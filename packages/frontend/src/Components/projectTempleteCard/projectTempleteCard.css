@@ -1,0 +1,23 @@
+.pjt-card {
+    width: 110px;
+    height: 110px;
+    background-color: #eaebfb;
+    margin: 0px 10px 0px 0px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pjt-icon {
+    font-size: 30px;
+    color: #5558B0;
+}
+
+.pjt-title {
+    font-size: 12px;
+    font-weight: 400;
+    color: #5558B0;
+}

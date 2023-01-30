@@ -47,6 +47,8 @@ function App() {
           <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
           <Route path="/FFC" element={<FFCPage />} />
           <Route path="/Statements" element={<StatementsPage/>} />
+          <Route path="/Statements" element={<StatementsPage />} />
+          {/* <Route path="/NewInvestmentProject" element={<NewInvestmentProject />} /> */}
         </Routes>
       </div>
     </Router>
