@@ -1,6 +1,6 @@
 export class CreateProjectDTO {
     readonly name: string;
-    readonly industry_id: string;
+    readonly industry_ids: [string];
     readonly description: string;
     readonly logo_url: string;
     readonly created_date: Date;
@@ -10,11 +10,18 @@ export class CreateProjectDTO {
                 year: string,
                 trend: string,
                 description: string,
-            }
+            },
         ];
+    readonly business_goals: [
+        {
+            business_goal_id: string,
+            goal: {
+            },
+        }
+    ];
     readonly model_config: {
         projection_period: string,
-        start_date: string,
+        start_date: Date,
         currrency_id: string,
         working_hours: string,
         income_tax_rate: string,
@@ -30,17 +37,33 @@ export class CreateProjectDTO {
     };
     readonly miscellaneous: {
         equity_contribution: [{
-
+            name: string,
+            amount: string,
+            date: Date,
         }],
         equity_repayment: [{
-
+            name: string,
+            share: string,
+            repayment: [
+                {
+                    date: Date,
+                    amount: string,
+                }
+            ],
         }],
         debt_issuance: [{
-
+            name: string,
+            amount: string,
+            apr: string,
+            period_id: string,
+            payments: [
+                {
+                    name: string,
+                    date: Date,
+                    amount: string,
+                }
+            ]
         }],
-        debt_rapayment: [{
-
-        }],
-        interest_rate: string,
+        ffcReason: string,
     };
   }
