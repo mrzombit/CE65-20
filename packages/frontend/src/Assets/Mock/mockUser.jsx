@@ -4,19 +4,19 @@ export default User = {
     surname: "Sunophak",
     username: "koonk",
     email: "krittikamas.snp@gmail.com",
-    phoneNumber: "0655419528",
+    phone_number: "0655419528",
     password: "test",
-    paymentDetail: {
-        paymentCardIds: [
+    payment_detail: {
+        payment_card_ids: [
             1,
         ]
     },
-    subscriptionPlaneId: 0,
-    projectIds: [
+    subscription_plane_id: 0,
+    project_ids: [
         1,
     ],
-    isCooperation: false,
-    transactionIds: [
+    is_cooperation: false,
+    transaction_ids: [
         1,
     ],
 }

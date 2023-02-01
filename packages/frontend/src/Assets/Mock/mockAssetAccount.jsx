@@ -5,8 +5,8 @@ export default AssetAccount = [
             th: "ทรัพย์สินถาวรมีตัวตน",
             en: "Tangible Fixed Asset",
         },
-        isFixedAsset: true,
-        isTangibleAsset: true,
+        is_fixed_asset: true,
+        is_tangible_asset: true,
     },
     {
         id: 2,
@@ -14,8 +14,8 @@ export default AssetAccount = [
             th: "ทรัพย์สินไม่มีตัวตน",
             en: "Intangible Asset",
         },
-        isFixedAsset: false,
-        isTangibleAsset: false,
+        is_fixed_asset: false,
+        is_tangible_asset: false,
     },
     {
         id: 2,
@@ -23,7 +23,7 @@ export default AssetAccount = [
             th: "ทรัพย์สินถาวร",
             en: "Fixed Asset",
         },
-        isFixedAsset: true,
-        isTangibleAsset: false,
+        is_fixed_asset: true,
+        is_tangible_asset: false,
     },
 ]
