@@ -13,32 +13,32 @@ export default Project = {
     salesTrends: [
         {
             year: 1,
-            trend: 40,
+            trend: 0.4,
         },
         {
             year: 2,
-            trend: 50,
+            trend: 0.5,
         },
         {
             year: 3,
-            trend: 60,
+            trend: 0.6,
         },
         {
             year: 4,
-            trend: 70,
+            trend: 0.7,
         },
     ],
     businessGoals: [
         {
             businessGoalId: 1,
             goal: {
-                val: 50,
+                val: 0.5,
             }
         },
         {
             businessGoalId: 2,
             goal: {
-                val: 70,
+                val: 2.6,
             }
         },
     ],
@@ -117,6 +117,6 @@ export default Project = {
         ]
     },
     ffc: {
-        
+
     },
 }
