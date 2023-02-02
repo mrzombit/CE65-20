@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 export default Investments = [
     {
         id: 1,
