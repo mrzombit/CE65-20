@@ -14,3 +14,7 @@
     font-weight: 500;
     margin-bottom: 1rem;
   }
+
+  .master-card-text {
+    text-align: start;
+  }
