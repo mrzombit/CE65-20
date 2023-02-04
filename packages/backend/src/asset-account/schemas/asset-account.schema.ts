@@ -7,5 +7,5 @@ export const AssetAccountSchema = new mongoose.Schema({
     },
     is_fixed_asset: Boolean,
     is_tangible_asset: Boolean,
-    date_created: String,
+    created_date: Date,
 });

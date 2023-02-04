@@ -22,6 +22,8 @@ import { TransactionModule } from './transaction/transaction.module';
 import { UserModule } from './user/user.module';
 import { SubscriptionPlanModule } from './subscription-plan/subscription-plan.module';
 import { AuthModule } from './auth/auth.module';
+import { BusinessGoalController } from './business-goal/business-goal.controller';
+import { BusinessGoalModule } from './business-goal/business-goal.module';
 
 @Module({
   imports: [
@@ -47,8 +49,9 @@ import { AuthModule } from './auth/auth.module';
     TransactionModule,
     UserModule,
     AuthModule,
+    BusinessGoalModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, BusinessGoalController],
   providers: [AppService],
 })
 export class AppModule {}
