@@ -18,7 +18,9 @@ export class SubscriptionPlanController {
     }
     @Get('post/:subscriptionPlanID') //"../subscriptionPlan/post/1"
     async getSubscriptionPlan(@Res() res, @Param('subscriptionPlanID', new ValidateObjectId()) subscriptionPlanID) {
-    const subscriptionPlan = await this.subscriptionPlanService.getSubscriptionPlan(subscriptionPlanID);
+      // console.log(subscriptionPlanID)
+      console.log("here")
+      const subscriptionPlan = await this.subscriptionPlanService.getSubscriptionPlan(subscriptionPlanID);
     if (!subscriptionPlan) {
         throw new NotFoundException('SubscriptionPlan does not exist!');
     }
