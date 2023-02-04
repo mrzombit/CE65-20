@@ -1,14 +1,22 @@
 export default Currency = [
     {
         id: 1,
-        name: "ไทยบาท",
+        name:{
+            local: "บาทไทย",
+            en: "Thai Baht",
+        },
         abbreviation: "THB",
-        full_name: "Thai Baht",
+        weight: 1,
+        created_date: new Date(),
     },
     {
         id: 2,
-        name: "US Dollar",
+        name:{
+            local: "US Dollar",
+            en: "US Dollar",
+        },
         abbreviation: "USD",
-        full_name: "United State Dollar",
+        weight: 32,
+        created_date: new Date(),
     },
 ]

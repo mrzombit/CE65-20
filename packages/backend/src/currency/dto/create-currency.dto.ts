@@ -1,9 +1,9 @@
 export class CreateCurrencyDTO {
     readonly name: {
-      th: string,
+      local: string,
       en: string,
     };
     readonly abbreviation: string;
-    readonly full_name: string;
+    readonly weight: Number;
     readonly created_date: Date;
   }

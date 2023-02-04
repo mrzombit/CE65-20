@@ -6,10 +6,6 @@ export const BusinessGoalSchema = new mongoose.Schema({
         en: String,
       },
       full_name: String,
-      detail: {
-        bad_range: [Number,Number],
-        good_range: [Number,Number],
-        great_range: [Number,Number],
-      },
+      detail: Object,
       created_date: Date,
 });

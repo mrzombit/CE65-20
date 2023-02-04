@@ -6,12 +6,12 @@ export class CreateProjectDTO {
     readonly created_date: Date;
     readonly modified_date: Date;
     readonly sale_trends: [
-            {
-                year: string,
-                trend: Number,
-                description: string,
-            },
-        ];
+        {
+            year: Number,
+            trend: Number,
+            description: string,
+        },
+    ];
     readonly business_goals: [
         {
             business_goal_id: string,
@@ -22,7 +22,7 @@ export class CreateProjectDTO {
     readonly model_config: {
         projection_period: Number,
         start_date: Date,
-        currrency_id: string,
+        currency_id: string,
         working_hours: Number,
         income_tax_rate: Number,
         discounting_rate: Number,
@@ -32,7 +32,7 @@ export class CreateProjectDTO {
             name: string,
             description: string,
             color: string,
-            text_color : string,
+            text_color: string,
             services: [{
                 name: string,
                 unit: Number,
@@ -52,10 +52,13 @@ export class CreateProjectDTO {
             name: string,
             description: string,
             color: string,
-            text_color : string,
+            text_color: string,
             products: [{
                 name: string,
-                days_of_inventory: Number,
+                days_of_inventory: {
+                    days: Number,
+                    months: Number,
+                },
                 revenue_per_unit: Number,
                 cost_per_service: Number,
                 price_increase: Number,
@@ -72,7 +75,7 @@ export class CreateProjectDTO {
             name: string,
             description: string,
             color: string,
-            text_color : string,
+            text_color: string,
             investments: [{
                 name: string,
                 amount: Number,
@@ -85,8 +88,8 @@ export class CreateProjectDTO {
             name: string,
             description: string,
             color: string,
-            text_color : string,
-            fixed_costs:[{
+            text_color: string,
+            fixed_costs: [{
                 name: string,
                 amount: Number,
                 period_id: string,
@@ -119,12 +122,12 @@ export class CreateProjectDTO {
         equity_repayment: [{
             name: string,
             share: Number,
-            repayment: [
-                {
-                    date: Date,
-                    amount: Number,
-                }
-            ],
+            repayment:
+            {
+                period_id: string,
+                start_date: Date,
+            }
+            ,
         }],
         debt_issuance: [{
             name: string,
@@ -141,4 +144,4 @@ export class CreateProjectDTO {
         }],
         ffcReason: string,
     };
-  }
+}

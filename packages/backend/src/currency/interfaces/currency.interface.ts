@@ -1,17 +1,11 @@
 import { Document } from 'mongoose';
-    
+
 export interface Currency extends Document {
-    readonly type: {
-        th: {
-            name: string,
-            weight: number,
-        },
-        en: {
-            name: string,
-            weight: number,
-        },
+    readonly name: {
+        local: string,
+        en: string,
     };
     readonly abbreviation: string;
-    readonly full_name: string;
+    readonly weight: Number;
     readonly created_date: Date;
 }
