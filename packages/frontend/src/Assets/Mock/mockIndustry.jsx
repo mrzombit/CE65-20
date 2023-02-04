@@ -7,6 +7,7 @@ export default Industry = [
         },
         is_b2b: true,
         is_b2c: true,
+        created_date: new Date(),
     },
     {
         id: 2,
@@ -16,6 +17,7 @@ export default Industry = [
         },
         is_b2b: true,
         is_b2c: true,
+        created_date: new Date(),
     },
     {
         id: 3,
@@ -25,6 +27,7 @@ export default Industry = [
         },
         is_b2b: true,
         is_b2c: true,
+        created_date: new Date(),
     },
     {
         id: 4,
@@ -34,6 +37,7 @@ export default Industry = [
         },
         is_b2b: true,
         is_b2c: true,
+        created_date: new Date(),
     },
     {
         id: 5,
@@ -43,5 +47,6 @@ export default Industry = [
         },
         is_b2b: true,
         is_b2c: true,
+        created_date: new Date(),
     },
 ]

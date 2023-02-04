@@ -8,8 +8,8 @@ export default Project = {
     ],
     description: "This business is about ABC. We aim to raise up Thailand GDP 1%",
     logo_url: "https://img.freepik.com/premium-vector/barber-shop-icon-logo-vector-icon-template_598213-1562.jpg?w=2000",
-    created_date: "12-11-2022",
-    modified_date: "13-11-2022",
+    created_date: new Date(),
+    modified_date: new Date(),
     sales_trends: [
         {
             year: 1,
@@ -48,8 +48,8 @@ export default Project = {
     ],
     model_config: {
         projection_period: 4,
-        start_date: "12-11-2022",
-        currrency_id: 1,
+        start_date: new Date(),
+        currency_id: 1,
         working_hours: 9,
         income_tax_rate: 0.15,
         discounting_rate: 0.08,
@@ -61,7 +61,7 @@ export default Project = {
                 description: "",
                 color: "#FFFFFF",
                 text_color: "",
-                products: [
+                services: [
                     {
                         name: "บริการทำสีผมหญิง",
                         unit: 2,
@@ -70,10 +70,10 @@ export default Project = {
                         revenue_per_serve: 1500,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
-                        price_increase_period: 1,
+                        price_increase_period_id: 1,
                         const_increase: 0.02,
                         const_increase_period_id: 1,
-                        start_date: "12-05-2023",
+                        start_date: new Date(),
                         seasonal_trends:
                             [
                                 1, 1, 1, 1,
@@ -89,10 +89,10 @@ export default Project = {
                         revenue_per_serve: 1500,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
-                        price_increase_period: 1,
+                        price_increase_period_id: 1,
                         const_increase: 0.02,
                         const_increase_period_id: 1,
-                        start_date: "12-05-2023",
+                        start_date: new Date(),
                         seasonal_trends:
                             [
                                 1, 1, 1, 1,
@@ -108,10 +108,10 @@ export default Project = {
                         revenue_per_serve: 600,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
-                        price_increase_period: 1,
+                        price_increase_period_id: 1,
                         const_increase: 0.02,
                         const_increase_period_id: 1,
-                        start_date: "12-05-2023",
+                        start_date: new Date(),
                         seasonal_trends:
                             [
                                 1, 1, 1, 1,
@@ -127,10 +127,10 @@ export default Project = {
                         revenue_per_serve: 600,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
-                        price_increase_period: 1,
+                        price_increase_period_id: 1,
                         const_increase: 0.02,
                         const_increase_period_id: 1,
-                        start_date: "12-05-2023",
+                        start_date: new Date(),
                         seasonal_trends:
                             [
                                 1, 1, 1, 1,
@@ -160,7 +160,7 @@ export default Project = {
                         price_increase_period_id: 1,
                         cost_increase: 0.01,
                         cost_increase_period_id: 1,
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         seasonal_trends: [
                             1, 1, 1, 1,
                             1, 1, 1, 1,
@@ -179,7 +179,7 @@ export default Project = {
                         price_increase_period_id: 1,
                         cost_increase: 0.01,
                         cost_increase_period_id: 1,
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         seasonal_trends: [
                             1, 1, 1, 1,
                             1, 1, 1, 1,
@@ -198,7 +198,7 @@ export default Project = {
                         price_increase_period_id: 1,
                         cost_increase: 0.01,
                         cost_increase_period_id: 1,
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         seasonal_trends: [
                             1, 1, 1, 1,
                             1, 1, 1, 1,
@@ -222,28 +222,28 @@ export default Project = {
                         amount: 1000000,
                         account_id: 1,
                         is_initial: true,
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                     },
                     {
                         name: "ค่าก่อสร้าง",
                         amount: 1000000,
                         account_id: 1,
                         is_initial: true,
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                     },
                     {
                         name: "ค่าเฟอร์นิเจอร์",
                         amount: 75000,
                         account_id: 1,
                         is_initial: true,
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                     },
                     {
                         name: "ค่าเครื่องมือช่าง",
                         amount: 70000,
                         account_id: 1,
                         is_initial: true,
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                     },
                 ],
             },
@@ -259,21 +259,21 @@ export default Project = {
                         amount: 25000,
                         account_id: 2,
                         is_initial: true,
-                        start_date: "12-05-2023",
+                        start_date: new Date(),
                     },
                     {
                         name: "ประกันสินค้า",
                         amount: 30000,
                         account_id: 2,
                         is_initial: true,
-                        start_date: "12-05-2023",
+                        start_date: new Date(),
                     },
                     {
                         name: "ค่าโปรโมทร้าน",
                         amount: 200000,
                         account_id: 2,
                         is_initial: true,
-                        start_date: "12-05-2023",
+                        start_date: new Date(),
                     },
                 ],
             },
@@ -347,7 +347,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -385,7 +385,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -423,7 +423,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -461,7 +461,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -508,7 +508,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -546,7 +546,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -584,7 +584,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -622,7 +622,7 @@ export default Project = {
                                 twelve: 3,
                             },
                         ],
-                        start_date: "12-11-2022",
+                        start_date: new Date(),
                         cost_increase: 0.02,
                         cost_increase_period_id: 1,
                     },
@@ -635,24 +635,23 @@ export default Project = {
             {
                 name: "Me",
                 amount: 500000,
-                date: "11-12-2022",
+                date: new Date(),
             },
             {
                 name: "My Wife",
                 amount: 200000,
-                date: "11-12-2022",
+                date: new Date(),
             },
         ],
         equity_repayment: [
             {
                 name: "My Wife",
                 share: 0.2,
-                repayments: [
-                    {
-                        date: "12-11-2023",
-                        amount: 200,
-                    }
-                ]
+                repayments:
+                {
+                    period_id: 1,
+                    start_date: new Date(),
+                }
             },
         ],
         debt_issuance: [
@@ -664,17 +663,17 @@ export default Project = {
                 payments: [
                     {
                         name: "Rainbow QuickCash",
-                        date: "12-11-2023",
+                        date: new Date(),
                         amount: 500000,
                     },
                     {
                         name: "Rainbow QuickCash",
-                        date: "12-11-2024",
+                        date: new Date(),
                         amount: 500000,
                     },
                 ]
             }
         ]
     },
-    ffc_reason: "",
+    ffc_reason: "เหตุผลในการลงทุนของฉัน คือ ...",
 }

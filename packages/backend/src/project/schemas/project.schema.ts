@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-    
+
 export const ProjectSchema = new mongoose.Schema({
     name: String,
     industry_ids: [String],
@@ -8,12 +8,12 @@ export const ProjectSchema = new mongoose.Schema({
     created_date: Date,
     modified_date: Date,
     sale_trends: [
-            {
-                year: String,
-                trend: Number,
-                description: String,
-            },
-        ],
+        {
+            year: Number,
+            trend: Number,
+            description: String,
+        },
+    ],
     business_goals: [
         {
             business_goal_id: String,
@@ -24,7 +24,7 @@ export const ProjectSchema = new mongoose.Schema({
     model_config: {
         projection_period: Number,
         start_date: Date,
-        currrency_id: String,
+        currency_id: String,
         working_hours: Number,
         income_tax_rate: Number,
         discounting_rate: Number,
@@ -34,7 +34,7 @@ export const ProjectSchema = new mongoose.Schema({
             name: String,
             description: String,
             color: String,
-            text_color : String,
+            text_color: String,
             services: [{
                 name: String,
                 unit: Number,
@@ -54,10 +54,13 @@ export const ProjectSchema = new mongoose.Schema({
             name: String,
             description: String,
             color: String,
-            text_color : String,
+            text_color: String,
             products: [{
                 name: String,
-                days_of_inventory: Number,
+                days_of_inventory: {
+                    days: Number,
+                    months: Number,
+                },
                 revenue_per_unit: Number,
                 cost_per_service: Number,
                 price_increase: Number,
@@ -74,7 +77,7 @@ export const ProjectSchema = new mongoose.Schema({
             name: String,
             description: String,
             color: String,
-            text_color : String,
+            text_color: String,
             investments: [{
                 name: String,
                 amount: Number,
@@ -87,8 +90,8 @@ export const ProjectSchema = new mongoose.Schema({
             name: String,
             description: String,
             color: String,
-            text_color : String,
-            fixed_costs:[{
+            text_color: String,
+            fixed_costs: [{
                 name: String,
                 amount: Number,
                 period_id: String,
@@ -121,12 +124,12 @@ export const ProjectSchema = new mongoose.Schema({
         equity_repayment: [{
             name: String,
             share: Number,
-            repayment: [
-                {
-                    date: Date,
-                    amount: Number,
-                }
-            ],
+            repayment:
+            {
+                period_id: String,
+                start_date: Date,
+            }
+            ,
         }],
         debt_issuance: [{
             name: String,

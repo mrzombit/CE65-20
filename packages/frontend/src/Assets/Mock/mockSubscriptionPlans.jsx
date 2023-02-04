@@ -12,7 +12,7 @@ export default SubscriptionPlans = [
             is_export: false,
             is_compared: true,
         },
-        created_date: "11-12-2020",
+        created_date: new Date(),
         is_actived: true,
     },
     {
@@ -28,7 +28,7 @@ export default SubscriptionPlans = [
             is_export: false,
             is_compared: true,
         },
-        created_date: "11-12-2020",
+        created_date: new Date(),
         is_actived: true,
     },
     {
@@ -44,7 +44,7 @@ export default SubscriptionPlans = [
             is_export: true,
             is_compared: true,
         },
-        created_date: "11-12-2020",
+        created_date: new Date(),
         is_actived: true,
     },
 ]

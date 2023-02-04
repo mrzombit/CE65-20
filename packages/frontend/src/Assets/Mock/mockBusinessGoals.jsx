@@ -2,57 +2,57 @@ export default BusinessGoals = [
     {
         id: 1,
         name: {
-            th: "NPV",
-            en: "NPV",
+            th: "มูลค่าปัจจุบันสุทธิ",
+            en: "Net Present Value",
         },
-        full_name: "Net Present Value",
+        abbreviation: "NPV",
         detail: {
-            
         },
+        created_date: new Date(),
     },
     {
         id: 2,
         name:  {
-            th: "IRR",
-            en: "IRR",
+            th: "อัตราผลตอบแทนภายใน",
+            en: "Interest Return Rate",
         },
-        full_name: "Interest Return Rate",
+        abbreviation: "IRR",
         detail: {
-
         },
+        created_date: new Date(),
     },
     {
         id: 3,
         name:  {
-            th: "ROI",
-            en: "ROI",
+            th: "ผลตอบแทนจากการลงทุน",
+            en: "Return On Interest",
         },
-        full_name: "Return On Interest",
+        abbreviation: "ROI",
         detail: {
-
         },
+        created_date: new Date(),
     },
     {
         id: 4,
         name:  {
-            th: "กระแสเงินสด/ปี",
-            en: "Cashflow/year",
+            th: "กระแสเงินสดรายปี",
+            en: "Yearly Cashflow",
         },
-        full_name: "Yearly Cashflow",
+        abbreviation: "Monthly CF",
         detail: {
-
         },
+        created_date: new Date(),
     },
     {
         id: 5,
         name:  {
-            th: "กระแสเงินสด/เดือน",
-            en: "Cashflow/month",
+            th: "กระแสเงินสดรายเดือน",
+            en: "Monthly Cashflow",
         },
-        full_name: "Monthly Cashflow",
+        abbreviation: " Yearly CF",
         detail: {
-
         },
+        created_date: new Date(),
     },
     {
         id: 6,
@@ -60,9 +60,9 @@ export default BusinessGoals = [
             th: "ระยะเวลาคืนทุน",
             en: "Payback Period",
         },
-        full_name: "PaybackPeriod",
-        detail: {
-            
+        abbreviation: "PP",
+        detail: {       
         },
+        created_date: new Date(),
     },
 ]

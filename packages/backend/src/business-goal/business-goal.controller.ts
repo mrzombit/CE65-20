@@ -1,7 +1,7 @@
 import { ValidateObjectId } from './../user/shared/pipes/validate-object-id.pipes';
 import { Controller, Get, Res, HttpStatus, Param, NotFoundException, Post, Body, Put, Query, Delete } from '@nestjs/common';
 import { BusinessGoalService } from './business-goal.service';
-import { CreateBusiness-gDTO } from './dto/create-business-goal.dto';
+import { CreateBusinessGoalDTO } from './dto/create-business-goal.dto';
 
 @Controller('businessGoal')
 export class BusinessGoalController {

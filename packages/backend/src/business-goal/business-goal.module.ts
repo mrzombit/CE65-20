@@ -9,6 +9,6 @@ import { BusinessGoalService } from './business-goal.service';
     MongooseModule.forFeature([{ name: 'BusinessGoal', schema: BusinessGoalSchema }]),
   ], // add
   controllers: [BusinessGoalController],
-  providers: [BusinessGoalService]
+  providers: [BusinessGoalService],
 })
 export class BusinessGoalModule {}

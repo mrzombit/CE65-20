@@ -1,17 +1,11 @@
 import * as mongoose from 'mongoose';
-    
+
 export const CurrencySchema = new mongoose.Schema({
     name: {
-        th: {
-            name: String,
-            weight: Number,
-        },
-        en: {
-            name: String,
-            weight: Number,
-        },
+        local: String,
+        en: String,
     },
     abbreviation: String,
-    full_name: String,
+    weight: Number,
     created_date: Date,
 });
