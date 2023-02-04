@@ -55,7 +55,7 @@ export default Project = {
         discounting_rate: 0.08,
     },
     revenue: {
-        service_table_ids: [
+        service_tables: [
             {
                 name: "ค่าบริการ",
                 description: "",
@@ -66,15 +66,15 @@ export default Project = {
                         name: "บริการทำสีผมหญิง",
                         unit: 2,
                         unit_name: "ที่นั่ง",
-                        served_per_unit: 10,
+                        serve_per_unit: 10,
                         revenue_per_serve: 1500,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
                         price_increase_period: 1,
                         const_increase: 0.02,
-                        const_increase_period: 1,
+                        const_increase_period_id: 1,
                         start_date: "12-05-2023",
-                        seasonald_trends:
+                        seasonal_trends:
                             [
                                 1, 1, 1, 1,
                                 1, 1, 1, 1,
@@ -85,15 +85,15 @@ export default Project = {
                         name: "บริการทำสีผมชาย",
                         unit: 2,
                         unit_name: "ที่นั่ง",
-                        served_per_unit: 10,
+                        serve_per_unit: 10,
                         revenue_per_serve: 1500,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
                         price_increase_period: 1,
                         const_increase: 0.02,
-                        const_increase_period: 1,
+                        const_increase_period_id: 1,
                         start_date: "12-05-2023",
-                        seasonald_trends:
+                        seasonal_trends:
                             [
                                 1, 1, 1, 1,
                                 1, 1, 1, 1,
@@ -104,15 +104,15 @@ export default Project = {
                         name: "บริการตัดผมชาย",
                         unit: 3,
                         unit_name: "ที่นั่ง",
-                        served_per_unit: 20,
+                        serve_per_unit: 20,
                         revenue_per_serve: 600,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
                         price_increase_period: 1,
                         const_increase: 0.02,
-                        const_increase_period: 1,
+                        const_increase_period_id: 1,
                         start_date: "12-05-2023",
-                        seasonald_trends:
+                        seasonal_trends:
                             [
                                 1, 1, 1, 1,
                                 1, 1, 1, 1,
@@ -123,15 +123,15 @@ export default Project = {
                         name: "บริการทำผมหญิง",
                         unit: 3,
                         unit_name: "ที่นั่ง",
-                        served_per_unit: 15,
+                        serve_per_unit: 15,
                         revenue_per_serve: 600,
                         cost_per_serve: 0.6,
                         price_increase: 0.02,
                         price_increase_period: 1,
                         const_increase: 0.02,
-                        const_increase_period: 1,
+                        const_increase_period_id: 1,
                         start_date: "12-05-2023",
-                        seasonald_trends:
+                        seasonal_trends:
                             [
                                 1, 1, 1, 1,
                                 1, 1, 1, 1,
@@ -141,7 +141,7 @@ export default Project = {
                 ]
             },
         ],
-        product_table_ids: [
+        product_tables: [
             {
                 name: "สินค้าเสริมความงาม",
                 description: "",

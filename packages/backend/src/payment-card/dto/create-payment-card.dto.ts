@@ -5,4 +5,5 @@ export class CreatePaymentCardDTO {
     };
     readonly logo_url: string;
     readonly is_actived: boolean;
+    readonly created_date: Date;
   }

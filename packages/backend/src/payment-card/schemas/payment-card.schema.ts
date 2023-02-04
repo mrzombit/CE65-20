@@ -7,4 +7,5 @@ export const PaymentCardSchema = new mongoose.Schema({
     },
     logo_url: String,
     is_actived: Boolean,
+    created_date: Date,
 });
