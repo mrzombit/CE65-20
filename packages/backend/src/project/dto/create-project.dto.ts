@@ -1,4 +1,5 @@
 export class CreateProjectDTO {
+    readonly user_id: string;
     readonly name: string;
     readonly industry_ids: [string];
     readonly description: string;
@@ -28,7 +29,7 @@ export class CreateProjectDTO {
         discounting_rate: Number,
     };
     readonly revenue: {
-        service_table_ids: [{
+        service_tables: [{
             name: string,
             description: string,
             color: string,
@@ -48,7 +49,7 @@ export class CreateProjectDTO {
                 seasonal_trends: [Number],
             }]
         }],
-        product_table_ids: [{
+        product_tables: [{
             name: string,
             description: string,
             color: string,
@@ -71,7 +72,7 @@ export class CreateProjectDTO {
         }],
     };
     readonly expense: {
-        investment_table_ids: [{
+        investment_tables: [{
             name: string,
             description: string,
             color: string,
@@ -84,7 +85,7 @@ export class CreateProjectDTO {
                 start_date: Date,
             }]
         }],
-        fixed_cost_table_ids: [{
+        fixed_cost_tables: [{
             name: string,
             description: string,
             color: string,

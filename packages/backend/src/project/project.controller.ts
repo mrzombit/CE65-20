@@ -26,6 +26,15 @@ export class ProjectController {
     return res.status(HttpStatus.OK).json(project);
     }
 
+    @Get('user/:userID') //"../transaction/user/1"
+    async getProjectsByUserID(@Res() res, @Param('userID', new ValidateObjectId()) userID) {
+    const projects = await this.projectService.getProjectsByUserID(userID);
+    if (!projects) {
+        throw new NotFoundException('Transaction does not exist!');
+    }
+    return res.status(HttpStatus.OK).json(projects);
+    }
+
     @Get('projects') //"../project/projects"
     async getProjects(@Res() res) {
     const projects = await this.projectService.getProjects();

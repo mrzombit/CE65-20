@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface Project extends Document {
+    readonly user_id: string;
     readonly name: string;
     readonly industry_ids: [string];
     readonly description: string;
@@ -30,7 +31,7 @@ export interface Project extends Document {
         discounting_rate: Number,
     };
     readonly revenue: {
-        service_table_ids: [{
+        service_tables: [{
             name: string,
             description: string,
             color: string,
@@ -50,7 +51,7 @@ export interface Project extends Document {
                 seasonal_trends: [Number],
             }]
         }],
-        product_table_ids: [{
+        product_tables: [{
             name: string,
             description: string,
             color: string,
@@ -73,7 +74,7 @@ export interface Project extends Document {
         }],
     };
     readonly expense: {
-        investment_table_ids: [{
+        investment_tables: [{
             name: string,
             description: string,
             color: string,
@@ -86,7 +87,7 @@ export interface Project extends Document {
                 start_date: Date,
             }]
         }],
-        fixed_cost_table_ids: [{
+        fixed_cost_tables: [{
             name: string,
             description: string,
             color: string,

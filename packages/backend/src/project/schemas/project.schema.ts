@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 export const ProjectSchema = new mongoose.Schema({
+    user_id: String,
     name: String,
     industry_ids: [String],
     description: String,
@@ -30,7 +31,7 @@ export const ProjectSchema = new mongoose.Schema({
         discounting_rate: Number,
     },
     revenue: {
-        service_table_ids: [{
+        service_tables: [{
             name: String,
             description: String,
             color: String,
@@ -50,7 +51,7 @@ export const ProjectSchema = new mongoose.Schema({
                 seasonal_trends: [Number],
             }]
         }],
-        product_table_ids: [{
+        product_tables: [{
             name: String,
             description: String,
             color: String,
@@ -73,7 +74,7 @@ export const ProjectSchema = new mongoose.Schema({
         }],
     },
     expense: {
-        investment_table_ids: [{
+        investment_tables: [{
             name: String,
             description: String,
             color: String,
@@ -86,7 +87,7 @@ export const ProjectSchema = new mongoose.Schema({
                 start_date: Date,
             }]
         }],
-        fixed_cost_table_ids: [{
+        fixed_cost_tables: [{
             name: String,
             description: String,
             color: String,

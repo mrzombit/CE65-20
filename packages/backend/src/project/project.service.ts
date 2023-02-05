@@ -19,6 +19,13 @@ export class ProjectService {
           .exec();
         return project;
       }
+
+      async getProjectsByUserID(userID): Promise<Project[]> {
+        const projects = await this.projectModel
+          .find({ "user_id" : userID })
+          .exec();
+        return projects;
+      }
         
       async getProjects(): Promise<Project[]> {
         const projects = await this.projectModel.find().exec();
