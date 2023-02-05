@@ -31,8 +31,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           {/* <Route path="/" element={<DBTest1/>} /> */}
-          {/* <Route path="/test1" element={<DBTest1/>} /> */}
-          <Route path="/test2" element={<DBTest2/>} />
+          <Route path="/test1" element={<DBTest1/>} />
+          {/* <Route path="/test2" element={<DBTest2/>} /> */}
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/Account" element={<AccountPage />} />
           <Route path="/Login" element={<LoginPage />} />
