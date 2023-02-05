@@ -8,12 +8,13 @@ export const UserSchema = new mongoose.Schema({
     email: { type: String, unique: true, required: true },
     phone_number: String,
     password: { type: String, required: true },
-    payment_detail: [{
-        payment_card_id: String,
+    payment_cards: [{
+        is_primary: Boolean,
         name: String,
         code: String,
         expired_date: String,
         cvv: String,
+
     }],
     subscription_plan_id: String,
     project_ids: [String],

@@ -5,6 +5,10 @@ export default Industry = [
             th: "คาเฟ่",
             en: "Cafe",
         },
+        category: {
+            th: "",
+            en: "",
+        },
         is_b2b: true,
         is_b2c: true,
         created_date: new Date(),
@@ -14,6 +18,10 @@ export default Industry = [
         name: {
             th: "ตัดผม",
             en: "Hair",
+        }, 
+        category: {
+            th: "",
+            en: "",
         },
         is_b2b: true,
         is_b2c: true,
@@ -24,6 +32,10 @@ export default Industry = [
         name: {
             th: "เสริมสวย",
             en: "Beauty",
+        }, 
+        category: {
+            th: "",
+            en: "",
         },
         is_b2b: true,
         is_b2c: true,
@@ -34,6 +46,10 @@ export default Industry = [
         name: {
             th: "ซ่อมรถ",
             en: "Auto",
+        }, 
+        category: {
+            th: "",
+            en: "",
         },
         is_b2b: true,
         is_b2c: true,
@@ -44,6 +60,10 @@ export default Industry = [
         name: {
             th: "ล้างรถ",
             en: "Car Wash",
+        }, 
+        category: {
+            th: "",
+            en: "",
         },
         is_b2b: true,
         is_b2c: true,

@@ -24,7 +24,7 @@ export default BusinessGoals = [
     {
         id: 3,
         name:  {
-            th: "ผลตอบแทนจากการลงทุน",
+            th: "อัตราผลตอบแทนจากการลงทุน",
             en: "Return On Interest",
         },
         abbreviation: "ROI",
@@ -38,7 +38,7 @@ export default BusinessGoals = [
             th: "กระแสเงินสดรายปี",
             en: "Yearly Cashflow",
         },
-        abbreviation: "Monthly CF",
+        abbreviation: "Yearly CF",
         detail: {
         },
         created_date: new Date(),

@@ -7,8 +7,8 @@ export interface User extends Document {
     readonly email: string;
     readonly phone_number: string;
     readonly password: string;
-    readonly  payment_detail: [{
-        payment_card_id: string,
+    readonly  payment_cards: [{
+        is_primary: Boolean,
         name: string,
         code: string,
         expired_date: string,

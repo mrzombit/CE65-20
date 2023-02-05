@@ -6,6 +6,6 @@ export interface BusinessGoal extends Document {
         en: string,
       };
       readonly full_name: string;
-      readonly detail: JSON;
+      readonly detail: {};
       readonly created_date: Date;
 }

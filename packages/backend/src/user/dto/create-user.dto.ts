@@ -5,8 +5,8 @@ export class CreateUserDTO {
   readonly email: string;
   readonly phone_number: string;
   password: string;
-  readonly payment_detail: [{
-    payment_card_id: String,
+  readonly payment_cards: [{
+    is_primary: Boolean,
     name: String,
     code: String,
     expired_date: String,

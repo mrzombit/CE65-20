@@ -31,7 +31,7 @@ export class IndustryController {
     const industrys = await this.industryService.getIndustrys();
     return res.status(HttpStatus.OK).json(industrys);
     }
-
+    
     @Put('/edit')
     async editIndustry(
       @Res() res,

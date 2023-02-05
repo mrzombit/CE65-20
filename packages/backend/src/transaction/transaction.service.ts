@@ -19,6 +19,15 @@ export class TransactionService {
           .exec();
         return transaction;
       }
+
+      async getTransactionsByUserID(userID): Promise<Transaction[]> {
+        const transactions = await this.transactionModel
+          .find({ "user_id" : userID })
+          .exec();
+        return transactions;
+      }
+
+      
         
       async getTransactions(): Promise<Transaction[]> {
         const transactions = await this.transactionModel.find().exec();

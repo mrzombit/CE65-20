@@ -6,6 +6,6 @@ export const BusinessGoalSchema = new mongoose.Schema({
         en: String,
       },
       full_name: String,
-      detail: Object,
+      detail: {},
       created_date: Date,
 });

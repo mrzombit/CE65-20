@@ -6,7 +6,6 @@ import { MONGODB_CONNECTION } from './app.properties'
 import { AssetAccountModule } from './asset-account/asset-account.module';
 import { CurrencyModule } from './currency/currency.module';
 import { IndustryModule } from './industry/industry.module';
-import { PaymentCardModule } from './payment-card/payment-card.module';
 import { PeriodModule } from './period/period.module';
 import { ProjectModule } from './project/project.module';
 import { TransactionModule } from './transaction/transaction.module';
@@ -23,7 +22,6 @@ import { BusinessGoalModule } from './business-goal/business-goal.module';
     AssetAccountModule,
     CurrencyModule,
     IndustryModule,
-    PaymentCardModule,
     PeriodModule,
     ProjectModule,
     SubscriptionPlanModule,

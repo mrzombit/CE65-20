@@ -26,6 +26,15 @@ export class TransactionController {
     return res.status(HttpStatus.OK).json(transaction);
     }
 
+    @Get('user/:userID') //"../transaction/user/1"
+    async getTransactionsByUserID(@Res() res, @Param('userID', new ValidateObjectId()) userID) {
+    const transactions = await this.transactionService.getTransactionsByUserID(userID);
+    if (!transactions) {
+        throw new NotFoundException('Transaction does not exist!');
+    }
+    return res.status(HttpStatus.OK).json(transactions);
+    }
+
     @Get('transactions') //"../transaction/transactions"
     async getTransactions(@Res() res) {
     const transactions = await this.transactionService.getTransactions();
