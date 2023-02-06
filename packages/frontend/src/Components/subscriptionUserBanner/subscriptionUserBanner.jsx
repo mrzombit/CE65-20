@@ -23,7 +23,6 @@ function subscriptionUserBanner() {
           </div>
           <div>Next Billing is on 10 Oct 2022</div>
           <a href="">
-            {" "}
             <div>Update</div>
           </a>
         </div>

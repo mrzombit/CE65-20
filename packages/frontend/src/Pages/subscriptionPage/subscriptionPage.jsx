@@ -2,6 +2,7 @@ import React from "react";
 import BizSidebarProfile from "../../Components/bizSidebarProfile/bizSidebarProfile";
 import SubscriptionUserBanner from "../../Components/subscriptionUserBanner/subscriptionUserBanner";
 import "./subscriptionPage.css";
+import SubPlan from "../../Components/subPlan/subPlan";
 
 function subscriptionPage() {
   return (
@@ -9,7 +10,12 @@ function subscriptionPage() {
       <BizSidebarProfile />
       <div className="">
         <div className="biz-content-subscript">
-          <SubscriptionUserBanner/>          
+          <SubscriptionUserBanner />
+          <div className="d-flex m-3">
+            <div className="m-4"><SubPlan /></div>
+            <div className="m-4"><SubPlan /></div>
+            <div className="m-4"><SubPlan /></div> 
+          </div>
         </div>
       </div>
     </div>
