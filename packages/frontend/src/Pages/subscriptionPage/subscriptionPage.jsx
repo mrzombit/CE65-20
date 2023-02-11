@@ -1,9 +1,25 @@
-import React from 'react'
+import React from "react";
+import BizSidebarProfile from "../../Components/bizSidebarProfile/bizSidebarProfile";
+import SubscriptionUserBanner from "../../Components/subscriptionUserBanner/subscriptionUserBanner";
+import "./subscriptionPage.css";
+import SubPlan from "../../Components/subPlan/subPlan";
 
-function SubscriptionPage() {
+function subscriptionPage() {
   return (
-    <div>subscriptionPage</div>
-  )
+    <div>
+      <BizSidebarProfile />
+      <div className="">
+        <div className="biz-content-subscript">
+          <SubscriptionUserBanner />
+          <div className="d-flex m-3">
+            <div className="m-4"><SubPlan /></div>
+            <div className="m-4"><SubPlan /></div>
+            <div className="m-4"><SubPlan /></div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default SubscriptionPage
+export default subscriptionPage;

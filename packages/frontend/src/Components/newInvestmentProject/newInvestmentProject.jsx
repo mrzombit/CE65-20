@@ -5,6 +5,7 @@ import BizTextInfo from "../bizTextInfo/bizTextInfo";
 import { AiOutlineClose } from "react-icons/ai";
 import BizLogo from "../bizLogo/bizLogo";
 import ProjectTempleteCard from "../projectTempleteCard/projectTempleteCard";
+import { VscChevronRight } from "react-icons/vsc";
 
 function newInvestmentProject(props) {
   return props.trigger ? (
@@ -125,6 +126,7 @@ function newInvestmentProject(props) {
                   />
                 </div>
               </div>
+     
               {/* <div className="button-container">
                 <input className="input-newInvest-pj" type="submit" />
               </div> */}
@@ -133,13 +135,27 @@ function newInvestmentProject(props) {
           <hr></hr>
           <div>สร้างโปรเจคธุรกิจจากเทมเพลตที่มี</div>
           <div className="template-scroll">
-            <div><ProjectTempleteCard /></div>
-            <div><ProjectTempleteCard /></div>
-            <div><ProjectTempleteCard /></div>
-            <div><ProjectTempleteCard /></div>
-            <div><ProjectTempleteCard /></div>
-            <div><ProjectTempleteCard /></div>
-            <div><ProjectTempleteCard /></div>
+            <div>
+              <ProjectTempleteCard />
+            </div>
+            <div>
+              <ProjectTempleteCard />
+            </div>
+            <div>
+              <ProjectTempleteCard />
+            </div>
+            <div>
+              <ProjectTempleteCard />
+            </div>
+            <div>
+              <ProjectTempleteCard />
+            </div>
+            <div>
+              <ProjectTempleteCard />
+            </div>
+            <div>
+              <ProjectTempleteCard />
+            </div>
           </div>
         </div>
       </div>
