@@ -20,8 +20,8 @@ import OperationCostPage from "./Pages/BizTools/operationCostPage/operationCostP
 import ProjectConfigPage from "./Pages/BizTools/projectConfigPage/projectConfigPage";
 import RevenuePage from "./Pages/BizTools/revenuePage/revenuePage";
 import TotalInvestmentPage from "./Pages/BizTools/totalInvestmentPage/totalInvestmentPage";
-import FFCPage from "./Pages/Checkbiz/ffcPage/ffcPage";
-import StatementsPage from "./Pages/Checkbiz/statementsPage/statementsPage";
+import FFCPage from "./Pages/Checkbiz/ffcPage/FFCPage";
+import StatementsPage from "./Pages/Checkbiz/statementsPage/StatementsPage";
 
 function App() {
   return (
