@@ -10,7 +10,6 @@ function LandingPage() {
     <div className="py-4" style={{ marginBottom: "0rem" }}>
       <div className="d-flex justify-content-between px-5">
         <p className="logo-font">BIZCHECK</p>
-
         <Dropdown as={ButtonGroup}>
           <Button href="/Login" className="butt">Sign in</Button>
 

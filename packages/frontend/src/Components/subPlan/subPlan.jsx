@@ -5,7 +5,7 @@ import Bizbtn from "../bizbtn/bizbtn";
 function subPlan() {
   return (
     <div>
-      <div className="sub-card">
+      <div className="sub                                                                                                                                                                                                           -card">
         <div className="d-flex ">
           <div className="sub-card-logo"> </div>
           <div>Plan</div>
