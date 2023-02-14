@@ -1,38 +1,35 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-undef */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./infoProject.css";
 import onClickOutside from "react-onclickoutside";
 import BizTextInfo from "../bizTextInfo/bizTextInfo";
 import { AiOutlineClose } from "react-icons/ai";
 import BizLogo from "../bizLogo/bizLogo";
 
-import "./infoProject.css";
-
 import AUTH from "../../Assets/Mock/mockAuth";
 
-function infoProject(props) {
+function infoProjectEdit(props) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [auth, setAuth] = useState(AUTH);
   return (
-    //   props.trigger ? (
-    <div>
+//   props.trigger ? (
+    <div className="">
       <div className="info-pj-body">
         <div className="d-flex flex-col">
           {/* <BizTextInfo title="ข้อมูลพื้นฐานธุรกิจ" /> */}
-          <p>ข้อมูลพื้นฐานธุรกิจ{props.name}</p>
+          <p>ข้อมูลพื้นฐานธุรกิจ</p>
           {/* <AiOutlineClose onClick={props.close} /> */}
         </div>
         <div className="new-invest-form">
           <div className="d-flex label-newInvest-pj">
             <form>
               <div className="input-container">
-                <BizTextInfo title="ชื่อธุรกิจ " />
+                <BizTextInfo title="ชื่อธุรกิจ" />
                 <input
                   className="input-newInvest-pj"
                   style={{ width: "280px" }}
                   type="text"
                   name="uname"
                   required
-                  placeholder={props.name}
                 />
               </div>
               <div className="d-flex flex-col">
@@ -40,6 +37,7 @@ function infoProject(props) {
                   {/* <BizTextInfo title="Project Logo"/> */}
                   <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
                   <BizLogo />
+           
                 </div>
                 <div className="flex-col">
                   <div className="input-container">
@@ -130,11 +128,12 @@ function infoProject(props) {
               </div> */}
             </form>
           </div>
+         
         </div>
       </div>
     </div>
-    //   ) : null;
-  );
+//   ) : null;
+  )
 }
 
-export default infoProject;
+export default infoProjectEdit;

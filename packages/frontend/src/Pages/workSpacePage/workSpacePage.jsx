@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import axios from "axios";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./workSpacePage.css";
 import Bizbutton from "../../Components/bizButton/bizButton";
 import {
@@ -15,30 +15,27 @@ import ProjectCard from "../../Components/projectCard/projectCard";
 import { Link } from "react-router-dom";
 import NewInvestmentProject from "../../Components/newInvestmentProject/newInvestmentProject";
 
-import AUTH from '../../Assets/Mock/mockAuth'
+
+import AUTH from "../../Assets/Mock/mockAuth";
 
 function WorkSpacePage() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [newProjectPopupState, setNewProjectPopupState] = useState(false);
 
-  const [projects, setProjects] = useState([])
-  const [auth,setAuth] = useState(AUTH)
+  const [projects, setProjects] = useState([]);
+  const [auth, setAuth] = useState(AUTH);
 
   useEffect(() => {
-
-    axios.get(`http://localhost:5000/project/user/${auth.user_id}`
-      )
-        .then(res => {
-          setProjects(res.data)
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-  
-
+    axios
+      .get(`http://localhost:5000/project/user/${auth.user_id}`)
+      .then((res) => {
+        setProjects(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
-  
   return (
     <div>
       <NewInvestmentProject
@@ -80,10 +77,11 @@ function WorkSpacePage() {
           </div>
         </div>
         <div className="d-flex my-3">
-        {projects.map((each) =>
-          <Link to="/ProjectConfig" className="no-text-link">
-          <ProjectCard name={each.name} lastEdit="Edited 2 hours ago" />
-          </Link>)}
+          {projects.map((each) => (
+            <Link to="/ProjectConfig" className="no-text-link">
+              <ProjectCard name={each.name.slice(0, 12) + (each.name.length > 12 ? "..." : "")} lastEdit="Edited 2 hours ago" />
+            </Link>
+          ))}
         </div>
       </div>
     </div>

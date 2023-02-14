@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
@@ -7,12 +8,16 @@ import "./loginPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import ConditionalLink from "../../Components/common/conditionalLink";
+import { authAction } from "../../Store/auth-slice";
+
 
 function LoginPage() {
   const [user, setUser] = useState();
   const { register, handleSubmit } = useForm();
   const [auth, setAuth] = useState({ token: "", status: false, username: "" })
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (auth.status) {
@@ -27,6 +32,7 @@ function LoginPage() {
           console.log("response!");
           console.log(res)
           setUser(res.data)
+          dispatch(authAction.login())
         })
         .catch(function (error) {
           console.log(error);
