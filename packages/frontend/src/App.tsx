@@ -21,33 +21,23 @@ import ProjectConfigPage from "./Pages/BizTools/projectConfigPage/projectConfigP
 import RevenuePage from "./Pages/BizTools/revenuePage/revenuePage";
 import TotalInvestmentPage from "./Pages/BizTools/totalInvestmentPage/totalInvestmentPage";
 import FFCPage from "./Pages/Checkbiz/ffcPage/ffcPage";
-import StatementsPage from "./Pages/Checkbiz/statementsPage/StatementsPage";
-import { useSelector } from "react-redux";
+import StatementsPage from "./Pages/Checkbiz/statementsPage/statementsPage";
 
 function App() {
-  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // console.log(isLoggedIn)
   return (
     <Router>
       <MainSidebar />
       <div className="App">
         <Routes>
-          {/* {!isLoggedIn}
-          {isLoggedIn} */}
           <Route path="/" element={<LandingPage />} />
           {/* <Route path="/" element={<DBTest1/>} /> */}
-          <Route path="/test1" element={<DBTest1 />} />
+          <Route path="/test1" element={<DBTest1/>} />
           {/* <Route path="/test2" element={<DBTest2/>} /> */}
-
-          <Route path="/Login" element={<LoginPage />} />
-          <Route path="/Register" element={<RegisterPage />} />
-
-
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/Account" element={<AccountPage />} />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/Register" element={<RegisterPage />} />
           <Route path="/Subscription" element={<SubscriptionPage />} />
-
-
           <Route path="/WorkSpace" element={<WorkSpacePage />} />
           <Route path="/Compare" element={<ComparePage />} />
           <Route path="/ProjectConfig" element={<ProjectConfigPage />} />
@@ -56,9 +46,8 @@ function App() {
           <Route path="/Revenue" element={<RevenuePage />} />
           <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
           <Route path="/FFC" element={<FFCPage />} />
+          <Route path="/Statements" element={<StatementsPage/>} />
           <Route path="/Statements" element={<StatementsPage />} />
-
-
           {/* <Route path="/NewInvestmentProject" element={<NewInvestmentProject />} /> */}
         </Routes>
       </div>

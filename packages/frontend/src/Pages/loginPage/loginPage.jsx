@@ -8,7 +8,7 @@ import "./loginPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import ConditionalLink from "../../Components/common/conditionalLink";
-import { authAction } from "../../Store/auth-slice";
+import { authAction } from "../../store/auth-slice";
 
 
 function LoginPage() {

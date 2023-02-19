@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
 import BizHeader from "../../../Components/bizHeader/bizHeader";
 import MultiStepProgressBar from "../../../Components/multiStepProgressBar/multiStepProgressBar";
-import "./FFCPage.css";
+import "./ffcPage.css";
 import FFCOne from "../../../Components/ffcOne/ffcOne";
 import FFCTwo from "../../../Components/ffcTwo/ffctwo";
 import FFCTree from "../../../Components/ffcThree/ffcTree";
