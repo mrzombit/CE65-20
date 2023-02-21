@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
-import "../../BizTools/biztools.css";
+import "../biztools.css";
 import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
 import BiztoolBody from "../../../Components/investmentProject/biztoolBody/biztoolBody";
 
-function OperationCostPage() {
+function TotalInvestmentPage() {
   const [config, setConfig] = useState({
-    type: "operation-cost",
-    title: "ค่าใช้จ่ายประจำ",
+    type: "total-investment",
+    title: "ต้นทุนธุรกิจ",
     addTableHandleFunction: (input) => {
       alert("popup!")
     }
@@ -16,10 +16,14 @@ function OperationCostPage() {
   return (
     <div>
       <BizSidebar />
-      <BiztoolHeader type={config.type} title={config.title} handleFunction={config.addTableHandleFunction} />
+      <BiztoolHeader
+        type={config.type}
+        title={config.title}
+        handleFunction={config.addTableHandleFunction}
+      />
       <BiztoolBody type={config.type} />
     </div>
   );
 }
 
-export default OperationCostPage;
+export default TotalInvestmentPage;

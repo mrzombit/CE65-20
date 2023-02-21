@@ -15,13 +15,13 @@ import RegisterPage from "./Pages/registerPage/registerPage";
 import SubscriptionPage from "./Pages/subscriptionPage/subscriptionPage";
 import WorkSpacePage from "./Pages/workSpacePage/workSpacePage";
 import ComparePage from "./Pages/comparePage/comparePage";
-import MiscellaneousPage from "./Pages/BizTools/miscellaneousPage/miscellaneousPage";
-import OperationCostPage from "./Pages/BizTools/operationCostPage/operationCostPage";
-import ProjectConfigPage from "./Pages/BizTools/projectConfigPage/projectConfigPage";
-import RevenuePage from "./Pages/BizTools/revenuePage/revenuePage";
-import TotalInvestmentPage from "./Pages/BizTools/totalInvestmentPage/totalInvestmentPage";
-import FFCPage from "./Pages/Checkbiz/ffcPage/ffcPage"
-import StatementsPage from "./Pages/Checkbiz/statementsPage/statementsPage"
+import MiscellaneousPage from "./Pages/BizTools2/miscellaneousPage/miscellaneousPage";
+import OperationCostPage from "./Pages/BizTools2/operationCostPage/operationCostPage";
+import ProjectConfigPage from "./Pages/BizTools2/projectConfigPage/projectConfigPage";
+import RevenuePage from "./Pages/BizTools2/revenuePage/revenuePage";
+import TotalInvestmentPage from "./Pages/BizTools2/totalInvestmentPage/totalInvestmentPage";
+import FFCPage from "./Pages/Checkbiz2/FFCPageed/ffcPage"
+import StatementsPage from "./Pages/Checkbiz2/statementsPage/statementsPage"
 
 function App() {
   return (

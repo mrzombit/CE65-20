@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
 import BiztoolBody from "../../../Components/investmentProject/biztoolBody/biztoolBody";
 import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
-import '../../BizTools/biztools.css'
+import '../biztools.css'
 
 function RevenuePage() {
   const [config, setConfig] = useState({
