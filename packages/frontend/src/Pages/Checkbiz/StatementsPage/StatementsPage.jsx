@@ -1,7 +1,7 @@
 import React from "react";
-import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
-import BizHeader from "../../../Components/bizHeader/bizHeader";
-import StatementCard from "../../../Components/statementCard/statementCard";
+import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
+import BizHeader from "../../../Components/bizTools/bizHeader/bizHeader";
+import StatementCard from "../../../Components/subscription/statementCard/statementCard";
 import "./statementsPage.css";
 
 

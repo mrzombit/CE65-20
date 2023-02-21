@@ -1,0 +1,27 @@
+.biz-body {
+    margin-left: 16rem;
+    margin-top: 2rem;
+  }
+  
+  .biz-head-text {
+    text-align: start;
+    margin-left: 2rem;
+    font-size: 20px;
+    font-weight: 500;
+    color: #2c3b5a;
+  }
+  
+  .line-hr {
+    margin-left: 18rem;
+    margin-right: 2rem;
+    margin-top: -7px;
+    margin-bottom: 2rem;
+    border-width: 2px;
+    border-color: #0b1741;
+    opacity: 100%;
+  }
+  
+  .btn-mr {
+      padding-right: 2rem;
+  }
+  

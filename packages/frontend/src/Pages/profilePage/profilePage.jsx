@@ -1,5 +1,5 @@
 import React from "react";
-import BizSidebarProfile from "../../Components/bizSidebarProfile/bizSidebarProfile";
+import BizSidebarProfile from "../../Components/bizTools/bizSidebarProfile/bizSidebarProfile";
 import GeneralProfileCard from "../../Components/generalProfileCard/generalProfileCard";
 import "./profilePage.css";
 

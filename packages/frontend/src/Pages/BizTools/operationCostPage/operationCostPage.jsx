@@ -1,19 +1,23 @@
-import React from "react";
-import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
-import BizHeader from "../../../Components/bizHeader/bizHeader";
-import BizTableInvestment from "../../../Components/bizTable/bizTableInvestment";
+import React, { useState } from "react";
+import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
 import "../../BizTools/biztools.css";
+import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
+import BiztoolBody from "../../../Components/investmentProject/biztoolBody/biztoolBody";
 
 function OperationCostPage() {
+  const [config, setConfig] = useState({
+    type: "operation-cost",
+    title: "ค่าใช้จ่ายประจำ",
+    addTableHandleFunction: (input) => {
+      alert("popup!")
+    }
+  })
+
   return (
     <div>
-      <BizSidebar />  
-
-      <BizHeader title="Operation Cost Table" infoPath="/" btnName="" />
-      <div className="m-bt">
-        <BizTableInvestment name="เงินเดือน" />
-        <BizTableInvestment name="ค่าใช้จ่ายรายเดือน" />
-      </div>
+      <BizSidebar />
+      <BiztoolHeader type={config.type} title={config.title} handleFunction={config.addTableHandleFunction} />
+      <BiztoolBody type={config.type} />
     </div>
   );
 }

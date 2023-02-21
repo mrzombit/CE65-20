@@ -1,8 +1,17 @@
+.landing-div {
+  margin-top: 2%;
+  margin-left: 5%;
+  min-width: 90vw;
+}
+
+.slogan{
+  padding-top: 1vh;
+  text-align: center;
+}
 .logo-font {
   font-size: 26px;
   font-weight: 600;
   color: #2f317a;
-  margin-left: 50px;
 }
 
 .butt { 

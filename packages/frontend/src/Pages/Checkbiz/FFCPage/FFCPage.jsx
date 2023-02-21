@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
-import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
-import BizHeader from "../../../Components/bizHeader/bizHeader";
+import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
+import BizHeader from "../../../Components/bizTools/bizHeader/bizHeader";
 import MultiStepProgressBar from "../../../Components/multiStepProgressBar/multiStepProgressBar";
 import "./ffcPage.css";
-import FFCOne from "../../../Components/ffcOne/ffcOne";
-import FFCTwo from "../../../Components/ffcTwo/ffctwo";
-import FFCTree from "../../../Components/ffcThree/ffcTree";
-import FFCFour from "../../../Components/ffcFour/ffcFour";
-import FFCFive from "../../../Components/ffcFive/ffcFive";
-import FFCSix from "../../../Components/ffcSix/ffcSix";
+import FFCOne from "../../../Components/ffc/ffcOne/ffcOne";
+import FFCTwo from "../../../Components/ffc/ffcTwo/ffctwo";
+import FFCTree from "../../../Components/ffc/ffcThree/ffcTree";
+import FFCFour from "../../../Components/ffc/ffcFour/ffcFour";
+import FFCFive from "../../../Components/ffc/ffcFive/ffcFive";
+import FFCSix from "../../../Components/ffc/ffcSix/ffcSix";
 
 function FFCPage() {
   const [page, setPage] = useState("pageone");

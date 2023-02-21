@@ -7,7 +7,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 function LandingPage() {
   return (
-    <div className="py-4" style={{ marginBottom: "0rem" }}>
+    <div className="justify-content-center landing-div">
       <div className="d-flex justify-content-between px-5">
         <p className="logo-font">BIZCHECK</p>
         <Dropdown as={ButtonGroup}>
@@ -20,13 +20,13 @@ function LandingPage() {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-      <div>
-        <p className="slogan-font">
+      <div className="slogan">
+        <div className="slogan-font">
           วางแผนธุรกิจกับเรา เพื่อประเมินความเป็นไปได้
-        </p>
-        <p className="slogan-l-font mb-4">
+        </div>
+        <div className="slogan-l-font mb-4">
           เริ่มต้นธุรกิจของคุณด้วยการวางแผนทางการเงิน
-        </p>
+        </div>
 
         <div className="d-flex justify-content-center">
           <div className="func-card-1 m-2">

@@ -1,7 +1,7 @@
 import React from "react";
-import BizSidebarProfile from "../../Components/bizSidebarProfile/bizSidebarProfile";
+import BizSidebarProfile from "../../Components/bizTools/bizSidebarProfile/bizSidebarProfile";
 import GeneralProfileCard from "../../Components/generalProfileCard/generalProfileCard";
-import Bizbtn from "../../Components/bizbtn/bizbtn";
+import Bizbtn from "../../Components/bizTools/bizbtn/bizbtn";
 import "./accountPage.css";
 function accountPage() {
   return (

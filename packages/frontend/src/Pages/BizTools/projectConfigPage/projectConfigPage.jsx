@@ -1,14 +1,19 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
-import BizHeader from "../../../Components/bizHeader/bizHeader";
-import InfoProject from "../../../Components/infoProject/infoProject";
+import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
+import InfoProject from "../../../Components/bizTools/infoProject/infoProject";
 
 import AUTH from "../../../Assets/Mock/mockAuth";
+import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
 
 function ProjectConfigPage() {
   const [auth, setAuth] = useState(AUTH);
   const [project, setProject] = useState([]);
+
+  const [config, setConfig] = useState({
+    type: "project-config",
+    title: "เกี่ยวกับธุรกิจ",
+  })
 
   useEffect(() => {
     axios
@@ -21,14 +26,13 @@ function ProjectConfigPage() {
         console.log(error);
       });
   }, []);
+  
   return (
     <div>
-      <BizSidebar />
-      <div className="pj-config">
-        <BizHeader title="Project Configuration" infoPath="/" btnName="Save" />
-
-        <InfoProject />
-{/* 
+        <BizSidebar />
+        <BiztoolHeader type={config.type} title={config.title} />
+        <InfoProject /> 
+        {/* 
         {project.map((element, index) => {
         return (
           <div key={index}>
@@ -37,8 +41,6 @@ function ProjectConfigPage() {
         );
       })} */}
 
-
-      </div>
     </div>
   );
 }

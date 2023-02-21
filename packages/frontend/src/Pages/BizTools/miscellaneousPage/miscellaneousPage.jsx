@@ -1,18 +1,22 @@
-import React from "react";
-import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
-import BizHeader from "../../../Components/bizHeader/bizHeader";
-import BizTableInvestment from "../../../Components/bizTable/bizTableInvestment";
+import React, { useState } from "react";
+import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
+import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
+import BiztoolBody from "../../../Components/investmentProject/biztoolBody/biztoolBody";
 
 function MiscellaneousPage() {
+  const [config, setConfig] = useState({
+    type: "miscellaneous",
+    title: "เงินกู้และหุ้นส่วน",
+    addTableHandleFunction: (input) => {
+      alert("popup!")
+    }
+  })
+
   return (
     <div>
       <BizSidebar />
-      <BizHeader title="Miscellaneous Table" infoPath="/" btnName="" />
-      <div className="m-bt">
-        <BizTableInvestment name="Equity Contribution" />
-        <BizTableInvestment name="Equity Repayment" />
-        <BizTableInvestment name="Debt Issuance & Repayment" />
-      </div>
+      <BiztoolHeader type={config.type} title={config.title} handleFunction={config.addTableHandleFunction} />
+      <BiztoolBody type={config.type} />
     </div>
   );
 }

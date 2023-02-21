@@ -1,18 +1,27 @@
-import React from "react";
-import BizSidebar from "../../../Components/bizSidebar/bizSidebar";
-import BizHeader from "../../../Components/bizHeader/bizHeader";
-import BizTableInvestment from "../../../Components/bizTable/bizTableInvestment";
+import React, { useState } from "react";
+import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
 import "../../BizTools/biztools.css";
+import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
+import BiztoolBody from "../../../Components/investmentProject/biztoolBody/biztoolBody";
 
 function TotalInvestmentPage() {
+  const [config, setConfig] = useState({
+    type: "total-investment",
+    title: "ต้นทุนธุรกิจ",
+    addTableHandleFunction: (input) => {
+      alert("popup!")
+    }
+  })
+
   return (
     <div>
       <BizSidebar />
-      <BizHeader title="Total Investment Table" infoPath="/" btnName="" />
-      <div className="m-bt">
-        <BizTableInvestment name="ร้านตัดผม" />
-        {/* <BizTableInvestment name="ทั่วไป" /> */}
-      </div>
+      <BiztoolHeader
+        type={config.type}
+        title={config.title}
+        handleFunction={config.addTableHandleFunction}
+      />
+      <BiztoolBody type={config.type} />
     </div>
   );
 }

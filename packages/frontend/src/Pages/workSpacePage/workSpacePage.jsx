@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "./workSpacePage.css";
-import Bizbutton from "../../Components/bizButton/bizButton";
+import Bizbutton from "../../Components/bizTools/bizButton/bizButton";
 import {
   VscAdd,
   VscListUnordered,
@@ -11,7 +11,7 @@ import {
   VscListSelection,
 } from "react-icons/vsc";
 import { CiGrid41 } from "react-icons/ci";
-import ProjectCard from "../../Components/projectCard/projectCard";
+import ProjectCard from "../../Components/projects/projectCard/projectCard";
 import { Link } from "react-router-dom";
 import NewInvestmentProject from "../../Components/newInvestmentProject/newInvestmentProject";
 
