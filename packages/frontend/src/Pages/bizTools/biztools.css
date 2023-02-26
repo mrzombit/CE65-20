@@ -8,4 +8,8 @@
     align-items: center;
     text-align: start;
   }
+
+.biztool-body-width{
+  min-width: 82vw !important;
+}
   

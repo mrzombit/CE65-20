@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
-import BizHeader from "../../../Components/bizTools/bizHeader/bizHeader";
 import MultiStepProgressBar from "../../../Components/multiStepProgressBar/multiStepProgressBar";
 import "./ffcPage.css";
 import FFCOne from "../../../Components/ffc/ffcOne/ffcOne";
@@ -10,9 +9,15 @@ import FFCTree from "../../../Components/ffc/ffcThree/ffcTree";
 import FFCFour from "../../../Components/ffc/ffcFour/ffcFour";
 import FFCFive from "../../../Components/ffc/ffcFive/ffcFive";
 import FFCSix from "../../../Components/ffc/ffcSix/ffcSix";
+import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
 
 function FFCPage() {
   const [page, setPage] = useState("pageone");
+
+  const [config, setConfig] = useState({
+    type: "ffc",
+    title: "Financial Feasibility Canvas",
+  })
 
   const nextPage = (page) => {
     setPage(page);
@@ -43,13 +48,12 @@ function FFCPage() {
   };
 
   return (
-    <div>
+    <div className="d-flex ">
       <BizSidebar />
-      <div>
-        <BizHeader
-          title="Financial Feasibility Canvas"
-          infoPath="/"
-          btnName=""
+      <div className="p-4 biztool-body-width">
+        <BiztoolHeader
+          type = {config.type}
+          title= {config.title}
         />
       </div>
       <div className="ffc">

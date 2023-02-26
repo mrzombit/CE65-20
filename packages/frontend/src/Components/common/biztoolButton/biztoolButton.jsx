@@ -4,13 +4,13 @@ import './biztoolButton.css'
 const BiztoolButton = (props) => {
 
   return (
-    <div>
+    <div className=''>
       {props.style == "filled" &&
         <div
           onClick={props.handleFunction}
           className='btn filled-biztool-button'
         >
-          <div>{props.title}sdfsfds</div>
+          <div>{props.title}</div>
         </div>}
       {props.style == "lighted" &&
         <div

@@ -1,32 +1,43 @@
 import React from 'react'
 import BiztoolAddTable from '../biztoolAddTable/biztoolAddTable'
 import BiztoolTableList from './biztoolTableList/biztoolTableList'
+import "./biztoolBody.css"
 
 const BiztoolBody = (props) => {
   return (
-    <div>
-      {props.type == "revenue" && <div>
-        <div>
-          <div>บริการ/การผลิต</div>
+    // <div className='biztool-body m-2'>
+    <div className='biztool-body border border-dark p-2'>
+      {props.type == "revenue" && <div className='biztool-body-flex '>
+        <div >
+          <div className='revenue-table-header'>บริการ/การผลิต</div>
           <BiztoolAddTable
             type={`${props.type}-service`}
             title="+ ตารางใหม่"
-            handleFunction={props.handleSeriveFunction}
+            handleFunction={props.handleFuncitn.handleSeriveFunction}
           />
-          <BiztoolTableList type="revenue-service" />
+          <BiztoolTableList
+            data={props.serviceTableData}
+            type="revenue-service"
+            tableStyle={props.tableStyle.serviceTableStyle} />
         </div>
         <div>
-          <div>การขายสินค้า</div>
+          <div className='revenue-table-header'>การขายสินค้า</div>
           <BiztoolAddTable
             type={`${props.type}-product`}
             title="+ ตารางใหม่"
-            handleFunction={props.handleProductFunction}
+            handleFunction={props.handleFuncitn.handleProductFunction}
           />
-          <BiztoolTableList type="revenue-product" />
+          <BiztoolTableList
+            data={props.productTableData}
+            type="revenue-product"
+            tableStyle={props.tableStyle.productTableStyle} />
         </div>
       </div>}
-      {props.type != "revenue" && <div>
-        <BiztoolTableList type={props.type} />
+      {props.type != "revenue" && <div className='biztool-body-flex '>
+        <BiztoolTableList
+          data={props.tableData}
+          type={props.type}
+          tableStyle={props.tableStyle} />
       </div>}
     </div>
   )

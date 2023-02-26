@@ -26,12 +26,13 @@ function ProjectConfigPage() {
         console.log(error);
       });
   }, []);
-  
+
   return (
-    <div>
-        <BizSidebar />
+    <div className="d-flex">
+      <BizSidebar />
+      <div className="">x
         <BiztoolHeader type={config.type} title={config.title} />
-        <InfoProject /> 
+        <InfoProject />
         {/* 
         {project.map((element, index) => {
         return (
@@ -40,7 +41,7 @@ function ProjectConfigPage() {
           </div>
         );
       })} */}
-
+      </div>
     </div>
   );
 }
