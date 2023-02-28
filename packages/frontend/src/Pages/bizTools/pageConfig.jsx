@@ -9,6 +9,7 @@ const BIZTOOL_PAGE_CONFIG = {
             alert("popup!")
         },
         onChangeHandle: (table, row, col, value) => {
+            console.log(`talble #${table}`);
             console.log(`${row}, ${col}, ${value}`)
         },
         tableStyle: {
@@ -16,7 +17,7 @@ const BIZTOOL_PAGE_CONFIG = {
             column: [
                 {
                     colId: 1,
-                    title: "ชื่อคอลัมน์1",
+                    title: "ชื่อตาราง",
                     width: 300,
                     type: "text",
                     backgroundColor: "#ffffff",
@@ -25,33 +26,43 @@ const BIZTOOL_PAGE_CONFIG = {
                 },
                 {
                     colId: 2,
-                    title: "ชื่อคอลัมน์2",
+                    title: "จำนวน(บาท)",
+                    width: 200,
+                    type: "money",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    editable: true,
+                },
+                {
+                    colId: 3,
+                    title: "ประเภทสินทรัพย์",
                     width: 200,
                     type: "dropdown",
                     backgroundColor: "#ffffff",
                     color: "#000000",
                     enumData: [
                         {
-                            title: "2 ปี",
+                            title: "สินทรัพย์ถาวรที่มีตัวตน",
+                            value: 1,
+                        },
+                        {
+                            title: "สินทรัพย์ไม่มีตัวตน",
                             value: 2,
                         },
                         {
-                            title: "3 ปี",
+                            title: "สินทรัพย์ถาวร",
                             value: 3,
                         },
                     ],
                     editable: true,
                 },
                 {
-                    colId: 3,
-                    title: "ชื่อคอลัมน์3",
+                    colId: 4,
+                    title: "วันที่ลงทุน",
                     width: 200,
-                    type: "table",
+                    type: "date",
                     backgroundColor: "#ffffff",
                     color: "#000000",
-                    table: {
-                        type: "sale-trends",
-                    },
                     editable: true,
                 },
             ],

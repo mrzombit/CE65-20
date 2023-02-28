@@ -9,7 +9,9 @@ const BiztoolTableList = (props) => {
           key={eachTable.tableId}
           eachTable={eachTable}
           type={props.type}
-          tableStyle={props.tableStyle} />
+          tableStyle={props.tableStyle} 
+          onChangeHandle={props.onChangeHandle}
+          />
       )}
     </div>
   )

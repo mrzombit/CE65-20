@@ -18,7 +18,9 @@ const BiztoolBody = (props) => {
           <BiztoolTableList
             data={props.serviceTableData}
             type="revenue-service"
-            tableStyle={props.tableStyle.serviceTableStyle} />
+            tableStyle={props.tableStyle.serviceTableStyle} 
+            onChangeHandle={props.onChangeHandle.onServiceChangeHandle}
+            />
         </div>
         <div>
           <div className='revenue-table-header'>การขายสินค้า</div>
@@ -30,14 +32,18 @@ const BiztoolBody = (props) => {
           <BiztoolTableList
             data={props.productTableData}
             type="revenue-product"
-            tableStyle={props.tableStyle.productTableStyle} />
+            tableStyle={props.tableStyle.productTableStyle} 
+            onChangeHandle={props.onChangeHandle.onProductChangeHandle}
+            />
         </div>
       </div>}
       {props.type != "revenue" && <div className='biztool-body-flex '>
         <BiztoolTableList
           data={props.tableData}
           type={props.type}
-          tableStyle={props.tableStyle} />
+          tableStyle={props.tableStyle} 
+          onChangeHandle={props.onChangeHandle}
+          />
       </div>}
     </div>
   )
