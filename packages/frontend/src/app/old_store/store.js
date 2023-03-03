@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './auth-slice';
-import tableReducer from '../Features/table/tableSlice';
+import tableReducer from '../../features/OLD/table/tableSlice';
 
 export const store = configureStore({
   reducer: {

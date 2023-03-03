@@ -9,7 +9,7 @@ import BizLogo from "../bizLogo/bizLogo";
 
 import "./infoProject.css";
 
-import AUTH from "../../../Assets/Mock/mockAuth";
+import AUTH from "../../../assets/Mock/mockAuth";
 
 function infoProject(props) {
   return (

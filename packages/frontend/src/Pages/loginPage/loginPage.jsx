@@ -7,8 +7,8 @@ import { useForm } from "react-hook-form";
 import "./loginPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import ConditionalLink from "../../Components/common/conditionalLink";
-import { authAction } from "../../store/auth-slice";
+import ConditionalLink from "../../components/common/conditionalLink";
+import { authAction } from "../../app/old_store/auth-slice";
 
 
 function LoginPage() {
@@ -68,7 +68,7 @@ function LoginPage() {
       <div className="row justify-content-center">
         <div className="col-sm-6">
           <img
-            src={require("../../Assets/login-img.png")}
+            src={require("../../assets/login-img.png")}
             className="card-img-2"
             style={{ transform: "scale(0.7) translate(-10%, 0%)" }}
           />

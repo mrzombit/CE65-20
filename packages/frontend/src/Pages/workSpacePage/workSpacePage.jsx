@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "./workSpacePage.css";
-import Bizbutton from "../../Components/bizTools/bizButton/bizButton";
+import Bizbutton from "../../components/bizTools/bizButton/bizButton";
 import {
   VscAdd,
   VscListUnordered,
@@ -11,12 +11,12 @@ import {
   VscListSelection,
 } from "react-icons/vsc";
 import { CiGrid41 } from "react-icons/ci";
-import ProjectCard from "../../Components/projects/projectCard/projectCard";
+import ProjectCard from "../../components/projects/projectCard/projectCard";
 import { Link } from "react-router-dom";
-import NewInvestmentProject from "../../Components/newInvestmentProject/newInvestmentProject";
+import NewInvestmentProject from "../../components/newInvestmentProject/newInvestmentProject";
 
 
-import AUTH from "../../Assets/Mock/mockAuth";
+import AUTH from "../../assets/Mock/mockAuth";
 
 function WorkSpacePage() {
   // eslint-disable-next-line react-hooks/rules-of-hooks

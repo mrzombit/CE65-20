@@ -6,7 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import BizLogo from "../bizTools/bizLogo/bizLogo";
 import ProjectTempleteCard from "../projects/projectTempleteCard/projectTempleteCard";
 import { VscChevronRight } from "react-icons/vsc";
-import AddProjectForm from "../../Features/projects/AddProjectForm";
+import AddProjectForm from "../../features/OLD/projects/AddProjectForm";
 
 function newInvestmentProject(props) {
   return props.trigger ? (

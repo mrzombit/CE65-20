@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "src/Pages/.test/dbTest1.jsx"  ]
+, "src/pages/.test/dbTest1.jsx"  ]
 }

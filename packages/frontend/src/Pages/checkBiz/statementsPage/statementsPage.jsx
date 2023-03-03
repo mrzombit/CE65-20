@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
-import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
-import StatementCard from "../../../Components/subscription/statementCard/statementCard";
+import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
+import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
+import StatementCard from "../../../components/subscription/statementCard/statementCard";
 import "./statementsPage.css";
 
 

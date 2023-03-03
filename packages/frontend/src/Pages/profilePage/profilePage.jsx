@@ -1,6 +1,6 @@
 import React from "react";
-import BizSidebarProfile from "../../Components/bizTools/bizSidebarProfile/bizSidebarProfile";
-import GeneralProfileCard from "../../Components/generalProfileCard/generalProfileCard";
+import BizSidebarProfile from "../../components/bizTools/bizSidebarProfile/bizSidebarProfile";
+import GeneralProfileCard from "../../components/generalProfileCard/generalProfileCard";
 import "./profilePage.css";
 
 function ProfilePage() {

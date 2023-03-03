@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
-import InfoProject from "../../../Components/bizTools/infoProject/infoProject";
+import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
+import InfoProject from "../../../components/bizTools/infoProject/infoProject";
 
-import AUTH from "../../../Assets/Mock/mockAuth";
-import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
+import AUTH from "../../../assets/Mock/mockAuth";
+import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 
 function ProjectConfigPage() {
   const [auth, setAuth] = useState(AUTH);

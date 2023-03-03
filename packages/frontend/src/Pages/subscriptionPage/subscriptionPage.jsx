@@ -1,8 +1,8 @@
 import React from "react";
-import BizSidebarProfile from "../../Components/bizTools/bizSidebarProfile/bizSidebarProfile";
-import SubscriptionUserBanner from "../../Components/subscription/subscriptionUserBanner/subscriptionUserBanner";
+import BizSidebarProfile from "../../components/bizTools/bizSidebarProfile/bizSidebarProfile";
+import SubscriptionUserBanner from "../../components/subscription/subscriptionUserBanner/subscriptionUserBanner";
 import "./subscriptionPage.css";
-import SubPlan from "../../Components/subscription/subPlan/subPlan";
+import SubPlan from "../../components/subscription/subPlan/subPlan";
 
 function subscriptionPage() {
   return (

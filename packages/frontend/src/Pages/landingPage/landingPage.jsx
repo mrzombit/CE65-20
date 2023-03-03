@@ -32,7 +32,7 @@ function LandingPage() {
           <div className="func-card-1 m-2">
             <p className="head-text-card">BIZ TOOLS</p>
             <img
-              src={require("../../Assets/biztools-card.png")}
+              src={require("../../assets/biztools-card.png")}
               className="card-img-2"
               style={{ transform: "scale(1) translate(0%, 0%)" }}
             />
@@ -40,7 +40,7 @@ function LandingPage() {
           <div className="func-card-2 m-2">
             <p className="head-text-card">CHECK BIZ</p>
             <img
-              src={require("../../Assets/checkbiz-card.png")}
+              src={require("../../assets/checkbiz-card.png")}
               className="card-img-2"
               style={{ transform: "scale(1) translate(0%, 0%)" }}
             />
@@ -50,7 +50,7 @@ function LandingPage() {
             <div className="func-card-3 ">
               <p className="head-text-card">STATEMENTS</p>
               <img
-                src={require("../../Assets/statement-card.png")}
+                src={require("../../assets/statement-card.png")}
                 className="card-img-2"
                 style={{ transform: "scale(1) translate(70%, -30%)" }}
               />
@@ -59,7 +59,7 @@ function LandingPage() {
               <div className="func-card-4 mt-3">
                 <p className="head-text-card">SENSITIVITY</p>
                 <img
-                  src={require("../../Assets/sensitivity-card.png")}
+                  src={require("../../assets/sensitivity-card.png")}
                   className="card-img-2"
                   style={{ transform: "scale(1) translate(-10%, -35%)" }}
                 />
@@ -67,7 +67,7 @@ function LandingPage() {
               <div className="func-card-5 mt-3">
                 <p className="head-text-card">COMPARE</p>
                 <img
-                  src={require("../../Assets/compare-card.png")}
+                  src={require("../../assets/compare-card.png")}
                   className="card-img-2"
                   style={{ transform: "scale(1) translate(25%, 15%)" }}
                 />

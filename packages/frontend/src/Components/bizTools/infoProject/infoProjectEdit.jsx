@@ -5,7 +5,7 @@ import BizTextInfo from "../bizTextInfo/bizTextInfo";
 import { AiOutlineClose } from "react-icons/ai";
 import BizLogo from "../bizLogo/bizLogo";
 
-import AUTH from "../../../Assets/Mock/mockAuth";
+import AUTH from "../../../assets/Mock/mockAuth";
 
 function infoProjectEdit(props) {
   // eslint-disable-next-line react-hooks/rules-of-hooks

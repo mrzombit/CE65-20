@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectAllProjects } from "./projectsSlice";
 import TimeAgo from "./TimeAgo";
-import ProjectCard from "../../Components/projects/projectCard/projectCard";
+import ProjectCard from "../../../components/projects/projectCard/projectCard";
 
 
 const ProjectsList = () => {

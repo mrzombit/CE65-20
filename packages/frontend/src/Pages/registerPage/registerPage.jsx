@@ -7,7 +7,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./registerPage.css";
 import { AiOutlineCheckCircle, AiFillCheckCircle } from "react-icons/ai";
-import ConditionalLink from "../../Components/common/conditionalLink";
+import ConditionalLink from "../../components/common/conditionalLink";
 
 function RegisterPage() {
   const [user, setUser] = useState();
@@ -43,7 +43,7 @@ function RegisterPage() {
       <div className="row justify-content-center">
         <div className="col-sm-6">
           <img
-            src={require("../../Assets/register-img.png")}
+            src={require("../../assets/register-img.png")}
             className="card-img-2"
             style={{ transform: "scale(0.7) translate(-12%, 8%)" }}
           />

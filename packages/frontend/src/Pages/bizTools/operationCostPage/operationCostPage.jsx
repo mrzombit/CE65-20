@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import BizSidebar from "../../../Components/bizTools/bizSidebar/bizSidebar";
+import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import "../biztools.css";
-import BiztoolHeader from "../../../Components/investmentProject/biztoolHeader/biztoolHeader";
-import BiztoolBody from "../../../Components/investmentProject/biztoolBody/biztoolBody";
+import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
+import BiztoolBody from "../../../components/investmentProject/biztoolBody/biztoolBody";
 import BIZTOOL_PAGE_CONFIG from "../pageConfig";
 import BIZTOOL_PAGE_MOCKDATA from "../pageMockData";
 
