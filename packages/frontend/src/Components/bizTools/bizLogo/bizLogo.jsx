@@ -24,7 +24,6 @@ function bizLogo() {
           </div>
         </div>
       </div>
-      <button className="biz-logo-submit">+ อัพโหลดภาพ</button>
     </div>
   );
 }

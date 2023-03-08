@@ -10,19 +10,20 @@ import "./bizSidebar.css";
 import { IconContext } from "react-icons";
 import * as IoIcons from "react-icons/io";
 import { VscAccount, VscHome, VscExtensions } from "react-icons/vsc";
+import { useSelector } from "react-redux";
 
 function bizSidebar() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
+
+  const selectedProject = useSelector(state => state.projects.selectedProject)
 
   return (
     <div>
       <IconContext.Provider value={{ color: "#131832" }}>
         <div className="navbar-biz">
-          {/* <span>KoonK Salon</span>
-          <span>KoonK Salon</span> */}
+          <span>{selectedProject.name}</span>
           <span style={{ opacity: "0.5", fontSize: "12px" }}>Biztools</span>
           <div className="nav-menu-item-biz mb-3">
             {bizSidebarData_biztools.map((item, index) => {

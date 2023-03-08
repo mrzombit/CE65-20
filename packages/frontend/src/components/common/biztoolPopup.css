@@ -9,7 +9,7 @@
   left: 0px;
   display: flex;
 }
-.new-pj-card {
+.popup-card {
   width: 630px;
   height: 574px;
   background-color: white;
@@ -64,4 +64,15 @@
   overflow-x: scroll;
   margin: 8px 0px 0px 0px;
   
+}
+
+.popup-content{
+  /* max-width: 590px; */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  min-height: 400px;
+}
+
+.min-w-select{
+  width: 250px;
 }

@@ -57,9 +57,7 @@ export class UserController {
     @Res() res,
     @Query('username') username,
   ) {
-    console.log(`\ncontroller> ${username}`)
     const user = await this.userService.findOne(username);
-    console.log(`restult > ${user.username}`)
     return res.status(HttpStatus.OK).json(user);
   }
 

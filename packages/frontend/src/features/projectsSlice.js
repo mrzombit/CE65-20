@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 const CREATE_URL = "http://localhost:5000/project/post/"
-const FETCH_URL = "http://localhost:5000/project/projects"
+const FETCH_URL = "http://localhost:5000/project/user/"
 const UPDATE_URL = "http://localhost:5000/project/edit?projectID="
 const DELETE_URL = "http://localhost:5000/project/delete?projectID="
 
@@ -13,10 +13,10 @@ const initialState = {
     error: null
 }
 
-export const fetchProjects = createAsyncThunk(
+export const fetchProjectsByUserId = createAsyncThunk(
     'projects/fetchProjects',
-    async () => {
-        const response = await axios.get(`${FETCH_URL}`)
+    async (data) => {
+        const response = await axios.get(`${FETCH_URL}${data}`)
         return response.data
     })
 
@@ -56,17 +56,20 @@ const projectsSlice = createSlice({
         projectUpdated(state, action) {
             state.selectedProject = action.payload
         },
+        setSelectedProject(state,aciton){
+            state.selectedProject = aciton.payload
+        }
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchProjects.pending, (state, action) => {
+            .addCase(fetchProjectsByUserId.pending, (state, action) => {
                 state.status = 'loading'
             })
-            .addCase(fetchProjects.fulfilled, (state, action) => {
+            .addCase(fetchProjectsByUserId.fulfilled, (state, action) => {
                 state.status = 'succeeded'
                 state.projects = action.payload
             })
-            .addCase(fetchProjects.rejected, (state, action) => {
+            .addCase(fetchProjectsByUserId.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
             })
@@ -87,7 +90,7 @@ const projectsSlice = createSlice({
             })
             .addCase(updateProject.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.project = action.payload
+                state.selectedProject = action.payload
             })
             .addCase(deleteProjectById.fulfilled, (state, action) => {
                 state.status = 'succeeded'
@@ -97,7 +100,7 @@ const projectsSlice = createSlice({
 
 })
 
-export const { projectUpdated } = projectsSlice.actions
+export const { projectUpdated, setSelectedProject } = projectsSlice.actions
 
 export default projectsSlice.reducer
 

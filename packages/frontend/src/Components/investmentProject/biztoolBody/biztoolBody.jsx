@@ -13,7 +13,7 @@ const BiztoolBody = (props) => {
           <BiztoolAddTable
             type={`${props.type}-service`}
             title="+ ตารางใหม่"
-            handleFunction={props.handleFuncitn.handleSeriveFunction}
+          handleFunction={props.handleFunction.handleSeriveFunction}
           />
           <BiztoolTableList
             data={props.serviceTableData}
@@ -27,7 +27,7 @@ const BiztoolBody = (props) => {
           <BiztoolAddTable
             type={`${props.type}-product`}
             title="+ ตารางใหม่"
-            handleFunction={props.handleFuncitn.handleProductFunction}
+            handleFunction={props.handleFunction.handleProductFunction}
           />
           <BiztoolTableList
             data={props.productTableData}

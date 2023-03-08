@@ -13,9 +13,15 @@ import { UserModule } from './user/user.module';
 import { SubscriptionPlanModule } from './subscription-plan/subscription-plan.module';
 import { AuthModule } from './auth/auth.module';
 import { BusinessGoalModule } from './business-goal/business-goal.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { StorageModule } from './storage/storage.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './files',
+    }),
     MongooseModule.forRoot(MONGODB_CONNECTION, {
       useNewUrlParser: true,
     }),
@@ -29,6 +35,8 @@ import { BusinessGoalModule } from './business-goal/business-goal.module';
     UserModule,
     AuthModule,
     BusinessGoalModule,
+    StorageModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

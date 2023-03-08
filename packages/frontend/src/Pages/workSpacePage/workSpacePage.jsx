@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./workSpacePage.css";
 import Bizbutton from "../../components/bizTools/bizButton/bizButton";
 import {
@@ -12,36 +12,63 @@ import {
 } from "react-icons/vsc";
 import { CiGrid41 } from "react-icons/ci";
 import ProjectCard from "../../components/projects/projectCard/projectCard";
-import { Link } from "react-router-dom";
-import NewInvestmentProject from "../../components/newInvestmentProject/newInvestmentProject";
-
-
-import AUTH from "../../assets/Mock/mockAuth";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserByUsername } from "../../features/usersSlice";
+import { fetchProjectsByUserId, setSelectedProject } from "../../features/projectsSlice";
+import BiztoolPopup from "../../components/common/biztoolPopup";
+import AddProjectForm from "../../features/OLD/projects/AddProjectForm";
 
 function WorkSpacePage() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [newProjectPopupState, setNewProjectPopupState] = useState(false);
 
-  const [projects, setProjects] = useState([]);
-  const [auth, setAuth] = useState(AUTH);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const auth = useSelector(state => state.users.auth)
+  const user = useSelector(state => state.users.user)
+  const projects = useSelector(state => state.projects.projects)
+  const [isLoaded, setIsLoaded] = useState({ user: false, projects: false })
+  const isAlert = useRef(false)
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/project/user/${auth.user_id}`)
-      .then((res) => {
-        setProjects(res.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+    if (auth.username) {
+      if (auth.token != "") {
+        if (!isLoaded.user) {
+          dispatch(fetchUserByUsername({ username: auth.username, token: auth.token }))
+          setIsLoaded({ user: true, projects: false })
+        }
+      }
+      // if(isLoaded) console.log(JSON.stringify(user));
+      if (isLoaded.user) {
+        if (!isLoaded.projects) {
+          dispatch(fetchProjectsByUserId(user._id))
+          setIsLoaded({ user: true, projects: true })
+        }
+        // else console.log(JSON.stringify(projects))
+      }
+    }
+    else navigate('/login')
+  }, [auth.token, user, newProjectPopupState]);
+
+  const handleProjectOnClick = (each) => {
+    dispatch(setSelectedProject(each))
+    navigate('/ProjectConfig')
+  }
+
+  const closePopup = () => {
+    setIsLoaded({ user: true, projects: false })
+    setNewProjectPopupState(false)
+  }
 
   return (
     <div>
-      <NewInvestmentProject
+      <BiztoolPopup
+        title="สร้างโปรเจกธุรกิจใหม่"
+        content={<AddProjectForm />}
         trigger={newProjectPopupState}
         close={() => setNewProjectPopupState(false)}
-      ></NewInvestmentProject>
+      ></BiztoolPopup>
       <div className="ws">
         <p className="head-text-ws mt-4">ธุรกิจของฉัน</p>
         <hr className="line"></hr>
@@ -78,9 +105,9 @@ function WorkSpacePage() {
         </div>
         <div className="d-flex my-3">
           {projects.map((each) => (
-            <Link to="/ProjectConfig" className="no-text-link">
+            <button style={{background: "none", border: "none"}}key={each._id} onClick={() => handleProjectOnClick(each)}>
               <ProjectCard name={each.name.slice(0, 12) + (each.name.length > 12 ? "..." : "")} lastEdit="Edited 2 hours ago" />
-            </Link>
+            </button>
           ))}
         </div>
       </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import  Spinner from './Spinner'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { selectAllAssetAccounts, fetchAssetAccounts, deleteAssetAccountById, addNewAssetAccount } from '../features/assetAccountsSlice'
+import Spinner from './Spinner'
 
 
 const Delete = () => {
@@ -56,7 +56,7 @@ const Delete = () => {
     // dispatch(fetchAssetAccounts())
   }
 
-  const [name,setName] = useState("")
+  const [name, setName] = useState("")
 
   const handleOnChange = (val) => {
     setName(val)
