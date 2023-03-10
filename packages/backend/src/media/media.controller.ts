@@ -17,7 +17,8 @@ import { StorageService } from 'src/storage/storage.service';
 
 @Controller('media')
 export class MediaController {
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService) {
+  }
 
   @Post()
   @UseInterceptors(
