@@ -87,7 +87,7 @@ const subscriptionPlansSlice = createSlice({
             })
             .addCase(updateSubscriptionPlan.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.subscriptionPlan = action.payload
+                state.subscriptionPlan = action.payload.subscriptionPlan
             })
             .addCase(deleteSubscriptionPlanById.fulfilled, (state, action) => {
                 state.status = 'succeeded'

@@ -87,7 +87,7 @@ const assetAccountsSlice = createSlice({
             })
             .addCase(updateAssetAccount.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.assetAccount = action.payload
+                state.assetAccount = action.payload.assetAccount
             })
             .addCase(deleteAssetAccountById.fulfilled, (state, action) => {
                 state.status = 'succeeded'

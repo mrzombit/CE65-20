@@ -35,8 +35,6 @@ import { MediaModule } from './media/media.module';
     UserModule,
     AuthModule,
     BusinessGoalModule,
-    StorageModule,
-    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

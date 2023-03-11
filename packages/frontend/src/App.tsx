@@ -45,7 +45,7 @@ function App() {
     dispatch(fetchPeriods())
     dispatch(fetchSubscriptionPlans())
   }, [])
-  
+
   return (
     <Router>
       <div className="root-style">
@@ -75,9 +75,10 @@ function App() {
             : <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/Login" element={<LoginPage />} />
-              <Route path="/Register" element={<RegisterPage />} />   
+              <Route path="/Register" element={<RegisterPage />} />
               <Route path="/WorkSpace" element={<WorkSpacePage />} />
               <Route path="*" element={<PleaseLogin />} />
+              <Route path="/test" element={<DBTest1 />} />
             </Routes>
           }
         </div>

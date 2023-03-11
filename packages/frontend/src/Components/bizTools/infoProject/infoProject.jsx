@@ -40,15 +40,21 @@ function infoProject(props) {
   const [selectedCurrency, setSelectedCurrency] = useState()
   const [selectedIndustries, setSelectedIndustries] = useState([])
 
+  const [isLoaded, setIsLoaded] = useState(0)
+  const [counter, setCounter] = useState(0)
+  const [doSubmitCheck, setDoSubmitCheck] = useState(false)
+  const [round, setRound] = useState(0)
+
   const [file, setFile] = useState()
   const [imageUrl, setImageUrl] = useState("")
+  const [imageName, setImageName] = useState("")
   const [event, setEvent] = useState()
 
   const getCurrencyById = async (id) => {
     let shallowSelectedCurrency = {}
     const response = await axios.get(`${CURRENCY_CREATE_URL}${id}`)
       .then(res => {
-        shallowSelectedCurrency = { value: res.data._id, label: res.data.name.local }
+        shallowSelectedCurrency = [{ value: res.data._id, label: res.data.name.local }]
         setSelectedCurrency(shallowSelectedCurrency)
       })
       .catch(err => false);
@@ -65,9 +71,16 @@ function infoProject(props) {
       .catch(err => false);
   }
 
-  const [isLoaded, setIsLoaded] = useState(false)
+  const resetValue = () => {
+    setFile(null)
+    setIsLoaded(0)
+    setImageName("")
+    setEvent({})
+    setImageUrl("")
+  }
+
   useEffect(() => {
-    if (!isLoaded) {
+    if (isLoaded!=10) {
       getCurrencyById(selectedProject.model_config.currency_id)
       selectedProject.industry_ids.map(each => getIndustryById(each))
 
@@ -79,13 +92,25 @@ function infoProject(props) {
       })
       setCurrencyOptions(shallowCurrencyOptions)
       setIndustryOptions(shallowIndustryOptions)
-      setIsLoaded(true)
+      setIsLoaded(isLoaded+1)
+      setCounter(counter+1)
     }
     else if (imageUrl != "") {
-      console.log(projectShallow);
       dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl } }))
-      // dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl }))
+      dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl }))
+      resetValue()
+    }else if (doSubmitCheck){
+      dispatch(updateProject({ id: selectedProject._id, data: projectShallow }))
+      dispatch(projectUpdated({ projectShallow }))
+      resetValue()
     }
+    setCounter(counter+1)
+    // console.log(JSON.stringify(selectedCurrency));
+    // console.log(JSON.stringify(selectedIndustries));
+    if( counter == 12) {
+      alert('welcome')
+    }
+    // alert(JSON.stringify(currencyOptions))
   }, [isLoaded, selectedCurrency, selectedIndustries, imageUrl])
 
   const doSubmit = (event) => {
@@ -108,18 +133,22 @@ function infoProject(props) {
       },
       ...selectedProject
     }
-    setProjectShallow(projectShallow)
+    setDoSubmitCheck(true)
+    setProjectShallow(ToUploadProjectShallow)
   }
 
   const uploadData = async () => {
     const formData = new FormData();
     formData.append("image", file);
-    const res = await axios.post("http://localhost:5000/", formData, {
+    axios.post("http://localhost:5000/", formData, {
       headers: { "Content-Type": "multipart/form-data" },
-    }).then(res => setImageUrl(res.data.filename))
+    }).then(res => {
+      setImageUrl(res.data.filename)
+    })
   }
 
   const onUploadChange = (e) => {
+    setImageName(e.target.value)
     setFile(e.target.files[0])
   }
 
@@ -138,7 +167,6 @@ function infoProject(props) {
     <div className="new-invest-form">
       <form onSubmit={handleSubmit(doSubmit)}>
         <div className="d-flex label-newInvest-pj">
-
           <div>
             <div className="input-container">
               <BizTextInfo title="ชื่อธุรกิจ" />
@@ -156,11 +184,12 @@ function infoProject(props) {
                 <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
                 {selectedProject.logo_url == "" ? <BizLogo /> :
                   <div>
-                    {imageUrl == "" ? selectedProject.logo_url : imageUrl}
-                    <div>
-                      {/* <image src={`${WEB_URL}${selectedProject.logo_url}`} /> */}
-                      <image src={`files::localhost:5000/1-d21a.png`} />
+                    <div className="LogoImageStyle">
+                      <img src={`${WEB_URL}${selectedProject.logo_url}`}
+                        className='mw-100 mh-100'
+                      />
                     </div>
+                    <div>{imageName !== '' ? `รูปโลโกที่เลือก: ${imageName}` : "คุณยังไม่ได้เลือกรูปโลโกใหม่"}</div>
                   </div>
                 }
                 <div>
@@ -190,11 +219,13 @@ function infoProject(props) {
                     {...register('start_date', { required: true })}
                     required
                   />
+                  {/* {"oo"} */}
                 </div>
                 <div className="input-container">
                   <BizTextInfo title="ระยะเวลาประเมินธุรกิจ" />
                   <input
-                    defaultValue={selectedProject.model_config.projection_period}
+                    defaultValue={
+                      selectedProject.model_config.projection_period}
                     onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                     className="input-newInvest-pj-small"
                     type="projection_period"
@@ -204,7 +235,7 @@ function infoProject(props) {
                 </div>
                 <div className="input-container">
                   <BizTextInfo title="สกุลเงิน" />
-                  {isLoaded &&
+                  {counter  > 11 &&
                     <Select
                       defaultValue={selectedCurrency}
                       closeMenuOnSelect={false}
@@ -220,7 +251,8 @@ function infoProject(props) {
                 <div className="input-container">
                   <BizTextInfo title="ชั่วโมงทำงาน/วัน" />
                   <input
-                    defaultValue={selectedProject.model_config.working_hours}
+                    defaultValue={
+                      selectedProject.model_config.working_hours}
                     onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                     // placeholder="8 ชม./วัน"
                     className="input-newInvest-pj-small"
@@ -244,7 +276,7 @@ function infoProject(props) {
               />
             </div>
             <BizTextInfo title="ประเภทธุรกิจ" />
-            {isLoaded &&
+            {counter > 11 &&
               <Select
                 closeMenuOnSelect={false}
                 components={animatedComponents}

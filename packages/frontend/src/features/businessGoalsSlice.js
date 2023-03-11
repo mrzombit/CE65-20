@@ -87,7 +87,7 @@ const businessGoalsSlice = createSlice({
             })
             .addCase(updateBusinessGoal.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.businessGoal = action.payload
+                state.businessGoal = action.payload.businessGoal
             })
             .addCase(deleteBusinessGoalById.fulfilled, (state, action) => {
                 state.status = 'succeeded'

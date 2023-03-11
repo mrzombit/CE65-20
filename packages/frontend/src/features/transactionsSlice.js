@@ -87,7 +87,7 @@ const transactionsSlice = createSlice({
             })
             .addCase(updateTransaction.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.transaction = action.payload
+                state.transaction = action.payload.transaction
             })
             .addCase(deleteTransactionById.fulfilled, (state, action) => {
                 state.status = 'succeeded'

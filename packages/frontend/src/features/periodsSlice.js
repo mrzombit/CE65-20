@@ -87,7 +87,7 @@ const periodsSlice = createSlice({
             })
             .addCase(updatePeriod.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.period = action.payload
+                state.period = action.payload.period
             })
             .addCase(deletePeriodById.fulfilled, (state, action) => {
                 state.status = 'succeeded'

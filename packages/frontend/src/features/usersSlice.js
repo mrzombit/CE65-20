@@ -141,7 +141,7 @@ const usersSlice = createSlice({
             })
             .addCase(updateUser.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.user = action.payload
+                state.user = action.payload.user
             })
             .addCase(updateUser.rejected, (state, action) => {
                 state.status = 'succeeded'

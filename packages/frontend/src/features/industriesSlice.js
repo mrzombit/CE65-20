@@ -87,7 +87,7 @@ const industriesSlice = createSlice({
             })
             .addCase(updateIndustry.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.industry = action.payload
+                state.industry = action.payload.industry
             })
             .addCase(deleteIndustryById.fulfilled, (state, action) => {
                 state.status = 'succeeded'

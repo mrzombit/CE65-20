@@ -1,41 +1,14 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React from 'react'
 
-function DBTest1() {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState();
-  const { register, handleSubmit } = useForm();
-  const [auth, setAuth] = useState(
-    { token: "", 
-    status: false, 
-    user_id: "63de88dd7e267c38c5cdf616" })
-  const [projects,setProjects] = useState([])
-
-  useEffect(() => {
-
-    axios.get(`http://localhost:5000/project/user/${auth.user_id}`
-      )
-        .then(res => {
-          setProjects(res.data)
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-  
-
-  }, []);
-
+const dbTest1 = () => {
   return (
-    <div className="justify-content-center align-self-center">
-      <div>DB Test1 !</div>
-      {projects.map((each) =>
-        <div>
-          {each.name}
-        </div>
-      )}
+    <div>
+      <div>test</div>
+      <div>
+        <img src={`http://localhost:5000/1-d21a.png`} alt="abc" style={{width: '100%'}}/>
+      </div>
     </div>
   )
 }
 
-export default DBTest1
+export default dbTest1

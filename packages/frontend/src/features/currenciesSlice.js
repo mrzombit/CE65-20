@@ -87,7 +87,7 @@ const currenciesSlice = createSlice({
             })
             .addCase(updateCurrency.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.currency = action.payload
+                state.currency = action.payload.currency
             })
             .addCase(deleteCurrencyById.fulfilled, (state, action) => {
                 state.status = 'succeeded'

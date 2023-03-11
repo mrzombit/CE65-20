@@ -15,8 +15,8 @@ const initialState = {
 
 export const fetchProjectsByUserId = createAsyncThunk(
     'projects/fetchProjects',
-    async (data) => {
-        const response = await axios.get(`${FETCH_URL}${data}`)
+    async (userId) => {
+        const response = await axios.get(`${FETCH_URL}${userId}`)
         return response.data
     })
 
@@ -56,8 +56,8 @@ const projectsSlice = createSlice({
         projectUpdated(state, action) {
             state.selectedProject = action.payload
         },
-        setSelectedProject(state,aciton){
-            state.selectedProject = aciton.payload
+        setSelectedProject(state,action){
+            state.selectedProject = action.payload
         }
     },
     extraReducers(builder) {
@@ -90,7 +90,7 @@ const projectsSlice = createSlice({
             })
             .addCase(updateProject.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.selectedProject = action.payload
+                state.selectedProject = action.payload.project
             })
             .addCase(deleteProjectById.fulfilled, (state, action) => {
                 state.status = 'succeeded'
