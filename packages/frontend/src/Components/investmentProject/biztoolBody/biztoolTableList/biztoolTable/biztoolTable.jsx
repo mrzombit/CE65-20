@@ -19,15 +19,21 @@ const BiztoolTable = (props) => {
 
   const eachTable = props.eachTable
 
-  const addRowHandle = () => {
-    alert('add row!')
+
+  const [addRowState, setAddRowState] = useState(false);
+
+  const addRowHandle = (tableId) => {
+    // alert(`add row! ${tableId}`)
+    setAddRowState(true);
+
+
   }
   const onChangeHandle = (row, col, val) => {
     props.onChangeHandle(eachTable.tableId, row, col, val)
   }
 
   // const formReduxzdata = props.redux.data
-  
+
   // const onChangeAt = (row,col,val) => {
   //   if props.type == "total-investment":
   //     if columId == 0:
@@ -41,6 +47,19 @@ const BiztoolTable = (props) => {
       <div key={eachTable.tableId} className='d-flex'>
         {props.tableStyle.column.map((eachColumn, index) =>
           <>
+            {/* {props.tableStyle.column[cellIndex].type == "cost-table"
+              &&
+              <div key={eachColumn.colId}
+                className='column border border-dark'
+                style={{
+                  minWidth: `${columnStyles[index].width}px`,
+                }}
+              >
+                {eachTable.title}
+              </div>
+            } */}
+            {/* {console.log("eachTable >>>")}
+            {console.log(eachTable)} */}
             {index == 0 &&
               <div key={eachColumn.colId}
                 className='column border border-dark'
@@ -59,8 +78,20 @@ const BiztoolTable = (props) => {
                 }}
               >
                 {eachColumn.title}
+                {/* {console.log("eachColumn >>>")}
+                {console.log(eachColumn)} */}
               </div>
             }
+            {/* {
+              <div key={eachColumn.colId}
+                className='column border border-dark'
+                style={{
+                  minWidth: `${columnStyles[index].width}px`,
+                }}
+              >
+                {eachTable.title}
+              </div>
+            } */}
           </>
         )}
       </div>
@@ -92,6 +123,47 @@ const BiztoolTable = (props) => {
                     value={eachCell.val.toLocaleString('en-US')}
                     onChange={event => onChangeHandle(eachRow.rowId, eachCell.colId, event.target.value)}
                   />}
+                {props.tableStyle.column[cellIndex].type == "percent" &&
+                  <input key={eachCell.colId}
+                    type="text"
+                    className='column border border-primary'
+                    style={{
+                      width: `${columnStyles[cellIndex].width}px`,
+                      textAlign: `end`,
+                    }}
+                    value={parseFloat(eachCell.val) + "%"}
+                    onChange={event => onChangeHandle(eachRow.rowId, eachCell.colId, event.target.value)}
+                  />}
+
+
+
+                {props.tableStyle.column[cellIndex].type == "cost-table" &&
+                  <div className='d-flex'>
+                    <input key={eachCell.colId}
+                      type="text"
+                      className='column border border-primary'
+                      style={{
+                        width: `${columnStyles[cellIndex].width}px`,
+                        textAlign: `start`,
+                      }}
+                      value={"ปีที่ " + parseFloat(eachCell.val)}
+                      onChange={event => onChangeHandle(eachRow.rowId, eachCell.colId, event.target.value)}
+                    />
+                    <input key={eachCell.colId}
+                      type="text"
+                      className='column border border-primary'
+                      style={{
+                        width: `${columnStyles[cellIndex].width * 2.5}px`,
+                        textAlign: `start`,
+                      }}
+                      value={parseFloat(eachCell.val) + " หน่วย" + " แสดงเดือน"}
+                      onChange={event => onChangeHandle(eachRow.rowId, eachCell.colId, event.target.value)}
+                    />
+                  </div>
+                }
+
+
+
                 {props.tableStyle.column[cellIndex].type == "dropdown" &&
                   <div key={eachCell.colId}
                   >
@@ -143,11 +215,59 @@ const BiztoolTable = (props) => {
                     />
                   </div>
                 }
+
               </>
             )}
+
+
           </div>
         )}
       </div>
+
+      {addRowState == true &&
+        <div key={eachTable.tableId} className='d-flex'>
+          {props.tableStyle.column.map((eachColumn, index) =>
+            <>
+              {index == 0 &&
+                <div key={eachColumn.colId}
+                  style={{
+                    width: `${columnStyles[index].width}px`,
+                  }}
+                >
+                  <input
+                    className='column border border-primary'
+                    placeholder={eachTable.title}
+                  />
+
+                </div>
+              }
+              {index !== 0 &&
+                <div key={eachColumn.colId}
+
+                  style={{
+                    width: `${columnStyles[index].width}px`,
+                  }}
+                >
+                  <input
+                    className='column border border-primary'
+                    placeholder={eachColumn.title}
+                  />
+                </div>
+
+              }
+
+              {console.log("eachColumn >>>")}
+              {console.log(eachColumn)}
+            </>
+          )}
+        </div>}
+
+
+
+
+
+
+
       <div className='biztool-addrow d-flex align-items-center mx-1'
         style={{
           width: `${columnStyles.reduce(function (previousValue, currentValue) {
@@ -155,15 +275,17 @@ const BiztoolTable = (props) => {
           }).width}px`,
         }}
       >
-        <div className='mx-2'>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-          </svg>
-        </div>
-        <div className=' flex h-100 align-text-center'
-          onClick={() => addRowHandle()}
-        >เพิ่มรายการ
+        <div className='d-flex' onClick={() => addRowHandle(props.tableId)}>
+          <div className='mx-2'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+          </div>
+
+          <div className=' flex h-100 align-text-center'>
+            เพิ่มรายการ
+          </div>
         </div>
       </div>
     </div >

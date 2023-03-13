@@ -18,13 +18,14 @@ function RevenuePage() {
         <BiztoolHeader
           type={config.type}
           title={config.title}
-          handleFunction={config.addTableHandleFunction}
+          
         />
         <BiztoolBody
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
           onChangeHandle={config.onChangeHandle}
+          handleFunction={config.addTableHandleFunction}
         />
       </div>
     </div>

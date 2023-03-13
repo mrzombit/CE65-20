@@ -1,9 +1,8 @@
 import React from 'react'
 import BiztoolTable from './biztoolTable/biztoolTable'
-
 const BiztoolTableList = (props) => {
   return (
-    <div>
+    <div >
       {props.data.map((eachTable) =>
         <BiztoolTable
           key={eachTable.tableId}

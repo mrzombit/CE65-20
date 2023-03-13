@@ -78,15 +78,94 @@ const BIZTOOL_PAGE_CONFIG = {
         onChangeHandle: (table, row, col, value) => {
             console.log(`${row}, ${col}, ${value}`)
         },
+        tableStyle: {
+            showColumnHeader: true,
+            column: [
+                {
+                    colId: 1,
+                    title: "เงินเดือน",
+                    width: 200,
+                    type: "text",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    editable: true,
+                },
+                {
+                    colId: 2,
+                    title: "จำนวน(บาท)",
+                    width: 100,
+                    type: "money",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    editable: true,
+                },
+                {
+                    colId: 3,
+                    title: "อัตราเพิ่มขึ้น",
+                    width: 90,
+                    type: "percent",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    editable: true,
+                },
+                {
+                    colId: 4,
+                    title: "รอบละ(เดือน)",
+                    width: 120,
+                    type: "dropdown",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    enumData: [
+                        {
+                            title: 1,
+                            value: 1,
+                        },
+                        {
+                            title: 3,
+                            value: 2,
+                        },
+                        {
+                            title: 12,
+                            value: 3,
+                        },
+                    ],
+                    editable: true,
+                },
+                {
+                    colId: 5,
+                    title: "จำนวน(หน่วย)",
+                    width: 70,
+                    type: "cost-table",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    enumData: [
+                        {
+                            title: 1,
+                            value: 1,
+                        },
+                        {
+                            title: 3,
+                            value: 2,
+                        },
+                        {
+                            title: 12,
+                            value: 3,
+                        },
+                    ],
+                    editable: true,
+                },
+                
+            ],
+        }
     },
     revenue: {
         type: "revenue",
         title: "รายรับ",
         addTableHandleFunction: {
-            handleSeriveFunction: (input) => {
+            addTableHandleServiceFunction: (input) => {
                 alert("service")
             },
-            handleProductFunction: (input) => {
+            addTableHandleProductFunction: (input) => {
                 alert("product")
             },
         },
@@ -100,22 +179,396 @@ const BIZTOOL_PAGE_CONFIG = {
         },
         tableStyle: {
             productTableStyle: {
-
+                showColumnHeader: true,
+                column: [
+                    {
+                        colId: 1,
+                        title: "ชื่อตาราง",
+                        width: 200,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 2,
+                        title: "จำนวน(หน่วย)",
+                        width: 100,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 3,
+                        title: "หน่วย",
+                        width: 70,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 4,
+                        title: "บริการได้(หน่วย)/วัน",
+                        width: 140,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 5,
+                        title: "รายได้เฉลี่ย/วัน/บริการ",
+                        width: 160,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 6,
+                        title: "ต้นทุน/หน่วย",
+                        width: 100,
+                        type: "percent",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 7,
+                        title: "อัตราเพิ่มของราคาขาย",
+                        width: 150,
+                        type: "dropdown",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        enumData: [
+                            {
+                                title: "ปี",
+                                value: 1,
+                            },
+                            {
+                                title: "เดือน",
+                                value: 2,
+                            },
+                            {
+                                title: "วัน",
+                                value: 3,
+                            },
+                        ],
+                        editable: true,
+                    },
+                    {
+                        colId: 8,
+                        title: "อัตราเพิ่มของต้นทุน",
+                        width: 150,
+                        type: "dropdown",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        enumData: [
+                            {
+                                title: "ปี",
+                                value: 1,
+                            },
+                            {
+                                title: "เดือน",
+                                value: 2,
+                            },
+                            {
+                                title: "วัน",
+                                value: 3,
+                            },
+                        ],
+                        editable: true,
+                    },
+                    {
+                        colId: 9,
+                        title: "เริ่มบริการ/ผลิต",
+                        width: 150,
+                        type: "date",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                ],
+            
             },
             serviceTableStyle: {
-
+                showColumnHeader: true,
+                column: [
+                    {
+                        colId: 1,
+                        title: "ชื่อตาราง",
+                        width: 200,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 2,
+                        title: "จำนวน(หน่วย)",
+                        width: 100,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 3,
+                        title: "หน่วย",
+                        width: 70,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 4,
+                        title: "บริการได้(หน่วย)/วัน",
+                        width: 140,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 5,
+                        title: "รายได้เฉลี่ย/วัน/บริการ",
+                        width: 160,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 6,
+                        title: "ต้นทุน/หน่วย",
+                        width: 100,
+                        type: "percent",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 7,
+                        title: "อัตราเพิ่มของราคาขาย",
+                        width: 150,
+                        type: "dropdown",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        enumData: [
+                            {
+                                title: "ปี",
+                                value: 1,
+                            },
+                            {
+                                title: "เดือน",
+                                value: 2,
+                            },
+                            {
+                                title: "วัน",
+                                value: 3,
+                            },
+                        ],
+                        editable: true,
+                    },
+                    {
+                        colId: 8,
+                        title: "อัตราเพิ่มของต้นทุน",
+                        width: 150,
+                        type: "dropdown",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        enumData: [
+                            {
+                                title: "ปี",
+                                value: 1,
+                            },
+                            {
+                                title: "เดือน",
+                                value: 2,
+                            },
+                            {
+                                title: "วัน",
+                                value: 3,
+                            },
+                        ],
+                        editable: true,
+                    },
+                    {
+                        colId: 9,
+                        title: "เริ่มบริการ/ผลิต",
+                        width: 150,
+                        type: "date",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                ],
+            
             },
         }
     },
     miscellaneous: {
         type: "miscellaneous",
         title: "เงินกู้และหุ้นส่วน",
-        addTableHandleFunction: (input) => {
-            alert("popup!")
+        onChangeHandle: {      
+            onShareholderChangeHandle: (table, row, col, value) => {
+                console.log(`${row}, ${col}, ${value}`)
+            },
+            onDividendRecipientChangeHandle: (table, row, col, value) => {
+                console.log(`${row}, ${col}, ${value}`)
+            },
+            onLoanChangeHandle: (table, row, col, value) => {
+                console.log(`${row}, ${col}, ${value}`)
+            },
         },
-        onChangeHandle: (table, row, col, value) => {
-            console.log(`${row}, ${col}, ${value}`)
-        },
+        tableStyle: {
+            shareholderTableStyle: {
+                showColumnHeader: true,
+                column: [
+                    {
+                        colId: 1,
+                        title: "ชื่อตาราง",
+                        width: 200,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 2,
+                        title: "จำนวน(บาท)",
+                        width: 100,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 3,
+                        title: "วันที่ลงทุน",
+                        width: 150,
+                        type: "date",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                   
+                ],
+            
+            },
+            dividendRecipientTableStyle: {
+                showColumnHeader: true,
+                column: [
+                    {
+                        colId: 1,
+                        title: "ชื่อตาราง",
+                        width: 200,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 2,
+                        title: "สัดส่วนผู้ถือหุ้น",
+                        width: 110,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 3,
+                        title: "วันที่ปันผล",
+                        width: 150,
+                        type: "date",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                ],
+            
+            },
+            loanTableStyle: {
+                showColumnHeader: true,
+                column: [
+                    {
+                        colId: 1,
+                        title: "ชื่อตาราง",
+                        width: 200,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 2,
+                        title: "จำนวน(บาท)",
+                        width: 100,
+                        type: "money",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 3,
+                        title: "วันเริ่มกู้",
+                        width: 150,
+                        type: "date",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 4,
+                        title: "ดอกเบี้ย/ปี",
+                        width: 140,
+                        type: "percent",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                    {
+                        colId: 5,
+                        title: "งวดดอกเบี้ย",
+                        width: 160,
+                        type: "dropdown",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        enumData: [
+                            {
+                                title: "3 เดือน",
+                                value: 1,
+                            },
+                            {
+                                title: "1 ไตรมาส",
+                                value: 2,
+                            },
+                            {
+                                title: "1 ปี",
+                                value: 3,
+                            },
+                        ],
+                        editable: true,
+                        
+                    },
+                    {
+                        colId: 6,
+                        title: "การชำระเงิน",
+                        width: 250,
+                        type: "text",
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                        editable: true,
+                    },
+                   
+                ],
+            
+            },
+        }
     },
 }
 
