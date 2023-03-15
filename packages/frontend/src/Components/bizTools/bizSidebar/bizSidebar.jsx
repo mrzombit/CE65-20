@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -19,6 +19,10 @@ function bizSidebar() {
 
   const selectedProject = useSelector(state => state.projects.selectedProject)
 
+  useEffect(() => {
+  
+  }, [selectedProject])
+  
   return (
     <div>
       <IconContext.Provider value={{ color: "#131832" }}>

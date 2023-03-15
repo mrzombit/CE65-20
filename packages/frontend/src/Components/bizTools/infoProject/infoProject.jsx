@@ -34,8 +34,8 @@ function infoProject(props) {
   const [industryOptions, setIndustryOptions] = useState([])
   const [currencyOptions, setCurrencyOptions] = useState([])
 
-  const [selectedCurrencyId, setSelectedCurrencyId] = useState()
-  const [selectedIndustryIds, setSelectedIndustryIds] = useState([])
+  const [selectedCurrencyId, setSelectedCurrencyId] = useState(selectedProject.model_config.currency_id)
+  const [selectedIndustryIds, setSelectedIndustryIds] = useState(selectedProject.industry_ids)
 
   const [selectedCurrency, setSelectedCurrency] = useState()
   const [selectedIndustries, setSelectedIndustries] = useState([])
@@ -43,12 +43,15 @@ function infoProject(props) {
   const [isLoaded, setIsLoaded] = useState(0)
   const [counter, setCounter] = useState(0)
   const [doSubmitCheck, setDoSubmitCheck] = useState(false)
-  const [round, setRound] = useState(0)
+  const round = selectedProject.industry_ids.length
 
   const [file, setFile] = useState()
   const [imageUrl, setImageUrl] = useState("")
   const [imageName, setImageName] = useState("")
-  const [event, setEvent] = useState()
+  // const [event, setEvent] = useState()
+  const [projectionPeriod, setprojectionPeriod] = useState(selectedProject.model_config.projection_period)
+  const [saleTrends, setsaleTrends] = useState(JSON.parse(JSON.stringify(selectedProject.sale_trends)))
+  const [selectedBusinessGoals, setselectedBusinessGoals] = useState([])
 
   const getCurrencyById = async (id) => {
     let shallowSelectedCurrency = {}
@@ -60,29 +63,32 @@ function infoProject(props) {
       .catch(err => false);
   }
 
-  const getIndustryById = async (id) => {
+  const getIndustryByIds = async (ids) => {
     let shallowSelectedIndustry = selectedIndustries
-    const response = await axios.get(`${INDUSTRY_CREATE_URL}${id}`)
-      .then(res => {
-        shallowSelectedIndustry.push({ value: res.data._id, label: res.data.name.th })
-        setSelectedIndustries(shallowSelectedIndustry)
-      }
-      )
-      .catch(err => false);
+    await selectedProject.industry_ids.map(id => {
+      axios.get(`${INDUSTRY_CREATE_URL}${id}`)
+        .then(res => {
+          shallowSelectedIndustry.push({ value: res.data._id, label: res.data.name.th })
+        })
+        .catch(err => false);
+    })
+    setSelectedIndustries(shallowSelectedIndustry)
   }
 
   const resetValue = () => {
     setFile(null)
+    setCounter(0)
     setIsLoaded(0)
     setImageName("")
-    setEvent({})
+    // setEvent()
     setImageUrl("")
+    setDoSubmitCheck(false)
   }
 
   useEffect(() => {
-    if (isLoaded!=10) {
+    if (isLoaded < round) {
       getCurrencyById(selectedProject.model_config.currency_id)
-      selectedProject.industry_ids.map(each => getIndustryById(each))
+      getIndustryByIds(selectedProject.industry_ids)
 
       const shallowIndustryOptions = industries.map((each) => {
         return { value: each._id, label: each.name.th }
@@ -92,47 +98,51 @@ function infoProject(props) {
       })
       setCurrencyOptions(shallowCurrencyOptions)
       setIndustryOptions(shallowIndustryOptions)
-      setIsLoaded(isLoaded+1)
-      setCounter(counter+1)
+      setIsLoaded(isLoaded + 1)
+      setCounter(counter + 1)
     }
     else if (imageUrl != "") {
       dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl } }))
       dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl }))
       resetValue()
-    }else if (doSubmitCheck){
+    } else if (doSubmitCheck) {
+      // alert("!")
       dispatch(updateProject({ id: selectedProject._id, data: projectShallow }))
-      dispatch(projectUpdated({ projectShallow }))
+      dispatch(projectUpdated(projectShallow))
       resetValue()
     }
-    setCounter(counter+1)
+    setCounter(counter + 1)
     // console.log(JSON.stringify(selectedCurrency));
     // console.log(JSON.stringify(selectedIndustries));
-    if( counter == 12) {
+    if (counter == round + 2) {
       alert('welcome')
     }
-    // alert(JSON.stringify(currencyOptions))
-  }, [isLoaded, selectedCurrency, selectedIndustries, imageUrl])
+    // alert("useEffect!")
+    // console.log(JSON.stringify(selectedProject));
+  }, [isLoaded, selectedCurrency, selectedIndustries, imageUrl, doSubmitCheck, projectionPeriod, saleTrends])
 
   const doSubmit = (event) => {
-    uploadData()
+    if (file) uploadData()
     const ToUploadProjectShallow = {
+      ...selectedProject,
       user_id: selectedProject.user_id,
       name: event.name,
       industry_ids: selectedIndustryIds,
       description: event.description,
-      logo_url: imageUrl,
+      logo_url: imageUrl != '' ? imageUrl : selectedProject.logo_url,
       created_date: selectedProject.created_date,
       modified_date: new Date(),
       model_config: {
-        projection_period: Number(event.projection_period),
+        projection_period: projectionPeriod,
         start_date: event.start_date,
         currency_id: selectedCurrencyId,
         working_hours: Number(event.working_hours),
         income_tax_rate: Number(event.income_tax_rate),
         discounting_rate: Number(event.discounting_rate),
       },
-      ...selectedProject
+      sale_trends: saleTrends,
     }
+    // alert(selectedIndustryIds)
     setDoSubmitCheck(true)
     setProjectShallow(ToUploadProjectShallow)
   }
@@ -161,6 +171,42 @@ function infoProject(props) {
       return each.value
     })
     setSelectedIndustryIds(shallowSelectedIndustryIds)
+  }
+
+  const onProjectionPeriodChange = (e) => {
+    let shallowSaleTrends = []
+    if (e.target.value != '') {
+      for (let i = 0; i < e.target.value; i++) {
+        if (i <= projectionPeriod - 1) {
+          shallowSaleTrends.push(saleTrends[i])
+        }
+        else {
+          let shallowSaleTrend = {
+            year: i + 1,
+            trend: 0,
+            description: "",
+          }
+          shallowSaleTrends.push(shallowSaleTrend)
+        }
+      }
+      setsaleTrends(shallowSaleTrends)
+      setprojectionPeriod(e.target.value)
+    }
+  }
+
+  const onEachSaleTrendChange = (eachTrend, e) => {
+
+    let shallowEachTrend = eachTrend
+    // const shallowSaleTrends = cloneDeep(saleTrends)
+    const shallowSaleTrends = saleTrends
+    shallowSaleTrends[shallowEachTrend.year - 1].trend = e.target.value ==''?0:Number(e.target.value)
+    console.log(shallowSaleTrends)
+    setsaleTrends(shallowSaleTrends)
+  }
+
+  const onSelectedBuisnessGoalsChange = (e) => {
+    setselectedBusinessGoals(e.target.value)
+
   }
 
   return (
@@ -224,18 +270,17 @@ function infoProject(props) {
                 <div className="input-container">
                   <BizTextInfo title="ระยะเวลาประเมินธุรกิจ" />
                   <input
-                    defaultValue={
-                      selectedProject.model_config.projection_period}
+                    defaultValue={selectedProject.model_config.projection_period}
                     onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                     className="input-newInvest-pj-small"
                     type="projection_period"
-                    {...register('projection_period', { required: true })}
+                    onChange={(e) => onProjectionPeriodChange(e)}
                     required
                   />
                 </div>
                 <div className="input-container">
                   <BizTextInfo title="สกุลเงิน" />
-                  {counter  > 11 &&
+                  {counter > round + 1 &&
                     <Select
                       defaultValue={selectedCurrency}
                       closeMenuOnSelect={false}
@@ -276,7 +321,7 @@ function infoProject(props) {
               />
             </div>
             <BizTextInfo title="ประเภทธุรกิจ" />
-            {counter > 11 &&
+            {counter > round + 1 &&
               <Select
                 closeMenuOnSelect={false}
                 components={animatedComponents}
@@ -318,6 +363,28 @@ function infoProject(props) {
             </button>
           </div>
         </div >
+        <div className="d-flex mt-2">
+          <div className="w-100 ">
+            <div className="text-center border border-primary">แนวโน้มยอดขาย</div>
+            {saleTrends.map((eachTrend) =>
+              <div className="d-flex">
+                <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
+                <input
+                  className="sale-trend-input"
+                  type='sale_trends'
+                  value={eachTrend.trend}
+                  id={`sale_trends_${eachTrend.year - 1}`}
+                  onChange={(e) => onEachSaleTrendChange(eachTrend,e)}
+                  // onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+                  // required
+                />
+              </div>
+            )}
+          </div>
+          <div className="w-100 ">
+            <div className="text-center border border-dark">เป้าหมายธุรกิจ</div>
+          </div>
+        </div>
       </form >
     </div >
   );

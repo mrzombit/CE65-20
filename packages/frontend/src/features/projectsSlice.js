@@ -24,7 +24,7 @@ export const fetchProjectById = createAsyncThunk(
     'projects/fetchProjectById',
     async (id) => {
         const response = await axios.get(`${CREATE_URL}${id}`)
-        return response.data
+        return JSON.parse(JSON.stringify(response.data))
     })
 
 export const addNewProject = createAsyncThunk(
@@ -45,7 +45,7 @@ export const updateProject = createAsyncThunk(
     'projects/updateProject',
     async (data) => {
         const response = await axios.put(`${UPDATE_URL}${data.id}`, data.data)
-        return response.data
+        return JSON.parse(JSON.stringify(response.data))
     }
 )
 
@@ -87,6 +87,7 @@ const projectsSlice = createSlice({
             .addCase(addNewProject.fulfilled, (state, action) => {
                 state.status = 'succeeded'
                 state.projects.push(action.payload.project)
+                state.selectedProject = action.payload.project
             })
             .addCase(updateProject.fulfilled, (state, action) => {
                 state.status = 'succeeded'

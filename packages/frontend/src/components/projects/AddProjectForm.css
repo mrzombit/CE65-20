@@ -1,0 +1,19 @@
+.sale-trend-box {
+    background-color: #6B7597;
+    border-radius: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+}
+
+.sale-trend-input {
+    border: solid 2px #6B7597;
+    border-radius: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

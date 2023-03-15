@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByUsername } from "../../features/usersSlice";
 import { fetchProjectsByUserId, setSelectedProject } from "../../features/projectsSlice";
 import BiztoolPopup from "../../components/common/biztoolPopup";
-import AddProjectForm from "../../features/OLD/projects/AddProjectForm";
+import AddProjectForm from "../../components/projects/AddProjectForm";
 
 function WorkSpacePage() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
