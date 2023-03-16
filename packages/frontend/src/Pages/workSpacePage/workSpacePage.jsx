@@ -52,6 +52,7 @@ function WorkSpacePage() {
   }, [auth.token, user, newProjectPopupState]);
 
   const handleProjectOnClick = (each) => {
+    console.log(JSON.stringify(each));
     dispatch(setSelectedProject(each))
     navigate('/ProjectConfig')
   }

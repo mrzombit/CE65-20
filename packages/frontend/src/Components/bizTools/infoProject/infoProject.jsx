@@ -49,7 +49,7 @@ function infoProject(props) {
   const [imageUrl, setImageUrl] = useState("")
   const [imageName, setImageName] = useState("")
   // const [event, setEvent] = useState()
-  const [projectionPeriod, setprojectionPeriod] = useState(selectedProject.model_config.projection_period)
+  const [projectionPeriod, setprojectionPeriod] = useState()
   const [saleTrends, setsaleTrends] = useState(JSON.parse(JSON.stringify(selectedProject.sale_trends)))
   const [selectedBusinessGoals, setselectedBusinessGoals] = useState([])
 
@@ -87,6 +87,7 @@ function infoProject(props) {
 
   useEffect(() => {
     if (isLoaded < round) {
+      setprojectionPeriod(selectedProject.model_config.projection_period)
       getCurrencyById(selectedProject.model_config.currency_id)
       getIndustryByIds(selectedProject.industry_ids)
 
