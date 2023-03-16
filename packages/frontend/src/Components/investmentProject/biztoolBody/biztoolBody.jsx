@@ -37,12 +37,6 @@ const BiztoolBody = (props) => {
             />
         </div>
       </div>}
-<<<<<<< Updated upstream
-      {props.type != "revenue" && <div className='biztool-body-flex '>
-        <BiztoolTableList
-          data={props.tableData}
-          type={props.type}
-=======
 
       {props.type.page == "miscellaneous" && <div className='biztool-body-flex '>
         <div >
@@ -87,7 +81,6 @@ const BiztoolBody = (props) => {
         <BiztoolTableList
           data={props.tableData}
           type={props.type.page}
->>>>>>> Stashed changes
           tableStyle={props.tableStyle} 
           onChangeHandle={props.onChangeHandle}
           />

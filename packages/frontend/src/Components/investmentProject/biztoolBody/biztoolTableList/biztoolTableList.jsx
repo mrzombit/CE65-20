@@ -5,12 +5,8 @@ const BiztoolTableList = (props) => {
   // const ÷]
   return (
     <div>
-<<<<<<< Updated upstream
-      {props.data.map((eachTable) =>
-=======
       {/* {JSON.stringify(props.data)} */}
       {/* {props.data != []? props.data.map((eachTable) =>
->>>>>>> Stashed changes
         <BiztoolTable
           key={eachTable.tableId}
           eachTable={eachTable}
