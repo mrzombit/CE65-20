@@ -7,7 +7,7 @@ import "./statementsPage.css";
 
 
 function StatementsPage() {
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.statementx)
+  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.statement)
 
   return (
     <div className="d-flex ">

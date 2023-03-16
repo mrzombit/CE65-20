@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BiztoolTable from './biztoolTable/biztoolTable'
 
 const BiztoolTableList = (props) => {
-  // const ÷]
+  
   return (
     <div>
       {Array.isArray(props.data) ?

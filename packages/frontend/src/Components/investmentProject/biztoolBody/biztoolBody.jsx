@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BiztoolAddTable from '../biztoolAddTable/biztoolAddTable'
 import BiztoolTableList from './biztoolTableList/biztoolTableList'
 import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig'
 import "./biztoolBody.css"
 
 const BiztoolBody = (props) => {
+
+  useEffect(() => {
+    console.log(`body !${JSON.stringify(props.tableData)}`);
+  }, [])
+
   return (
     <div className='biztool-body border border-dark p-2'>
       {props.type.page == BIZTOOL_PAGE_CONFIG.revenue.type.page && <div className='biztool-body-flex '>
@@ -16,7 +21,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleServiceFunction}
           />
           <BiztoolTableList
-            data={props.serviceTableData}
+            data={props.tableData.service_tables}
             type={props.type.service}
             tableStyle={props.tableStyle.serviceTableStyle} 
             onChangeHandle={props.onChangeHandle.onServiceChangeHandle}
@@ -30,7 +35,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleProductFunction}
           />
           <BiztoolTableList
-            data={props.productTableData}
+            data={props.tableData.product_tables}
             type={props.type.product}
             tableStyle={props.tableStyle.productTableStyle} 
             onChangeHandle={props.onChangeHandle.onProductChangeHandle}
