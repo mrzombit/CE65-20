@@ -2,7 +2,7 @@ import React from 'react'
 import BiztoolAddTable from '../biztoolAddTable/biztoolAddTable'
 import BiztoolTableList from './biztoolTableList/biztoolTableList'
 import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig'
-import "./biztoolBody.css"
+// import "./biztoolBody.css" 
 
 const BiztoolBody = (props) => {
   return (
@@ -16,7 +16,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleServiceFunction}
           />
           <BiztoolTableList
-            data={props.serviceTableData}
+            data={props.tableData.service_tables}
             type={props.type.service}
             tableStyle={props.tableStyle.serviceTableStyle} 
             onChangeHandle={props.onChangeHandle.onServiceChangeHandle}
@@ -30,7 +30,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleProductFunction}
           />
           <BiztoolTableList
-            data={props.productTableData}
+            data={props.tableData.product_tables}
             type={props.type.product}
             tableStyle={props.tableStyle.productTableStyle} 
             onChangeHandle={props.onChangeHandle.onProductChangeHandle}
