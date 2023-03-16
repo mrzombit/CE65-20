@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import BiztoolAddTable from '../biztoolAddTable/biztoolAddTable'
 import BiztoolTableList from './biztoolTableList/biztoolTableList'
 import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig'
-import "./biztoolBody.css"
+// import "./biztoolBody.css" 
 
 const BiztoolBody = (props) => {
 
