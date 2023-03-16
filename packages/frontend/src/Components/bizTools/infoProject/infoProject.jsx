@@ -81,7 +81,6 @@ function infoProject(props) {
     // setEvent()
     setImageUrl("")
     setDoSubmitCheck(false)
-    console.log(`reset! ${JSON.stringify(saleTrends)}`);
   }
 
 
@@ -111,8 +110,9 @@ function infoProject(props) {
         dispatch(updateProject({ id: selectedProject._id, data: projectShallow }))
         dispatch(projectUpdated(projectShallow))
       }
-      console.log(`submit! ${JSON.stringify(saleTrends)}`);
-      navigate('/ProjectConfig')
+      // console.log(`submit! ${JSON.stringify(saleTrends)}`);
+      // navigate('/ProjectConfig')
+      resetValue()
     }
     if (counter == round + 2) {
       alert('welcome')
