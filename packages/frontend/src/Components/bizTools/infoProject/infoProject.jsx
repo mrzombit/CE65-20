@@ -34,21 +34,23 @@ function infoProject(props) {
   const [industryOptions, setIndustryOptions] = useState([])
   const [currencyOptions, setCurrencyOptions] = useState([])
 
-  const [selectedCurrencyId, setSelectedCurrencyId] = useState()
-  const [selectedIndustryIds, setSelectedIndustryIds] = useState([])
+  const [selectedCurrencyId, setSelectedCurrencyId] = useState(selectedProject.model_config.currency_id)
+  const [selectedIndustryIds, setSelectedIndustryIds] = useState(selectedProject.industry_ids)
 
   const [selectedCurrency, setSelectedCurrency] = useState()
   const [selectedIndustries, setSelectedIndustries] = useState([])
 
-  const [isLoaded, setIsLoaded] = useState(0)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [counter, setCounter] = useState(0)
   const [doSubmitCheck, setDoSubmitCheck] = useState(false)
-  const [round, setRound] = useState(0)
+  const round = selectedProject.industry_ids.length
 
   const [file, setFile] = useState()
   const [imageUrl, setImageUrl] = useState("")
   const [imageName, setImageName] = useState("")
-  const [event, setEvent] = useState()
+  const [projectionPeriod, setprojectionPeriod] = useState()
+  const [saleTrends, setSaleTrends] = useState()
+  const [selectedBusinessGoals, setselectedBusinessGoals] = useState([])
 
   const getCurrencyById = async (id) => {
     let shallowSelectedCurrency = {}
@@ -60,29 +62,32 @@ function infoProject(props) {
       .catch(err => false);
   }
 
-  const getIndustryById = async (id) => {
+  const getIndustryByIds = async (ids) => {
     let shallowSelectedIndustry = selectedIndustries
-    const response = await axios.get(`${INDUSTRY_CREATE_URL}${id}`)
-      .then(res => {
-        shallowSelectedIndustry.push({ value: res.data._id, label: res.data.name.th })
-        setSelectedIndustries(shallowSelectedIndustry)
-      }
-      )
-      .catch(err => false);
+    await selectedProject.industry_ids.map(id => {
+      axios.get(`${INDUSTRY_CREATE_URL}${id}`)
+        .then(res => {
+          shallowSelectedIndustry.push({ value: res.data._id, label: res.data.name.th })
+        })
+        .catch(err => false);
+    })
+    setSelectedIndustries(shallowSelectedIndustry)
   }
 
   const resetValue = () => {
     setFile(null)
-    setIsLoaded(0)
+    setCounter(0)
     setImageName("")
-    setEvent({})
+    // setEvent()
     setImageUrl("")
+    setDoSubmitCheck(false)
   }
 
+
   useEffect(() => {
-    if (isLoaded!=10) {
+    if (counter < round) {
       getCurrencyById(selectedProject.model_config.currency_id)
-      selectedProject.industry_ids.map(each => getIndustryById(each))
+      getIndustryByIds(selectedProject.industry_ids)
 
       const shallowIndustryOptions = industries.map((each) => {
         return { value: each._id, label: each.name.th }
@@ -92,47 +97,51 @@ function infoProject(props) {
       })
       setCurrencyOptions(shallowCurrencyOptions)
       setIndustryOptions(shallowIndustryOptions)
-      setIsLoaded(isLoaded+1)
-      setCounter(counter+1)
+      setprojectionPeriod(selectedProject.model_config.projection_period)
+      setSaleTrends(JSON.parse(JSON.stringify(selectedProject.sale_trends)))
+      setCounter(counter + 1)
     }
-    else if (imageUrl != "") {
-      dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl } }))
-      dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl }))
-      resetValue()
-    }else if (doSubmitCheck){
-      dispatch(updateProject({ id: selectedProject._id, data: projectShallow }))
-      dispatch(projectUpdated({ projectShallow }))
+    else if (doSubmitCheck) {
+      if (imageUrl != "") {
+        dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl } }))
+        dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl }))
+
+      } else {
+        dispatch(updateProject({ id: selectedProject._id, data: projectShallow }))
+        dispatch(projectUpdated(projectShallow))
+      }
+      // console.log(`submit! ${JSON.stringify(saleTrends)}`);
+      // navigate('/ProjectConfig')
       resetValue()
     }
-    setCounter(counter+1)
-    // console.log(JSON.stringify(selectedCurrency));
-    // console.log(JSON.stringify(selectedIndustries));
-    if( counter == 12) {
+    if (counter == round + 2) {
       alert('welcome')
     }
-    // alert(JSON.stringify(currencyOptions))
-  }, [isLoaded, selectedCurrency, selectedIndustries, imageUrl])
+    setCounter(counter + 1)
+  }, [isLoaded, selectedCurrency, selectedIndustries, imageUrl, doSubmitCheck, projectionPeriod])
 
   const doSubmit = (event) => {
-    uploadData()
+    if (file) uploadData()
     const ToUploadProjectShallow = {
+      ...selectedProject,
       user_id: selectedProject.user_id,
       name: event.name,
       industry_ids: selectedIndustryIds,
       description: event.description,
-      logo_url: imageUrl,
+      logo_url: imageUrl != '' ? imageUrl : selectedProject.logo_url,
       created_date: selectedProject.created_date,
       modified_date: new Date(),
       model_config: {
-        projection_period: Number(event.projection_period),
+        projection_period: projectionPeriod,
         start_date: event.start_date,
         currency_id: selectedCurrencyId,
         working_hours: Number(event.working_hours),
         income_tax_rate: Number(event.income_tax_rate),
         discounting_rate: Number(event.discounting_rate),
       },
-      ...selectedProject
+      sale_trends: JSON.parse(JSON.stringify(saleTrends)),
     }
+    // alert(selectedIndustryIds)
     setDoSubmitCheck(true)
     setProjectShallow(ToUploadProjectShallow)
   }
@@ -163,162 +172,221 @@ function infoProject(props) {
     setSelectedIndustryIds(shallowSelectedIndustryIds)
   }
 
+  const onProjectionPeriodChange = (e) => {
+    let shallowSaleTrends = []
+    if (e.target.value != '') {
+      for (let i = 0; i < e.target.value; i++) {
+        if (i <= projectionPeriod - 1) {
+          shallowSaleTrends.push(saleTrends[i])
+        }
+        else {
+          let shallowSaleTrend = {
+            year: i + 1,
+            trend: 0,
+            description: "",
+          }
+          shallowSaleTrends.push(shallowSaleTrend)
+        }
+      }
+      setSaleTrends(shallowSaleTrends)
+      setprojectionPeriod(e.target.value)
+    }
+  }
+
+  const updateSaletrends = (shallowSaleTrends) => {
+    setIsLoaded(!isLoaded)
+    setSaleTrends(shallowSaleTrends)
+  }
+  const onEachSaleTrendChange = (index, value) => {
+    const shallowSaleTrends = saleTrends
+    shallowSaleTrends[index].trend = value
+    updateSaletrends(shallowSaleTrends)
+  }
+
+  const onSelectedBuisnessGoalsChange = (e) => {
+    setselectedBusinessGoals(e.target.value)
+
+  }
+
   return (
     <div className="new-invest-form">
-      <form onSubmit={handleSubmit(doSubmit)}>
-        <div className="d-flex label-newInvest-pj">
-          <div>
-            <div className="input-container">
-              <BizTextInfo title="ชื่อธุรกิจ" />
-              <input
-                defaultValue={selectedProject.name}
-                className="input-newInvest-pj"
-                style={{ width: "280px" }}
-                type="name"
-                {...register('name', { required: true })}
-                required
-              />
-            </div>
-            <div className="d-flex flex-col">
-              <div className="input-container ">
-                <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
-                {selectedProject.logo_url == "" ? <BizLogo /> :
-                  <div>
-                    <div className="LogoImageStyle">
-                      <img src={`${WEB_URL}${selectedProject.logo_url}`}
-                        className='mw-100 mh-100'
-                      />
+      {counter >= round &&
+        <form onSubmit={handleSubmit(doSubmit)}>
+          <div className="d-flex label-newInvest-pj">
+            <div>
+              <div className="input-container">
+                <BizTextInfo title="ชื่อธุรกิจ" />
+                <input
+                  defaultValue={selectedProject.name}
+                  className="input-newInvest-pj"
+                  style={{ width: "280px" }}
+                  type="name"
+                  {...register('name', { required: true })}
+                  required
+                />
+              </div>
+              <div className="d-flex flex-col">
+                <div className="input-container ">
+                  <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
+                  {selectedProject.logo_url == "" ? <BizLogo /> :
+                    <div>
+                      <div className="LogoImageStyle">
+                        <img src={`${WEB_URL}${selectedProject.logo_url}`}
+                          className='mw-100 mh-100'
+                        />
+                      </div>
+                      <div>{imageName !== '' ? `รูปโลโกที่เลือก: ${imageName}` : "คุณยังไม่ได้เลือกรูปโลโกใหม่"}</div>
                     </div>
-                    <div>{imageName !== '' ? `รูปโลโกที่เลือก: ${imageName}` : "คุณยังไม่ได้เลือกรูปโลโกใหม่"}</div>
-                  </div>
-                }
-                <div>
-                  <button
-                    for="getFiles"
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => document.getElementById('getFiles').click()}
-                  >อัพโหลดรูปภาพ</button>
-                  <input
-                    name="logo"
-                    type="file"
-                    id="getFiles"
-                    style={{ display: "none" }}
-                    onChange={(e) => onUploadChange(e)}
-                  />
-                </div>
-              </div>
-              <div className="flex-col">
-                <div className="input-container">
-                  <BizTextInfo title="วันเริ่มดำเนินธุรกิจ" />
-                  <input
-                    defaultValue={timeToShow("input-date",
-                      selectedProject.model_config.start_date)}
-                    className="input-newInvest-pj-xx[small"
-                    type="date"
-                    {...register('start_date', { required: true })}
-                    required
-                  />
-                  {/* {"oo"} */}
-                </div>
-                <div className="input-container">
-                  <BizTextInfo title="ระยะเวลาประเมินธุรกิจ" />
-                  <input
-                    defaultValue={
-                      selectedProject.model_config.projection_period}
-                    onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
-                    className="input-newInvest-pj-small"
-                    type="projection_period"
-                    {...register('projection_period', { required: true })}
-                    required
-                  />
-                </div>
-                <div className="input-container">
-                  <BizTextInfo title="สกุลเงิน" />
-                  {counter  > 11 &&
-                    <Select
-                      defaultValue={selectedCurrency}
-                      closeMenuOnSelect={false}
-                      components={animatedComponents}
-                      name="currency_id"
-                      options={currencyOptions}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                      onChange={(e) => onCurrencyChange(e)}
-                    />
                   }
+                  <div>
+                    <button
+                      for="getFiles"
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => document.getElementById('getFiles').click()}
+                    >อัพโหลดรูปภาพ</button>
+                    <input
+                      name="logo"
+                      type="file"
+                      id="getFiles"
+                      style={{ display: "none" }}
+                      onChange={(e) => onUploadChange(e)}
+                    />
+                  </div>
+                </div>
+                <div className="flex-col">
+                  <div className="input-container">
+                    <BizTextInfo title="วันเริ่มดำเนินธุรกิจ" />
+                    <input
+                      defaultValue={timeToShow("input-date",
+                        selectedProject.model_config.start_date)}
+                      className="input-newInvest-pj-xx[small"
+                      type="date"
+                      {...register('start_date', { required: true })}
+                      required
+                    />
+                    {/* {"oo"} */}
+                  </div>
+                  <div className="input-container">
+                    <BizTextInfo title="ระยะเวลาประเมินธุรกิจ" />
+                    <input
+                      defaultValue={selectedProject.model_config.projection_period}
+                      onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+                      className="input-newInvest-pj-small"
+                      type="projection_period"
+                      onChange={(e) => onProjectionPeriodChange(e)}
+                      required
+                    />
+                  </div>
+                  <div className="input-container">
+                    <BizTextInfo title="สกุลเงิน" />
+                    {counter > round + 1 &&
+                      <Select
+                        defaultValue={selectedCurrency}
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        name="currency_id"
+                        options={currencyOptions}
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={(e) => onCurrencyChange(e)}
+                      />
+                    }
+                  </div>
+                  <div className="input-container">
+                    <BizTextInfo title="ชั่วโมงทำงาน/วัน" />
+                    <input
+                      defaultValue={
+                        selectedProject.model_config.working_hours}
+                      onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+                      // placeholder="8 ชม./วัน"
+                      className="input-newInvest-pj-small"
+                      type="working_hours"
+                      {...register('working_hours', { required: true })}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="input-container">
+                <BizTextInfo title="คำอธิบายเกี่ยวกับธุรกิจ" />
+                <textarea
+                  defaultValue={selectedProject.description}
+                  className="input-newInvest-pj"
+                  style={{ height: "143px", width: "250px" }}
+                  type="description"
+                  {...register('description', { required: false })}
+                />
+              </div>
+              <BizTextInfo title="ประเภทธุรกิจ" />
+              {counter > round + 1 &&
+                <Select
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  isMulti
+                  defaultValue={selectedIndustries}
+                  name="industry_ids"
+                  options={industryOptions}
+                  className="basic-multi-select min-w-select"
+                  classNamePrefix="select"
+                  onChange={(e) => onIndustryChange(e)}
+                />
+              }
+              <div className="d-flex flex-col">
+                <div className="input-container">
+                  <BizTextInfo title="ภาษีเงินได้ (%)" />
+                  <input
+                    defaultValue={selectedProject.model_config.income_tax_rate}
+                    onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+                    className="input-newInvest-pj-small"
+                    type="income_tax_rate"
+                    {...register('income_tax_rate', { required: true })}
+                    required
+                  />
                 </div>
                 <div className="input-container">
-                  <BizTextInfo title="ชั่วโมงทำงาน/วัน" />
+                  <BizTextInfo title="อัตราเงินคิดลด (%)" />
                   <input
-                    defaultValue={
-                      selectedProject.model_config.working_hours}
+                    defaultValue={selectedProject.model_config.discounting_rate}
                     onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
-                    // placeholder="8 ชม./วัน"
                     className="input-newInvest-pj-small"
-                    type="working_hours"
-                    {...register('working_hours', { required: true })}
+                    type="discounting_rate"
+                    {...register('discounting_rate', { required: true })}
                     required
                   />
                 </div>
               </div>
+              <button type="submit" class="btn login-butt">
+                บันทึกการแก้ไข
+              </button>
+            </div>
+          </div >
+          <div className="d-flex mt-2">
+            <div className="w-100 ">
+              <div className="text-center border border-primary">แนวโน้มยอดขาย</div>
+              {saleTrends.map((eachTrend) =>
+                <div className="d-flex">
+                  <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
+                  <input
+                    className="sale-trend-input"
+                    type='sale_trends'
+                    value={eachTrend.trend}
+                    id={`sale_trends_${eachTrend.year - 1}`}
+                    onChange={(e) => onEachSaleTrendChange(eachTrend.year - 1, e.target.value)}
+                    onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+                  // required
+                  />
+                </div>
+              )}
+            </div>
+            <div className="w-100 ">
+              <div className="text-center border border-dark">เป้าหมายธุรกิจ</div>
             </div>
           </div>
-          <div>
-            <div className="input-container">
-              <BizTextInfo title="คำอธิบายเกี่ยวกับธุรกิจ" />
-              <textarea
-                defaultValue={selectedProject.description}
-                className="input-newInvest-pj"
-                style={{ height: "143px", width: "250px" }}
-                type="description"
-                {...register('description', { required: false })}
-              />
-            </div>
-            <BizTextInfo title="ประเภทธุรกิจ" />
-            {counter > 11 &&
-              <Select
-                closeMenuOnSelect={false}
-                components={animatedComponents}
-                isMulti
-                defaultValue={selectedIndustries}
-                name="industry_ids"
-                options={industryOptions}
-                className="basic-multi-select min-w-select"
-                classNamePrefix="select"
-                onChange={(e) => onIndustryChange(e)}
-              />
-            }
-            <div className="d-flex flex-col">
-              <div className="input-container">
-                <BizTextInfo title="ภาษีเงินได้ (%)" />
-                <input
-                  defaultValue={selectedProject.model_config.income_tax_rate}
-                  onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
-                  className="input-newInvest-pj-small"
-                  type="income_tax_rate"
-                  {...register('income_tax_rate', { required: true })}
-                  required
-                />
-              </div>
-              <div className="input-container">
-                <BizTextInfo title="อัตราเงินคิดลด (%)" />
-                <input
-                  defaultValue={selectedProject.model_config.discounting_rate}
-                  onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
-                  className="input-newInvest-pj-small"
-                  type="discounting_rate"
-                  {...register('discounting_rate', { required: true })}
-                  required
-                />
-              </div>
-            </div>
-            <button type="submit" class="btn login-butt">
-              บันทึกการแก้ไข
-            </button>
-          </div>
-        </div >
-      </form >
+        </form >
+      }
     </div >
   );
 }

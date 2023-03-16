@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
+import './AddProjectForm.css'
 
-import BizTextInfo from "../../../components/bizTools/bizTextInfo/bizTextInfo";
-import BizLogo from "../../../components/bizTools/bizLogo/bizLogo";
-import ProjectTempleteCard from "../../../components/projects/projectTempleteCard/projectTempleteCard";
+import BizTextInfo from "../bizTools/bizTextInfo/bizTextInfo";
+import BizLogo from "../bizTools/bizLogo/bizLogo";
+import ProjectTempleteCard from "./projectTempleteCard/projectTempleteCard";
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { addNewProject, setSelectedProject } from "../../projectsSlice";
+import { addNewProject, setSelectedProject } from "../../features/projectsSlice";
 
 const AddProjectForm = () => {
   const animatedComponents = makeAnimated();
@@ -30,6 +31,9 @@ const AddProjectForm = () => {
   const [file, setFile] = useState()
   const [imageUrl, setImageUrl] = useState("")
   const [event, setEvent] = useState()
+  const [projectionPeriod, setprojectionPeriod] = useState(0)
+  const [saleTrends, setsaleTrends] = useState([])
+  const [selectedBusinessGoals, setselectedBusinessGoals] = useState([])
 
   useEffect(() => {
     if (imageUrl == "") {
@@ -51,7 +55,7 @@ const AddProjectForm = () => {
         logo_url: imageUrl,
         created_date: new Date(),
         modified_date: new Date(),
-        sale_trends: [],
+        sale_trends: saleTrends,
         business_goals: [],
         model_config: {
           projection_period: Number(event.projection_period),
@@ -80,7 +84,7 @@ const AddProjectForm = () => {
       dispatch(setSelectedProject(projectShallow))
       navigate('/ProjectConfig')
     }
-  }, [industries, currencies, imageUrl])
+  }, [industries, currencies, imageUrl, projectionPeriod])
 
   const doSubmit = (data) => {
     uploadData(data)
@@ -100,6 +104,40 @@ const AddProjectForm = () => {
 
   const onUploadChange = (e) => {
     setFile(e.target.files[0])
+  }
+
+  const onProjectionPeriodChange = (e) => {
+    let shallowSaleTrends = []
+    if (e.target.value != '') {
+      for (let i = 0; i < e.target.value; i++) {
+        if (i <= projectionPeriod - 1) {
+          shallowSaleTrends.push(saleTrends[i])
+        }
+        else {
+          let shallowSaleTrend = {
+            year: i + 1,
+            trend: 0,
+            description: "",
+          }
+          shallowSaleTrends.push(shallowSaleTrend)
+        }
+      }
+      setsaleTrends(shallowSaleTrends)
+      setprojectionPeriod(e.target.value)
+      console.log(saleTrends);
+    }
+  }
+
+  const onEachSaleTrendChange = (year, val) => {
+    let shallowSaleTrends = saleTrends
+    shallowSaleTrends[year - 1].trend = val
+    setsaleTrends(shallowSaleTrends)
+    alert(JSON.stringify(shallowSaleTrends))
+  }
+
+  const onSelectedBuisnessGoalsChange = (e) => {
+    setselectedBusinessGoals(e.target.value)
+
   }
 
   const onCurrencyChange = (e) => {
@@ -169,6 +207,7 @@ const AddProjectForm = () => {
                     className="input-newInvest-pj-small"
                     type="projection_period"
                     {...register('projection_period', { required: true })}
+                    onChange={(e) => onProjectionPeriodChange(e)}
                     required
                   />
                 </div>
@@ -250,6 +289,29 @@ const AddProjectForm = () => {
             </button>
           </div>
         </div >
+        <div className="d-flex mt-2">
+          <div className="w-100 ">
+            <div className="text-center border border-primary">แนวโน้มยอดขาย</div>
+            {saleTrends.map((eachTrend) =>
+              <div className="d-flex">
+                <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
+                <input
+                  className="sale-trend-input"
+                  type='sale_trends'
+                  id={`sale_trends_${eachTrend.year-1}`}
+                  onChange={(e) => onEachSaleTrendChange(eachTrend.year, e.target.value)}
+                  onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+                  {...register(`sale_trends_${eachTrend.year-1}`, { required: true })}
+                  required
+                />
+              </div>
+            )}
+          </div>
+          <div className="w-100 ">
+            <div className="text-center border border-dark">เป้าหมายธุรกิจ</div>
+          </div>
+        </div>
+        
       </form >
       <hr></hr>
       <div>สร้างโปรเจคธุรกิจจากเทมเพลตที่มี</div>

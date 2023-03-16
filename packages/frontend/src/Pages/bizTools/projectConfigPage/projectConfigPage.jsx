@@ -5,13 +5,11 @@ import InfoProject from "../../../components/bizTools/infoProject/infoProject";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjectById } from "../../../features/projectsSlice";
+import BIZTOOL_PAGE_CONFIG from "../pageConfig";
 
 function ProjectConfigPage() {
 
-  const [config, setConfig] = useState({
-    type: "project-config",
-    title: "เกี่ยวกับธุรกิจ",
-  })
+  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.projectConfig)
 
   return (
     <div className="d-flex">
