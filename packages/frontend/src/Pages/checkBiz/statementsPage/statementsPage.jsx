@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 import StatementCard from "../../../components/subscription/statementCard/statementCard";
+import BIZTOOL_PAGE_CONFIG from "../../bizTools/pageConfig";
 import "./statementsPage.css";
 
 
 function StatementsPage() {
-  const [config, setConfig] = useState({
-    type: "statement",
-    title: "Financial Statement",
-  })
+  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.statementx)
 
   return (
     <div className="d-flex ">

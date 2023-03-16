@@ -10,14 +10,12 @@ import FFCFour from "../../../components/ffc/ffcFour/ffcFour";
 import FFCFive from "../../../components/ffc/ffcFive/ffcFive";
 import FFCSix from "../../../components/ffc/ffcSix/ffcSix";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
+import BIZTOOL_PAGE_CONFIG from "../../bizTools/pageConfig";
 
 function FFCPage() {
   const [page, setPage] = useState("pageone");
 
-  const [config, setConfig] = useState({
-    type: "ffc",
-    title: "Financial Feasibility Canvas",
-  })
+  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.ffc)
 
   const nextPage = (page) => {
     setPage(page);

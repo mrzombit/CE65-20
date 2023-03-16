@@ -2,6 +2,7 @@ import React from 'react'
 import { IconContext } from 'react-icons'
 import { AiFillInfoCircle } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig'
 import BiztoolAddTable from '../biztoolAddTable/biztoolAddTable'
 import "./biztoolHeader.css"
 
@@ -18,10 +19,11 @@ const BiztoolHeader = (props) => {
             </IconContext.Provider>
           </Link>
         </div>
-        {props.type != "revenue" &&
-          props.type != "project-config" &&
-          props.type != "ffc" &&
-          props.type != "statement" &&
+        {props.type.page != BIZTOOL_PAGE_CONFIG.revenue.type.page &&
+          props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
+          props.type.page != BIZTOOL_PAGE_CONFIG.projectConfig.type.page &&
+          props.type.page != BIZTOOL_PAGE_CONFIG.ffc.type.page &&
+          props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page &&
           <BiztoolAddTable
             type={props.type}
             title="+ ตารางใหม่"

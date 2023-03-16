@@ -4,11 +4,11 @@ import "../biztools.css";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 import BiztoolBody from "../../../components/investmentProject/biztoolBody/biztoolBody";
 import BIZTOOL_PAGE_CONFIG from "../pageConfig";
-import BIZTOOL_PAGE_MOCKDATA from '../pageMockData'
+import { useSelector } from "react-redux";
 
 function TotalInvestmentPage() {
-
-  const [tableData, setTableData] = useState(BIZTOOL_PAGE_MOCKDATA.totalInvestment.data)
+  const selectedProject = useSelector(state => state.projects.selectedProject)
+  const [tableData, setTableData] = useState(selectedProject.totalInvestment)
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.totalInvestment)
 
   return (

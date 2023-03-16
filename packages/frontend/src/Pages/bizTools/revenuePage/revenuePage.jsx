@@ -5,7 +5,6 @@ import BiztoolBody from "../../../components/investmentProject/biztoolBody/bizto
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 import '../biztools.css'
 import BIZTOOL_PAGE_CONFIG from "../pageConfig";
-import BIZTOOL_PAGE_MOCKDATA from "../pageMockData";
 
 function RevenuePage() {
 
@@ -25,7 +24,7 @@ function RevenuePage() {
         <BiztoolBody
           type={config.type}
           tableStyle={config.tableStyle}
-          tableData={selectedProject.revenue}
+          tableData={tableData}
           onChangeHandle={config.onChangeHandle}
           handleFunction={config.addTableHandleFunction}
         />

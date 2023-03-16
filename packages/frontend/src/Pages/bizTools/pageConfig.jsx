@@ -1,5 +1,8 @@
 const BIZTOOL_PAGE_CONFIG = {
-    pageConfig: {},
+    projectConfig: {
+      type: { page: "page-config", pageConfig: "page-config" },
+      title: "เกี่ยวกับธุรกิจ",
+    },
     totalInvestment: {
       type: { page: "total-investment", totalInvestment: "total-investment" },
       title: "ต้นทุนธุรกิจ",
@@ -65,7 +68,6 @@ const BIZTOOL_PAGE_CONFIG = {
           },
         ],
       },
-      // addresstable: ["r1c1",]
     },
     operationCost: {
       type: { page: "operation-cost", operationCost: "operation-cost" },
@@ -74,6 +76,7 @@ const BIZTOOL_PAGE_CONFIG = {
         alert("popup!");
       },
       onChangeHandle: (table, row, col, value) => {
+        console.log(`talble #${table}`);
         console.log(`${row}, ${col}, ${value}`);
       },
       tableStyle: {
@@ -417,6 +420,17 @@ const BIZTOOL_PAGE_CONFIG = {
         debtIssuance: "miscellaneous-debt-issuance",
       },
       title: "เงินกู้และหุ้นส่วน",
+      addTableHandleFunction: {
+        addTableHandleEquityContributionFunction: (input) => {
+          alert("EquityContribution");
+        },
+        addTableHandleEquityRepaymentFunction: (input) => {
+          alert("EquityRepayment");
+        },
+        addTableHandleDebtIssuanceFunction: (input) => {
+          alert("DebtIssuance");
+        },
+      },
       onChangeHandle: {
         onEquityContributionChangeHandle: (table, row, col, value) => {
           console.log(`${row}, ${col}, ${value}`);
@@ -429,7 +443,7 @@ const BIZTOOL_PAGE_CONFIG = {
         },
       },
       tableStyle: {
-        shareholderTableStyle: {
+        equityContributionTableStyle: {
           showColumnHeader: true,
           column: [
             {
@@ -461,7 +475,7 @@ const BIZTOOL_PAGE_CONFIG = {
             },
           ],
         },
-        dividendRecipientTableStyle: {
+        equityRepaymentTableStyle: {
           showColumnHeader: true,
           column: [
             {
@@ -493,7 +507,7 @@ const BIZTOOL_PAGE_CONFIG = {
             },
           ],
         },
-        loanTableStyle: {
+        debtIssuanceTableStyle: {
           showColumnHeader: true,
           column: [
             {
@@ -567,6 +581,14 @@ const BIZTOOL_PAGE_CONFIG = {
           ],
         },
       },
+    },
+    ffc: {
+      type: { page: "ffc", ffc: "ffc" },
+      title: "Financial Feasibility Canvas",
+    },
+    statement: {
+      type: { page: "statement", statement: "statement" },
+      title: "เอกสารการเงิน",
     },
   };
   
