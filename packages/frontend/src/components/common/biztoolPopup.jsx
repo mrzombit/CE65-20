@@ -8,12 +8,28 @@ function BiztoolPopup(props) {
   return props.trigger ? (
     <div className="popup-overlay">
       <div className="popup-card">
-        <div className="d-flex flex-col align-items-center justify-content-between">
-          <BizTextInfo title={props.title} />
-          <AiOutlineClose onClick={props.close} />
-        </div>
+
+        {props.leftTitle &&
+          <div className="d-flex flex-col align-items-center justify-content-between">
+
+            <BizTextInfo title={props.leftTitle} />
+            <AiOutlineClose onClick={props.close} />
+
+          </div>}
         <hr></hr>
-        <div className="popup-content">
+
+        {props.preTitle &&
+          <div className=" flex-col justify-content-center  d-flex">
+            <div className="preTitle-header-style">{props.preTitle}</div>
+            <div className="justify-content-end">
+              <AiOutlineClose onClick={props.close} />
+            </div>
+          </div>}
+        {props.title &&
+          <div className=" flex-col justify-content-center title-header-style d-flex">
+            {props.title}
+          </div>}
+        <div className="border border-primary align-items-center popup-content">
           {props.content}
         </div>
       </div>

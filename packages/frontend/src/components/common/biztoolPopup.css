@@ -76,3 +76,14 @@
 .min-w-select{
   width: 250px;
 }
+
+.preTitle-header-style{
+  color: #364164;
+  font-size: medium;
+}
+
+.title-header-style{
+  color: #313A58;
+  font-weight: 600;
+  font-size:x-large;
+}

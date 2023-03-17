@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import InfoProject from "../../../components/bizTools/infoProject/infoProject";
 
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProjectById } from "../../../features/projectsSlice";
 import BIZTOOL_PAGE_CONFIG from "../pageConfig";
 
 function ProjectConfigPage() {
@@ -16,7 +14,7 @@ function ProjectConfigPage() {
       <BizSidebar />
       <div className="">x
         <BiztoolHeader type={config.type} title={config.title} />
-        <InfoProject />
+        <InfoProject/>
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import "./workSpacePage.css";
 import Bizbutton from "../../components/bizTools/bizButton/bizButton";
@@ -12,7 +10,7 @@ import {
 } from "react-icons/vsc";
 import { CiGrid41 } from "react-icons/ci";
 import ProjectCard from "../../components/projects/projectCard/projectCard";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByUsername } from "../../features/usersSlice";
 import { fetchProjectsByUserId, setSelectedProject } from "../../features/projectsSlice";
@@ -20,7 +18,6 @@ import BiztoolPopup from "../../components/common/biztoolPopup";
 import AddProjectForm from "../../components/projects/AddProjectForm";
 
 function WorkSpacePage() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [newProjectPopupState, setNewProjectPopupState] = useState(false);
 
   const dispatch = useDispatch()
@@ -39,13 +36,11 @@ function WorkSpacePage() {
           setIsLoaded({ user: true, projects: false })
         }
       }
-      // if(isLoaded) console.log(JSON.stringify(user));
       if (isLoaded.user) {
         if (!isLoaded.projects) {
           dispatch(fetchProjectsByUserId(user._id))
           setIsLoaded({ user: true, projects: true })
         }
-        // else console.log(JSON.stringify(projects))
       }
     }
     else navigate('/login')
@@ -57,25 +52,19 @@ function WorkSpacePage() {
     navigate('/ProjectConfig')
   }
 
-  const closePopup = () => {
-    setIsLoaded({ user: true, projects: false })
-    setNewProjectPopupState(false)
-  }
-
   return (
     <div>
       <BiztoolPopup
-        title="สร้างโปรเจกธุรกิจใหม่"
+        leftTitle="สร้างโปรเจกธุรกิจใหม่"
         content={<AddProjectForm />}
         trigger={newProjectPopupState}
         close={() => setNewProjectPopupState(false)}
-      ></BiztoolPopup>
+      />
       <div className="ws">
         <p className="head-text-ws mt-4">ธุรกิจของฉัน</p>
         <hr className="line"></hr>
         <div className="d-flex mt-4">
           <div className="d-flex">
-            {/* <Link to="/NewInvestmentProject" className="no-text-link"> */}
             <Bizbutton
               onClick={() => setNewProjectPopupState(true)}
               name="สร้างโปรเจกธุรกิจใหม่"
@@ -83,8 +72,6 @@ function WorkSpacePage() {
               icon={<VscExtensions />}
               add={<VscAdd />}
             />
-
-            {/* </Link> */}
             <Bizbutton
               name="เปรียบเทียบระหว่างธุรกิจ 0/4"
               details="เปรียบเทียบความน่าลงทุนระหว่างธุรกิจ"
