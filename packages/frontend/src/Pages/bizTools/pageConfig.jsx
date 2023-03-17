@@ -196,8 +196,8 @@ const BIZTOOL_PAGE_CONFIG = {
             },
             {
               colId: 2,
-              title: "จำนวน(หน่วย)",
-              width: 100,
+              title: "อายุสินค้า(เดือน)",
+              width: 115,
               type: "money",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -205,16 +205,7 @@ const BIZTOOL_PAGE_CONFIG = {
             },
             {
               colId: 3,
-              title: "หน่วย",
-              width: 70,
-              type: "text",
-              backgroundColor: "#ffffff",
-              color: "#000000",
-              editable: true,
-            },
-            {
-              colId: 4,
-              title: "บริการได้(หน่วย)/วัน",
+              title: "รายได้เฉลี่ย(บาท)/วัน",
               width: 140,
               type: "money",
               backgroundColor: "#ffffff",
@@ -222,18 +213,27 @@ const BIZTOOL_PAGE_CONFIG = {
               editable: true,
             },
             {
+              colId: 4,
+              title: "ต้นทุน/หน่วย",
+              width: 90,
+              type: "percent",
+              backgroundColor: "#ffffff",
+              color: "#000000",
+              editable: true,
+            },
+            {
               colId: 5,
-              title: "รายได้เฉลี่ย/วัน/บริการ",
-              width: 160,
-              type: "money",
+              title: "อัตราเพิ่มของราคาขาย",
+              width: 150,
+              type: "percent",
               backgroundColor: "#ffffff",
               color: "#000000",
               editable: true,
             },
             {
               colId: 6,
-              title: "ต้นทุน/หน่วย",
-              width: 100,
+              title: "อัตราเพิ่มของต้นทุน",
+              width: 140,
               type: "percent",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -241,8 +241,8 @@ const BIZTOOL_PAGE_CONFIG = {
             },
             {
               colId: 7,
-              title: "อัตราเพิ่มของราคาขาย",
-              width: 150,
+              title: "เริ่มขายตั้งแต่",
+              width: 100,
               type: "dropdown",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -264,8 +264,8 @@ const BIZTOOL_PAGE_CONFIG = {
             },
             {
               colId: 8,
-              title: "อัตราเพิ่มของต้นทุน",
-              width: 150,
+              title: "แนวโน้มการขายรายเดือน",
+              width: 180,
               type: "dropdown",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -288,7 +288,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 9,
               title: "เริ่มบริการ/ผลิต",
-              width: 150,
+              width: 110,
               type: "date",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -448,7 +448,7 @@ const BIZTOOL_PAGE_CONFIG = {
           column: [
             {
               colId: 1,
-              title: "ชื่อตาราง",
+              title: "รายชื่อผู้ถือหุ้น",
               width: 200,
               type: "text",
               backgroundColor: "#ffffff",
@@ -467,7 +467,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 3,
               title: "วันที่ลงทุน",
-              width: 150,
+              width: 120,
               type: "date",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -480,7 +480,7 @@ const BIZTOOL_PAGE_CONFIG = {
           column: [
             {
               colId: 1,
-              title: "ชื่อตาราง",
+              title: "รายชื่อผู้รับปันผล",
               width: 200,
               type: "text",
               backgroundColor: "#ffffff",
@@ -499,7 +499,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 3,
               title: "วันที่ปันผล",
-              width: 150,
+              width: 120,
               type: "date",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -512,7 +512,7 @@ const BIZTOOL_PAGE_CONFIG = {
           column: [
             {
               colId: 1,
-              title: "ชื่อตาราง",
+              title: "การกู้ยืม",
               width: 200,
               type: "text",
               backgroundColor: "#ffffff",
@@ -522,7 +522,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 2,
               title: "จำนวน(บาท)",
-              width: 100,
+              width: 120,
               type: "money",
               backgroundColor: "#ffffff",
               color: "#000000",
