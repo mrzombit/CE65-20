@@ -12,7 +12,6 @@ import "./infoProject.css";
 import { projectUpdated, updateProject } from "../../../features/projectsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { WEB_URL } from "../../../webConfig";
 import axios from "axios";
 import timeToShow from "../../common/timeToShow";
@@ -101,18 +100,20 @@ function infoProject(props) {
       setIndustryOptions(shallowIndustryOptions)
       setprojectionPeriod(selectedProject.model_config.projection_period)
       setSaleTrends(JSON.parse(JSON.stringify(selectedProject.sale_trends)))
-      setselectedBusinessGoals(JSON.parse(JSON.stringify(selectedProject.business_goals)))
+      setselectedBusinessGoals(JSON.parse(JSON.stringify(selectedProject.business_goals?selectedProject.business_goals:[])))
       setCounter(counter + 1)
     }
     else if (doSubmitCheck) {
+      alert(JSON.stringify(selectedBusinessGoals));
+
       if (imageUrl != "") {
-        dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl, business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals))} }))
-        dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl , business_goals:JSON.parse(JSON.stringify(selectedBusinessGoals))}))
+        dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl, business_goals: selectedBusinessGoals }}))
+        dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl , business_goals: (selectedBusinessGoals)}))
         console.log('with img');
 
       } else {
-        dispatch(updateProject({ id: selectedProject._id, data: {...projectShallow, business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals))} }))
-        dispatch(projectUpdated({...projectShallow, business_goals:JSON.parse(JSON.stringify(selectedBusinessGoals))}))
+        dispatch(updateProject({ id: selectedProject._id, data: {...projectShallow, business_goals: selectedBusinessGoals }}))
+        dispatch(projectUpdated({...projectShallow, business_goals: selectedBusinessGoals}))
         console.log('no img');
 
       }
@@ -141,6 +142,7 @@ function infoProject(props) {
         discounting_rate: Number(event.discounting_rate),
       },
       sale_trends: JSON.parse(JSON.stringify(saleTrends)),
+      business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals)),
     }
     // alert(selectedIndustryIds)
     setDoSubmitCheck(true)
@@ -219,8 +221,8 @@ function infoProject(props) {
     if (!shallowBusienssGoals.find(each => each.name.en == shallowSelectedGoal.name.en)) {
       // alert(JSON.stringify(shallowSelectedGoal))
       shallowBusienssGoals.push(JSON.parse(JSON.stringify(shallowSelectedGoal)))
-      alert(JSON.stringify(selectedGoal))
-      alert(JSON.stringify(shallowBusienssGoals))
+      // alert(JSON.stringify(selectedGoal))
+      // alert(JSON.stringify(shallowBusienssGoals))
       setselectedBusinessGoals(JSON.parse(JSON.stringify(shallowBusienssGoals)))
       setSelectBusinessGoalState(false)
     }

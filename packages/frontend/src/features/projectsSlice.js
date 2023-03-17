@@ -45,7 +45,7 @@ export const updateProject = createAsyncThunk(
     'projects/updateProject',
     async (data) => {
         const response = await axios.put(`${UPDATE_URL}${data.id}`, data.data)
-        return JSON.parse(JSON.stringify(response.data))
+        return response.data
     }
 )
 
