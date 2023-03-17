@@ -17,8 +17,11 @@ export const ProjectSchema = new mongoose.Schema({
     ],
     business_goals: [
         {
-            business_goal_id: String,
-            goal: {
+            name: {
+                th: String,
+                en: String,
+            },
+            detail: {
             },
         }
     ],

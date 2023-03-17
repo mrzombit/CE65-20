@@ -17,8 +17,11 @@ export interface Project extends Document {
     ];
     readonly business_goals: [
         {
-            business_goal_id: string,
-            goal: {
+            name: {
+                th: string,
+                en: string,
+            },
+            detail: {
             },
         }
     ];

@@ -11,10 +11,23 @@ import ProjectTempleteCard from "./projectTempleteCard/projectTempleteCard";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { addNewProject, setSelectedProject } from "../../features/projectsSlice";
+import { addNewProject, setSelectedProject, updateProject } from "../../features/projectsSlice";
+import BiztoolPopup from "../common/biztoolPopup";
+import BusinessGoalContent from "./businessGoal/businessGoalContent";
+import CashflowContent from "./businessGoal/cashflowContent";
 
 const AddProjectForm = () => {
   const animatedComponents = makeAnimated();
+  const [selectBusinessGoalState, setSelectBusinessGoalState] = useState(false)
+  const [setCashflowState, setSetCashflowState] = useState(false)
+  const [cashflowStateType, setCashflowStateType] = useState()
+  const [currenCashflowData, setCurrenCashflowData] = useState()
+  const handleCashflowState = (type, data) => {
+    setCashflowStateType(type == 'yearly' ? 'รายปี' : 'รายเดือน')
+    setCurrenCashflowData(data)
+    setSetCashflowState(true)
+  }
+  //CashflowContent
 
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
@@ -56,7 +69,7 @@ const AddProjectForm = () => {
         created_date: new Date(),
         modified_date: new Date(),
         sale_trends: saleTrends,
-        business_goals: [],
+        business_goals: selectedBusinessGoals,
         model_config: {
           projection_period: Number(event.projection_period),
           start_date: event.start_date,
@@ -80,6 +93,7 @@ const AddProjectForm = () => {
           ffcReason: "",
         }
       }
+      // alert(JSON.stringify(projectShallow));
       dispatch(addNewProject(projectShallow))
       dispatch(setSelectedProject(projectShallow))
       navigate('/ProjectConfig')
@@ -88,6 +102,8 @@ const AddProjectForm = () => {
 
   const doSubmit = (data) => {
     uploadData(data)
+    // alert(JSON.stringify(selectedBusinessGoals));
+
   }
 
   const uploadData = (data) => {
@@ -124,7 +140,7 @@ const AddProjectForm = () => {
       }
       setsaleTrends(shallowSaleTrends)
       setprojectionPeriod(e.target.value)
-      console.log(saleTrends);
+      // console.log(saleTrends);
     }
   }
 
@@ -132,7 +148,6 @@ const AddProjectForm = () => {
     let shallowSaleTrends = saleTrends
     shallowSaleTrends[year - 1].trend = val
     setsaleTrends(shallowSaleTrends)
-    alert(JSON.stringify(shallowSaleTrends))
   }
 
   const onSelectedBuisnessGoalsChange = (e) => {
@@ -151,8 +166,50 @@ const AddProjectForm = () => {
     setSelectedIndustryIds(shallowSelectedIndustryIds)
   }
 
+  const addBusinessGoalHandle = (selectedGoal) => {
+    let shallowBusienssGoals = JSON.parse(JSON.stringify(selectedBusinessGoals))
+    let shallowSelectedGoal = JSON.parse(JSON.stringify(selectedGoal))
+    if (!shallowBusienssGoals.find(each => each.name.en == shallowSelectedGoal.name.en)) {
+      // alert(JSON.stringify(shallowSelectedGoal))
+      shallowBusienssGoals.push(JSON.parse(JSON.stringify(shallowSelectedGoal)))
+      setselectedBusinessGoals(JSON.parse(JSON.stringify(shallowBusienssGoals)))
+      setSelectBusinessGoalState(false)
+    }
+    else alert('ไม่สามารถเพิ่มเป้าหมายซ้ำได้ กรุณาเลือกเป้าหมายอื่น')
+    // dispatch(projectUpdated())
+  }
+
+  const setCashflow = (newData) => {
+    const shallowBusienssGoals = JSON.parse(JSON.stringify(selectedBusinessGoals))
+    const shallowBusienssGoals2 = JSON.parse(JSON.stringify(shallowBusienssGoals)).map(each => {
+      return each.name.en == newData.name.en ? newData : each
+    })
+    setselectedBusinessGoals(JSON.parse(JSON.stringify(shallowBusienssGoals2)))
+  }
+
   return (
     <div className="new-invest-form">
+      <BiztoolPopup
+        preTitle='+เพิ่มเป้าหมาย'
+        title="เป้าหมายธุรกิจ"
+        content={<BusinessGoalContent
+          projectionPeriod={projectionPeriod}
+          addBusinessGoalHandle={addBusinessGoalHandle}
+          close={setSelectBusinessGoalState} />}
+        trigger={selectBusinessGoalState}
+        close={() => setSelectBusinessGoalState(false)}
+      />
+      <BiztoolPopup
+        preTitle='เป้าหมายธุรกิจ'
+        title={`กระแสเงินสด${cashflowStateType}`}
+        content={<CashflowContent
+          data={currenCashflowData}
+          setCashflow={setCashflow}
+          projectionPeriod={projectionPeriod}
+          close={setSetCashflowState} />}
+        trigger={setCashflowState}
+        close={() => setSetCashflowState(false)}
+      />
       <form onSubmit={handleSubmit(doSubmit)}>
         <div className="d-flex label-newInvest-pj">
 
@@ -171,6 +228,7 @@ const AddProjectForm = () => {
               <div className="input-container ">
                 <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
                 <BizLogo />
+                {file?<div>{file.name}</div>:null}
                 <div>
                   <button
                     for="getFiles"
@@ -291,27 +349,55 @@ const AddProjectForm = () => {
         </div >
         <div className="d-flex mt-2">
           <div className="w-100 ">
-            <div className="text-center border border-primary">แนวโน้มยอดขาย</div>
+            <div className="text-center ">แนวโน้มยอดขาย</div>
             {saleTrends.map((eachTrend) =>
               <div className="d-flex">
                 <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
                 <input
                   className="sale-trend-input"
                   type='sale_trends'
-                  id={`sale_trends_${eachTrend.year-1}`}
+                  id={`sale_trends_${eachTrend.year - 1}`}
                   onChange={(e) => onEachSaleTrendChange(eachTrend.year, e.target.value)}
                   onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
-                  {...register(`sale_trends_${eachTrend.year-1}`, { required: true })}
+                  // {...register(`sale_trends_${eachTrend.year - 1}`, { required: true })}
                   required
                 />
               </div>
             )}
           </div>
           <div className="w-100 ">
-            <div className="text-center border border-dark">เป้าหมายธุรกิจ</div>
+            <div className="text-center ">เป้าหมายธุรกิจ</div>
+            {selectedBusinessGoals ? selectedBusinessGoals.map((eachGoal, index) => (
+              <div className="d-flex">
+                <div
+                  key={eachGoal._id}
+                  className="w-50 business-goal-box">
+                  {eachGoal.name.th}
+                </div>
+                {(eachGoal.name.en !== 'Yearly Cashflow' && eachGoal.name.en !== 'Monthly Cashflow') && <input
+                  className="business-goal-input"
+                  defaultValue={eachGoal.detail.value}
+                  type='business_goal'
+                  onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+                  required
+                />}
+                {(eachGoal.name.en == 'Yearly Cashflow' || eachGoal.name.en == 'Monthly Cashflow') && <button
+                  onClick={() => handleCashflowState(eachGoal.name.en == 'Yearly Cashflow' ? 'yearly' : 'monthly', eachGoal)}
+                  className="sale-trend-input">
+                  แก้ไข
+                </button>}
+              </div>
+            ))
+              : null}
+            <div
+              className="add-business-goal-button"
+              onClick={() => setSelectBusinessGoalState(true)}
+            >
+              + เพิ่มเป้าหมายธุรกิจ
+            </div>
           </div>
         </div>
-        
+
       </form >
       <hr></hr>
       <div>สร้างโปรเจคธุรกิจจากเทมเพลตที่มี</div>
