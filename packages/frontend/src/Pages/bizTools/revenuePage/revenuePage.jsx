@@ -21,7 +21,7 @@ function RevenuePage() {
       setIsLoaded({ user: true, project: true });
     }
   }, []);
-  console.log(JSON.stringify(selectedProject));
+  // console.log(JSON.stringify(selectedProject));
   const [tableData, setTableData] = useState(selectedProject.revenue)
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.revenue)
 

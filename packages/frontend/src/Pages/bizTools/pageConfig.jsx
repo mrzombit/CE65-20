@@ -135,7 +135,7 @@ const BIZTOOL_PAGE_CONFIG = {
           {
             colId: 5,
             title: "จำนวน(หน่วย)",
-            width: 70,
+            width: 660,
             type: "cost-table",
             backgroundColor: "#ffffff",
             color: "#000000",
@@ -449,7 +449,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "รายชื่อผู้ถือหุ้น",
-              width: 200,
+              width: 600,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -458,7 +458,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 2,
               title: "จำนวน(บาท)",
-              width: 100,
+              width: 200,
               type: "money",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -467,7 +467,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 3,
               title: "วันที่ลงทุน",
-              width: 120,
+              width: 220,
               type: "date",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -481,7 +481,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "รายชื่อผู้รับปันผล",
-              width: 200,
+              width: 600,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -490,7 +490,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 2,
               title: "สัดส่วนผู้ถือหุ้น",
-              width: 110,
+              width: 200,
               type: "money",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -499,7 +499,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 3,
               title: "วันที่ปันผล",
-              width: 120,
+              width: 220,
               type: "date",
               backgroundColor: "#ffffff",
               color: "#000000",

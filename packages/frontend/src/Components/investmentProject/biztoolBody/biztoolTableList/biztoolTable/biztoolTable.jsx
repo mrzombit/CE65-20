@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./biztoolTable.css";
 import BIZTOOL_PAGE_CONFIG from "../../../../../pages/bizTools/pageConfig";
+import { useDispatch, useSelector } from "react-redux";
+import BizDropdown from "../../../../bizTools/eachCellTableType/bizDropdown";
+import BizEachItemPerYear from "../../../../bizTools/eachCellTableType/bizEachItemPerYear";
+import { updateProject } from "../../../../../features/projectsSlice";
 
 const BiztoolTable = (props) => {
+  // const tableId = props.tableId;
+  const eachTable = props.eachTable;
+  const [addRowState, setAddRowState] = useState(false);
+
+  const [inputVal, setInputVal] = useState("");
+
+  const dispatch = useDispatch();
+  const selectedProject = useSelector(
+    (state) => state.projects.selectedProject
+  );
+  const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
+
   const columnStyles = props.tableStyle.column.map((each) => ({
     width: each.width,
     color: each.color,
@@ -14,17 +27,62 @@ const BiztoolTable = (props) => {
     backgroundColor: each.backgroundColor,
   }));
 
-  const eachTable = props.eachTable;
+  useEffect(() => {
+    const closeAddRow = (e) => {
+      // console.log(e.srcElement.innerText + e.srcElement.nodeName);
+      // console.log(e.srcElement.nodeName);
+      console.log(e.srcElement);
+      if (
+        e.srcElement.innerText !== "เพิ่มรายการ" &&
+        e.srcElement.nodeName !== "INPUT"
+      ) {
+        // console.log("OUTSIDE!!")
+        //if add or edit data :
+        //AddProjectForm <AddProjectForm />
 
-  const [addRowState, setAddRowState] = useState(false);
+        // if(e.srcElement.value !== null){
+        //   dispatch(updateProject(selectedProject));
+        // }
+
+        setAddRowState(false);
+      }
+    };
+    document.body.addEventListener("click", closeAddRow);
+    return () => document.body.removeEventListener("click", closeAddRow);
+  }, []);
 
   const addRowHandle = (tableId) => {
-    // alert(`add row! ${tableId}`)
     setAddRowState(true);
+    alert(`add row! ${JSON.stringify(tableId)}`);
+    console.log(eachTable);
   };
-  const onChangeHandle = (row, col, val) => {
-    props.onChangeHandle(eachTable._id, row, val);
+
+  const handleChange = (event) => {
+    setInputVal(event.target.value);
+
+    console.log("value is:", event.target.value);
   };
+  // const closeMenu = () => {
+  //   setAddRowState(false, () => {
+  //     document.removeEventListener('click', closeMenu);
+  //   });
+  //   console.log("CLOSE!!")
+  // }
+
+  // const handleClick = event => {
+  //   // event.preventDefault();
+
+  //   setAddRowState(true , () => {
+  //     document.addEventListener("click", closeMenu);
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   const shalloAssetAccountsOptions = assetAccounts.map((each) => {
+  //     console.log(each)
+  //     return { value: each._id, label: each.name.local}
+  //   })
+  // });
 
   // const formReduxzdata = props.redux.data
 
@@ -67,7 +125,7 @@ const BiztoolTable = (props) => {
       </div>
 
       {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page && (
-        <div className="">
+        <div className="row" key={eachTable._id}>
           {eachTable.investments.map((eachRow) => (
             <div>
               {/* {JSON.stringify(eachRow.name)} */}
@@ -91,6 +149,9 @@ const BiztoolTable = (props) => {
                 }}
                 value={eachRow.amount}
               />
+
+              <BizDropdown />
+
               {/* <input
                 key={eachRow._id}
                 type="text"
@@ -101,29 +162,50 @@ const BiztoolTable = (props) => {
                 }}
                 value={eachRow.account_id}
               /> */}
-              <div className="d-flex flex-row">
-                <DropdownButton
+
+              {/* {props.tableStyle.column[cellIndex].type == "dropdown" && <div> Dropdown </div> <div key={eachCell.colId}  >
+                    <DropdownButton id="dropdown-basic-button"
+                      title={eachCell.val}
+                      onSelect={(valueKey) => onChangeHandle(eachRow.rowId, eachCell.colId, valueKey)}
+                      style={{
+                        width: `${columnStyles[cellIndex].width}px`,
+                      }}
+                    >
+                      {props.tableStyle.column[cellIndex].enumData.map((option) => (
+                        <Dropdown.Item eventKey={option.value}
+                          style={{
+                            width: `${columnStyles[cellIndex].width}px`,
+                          }}
+                        >
+                          {option.title}
+                        </Dropdown.Item>
+                      ))}
+                    </DropdownButton>
+                  </div>
+                } */}
+
+              {/* <DropdownButton
+                  className="row"
                   id="dropdown-basic-button"
-                  title={eachRow.title}
+                  title={selectDropdown}
                   onSelect={(valueKey) =>
-                    onChangeHandle(eachRow.account_id, valueKey)
+                    onChangeHandle(props.tableId, eachRow._id, valueKey)
                   }
                   style={{
                     width: `${columnStyles[2].width}px`,
+                    textAlign: `start`,
                   }}
                 >
-                  {props.tableStyle.column[2].enumData.map((option) => (
-                    <Dropdown.Item
-                      eventKey={option.value}
-                      style={{
-                        width: `${columnStyles[2].width}px`,
-                      }}
-                    >
-                      {option.title}
-                    </Dropdown.Item>
-                  ))}
-                </DropdownButton>
-              </div>
+                  <Dropdown.Item eventKey={assetAccountseData[0].name.th}>
+                    {assetAccountseData[0].name.th}
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey={assetAccountseData[1].name.th}>
+                    {assetAccountseData[1].name.th}
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey={assetAccountseData[2].name.th}>
+                    {assetAccountseData[2].name.th}
+                  </Dropdown.Item>
+                </DropdownButton> */}
 
               <input
                 key={eachRow._id}
@@ -141,67 +223,64 @@ const BiztoolTable = (props) => {
       )}
 
       {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page && (
-        <div className="">
-          {eachTable.fixed_costs.map((eachRow) => (
-            <div>
-              {/* {JSON.stringify(eachRow.name)} */}
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[0].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="money"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[1].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.amount}
-              />
-              <input
-                key={eachRow._id}
-                type="money"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[2].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.cost_increase}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[3].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.period_id}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[4].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.cost_increase_period_id}
-              />
-            </div>
-          ))}
+        <div className="d-flex" key={eachTable._id}>
+          <div className="d-flex flex-column">
+            {eachTable.fixed_costs.map((eachRow) => (
+              <div className="d-flex flex-row">
+                {/* {JSON.stringify(eachRow.name)} */}
+                <input
+                  key={eachRow._id}
+                  type="text"
+                  className="d-flex flex-row border border-primary"
+                  style={{
+                    width: `${columnStyles[0].width}px`,
+                    textAlign: `start`,
+                  }}
+                  value={eachRow.name}
+                />
+                <input
+                  key={eachRow._id}
+                  type="money"
+                  className="d-flex flex-row border border-primary"
+                  style={{
+                    width: `${columnStyles[1].width}px`,
+                    textAlign: `start`,
+                  }}
+                  value={eachRow.amount}
+                />
+                <input
+                  key={eachRow._id}
+                  type="money"
+                  className="d-flex flex-row border border-primary"
+                  style={{
+                    width: `${columnStyles[2].width}px`,
+                    textAlign: `start`,
+                  }}
+                  value={eachRow.cost_increase}
+                />
+                <input
+                  key={eachRow._id}
+                  type="text"
+                  className="d-flex flex-row border border-primary"
+                  style={{
+                    width: `${columnStyles[3].width}px`,
+                    textAlign: `start`,
+                  }}
+                  value={eachRow.period_id}
+                />
+
+                <BizEachItemPerYear />
+              </div>
+            ))}
+            {/* <div className="d-flex flex-column">
+              <BizEachItemPerYear/>
+            </div> */}
+          </div>
         </div>
       )}
 
       {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service && (
-        <div className="">
+        <div className="" key={eachTable._id}>
           {eachTable.services.map((eachRow) => (
             <div>
               {/* {props.type == "percent" && (
@@ -342,7 +421,7 @@ const BiztoolTable = (props) => {
       )}
 
       {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product && (
-        <div className="">
+        <div className="" key={eachTable._id}>
           {eachTable.products.map((eachRow) => (
             <div>
               {/* {JSON.stringify(eachRow.name)} */}
@@ -444,7 +523,7 @@ const BiztoolTable = (props) => {
 
       {props.type ==
         BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution && (
-        <div className="">
+        <div className="" key={eachTable._id}>
           {eachTable.equity_contributions.map((eachRow) => (
             <div>
               {/* {JSON.stringify(eachRow)} */}
@@ -483,7 +562,7 @@ const BiztoolTable = (props) => {
         </div>
       )}
       {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment && (
-        <div className="">
+        <div className="" key={eachTable._id}>
           {eachTable.equity_repayments.map((eachRow) => (
             <div>
               {/* {JSON.stringify(eachRow)} */}
@@ -522,10 +601,9 @@ const BiztoolTable = (props) => {
         </div>
       )}
       {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance && (
-        <div className="">
+        <div className="" key={[eachTable._id]}>
           {eachTable.debt_issuances.map((eachRow) => (
             <div>
-              {/* {JSON.stringify(eachRow)} */}
               <input
                 key={eachRow._id}
                 type="text"
@@ -627,12 +705,13 @@ const BiztoolTable = (props) => {
       )} */}
 
       {addRowState == true && (
-        <div key={eachTable.tableId} className="d-flex">
+        <div className="d-flex">
           {props.tableStyle.column.map((eachColumn, index) => (
             <>
+              {/* {console.log(eachColumn)} */}
               {index == 0 && (
                 <div
-                  key={eachColumn.colId}
+                  key={eachColumn._id}
                   style={{
                     width: `${columnStyles[index].width}px`,
                   }}
@@ -640,27 +719,36 @@ const BiztoolTable = (props) => {
                   <input
                     className="column border border-primary"
                     placeholder={eachTable.title}
+                    id={eachColumn._id}
+                    name={eachColumn.name}
+                    onChange={handleChange}
+                    value={inputVal}
                   />
                 </div>
               )}
               {index !== 0 && (
                 <div
-                  key={eachColumn.colId}
+                  key={eachColumn._id}
                   style={{
                     width: `${columnStyles[index].width}px`,
                   }}
                 >
                   <input
                     className="column border border-primary"
+                    id={eachColumn._id}
+                    name={eachColumn.name}
                     placeholder={eachColumn.title}
+                    onChange={handleChange}
+                    value={inputVal}
                   />
                 </div>
               )}
 
-              {console.log("eachColumn >>>")}
-              {console.log(eachColumn)}
+              {/* {console.log("eachColumn >>>")}
+              {console.log(eachColumn)} */}
             </>
           ))}
+         
         </div>
       )}
 
@@ -674,8 +762,8 @@ const BiztoolTable = (props) => {
           }px`,
         }}
       >
-        <div className="d-flex" onClick={() => addRowHandle(props.tableId)}>
-          <div className="mx-2">
+        <div className="d-flex" onClick={() => addRowHandle(eachTable._id)}>
+          <div className="mx-2)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"

@@ -7,7 +7,7 @@ import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig'
 const BiztoolBody = (props) => {
 
   useEffect(() => {
-    console.log(`body !${JSON.stringify(props.tableData)}`);
+    // console.log(`body !${JSON.stringify(props.tableData)}`);
   }, [])
 
   return (

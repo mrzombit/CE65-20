@@ -416,8 +416,8 @@ function infoProject(props) {
             </div>
           </div >
           <div className="d-flex mt-2">
-            <div className="w-100 ">
-              <div className="text-center ">แนวโน้มยอดขาย</div>
+            {/* <div className="w-100 ">
+              <div className="text-center">แนวโน้มยอดขาย</div>
               {saleTrends.map((eachTrend) =>
                 <div className="d-flex">
                   <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
@@ -432,7 +432,7 @@ function infoProject(props) {
                   />
                 </div>
               )}
-            </div>
+            </div> */}
             <div className="w-100 ">
               <div className="text-center ">เป้าหมายธุรกิจ</div>
               {selectedBusinessGoals ? selectedBusinessGoals.map((eachGoal, index) => (
