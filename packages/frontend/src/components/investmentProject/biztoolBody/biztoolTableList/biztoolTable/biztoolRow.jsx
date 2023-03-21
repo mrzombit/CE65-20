@@ -45,7 +45,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <InputCell
-                        data={props.data.name}
+                        data={props.data.start_date}
                         tableType={props.type}
                         colIndex={3}
                         type="date"
@@ -150,7 +150,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[5].width} />
                     <DropdownCell
-                        data={{ price_increase: props.data.price_increase, price_increase_period_id: props.data.price_increase_period_id }}
+                        data={{ cost_increase: props.data.price_increase, cost_increase_period_id: props.data.price_increase_period_id }}
                         type="cost-increase-dropdown"
                         colIndex={6}
                         tableType={props.type}
@@ -210,7 +210,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[3].width} />
                     <DropdownCell
-                        data={{ price_increase: props.data.price_increase, price_increase_period_id: props.data.price_increase_period_id }}
+                        data={{ cost_increase: props.data.price_increase, cost_increase_period_id: props.data.price_increase_period_id }}
                         type="cost-increase-dropdown"
                         colIndex={4}
                         tableType={props.type}

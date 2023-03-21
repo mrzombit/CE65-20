@@ -103,7 +103,7 @@ const BIZTOOL_PAGE_CONFIG = {
           {
             colId: 3,
             title: "อัตราเพิ่มขึ้น",
-            width: 90,
+            width: 150,
             type: "percent",
             backgroundColor: "#ffffff",
             color: "#000000",
