@@ -43,7 +43,7 @@ function infoProject(props) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [counter, setCounter] = useState(0)
   const [doSubmitCheck, setDoSubmitCheck] = useState(false)
-  const round = selectedProject.industry_ids.length
+  const round = selectedProject.industry_ids.length+4
 
   const [file, setFile] = useState()
   const [imageUrl, setImageUrl] = useState("")
@@ -81,6 +81,10 @@ function infoProject(props) {
     // setEvent()
     setImageUrl("")
     setDoSubmitCheck(false)
+    setSelectedIndustryIds(selectedProject.industry_ids)
+    setSelectedCurrencyId(selectedProject.model_config.currency_id)
+    setSelectedCurrency()
+    setSelectedIndustries([])
   }
 
 
@@ -99,25 +103,28 @@ function infoProject(props) {
       setCurrencyOptions(shallowCurrencyOptions)
       setIndustryOptions(shallowIndustryOptions)
       setprojectionPeriod(selectedProject.model_config.projection_period)
-      setSaleTrends(JSON.parse(JSON.stringify(selectedProject.sale_trends)))
-      setselectedBusinessGoals(JSON.parse(JSON.stringify(selectedProject.business_goals?selectedProject.business_goals:[])))
+      setSaleTrends(selectedProject.sale_trends)
+      setselectedBusinessGoals(JSON.parse(JSON.stringify(selectedProject.business_goals ? selectedProject.business_goals : [])))
       setCounter(counter + 1)
     }
     else if (doSubmitCheck) {
-      alert(JSON.stringify(selectedBusinessGoals));
+      // alert(JSON.stringify(selectedBusinessGoals));
 
       if (imageUrl != "") {
-        dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl, business_goals: selectedBusinessGoals }}))
-        dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl , business_goals: (selectedBusinessGoals)}))
+        dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl, business_goals: selectedBusinessGoals } }))
+        dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl, business_goals: (selectedBusinessGoals) }))
         console.log('with img');
 
       } else {
-        dispatch(updateProject({ id: selectedProject._id, data: {...projectShallow, business_goals: selectedBusinessGoals }}))
-        dispatch(projectUpdated({...projectShallow, business_goals: selectedBusinessGoals}))
+        dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, business_goals: selectedBusinessGoals } }))
+        dispatch(projectUpdated({ ...projectShallow, business_goals: selectedBusinessGoals }))
         console.log('no img');
 
       }
       resetValue()
+    }
+    if (saleTrends == undefined) {
+      setSaleTrends(selectedProject.sale_trends)
     }
     setCounter(counter + 1)
   }, [isLoaded, selectedCurrency, selectedIndustries, imageName, doSubmitCheck, projectionPeriod])
@@ -144,7 +151,6 @@ function infoProject(props) {
       sale_trends: JSON.parse(JSON.stringify(saleTrends)),
       business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals)),
     }
-    // alert(selectedIndustryIds)
     setDoSubmitCheck(true)
     setProjectShallow(ToUploadProjectShallow)
   }
@@ -189,6 +195,7 @@ function infoProject(props) {
             description: "",
           }
           shallowSaleTrends.push(shallowSaleTrend)
+
         }
       }
       setSaleTrends(shallowSaleTrends)
@@ -416,9 +423,9 @@ function infoProject(props) {
             </div>
           </div >
           <div className="d-flex mt-2">
-            {/* <div className="w-100 ">
+            <div className="w-100 ">
               <div className="text-center">แนวโน้มยอดขาย</div>
-              {saleTrends.map((eachTrend) =>
+              {saleTrends ? saleTrends.map((eachTrend) =>
                 <div className="d-flex">
                   <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
                   <input
@@ -431,8 +438,8 @@ function infoProject(props) {
                   // required
                   />
                 </div>
-              )}
-            </div> */}
+              ): "Loading"}
+            </div>
             <div className="w-100 ">
               <div className="text-center ">เป้าหมายธุรกิจ</div>
               {selectedBusinessGoals ? selectedBusinessGoals.map((eachGoal, index) => (
