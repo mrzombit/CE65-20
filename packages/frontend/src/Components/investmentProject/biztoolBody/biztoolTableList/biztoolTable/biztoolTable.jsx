@@ -6,13 +6,69 @@ import { useDispatch, useSelector } from "react-redux";
 import BizDropdown from "../../../../bizTools/eachCellTableType/bizDropdown";
 import BizEachItemPerYear from "../../../../bizTools/eachCellTableType/bizEachItemPerYear";
 import { updateProject } from "../../../../../features/projectsSlice";
+import AddRow from "./addRow";
 
 const BiztoolTable = (props) => {
   // const tableId = props.tableId;
   const eachTable = props.eachTable;
   const [addRowState, setAddRowState] = useState(false);
 
-  const [inputVal, setInputVal] = useState("");
+  const inputInitial = {
+    totalInvestment: {
+      name: "",
+      amount: 0,
+      assetAcount: "",
+      start_date: "",
+    },
+    operationCost: {
+      name: "",
+      amount: 0,
+      cost_increase: "",
+      period_id: "",
+      //ตาราง จำนวน(หน่วย)
+    },
+    revenue: {
+      service: {
+        name: "",
+        unit: "",
+        unit_name: "",
+        serve_per_unit: "",
+        revenue_per_service: "",
+        cost_per_service: "",
+        price_increase: "",
+        cost_increase: "",
+        start_date: "",
+      },
+      product: {
+        name: "",
+        days_of_inventory: "",
+        revenue_per_unit: "",
+        cost_per_service: "",
+        price_increase: "",
+        // name: "",
+        // name: "",
+      },
+    },
+    miscellaneous: {
+      equityContribution: {
+        name: "",
+        amount: 0,
+        date: "",
+      },
+      equityRepayment: {
+        name: "",
+        share: 0,
+        start_date: "",
+      },
+      debtIssuance: {
+        name: "",
+        amount: 0,
+        payments_date: "",
+        apr: "",
+      },
+    },
+  };
+  const [inputVal, setInputVal] = useState(inputInitial);
 
   const dispatch = useDispatch();
   const selectedProject = useSelector(
@@ -704,82 +760,7 @@ const BiztoolTable = (props) => {
         </div>
       )} */}
 
-      {addRowState == true && (
-        <div className="d-flex">
-          {props.tableStyle.column.map((eachColumn, index) => (
-            <>
-              {/* {console.log(eachColumn)} */}
-              {index == 0 && (
-                <div
-                  key={eachColumn._id}
-                  style={{
-                    width: `${columnStyles[index].width}px`,
-                  }}
-                >
-                  <input
-                    className="column border border-primary"
-                    placeholder={eachTable.title}
-                    id={eachColumn._id}
-                    name={eachColumn.name}
-                    onChange={handleChange}
-                    value={inputVal}
-                  />
-                </div>
-              )}
-              {index !== 0 && (
-                <div
-                  key={eachColumn._id}
-                  style={{
-                    width: `${columnStyles[index].width}px`,
-                  }}
-                >
-                  <input
-                    className="column border border-primary"
-                    id={eachColumn._id}
-                    name={eachColumn.name}
-                    placeholder={eachColumn.title}
-                    onChange={handleChange}
-                    value={inputVal}
-                  />
-                </div>
-              )}
-
-              {/* {console.log("eachColumn >>>")}
-              {console.log(eachColumn)} */}
-            </>
-          ))}
-         
-        </div>
-      )}
-
-      <div
-        className="biztool-addrow d-flex align-items-center mx-1"
-        style={{
-          width: `${
-            columnStyles.reduce(function (previousValue, currentValue) {
-              return { width: previousValue.width + currentValue.width };
-            }).width
-          }px`,
-        }}
-      >
-        <div className="d-flex" onClick={() => addRowHandle(eachTable._id)}>
-          <div className="mx-2)">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-plus-circle"
-              viewBox="0 0 16 16"
-            >
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>
-          </div>
-
-          <div className=" flex h-100 align-text-center">เพิ่มรายการ</div>
-        </div>
-      </div>
+      <AddRow tableStyle={props.tableStyle} eachTable={props.eachTable} />
     </div>
   );
 };
