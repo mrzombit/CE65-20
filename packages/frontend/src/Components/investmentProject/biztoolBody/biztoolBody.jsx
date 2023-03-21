@@ -21,11 +21,12 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleServiceFunction}
           />
           <BiztoolTableList
+            onCellChange={props.onCellChange}
             data={props.tableData.service_tables}
             type={props.type.service}
-            tableStyle={props.tableStyle.serviceTableStyle} 
+            tableStyle={props.tableStyle.serviceTableStyle}
             onChangeHandle={props.onChangeHandle.onServiceChangeHandle}
-            />
+          />
         </div>
         <div>
           <div className='revenue-table-header'>การขายสินค้า</div>
@@ -35,11 +36,12 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleProductFunction}
           />
           <BiztoolTableList
+            onCellChange={props.onCellChange}
             data={props.tableData.product_tables}
             type={props.type.product}
-            tableStyle={props.tableStyle.productTableStyle} 
+            tableStyle={props.tableStyle.productTableStyle}
             onChangeHandle={props.onChangeHandle.onProductChangeHandle}
-            />
+          />
         </div>
       </div>}
 
@@ -49,44 +51,45 @@ const BiztoolBody = (props) => {
           <BiztoolTableList
             data={props.tableData.equity_contribution_tables}
             type={props.type.equityContribution}
-            tableStyle={props.tableStyle.equityContributionTableStyle} 
+            tableStyle={props.tableStyle.equityContributionTableStyle}
             onChangeHandle={props.onChangeHandle.onEquityContributionChangeHandle}
-            />
+          />
         </div>
         <div>
           <div className='miscellaneous-table-header'>ผู้รับปันผล</div>
           <BiztoolTableList
             data={props.tableData.equity_repayment_tables}
             type={props.type.equityRepayment}
-            tableStyle={props.tableStyle.equityRepaymentTableStyle} 
+            tableStyle={props.tableStyle.equityRepaymentTableStyle}
             onChangeHandle={props.onChangeHandle.onEquityRepaymentChangeHandle}
-            />
+          />
         </div>
         <div>
           <div className='miscellaneous-table-header'>เงินกู้และการชำระเงินกู้</div>
           <BiztoolTableList
             data={props.tableData.debt_issuance_tables}
             type={props.type.debtIssuance}
-            tableStyle={props.tableStyle.debtIssuanceTableStyle} 
+            tableStyle={props.tableStyle.debtIssuanceTableStyle}
             onChangeHandle={props.onChangeHandle.onDebtIssuanceChangeHandle}
-            />
+          />
         </div>
       </div>}
 
-      {props.type.page != BIZTOOL_PAGE_CONFIG.revenue.type.page && 
-        props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page && 
-        props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page && 
-        props.type.page != BIZTOOL_PAGE_CONFIG.projectConfig.type.page && 
-        props.type.page != BIZTOOL_PAGE_CONFIG.ffc.type.page && 
-        props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page && 
+      {props.type.page != BIZTOOL_PAGE_CONFIG.revenue.type.page &&
+        props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
+        props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
+        props.type.page != BIZTOOL_PAGE_CONFIG.projectConfig.type.page &&
+        props.type.page != BIZTOOL_PAGE_CONFIG.ffc.type.page &&
+        props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page &&
         <div className='biztool-body-flex '>
-        <BiztoolTableList
-          data={props.tableData}
-          type={props.type.page}
-          tableStyle={props.tableStyle} 
-          onChangeHandle={props.onChangeHandle}
+          <BiztoolTableList
+            onCellChange={props.onCellChange}
+            data={props.tableData}
+            type={props.type.page}
+            tableStyle={props.tableStyle}
+            onChangeHandle={props.onChangeHandle}
           />
-      </div>}
+        </div>}
     </div>
   )
 }

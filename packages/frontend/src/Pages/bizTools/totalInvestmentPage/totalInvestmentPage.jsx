@@ -24,10 +24,13 @@ function TotalInvestmentPage() {
   const [tableData, setTableData] = useState(selectedProject.expense.investment_tables);
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.totalInvestment);
 
+  const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
+    alert(value)
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
-      {/* {tableData.map((table) => ( */}
       <div className="p-4 biztool-body-width">
         <BiztoolHeader
           type={config.type}
@@ -35,6 +38,7 @@ function TotalInvestmentPage() {
           handleFunction={config.addTableHandleFunction}
         />
         <BiztoolBody
+          onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}

@@ -7,6 +7,7 @@ import BizDropdown from "../../../../bizTools/eachCellTableType/bizDropdown";
 import BizEachItemPerYear from "../../../../bizTools/eachCellTableType/bizEachItemPerYear";
 import { updateProject } from "../../../../../features/projectsSlice";
 import AddRow from "./addRow";
+import BiztoolRow from "./biztoolRow";
 
 const BiztoolTable = (props) => {
   // const tableId = props.tableId;
@@ -180,586 +181,113 @@ const BiztoolTable = (props) => {
         ))}
       </div>
 
-      {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page && (
-        <div className="row" key={eachTable._id}>
-          {eachTable.investments.map((eachRow) => (
-            <div>
-              {/* {JSON.stringify(eachRow.name)} */}
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[0].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="money"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[1].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.amount}
-              />
+      {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
+        eachTable.investments.map((eachRow) => (
+          <BiztoolRow
+            key={eachTable._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
 
-              <BizDropdown />
+      {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
+        eachTable.fixed_costs.map((eachRow) => (
+          <BiztoolRow
+            key={eachTable._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
 
-              {/* <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[2].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.account_id}
-              /> */}
-
-              {/* {props.tableStyle.column[cellIndex].type == "dropdown" && <div> Dropdown </div> <div key={eachCell.colId}  >
-                    <DropdownButton id="dropdown-basic-button"
-                      title={eachCell.val}
-                      onSelect={(valueKey) => onChangeHandle(eachRow.rowId, eachCell.colId, valueKey)}
-                      style={{
-                        width: `${columnStyles[cellIndex].width}px`,
-                      }}
-                    >
-                      {props.tableStyle.column[cellIndex].enumData.map((option) => (
-                        <Dropdown.Item eventKey={option.value}
-                          style={{
-                            width: `${columnStyles[cellIndex].width}px`,
-                          }}
-                        >
-                          {option.title}
-                        </Dropdown.Item>
-                      ))}
-                    </DropdownButton>
-                  </div>
-                } */}
-
-              {/* <DropdownButton
-                  className="row"
-                  id="dropdown-basic-button"
-                  title={selectDropdown}
-                  onSelect={(valueKey) =>
-                    onChangeHandle(props.tableId, eachRow._id, valueKey)
-                  }
-                  style={{
-                    width: `${columnStyles[2].width}px`,
-                    textAlign: `start`,
-                  }}
-                >
-                  <Dropdown.Item eventKey={assetAccountseData[0].name.th}>
-                    {assetAccountseData[0].name.th}
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey={assetAccountseData[1].name.th}>
-                    {assetAccountseData[1].name.th}
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey={assetAccountseData[2].name.th}>
-                    {assetAccountseData[2].name.th}
-                  </Dropdown.Item>
-                </DropdownButton> */}
-
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[3].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.start_date}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page && (
-        <div className="d-flex" key={eachTable._id}>
-          <div className="d-flex flex-column">
-            {eachTable.fixed_costs.map((eachRow) => (
-              <div className="d-flex flex-row">
-                {/* {JSON.stringify(eachRow.name)} */}
-                <input
-                  key={eachRow._id}
-                  type="text"
-                  className="d-flex flex-row border border-primary"
-                  style={{
-                    width: `${columnStyles[0].width}px`,
-                    textAlign: `start`,
-                  }}
-                  value={eachRow.name}
-                />
-                <input
-                  key={eachRow._id}
-                  type="money"
-                  className="d-flex flex-row border border-primary"
-                  style={{
-                    width: `${columnStyles[1].width}px`,
-                    textAlign: `start`,
-                  }}
-                  value={eachRow.amount}
-                />
-                <input
-                  key={eachRow._id}
-                  type="money"
-                  className="d-flex flex-row border border-primary"
-                  style={{
-                    width: `${columnStyles[2].width}px`,
-                    textAlign: `start`,
-                  }}
-                  value={eachRow.cost_increase}
-                />
-                <input
-                  key={eachRow._id}
-                  type="text"
-                  className="d-flex flex-row border border-primary"
-                  style={{
-                    width: `${columnStyles[3].width}px`,
-                    textAlign: `start`,
-                  }}
-                  value={eachRow.period_id}
-                />
-
-                <BizEachItemPerYear />
-              </div>
-            ))}
-            {/* <div className="d-flex flex-column">
-              <BizEachItemPerYear/>
-            </div> */}
-          </div>
-        </div>
-      )}
-
-      {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service && (
-        <div className="" key={eachTable._id}>
-          {eachTable.services.map((eachRow) => (
-            <div>
-              {/* {props.type == "percent" && (
-                <input
-                  key={eachRow._id}
-                  type="text"
-                  className="column border border-primary"
-                  style={{
-                    width: `${columnStyles[0].width}px`,
-                    textAlign: `start`,
-                  }}
-                  value={parseFloat(eachRow.cost_increase * 100) + "%"}
-                />
-              )} */}
-
-              {/* {props.tableStyle.column[cellIndex].type == "dropdown" && (
-                <div key={eachCell.colId}>
-                  <DropdownButton
-                    id="dropdown-basic-button"
-                    title={eachCell.val}
-                    onSelect={(valueKey) =>
-                      onChangeHandle(eachRow.rowId, eachCell.colId, valueKey)
-                    }
-                    style={{
-                      width: `${columnStyles[cellIndex].width}px`,
-                    }}
-                  >
-                    {props.tableStyle.column[cellIndex].enumData.map(
-                      (option) => (
-                        <Dropdown.Item
-                          eventKey={option.value}
-                          style={{
-                            width: `${columnStyles[cellIndex].width}px`,
-                          }}
-                        >
-                          {option.title}
-                        </Dropdown.Item>
-                      )
-                    )}
-                  </DropdownButton>
-                </div>
-              )} */}
-
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[0].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="money"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[1].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.unit}
-              />
-              <input
-                key={eachRow._id}
-                type="money"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[2].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.unit_name}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[3].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.serve_per_unit}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[4].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.revenue_per_service}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[5].width}px`,
-                  textAlign: `start`,
-                }}
-                value={parseFloat(eachRow.cost_per_service * 100) + "%"}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[6].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.price_increase}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[7].width}px`,
-                  textAlign: `start`,
-                }}
-                // value={eachRow.cost_increase}
-                value={parseFloat(eachRow.cost_increase * 100) + "%"}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[8].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.start_date}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product && (
-        <div className="" key={eachTable._id}>
-          {eachTable.products.map((eachRow) => (
-            <div>
-              {/* {JSON.stringify(eachRow.name)} */}
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[0].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[1].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.days_of_inventory}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[2].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.revenue_per_unit}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[3].width}px`,
-                  textAlign: `start`,
-                }}
-                // value={eachRow.cost_per_service}
-                value={parseFloat(eachRow.cost_per_service * 100) + "%"}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[4].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.price_increase}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[5].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.price_increase}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[6].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.price_increase}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[7].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.price_increase}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[8].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.price_increase}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {props.type ==
-        BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution && (
-        <div className="" key={eachTable._id}>
-          {eachTable.equity_contributions.map((eachRow) => (
-            <div>
-              {/* {JSON.stringify(eachRow)} */}
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[0].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[1].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.amount}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[2].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.date}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-      {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment && (
-        <div className="" key={eachTable._id}>
-          {eachTable.equity_repayments.map((eachRow) => (
-            <div>
-              {/* {JSON.stringify(eachRow)} */}
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[0].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[1].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.share}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[2].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.repayment.start_date}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-      {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance && (
-        <div className="" key={[eachTable._id]}>
-          {eachTable.debt_issuances.map((eachRow) => (
-            <div>
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[0].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[1].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.amount}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[2].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.payments.date}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[3].width}px`,
-                  textAlign: `start`,
-                }}
-                // value={eachRow.apr}
-                value={parseFloat(eachRow.apr * 100) + "%"}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[4].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-              <input
-                key={eachRow._id}
-                type="text"
-                className="column border border-primary"
-                style={{
-                  width: `${columnStyles[5].width}px`,
-                  textAlign: `start`,
-                }}
-                value={eachRow.name}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* {props.type == `${BIZTOOL_PAGE_CONFIG.revenue.type}-service` && (
-        <div className="">
-          
-          {eachTable.services.map((eachRow) => (
-            console.log(eachRow)
-            // <div key={eachRow._id} className="d-flex">
-            //   <input
-            //     // key={eachRow._id}
-            //     // type="text"
-            //     // className="column border border-primary"
-            //     // style={{
-            //     //   // width: `${columnStyles[cellIndex].width}px`,
-            //     //   width: "200px"
-            //     // }}
-            //     value={eachRow.name}
-            //   />
-            //   <input value={eachRow.name} />
-            //   <input value={eachRow.unit} />
-            //   <input value={eachRow.unit_name} />
-            //   <input value={eachRow.serve_per_unit} />
-            //   <input value={eachRow.revenue_per_service} />
-            //   <input value={eachRow.price_increase} />
-            //   <input value={eachRow.price_increase_period_id} />
-            //   <input value={eachRow.cost_increase} />
-            //   <input value={eachRow.cost_increase_period_id} />
-            //   <input value={eachRow.seasonal_trends} />
-          
-            // </div>
-          ))}
-
-
-        </div>
-      )} */}
-
+      {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service &&
+        eachTable.services.map((eachRow) => (
+          <BiztoolRow
+            key={eachTable._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
+      {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product &&
+        eachTable.products.map((eachRow) => (
+          <BiztoolRow
+            key={eachTable._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
+      {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
+        eachTable.debt_issuances.map((eachRow) => (
+          <BiztoolRow
+            key={eachTable._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
+      {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
+        eachTable.equity_contributions.map((eachRow) => (
+          <BiztoolRow
+            key={eachTable._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
+      {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
+        eachTable.equity_repayments.map((eachRow) => (
+          <BiztoolRow
+            key={eachTable._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
       <AddRow tableStyle={props.tableStyle} eachTable={props.eachTable} />
     </div>
   );

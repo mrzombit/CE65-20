@@ -45,6 +45,10 @@ function MiscellaneousPage() {
     ],
   });
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.miscellaneous);
+  
+  const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
+    alert(value)
+  }
 
   return (
     <div className="d-flex ">
@@ -52,6 +56,7 @@ function MiscellaneousPage() {
       <div className="p-4 biztool-body-width">
         <BiztoolHeader type={config.type} title={config.title} />
         <BiztoolBody
+          onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}

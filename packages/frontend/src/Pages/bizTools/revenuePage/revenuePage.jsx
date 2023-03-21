@@ -21,9 +21,13 @@ function RevenuePage() {
       setIsLoaded({ user: true, project: true });
     }
   }, []);
-  // console.log(JSON.stringify(selectedProject));
+
   const [tableData, setTableData] = useState(selectedProject.revenue)
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.revenue)
+
+  const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
+    alert(value)
+  }
 
   return (
     <div className="d-flex ">
@@ -31,9 +35,10 @@ function RevenuePage() {
       <div className="p-4 biztool-body-width">
         <BiztoolHeader
           type={config.type}
-          title={config.title}          
+          title={config.title}
         />
         <BiztoolBody
+          onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}

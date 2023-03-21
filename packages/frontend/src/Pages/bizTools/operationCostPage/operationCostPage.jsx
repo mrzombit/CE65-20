@@ -26,6 +26,10 @@ function OperationCostPage() {
   const [tableData, setTableData] = useState(selectedProject.expense.fixed_cost_tables)
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.operationCost)
 
+  const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
+    alert(value)
+  }
+
   return (
     <div className="d-flex">
       <BizSidebar />
@@ -36,6 +40,7 @@ function OperationCostPage() {
           handleFunction={config.addTableHandleFunction}
         />
         <BiztoolBody
+          onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
