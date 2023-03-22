@@ -12,7 +12,6 @@ const BiztoolTableList = (props) => {
             eachTable={eachTable}
             type={props.type}
             tableStyle={props.tableStyle}
-            onChangeHandle={props.onChangeHandle}
           />
         ) : [].map((eachTable) =>
           <BiztoolTable
@@ -21,7 +20,6 @@ const BiztoolTableList = (props) => {
             eachTable={eachTable}
             type={props.type}
             tableStyle={props.tableStyle}
-            onChangeHandle={props.onChangeHandle}
           />
         )}
     </div>

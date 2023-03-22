@@ -4,23 +4,32 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useSelector } from 'react-redux';
 
 const DropdownCell = (props) => {
+
+  const selectedProject = useSelector(state => state.projects.selectedProject)
   const periods = useSelector(state => state.periods.periods)
   const assetAccounts = useSelector(state => state.assetAccounts.assetAccounts)
   const [dropdownOptions, setDropdownOptions] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
-  const [selectedPeriod, setSelectedPeriod] = useState({
-    value: props.data,
-    label: periods.find(each => props.data == each._id)
-  })
-  const [selectedCostInceasePeriod, setSelectedCostInceasePeriod] = useState({
-    value: props.data.cost_increase_period_id,
-    label: periods.find(each => props.data.cost_increase_period_id == each._id)
-  })
-  const [selectedAssetAccount, setSelectedAssetAccount] = useState({
-    value: props.data,
-    label: assetAccounts.find(each => props.data == each._id)
-  })
+  const [selectedPeriod, setSelectedPeriod] = useState()
+  const [selectedCostIncreasePeriod, setSelectedCostIncreasePeriod] = useState()
+  const [selectedCostIncrease, setSelectedCostIncrease] = useState()
+  const [selectedAssetAccount, setSelectedAssetAccount] = useState()
 
+  const setAllValue = async () => {
+    await setSelectedPeriod({
+      value: props.data,
+      label: periods.find(each => props.data == each._id)
+    })
+    await setSelectedCostIncreasePeriod({
+      value: props.data.cost_increase_period_id,
+      label: periods.find(each => props.data.cost_increase_period_id == each._id)
+    })
+    await setSelectedCostIncrease(props.data.cost_increase)
+    await setSelectedAssetAccount({
+      value: props.data,
+      label: assetAccounts.find(each => props.data == each._id)
+    })
+  }
   useEffect(() => {
     if (!isLoaded) {
       let shallowOptions = []
@@ -35,15 +44,18 @@ const DropdownCell = (props) => {
         })
       }
       setDropdownOptions(shallowOptions)
+      setAllValue()
       setIsLoaded(true)
     }
-  }, [dropdownOptions])
+    setAllValue()
+    console.log('reset dropdown');
+  }, [dropdownOptions, selectedProject, props.onCellChange])
 
   return (
     <div style={{ width: `${props.width}px` }}>
-      {props.type == 'period-dropdown' &&
+      {isLoaded && <>{props.type == 'period-dropdown' &&
         <Dropdown
-          onSelect={(valueKey) => props.onCellChange(props.type, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
+          onSelect={(valueKey) => props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
           style={{
             width: `${props.width}px`,
           }}
@@ -65,21 +77,70 @@ const DropdownCell = (props) => {
           </Dropdown.Menu>
         </Dropdown>
       }
-      {props.type == 'cost-increase-dropdown' &&
-        <div className='d-flex'>
-          <input
-            type='text'
-            value={props.data.cost_increase}
-            onChange={e => props.onCellChange(props.type, props.address.tableId, props.address.rowId, e.target.value)}
-          />
+        {props.type == 'cost-increase-dropdown' &&
+          <div className='d-flex'>
+            <input
+              id={'cost-increase-input'}
+              type='text'
+              value={selectedCostIncrease}
+              onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
+              format={"## %"}
+              onChange={e => props.onCellChange(
+                props.tableType,
+                props.address.tableId,
+                props.address.rowId,
+                props.colIndex,
+                {
+                  type: "cost-increase-dropdown",
+                  // cost_increase: e.target.value.toString().replace('%',''), 
+                  cost_increase: e.target.value.replace('%', ''),
+                },
+              )}
+            />
+            <Dropdown
+              onSelect={(valueKey) =>
+                props.onCellChange(
+                  props.tableType,
+                  props.address.tableId,
+                  props.address.rowId,
+                  props.colIndex,
+                  {
+                    type: "cost-increase-period-id-dropdown",
+                    // cost_increase: e.target.value.toString().replace('%',''), 
+                    cost_increase_period_id: valueKey,
+                  },)}
+              // onSelect={(valueKey) => alert(props.colIndex)}
+              style={{
+                width: `${props.width}px`,
+              }}
+            >
+              <Dropdown.Toggle id="dropdown-autoclose-true">
+                {selectedCostIncreasePeriod.label.name.th}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {dropdownOptions && dropdownOptions.map((option) => (
+                  <Dropdown.Item
+                    eventKey={option.value}
+                    style={{
+                      width: `${props.width}px`,
+                    }}
+                  >
+                    {option.label}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        }
+        {props.type == 'asset-account-dropdown' &&
           <Dropdown
-            onSelect={(valueKey) => props.onCellChange(props.type, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
+            onSelect={(valueKey) => props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
             style={{
               width: `${props.width}px`,
             }}
           >
             <Dropdown.Toggle id="dropdown-autoclose-true">
-              {selectedCostInceasePeriod.label.name.th}
+              {selectedAssetAccount.label.name.th}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {dropdownOptions && dropdownOptions.map((option) => (
@@ -94,32 +155,8 @@ const DropdownCell = (props) => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
-        </div>
-      }
-      {props.type == 'asset-account-dropdown' &&
-        <Dropdown
-        onSelect={(valueKey) => props.onCellChange(props.type, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
-        style={{
-          width: `${props.width}px`,
-        }}
-      >
-        <Dropdown.Toggle id="dropdown-autoclose-true">
-          {selectedAssetAccount.label.name.th}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {dropdownOptions && dropdownOptions.map((option) => (
-            <Dropdown.Item
-              eventKey={option.value}
-              style={{
-                width: `${props.width}px`,
-              }}
-            >
-              {option.label}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-      }
+        }
+      </>}
     </div>
   )
 }

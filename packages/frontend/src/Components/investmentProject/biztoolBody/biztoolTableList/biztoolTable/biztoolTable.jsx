@@ -88,7 +88,7 @@ const BiztoolTable = (props) => {
     const closeAddRow = (e) => {
       // console.log(e.srcElement.innerText + e.srcElement.nodeName);
       // console.log(e.srcElement.nodeName);
-      console.log(e.srcElement);
+      // console.log(e.srcElement);
       if (
         e.srcElement.innerText !== "เพิ่มรายการ" &&
         e.srcElement.nodeName !== "INPUT"
@@ -119,40 +119,11 @@ const BiztoolTable = (props) => {
 
     console.log("value is:", event.target.value);
   };
-  // const closeMenu = () => {
-  //   setAddRowState(false, () => {
-  //     document.removeEventListener('click', closeMenu);
-  //   });
-  //   console.log("CLOSE!!")
-  // }
 
-  // const handleClick = event => {
-  //   // event.preventDefault();
-
-  //   setAddRowState(true , () => {
-  //     document.addEventListener("click", closeMenu);
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   const shalloAssetAccountsOptions = assetAccounts.map((each) => {
-  //     console.log(each)
-  //     return { value: each._id, label: each.name.local}
-  //   })
-  // });
-
-  // const formReduxzdata = props.redux.data
-
-  // const onChangeAt = (row,col,val) => {
-  //   if props.type == "total-investment":
-  //     if columId == 0:
-  //           logic  const  change shallowData at columnId
-  //           call redux updateAPI shallowData._id with shallowData
-  // }
 
   return (
     <div className="mb-4">
-      <div key={eachTable._id} className="d-flex">
+      <div key={eachTable._id} name="Column Headers" className="d-flex">
         {props.tableStyle.column.map((eachColumn, index) => (
           <>
             {index == 0 && (
@@ -196,7 +167,6 @@ const BiztoolTable = (props) => {
             tableStyle={props.tableStyle}
           />
         ))}
-
       {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
         eachTable.fixed_costs.map((eachRow) => (
           <BiztoolRow
@@ -212,7 +182,6 @@ const BiztoolTable = (props) => {
             tableStyle={props.tableStyle}
           />
         ))}
-
       {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service &&
         eachTable.services.map((eachRow) => (
           <BiztoolRow
@@ -288,6 +257,7 @@ const BiztoolTable = (props) => {
             tableStyle={props.tableStyle}
           />
         ))}
+        
       <AddRow tableStyle={props.tableStyle} eachTable={props.eachTable} />
     </div>
   );

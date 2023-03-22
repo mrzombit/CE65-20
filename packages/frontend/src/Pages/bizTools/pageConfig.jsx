@@ -103,7 +103,7 @@ const BIZTOOL_PAGE_CONFIG = {
           {
             colId: 3,
             title: "อัตราเพิ่มขึ้น",
-            width: 150,
+            width: 200,
             type: "percent",
             backgroundColor: "#ffffff",
             color: "#000000",
@@ -112,7 +112,7 @@ const BIZTOOL_PAGE_CONFIG = {
           {
             colId: 4,
             title: "รอบละ(เดือน)",
-            width: 120,
+            width: 150,
             type: "dropdown",
             backgroundColor: "#ffffff",
             color: "#000000",
@@ -224,7 +224,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 5,
               title: "อัตราเพิ่มของราคาขาย",
-              width: 150,
+              width: 200,
               type: "percent",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -233,7 +233,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 6,
               title: "อัตราเพิ่มของต้นทุน",
-              width: 140,
+              width: 200,
               type: "percent",
               backgroundColor: "#ffffff",
               color: "#000000",

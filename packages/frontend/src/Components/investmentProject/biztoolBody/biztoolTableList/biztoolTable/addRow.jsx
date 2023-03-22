@@ -26,7 +26,7 @@ const AddRow = (props) => {
     const closeAddRow = (e) => {
       // console.log(e.srcElement.innerText + e.srcElement.nodeName);
       // console.log(e.srcElement.nodeName);
-      console.log(e.srcElement);
+      // console.log(e.srcElement);
       if (
         e.srcElement.innerText !== "เพิ่มรายการ" &&
         e.srcElement.nodeName !== "INPUT"

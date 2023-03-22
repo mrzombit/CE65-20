@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import "../biztools.css";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
@@ -6,7 +6,7 @@ import BiztoolBody from "../../../components/investmentProject/biztoolBody/bizto
 import BIZTOOL_PAGE_CONFIG from "../pageConfig";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProjectById } from "../../../features/projectsSlice";
+import { fetchProjectById, projectUpdated, updateProject } from "../../../features/projectsSlice";
 
 function TotalInvestmentPage() {
 
@@ -19,13 +19,47 @@ function TotalInvestmentPage() {
       dispatch(fetchProjectById(selectedProject));
       setIsLoaded({ user: true, project: true });
     }
-  }, []);
+    setTableData(selectedProject.expense.investment_tables)
+  }, [selectedProject]);
 
   const [tableData, setTableData] = useState(selectedProject.expense.investment_tables);
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.totalInvestment);
 
   const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
-    alert(value)
+    let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
+    shallowTables = shallowTables.map((eachTable => {
+      if (eachTable._id == tableId) {
+        let shallowRows = eachTable.investments
+        shallowRows = shallowRows.map(eachRow => {
+          if (eachRow._id == rowId) {
+            if (columnIndex == 0) {
+              return { ...eachRow, name: value }
+            }
+            else if (columnIndex == 1) {
+              return { ...eachRow, amount: Number(value) }
+            }
+            else if (columnIndex == 2) {
+              return { ...eachRow, account_id: value }
+            }
+            else if (columnIndex == 3) {
+              return { ...eachRow, start_date: value }
+            }
+          }
+          return eachRow
+        })
+        eachTable.investments = shallowRows
+      }
+      return eachTable
+    }))
+    let shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        investment_tables: shallowTables
+      }
+    }
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
   }
 
   return (
@@ -42,11 +76,8 @@ function TotalInvestmentPage() {
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
-          onChangeHandle={config.onChangeHandle}
         />
-        {/* {console.log(table.data)} */}
       </div>
-      {/* ))} */}
     </div>
   );
 }

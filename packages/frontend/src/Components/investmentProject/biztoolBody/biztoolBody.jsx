@@ -25,7 +25,6 @@ const BiztoolBody = (props) => {
             data={props.tableData.service_tables}
             type={props.type.service}
             tableStyle={props.tableStyle.serviceTableStyle}
-            onChangeHandle={props.onChangeHandle.onServiceChangeHandle}
           />
         </div>
         <div>
@@ -40,7 +39,6 @@ const BiztoolBody = (props) => {
             data={props.tableData.product_tables}
             type={props.type.product}
             tableStyle={props.tableStyle.productTableStyle}
-            onChangeHandle={props.onChangeHandle.onProductChangeHandle}
           />
         </div>
       </div>}
@@ -49,28 +47,28 @@ const BiztoolBody = (props) => {
         <div >
           <div className='miscellaneous-table-header'>ผู้ถือหุ้น</div>
           <BiztoolTableList
+            onCellChange={props.onCellChange}
             data={props.tableData.equity_contribution_tables}
             type={props.type.equityContribution}
             tableStyle={props.tableStyle.equityContributionTableStyle}
-            onChangeHandle={props.onChangeHandle.onEquityContributionChangeHandle}
           />
         </div>
         <div>
           <div className='miscellaneous-table-header'>ผู้รับปันผล</div>
           <BiztoolTableList
+            onCellChange={props.onCellChange}
             data={props.tableData.equity_repayment_tables}
             type={props.type.equityRepayment}
             tableStyle={props.tableStyle.equityRepaymentTableStyle}
-            onChangeHandle={props.onChangeHandle.onEquityRepaymentChangeHandle}
           />
         </div>
         <div>
           <div className='miscellaneous-table-header'>เงินกู้และการชำระเงินกู้</div>
           <BiztoolTableList
+            onCellChange={props.onCellChange}
             data={props.tableData.debt_issuance_tables}
             type={props.type.debtIssuance}
             tableStyle={props.tableStyle.debtIssuanceTableStyle}
-            onChangeHandle={props.onChangeHandle.onDebtIssuanceChangeHandle}
           />
         </div>
       </div>}
@@ -87,7 +85,7 @@ const BiztoolBody = (props) => {
             data={props.tableData}
             type={props.type.page}
             tableStyle={props.tableStyle}
-            onChangeHandle={props.onChangeHandle}
+            handleFunction={props.handleFunction.addTableHandleServiceFunction}
           />
         </div>}
     </div>

@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 import BiztoolBody from "../../../components/investmentProject/biztoolBody/biztoolBody";
 import BIZTOOL_PAGE_CONFIG from "../pageConfig";
-import BIZTOOL_PAGE_MOCKDATA from "../pageMockData";
 
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserByUsername } from "../../../features/usersSlice";
 import {
-  fetchProjectsByUserId,
-  setSelectedProject,
   fetchProjectById,
+  projectUpdated,
+  updateProject,
 } from "../../../features/projectsSlice";
 
 function MiscellaneousPage() {
@@ -26,11 +23,29 @@ function MiscellaneousPage() {
       dispatch(fetchProjectById(selectedProject));
       setIsLoaded({ user: true, project: true });
     }
-  }, []);
+    setTableData({
+      equity_contribution_tables: [
+        {
+          equity_contributions: selectedProject.miscellaneous.equity_contribution,
+        },
+      ],
+      equity_repayment_tables: [
+        {
+          equity_repayments: selectedProject.miscellaneous.equity_repayment,
+        },
+      ],
+      debt_issuance_tables: [
+        {
+          debt_issuances: selectedProject.miscellaneous.debt_issuance,
+        },
+      ],
+    })
+  }, [selectedProject]);
+
   const [tableData, setTableData] = useState({
     equity_contribution_tables: [
       {
-        equity_contributions: selectedProject.miscellaneous.equity_contribution,
+        equity_contributions: selectedProject.miscellaneous.equity_contribution, //array
       },
     ],
     equity_repayment_tables: [
@@ -45,9 +60,93 @@ function MiscellaneousPage() {
     ],
   });
   const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.miscellaneous);
-  
+
   const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
-    alert(value)
+    let shallowEquityContributionTables = JSON.parse(JSON.stringify(tableData.equity_contribution_tables))
+    let shallowEquityRepaymentTables = JSON.parse(JSON.stringify(tableData.equity_repayment_tables))
+    let shallowDebtIssuanceTables = JSON.parse(JSON.stringify(tableData.debt_issuance_tables))
+    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
+      shallowEquityContributionTables = shallowEquityContributionTables.map((eachTable => {
+        let shallowRows = eachTable.equity_contributions
+        shallowRows = shallowRows.map(eachRow => {
+          if (eachRow._id == rowId) {
+            if (columnIndex == 0) {
+              return { ...eachRow, name: value }
+            }
+            else if (columnIndex == 1) {
+              return { ...eachRow, amount: Number(value) }
+            }
+            else if (columnIndex == 2) {
+              return { ...eachRow, date: value }
+            }
+          }
+          return eachRow
+        })
+        eachTable.equity_contributions = shallowRows
+        return eachTable
+      }))
+    }
+    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment) {
+      shallowEquityRepaymentTables = shallowEquityRepaymentTables.map((eachTable => {
+        let shallowRows = eachTable.equity_repayments
+        shallowRows = shallowRows.map(eachRow => {
+          if (eachRow._id == rowId) {
+            if (columnIndex == 0) {
+              return { ...eachRow, name: value }
+            }
+            else if (columnIndex == 1) {
+              return { ...eachRow, share: value }
+            }
+            else if (columnIndex == 2) {
+              return { ...eachRow, repayment: value }
+            }
+          }
+          return eachRow
+        })
+        eachTable.equity_repayments = shallowRows
+        return eachTable
+      }))
+    }
+    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
+      shallowDebtIssuanceTables = shallowDebtIssuanceTables.map((eachTable => {
+        if (eachTable._id == tableId) {
+          let shallowRows = eachTable.debt_issuances
+          shallowRows = shallowRows.map(eachRow => {
+            if (columnIndex == 0) {
+              return { ...eachRow, name: value }
+            }
+            else if (columnIndex == 1) {
+              return { ...eachRow, amount: value }
+            }
+            else if (columnIndex == 2) {
+              return { ...eachRow, start_date: value }
+            }
+            else if (columnIndex == 3) {
+              return { ...eachRow, apr: Number(value) }
+            }
+            else if (columnIndex == 4) {
+              return { ...eachRow, period_id: value }
+            }
+            else if (columnIndex == 5) {
+              return { ...eachRow, payments: value }
+            }
+            return eachRow
+          })
+          eachTable.debt_issuances = shallowRows
+        }
+        return eachTable
+      }))
+    }
+    let shallowSelectedProject = {
+      ...selectedProject,
+      miscellaneous: {
+        equity_contribution: shallowEquityContributionTables[0].equity_contributions,
+        equity_repayment: shallowEquityRepaymentTables[0].equity_repayments,
+        debt_issuance: shallowDebtIssuanceTables[0].debt_issuances,
+      }
+    }
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
   return (
@@ -60,7 +159,6 @@ function MiscellaneousPage() {
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
-          onChangeHandle={config.onChangeHandle}
         />
       </div>
     </div>
