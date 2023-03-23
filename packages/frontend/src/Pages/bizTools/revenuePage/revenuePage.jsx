@@ -210,6 +210,35 @@ function RevenuePage() {
     dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
   }
 
+  const tableHeaderOnChange = (tableType, tableId, value) => {
+    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
+
+    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+      shallowServiceTables = shallowServiceTables.map(eachTable => {
+        if (eachTable._id == tableId) eachTable.name = value
+        return eachTable
+      })
+    }
+    else if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+      shallowProductTables = shallowProductTables.map(eachTable => {
+        if (eachTable._id == tableId) eachTable.name = value
+        return eachTable
+      })
+    }
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        service_tables: shallowServiceTables,
+        product_tables: shallowProductTables
+      }
+    }
+
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
@@ -219,6 +248,7 @@ function RevenuePage() {
           title={config.title}
         />
         <BiztoolBody
+          tableHeaderOnChange={tableHeaderOnChange}
           addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}

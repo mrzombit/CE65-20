@@ -81,7 +81,7 @@ function OperationCostPage() {
       number: [],
       start_date: new Date(),
       cost_increase: 0,
-      cost_increase_period_id: "63de92ebd63688ac8b7ed999",
+      cost_increase_period_id: "63de932fd63688ac8b7ed99f",
     }
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
     shallowTables = shallowTables.map(eachTable => {
@@ -98,7 +98,29 @@ function OperationCostPage() {
     }
 
     dispatch(projectUpdated(shallowSelectedProject))
-    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
+  const tableHeaderOnChange = (tableType, tableId, value) => {
+
+    let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
+
+    shallowTables = shallowTables.map(eachTable => {
+      if (eachTable._id == tableId) eachTable.name = value
+      return eachTable
+    })
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        fixed_cost_tables: shallowTables
+      }
+    }
+
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+
   }
 
   return (
@@ -111,6 +133,7 @@ function OperationCostPage() {
           handleFunction={config.addTableHandleFunction}
         />
         <BiztoolBody
+          tableHeaderOnChange={tableHeaderOnChange}
           addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}

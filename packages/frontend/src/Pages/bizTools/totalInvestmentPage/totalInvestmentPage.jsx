@@ -87,6 +87,25 @@ function TotalInvestmentPage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const tableHeaderOnChange = (tableType, tableId, value) => {
+    
+    let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
+    shallowTables = shallowTables.map(eachTable => {
+      if (eachTable._id == tableId) eachTable.name = value
+      return eachTable
+    })
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        investment_tables: shallowTables
+      }
+    }
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
@@ -97,6 +116,7 @@ function TotalInvestmentPage() {
           handleFunction={config.addTableHandleFunction}
         />
         <BiztoolBody
+          tableHeaderOnChange={tableHeaderOnChange}
           addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}

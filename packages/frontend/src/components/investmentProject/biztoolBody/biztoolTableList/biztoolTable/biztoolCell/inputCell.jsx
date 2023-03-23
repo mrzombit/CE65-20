@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import timeToShow from '../../../../../common/timeToShow'
 
 const InputCell = (props) => {
   const selectedProject = useSelector(state => state.projects.selectedProject)
@@ -15,7 +14,7 @@ const InputCell = (props) => {
       <input
         type={props.type == 'date' ? 'date' : 'text'}
         // type='text'
-        className="column border border-primary"
+        className="column border border-primary biztool-input-cell"
         style={{
           width: `${props.width}px`,
           textAlign: `start`,

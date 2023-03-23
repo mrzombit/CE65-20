@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useSelector } from 'react-redux';
+import "./cellStyle.css"
 
 const DropdownCell = (props) => {
 
@@ -49,6 +50,7 @@ const DropdownCell = (props) => {
     }
     setAllValue()
     console.log('reset dropdown');
+    console.log(selectedPeriod);
   }, [dropdownOptions, selectedProject, props.onCellChange])
 
   return (
@@ -60,12 +62,14 @@ const DropdownCell = (props) => {
             width: `${props.width}px`,
           }}
         >
-          <Dropdown.Toggle id="dropdown-autoclose-true">
+          <Dropdown.Toggle className='biztool-input-cell' id="dropdown-autoclose-true">
+            {/* {JSON.stringify(selectedPeriod)} */}
             {selectedPeriod.label.name.th}
           </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu className='biztool-input-cell-no-border'>
             {dropdownOptions && dropdownOptions.map((option) => (
               <Dropdown.Item
+                className='biztool-input-cell-no-border'
                 eventKey={option.value}
                 style={{
                   width: `${props.width}px`,
@@ -78,8 +82,9 @@ const DropdownCell = (props) => {
         </Dropdown>
       }
         {props.type == 'cost-increase-dropdown' &&
-          <div className='d-flex'>
+          <div className='d-flex border border-primary biztool-input-cell'>
             <input
+              className='biztool-input-cell-no-border'
               id={'cost-increase-input'}
               type='text'
               value={selectedCostIncrease}
@@ -98,6 +103,7 @@ const DropdownCell = (props) => {
               )}
             />
             <Dropdown
+              className='biztool-input-cell'
               onSelect={(valueKey) =>
                 props.onCellChange(
                   props.tableType,
@@ -114,12 +120,14 @@ const DropdownCell = (props) => {
                 width: `${props.width}px`,
               }}
             >
-              <Dropdown.Toggle id="dropdown-autoclose-true">
+              <Dropdown.Toggle className='biztool-input-cell-no-border' id="dropdown-autoclose-true">
                 {selectedCostIncreasePeriod.label.name.th}
+                {/* {JSON.stringify(selectedCostIncreasePeriod)} */}
               </Dropdown.Toggle>
-              <Dropdown.Menu>
+              <Dropdown.Menu className='biztool-input-cell'>
                 {dropdownOptions && dropdownOptions.map((option) => (
                   <Dropdown.Item
+                    className='biztool-input-cell-no-border'
                     eventKey={option.value}
                     style={{
                       width: `${props.width}px`,
@@ -134,17 +142,19 @@ const DropdownCell = (props) => {
         }
         {props.type == 'asset-account-dropdown' &&
           <Dropdown
+            className='biztool-input-cell-no-border'
             onSelect={(valueKey) => props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
             style={{
               width: `${props.width}px`,
             }}
           >
-            <Dropdown.Toggle id="dropdown-autoclose-true">
+            <Dropdown.Toggle className='biztool-input-cell' id="dropdown-autoclose-true">
               {selectedAssetAccount.label.name.th}
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu className='biztool-input-cell-no-border'>
               {dropdownOptions && dropdownOptions.map((option) => (
                 <Dropdown.Item
+                  className='biztool-input-cell-no-border'
                   eventKey={option.value}
                   style={{
                     width: `${props.width}px`,

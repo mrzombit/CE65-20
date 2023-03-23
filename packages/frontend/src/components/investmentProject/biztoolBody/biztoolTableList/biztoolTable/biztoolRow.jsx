@@ -255,7 +255,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[0].width} />
                     <InputCell
                         data={props.data.amount}
-                        type="number"
+                        type="money"
                         colIndex={1}
                         tableType={props.type}
                         onCellChange={props.onCellChange}

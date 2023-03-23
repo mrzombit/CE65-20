@@ -85,7 +85,7 @@ const BIZTOOL_PAGE_CONFIG = {
           {
             colId: 1,
             title: "เงินเดือน",
-            width: 200,
+            width: 300,
             type: "text",
             backgroundColor: "#ffffff",
             color: "#000000",
@@ -188,7 +188,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "ชื่อตาราง",
-              width: 200,
+              width: 300,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -293,7 +293,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "ชื่อตาราง",
-              width: 200,
+              width: 300,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",

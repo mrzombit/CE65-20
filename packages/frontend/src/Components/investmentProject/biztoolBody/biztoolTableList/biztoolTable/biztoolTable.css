@@ -18,7 +18,7 @@
     height: 40px;
 }
 
-.biztool-addrow{
+.biztool-addrow {
     background-color: #ececec;
 }
 
@@ -26,3 +26,52 @@
     cursor: pointer;
     background-color: #c6c6c6;
 }
+
+.biztool-header-cell {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:#343434;
+    border-radius: 0% !important;
+}
+
+.biztool-header-cell-input:hover {
+    cursor: pointer;
+    background-color: #464646;
+}
+
+.biztool-header-cell-input:focus{
+    color: #343434;
+}
+.biztool-header-cell-input:focus:hover{
+    color: #343434;
+    background-color: aliceblue;
+}
+.wrapper {
+    position:relative;
+  }
+  
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 4px;
+    color: azure;
+    position: absolute;
+    box-sizing:border-box;
+    top:40%;
+    left:250px;
+    transform: translateY(-50%);
+  }
+  .icon:hover{
+    cursor: pointer;
+  }
+  
+  .biztool-input-cell {
+    border-radius: 0% !important;
+  }
+  .biztool-input-cell-no-border {
+    border-radius: 0% !important;
+    border: none !important;
+  }
