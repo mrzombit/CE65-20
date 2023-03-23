@@ -21,6 +21,9 @@ import TotalInvestmentPage from "./pages/bizTools/totalInvestmentPage/totalInves
 import RevenuePage from "./pages/bizTools/revenuePage/revenuePage";
 import FFCPage from "./pages/checkBiz/ffcPage/ffcPage";
 import StatementsPage from "./pages/checkBiz/statementsPage/statementsPage";
+import CashFlowStatement from "./pages/checkBiz/statementsPage/cashFlowStatementPage";
+import ProfitLossStatement from "./pages/checkBiz/statementsPage/profitLossStatement";
+import CustomStatementPage from "./pages/checkBiz/statementsPage/customStatementPage";
 import ProjectConfigPage from "./pages/bizTools/projectConfigPage/projectConfigPage";
 import { useDispatch, useSelector } from "react-redux";
 import store from "./app/store";
@@ -68,7 +71,10 @@ function App() {
               <Route path="/Miscellaneous" element={<MiscellaneousPage />} />
               <Route path="/FFC" element={<FFCPage />} />
               <Route path="/Statements" element={<StatementsPage />} />
-              <Route path="/Statements" element={<StatementsPage />} />
+              <Route path="/CustomStatements" element={<CustomStatementPage />} />
+              <Route path="/CashFlowStatements" element={<CashFlowStatement />} />
+              <Route path="/ProfitLossStatements" element={<ProfitLossStatement />} />
+
               <Route path="*" element={<LandingPage />} />
               {/* <Route path="/NewInvestmentProject" element={<NewInvestmentProject />} /> */}
             </Routes>

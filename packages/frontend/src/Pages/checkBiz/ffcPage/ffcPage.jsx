@@ -15,7 +15,7 @@ import BIZTOOL_PAGE_CONFIG from "../../bizTools/pageConfig";
 function FFCPage() {
   const [page, setPage] = useState("pageone");
 
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.ffc)
+  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.ffc);
 
   const nextPage = (page) => {
     setPage(page);
@@ -49,32 +49,29 @@ function FFCPage() {
     <div className="d-flex ">
       <BizSidebar />
       <div className="p-4 biztool-body-width">
-        <BiztoolHeader
-          type = {config.type}
-          title= {config.title}
-        />
-      </div>
-      <div className="ffc">
-        <p className="ffc-head-text my-5">
-          Answer the following Questions to Assess Your Financial Feasibility
-          Canvas
-        </p>
-        <div className="">
-          <MultiStepProgressBar
-            page={page}
-            onPageNumberClick={nextPageNumber}
-          />
-          <div className="ffc-body ">
-            {
+        <BiztoolHeader type={config.type} title={config.title} />
+        <div className="ffc">
+          <p className="ffc-head-text my-5">
+            Answer the following Questions to Assess Your Financial Feasibility
+            Canvas
+          </p>
+          <div className="">
+            <MultiStepProgressBar
+              page={page}
+              onPageNumberClick={nextPageNumber}
+            />
+            <div className="ffc-body">
               {
-                pageone: <FFCOne onButtonClick={nextPage} />,
-                pagetwo: <FFCTwo onButtonClick={nextPage} />,
-                pagethree: <FFCTree onButtonClick={nextPage} />,
-                pagefour: <FFCFour onButtonClick={nextPage} />,
-                pagefive: <FFCFive onButtonClick={nextPage} />,
-                pagesix: <FFCSix />,
-              }[page]
-            }
+                {
+                  pageone: <FFCOne onButtonClick={nextPage} />,
+                  pagetwo: <FFCTwo onButtonClick={nextPage} />,
+                  pagethree: <FFCTree onButtonClick={nextPage} />,
+                  pagefour: <FFCFour onButtonClick={nextPage} />,
+                  pagefive: <FFCFive onButtonClick={nextPage} />,
+                  pagesix: <FFCSix />,
+                }[page]
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -83,4 +80,3 @@ function FFCPage() {
 }
 
 export default FFCPage;
-

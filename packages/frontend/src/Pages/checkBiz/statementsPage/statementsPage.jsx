@@ -3,6 +3,7 @@ import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 import StatementCard from "../../../components/subscription/statementCard/statementCard";
 import BIZTOOL_PAGE_CONFIG from "../../bizTools/pageConfig";
+import { Link, useNavigate } from "react-router-dom";
 import "./statementsPage.css";
 
 
@@ -18,12 +19,11 @@ function StatementsPage() {
           title={config.title}
         />
         <div className="statement-body">
-          {/* <p className="statement-title">Your Statements</p> */}
           <div className="d-flex flex-column justify-content-center align-items-start">
-            <div className="statement-block">
-              <StatementCard name="Custom Statement" detail="Create you own statement" />
-              <StatementCard name="Cash Flow Statement" detail="Create you Cash Flow statement" />
-              <StatementCard name="Profit & Loss Statement" detail="Create you Profit & Loss statement" />
+            <div className="statement-block ">
+              <Link to="/CustomStatements"><StatementCard name="Custom Statement" detail="Create you own statement" /></Link>
+              <Link to="/CashFlowStatements"><StatementCard name="Cash Flow Statement" detail="Create you Cash Flow statement" /></Link>
+              <Link to="/ProfitLossStatements"><StatementCard name="Profit & Loss Statement" detail="Create you Profit & Loss statement" /></Link>
             </div>
           </div>
         </div>

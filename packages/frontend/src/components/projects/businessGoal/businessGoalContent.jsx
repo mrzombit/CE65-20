@@ -59,7 +59,7 @@ const BusinessGoalContent = (props) => {
     }, [isLoaded])
 
     return (
-        <div className='border border-danger align-items-center justify-content-center'>
+        <div className='align-items-center justify-content-center'>
             <Select
                 closeMenuOnSelect={true}
                 components={animatedComponents}

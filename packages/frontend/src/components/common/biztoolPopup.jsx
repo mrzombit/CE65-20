@@ -29,7 +29,7 @@ function BiztoolPopup(props) {
           <div className=" flex-col justify-content-center title-header-style d-flex">
             {props.title}
           </div>}
-        <div className="border border-primary align-items-center popup-content">
+        <div className="align-items-center popup-content">
           {props.content}
         </div>
       </div>
