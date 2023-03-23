@@ -7,6 +7,7 @@ const BiztoolTableList = (props) => {
       {Array.isArray(props.data) ?
         props.data.map((eachTable) =>
           <BiztoolTable
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             key={eachTable._id}
             eachTable={eachTable}
@@ -15,6 +16,7 @@ const BiztoolTableList = (props) => {
           />
         ) : [].map((eachTable) =>
           <BiztoolTable
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             key={eachTable._id}
             eachTable={eachTable}

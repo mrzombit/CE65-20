@@ -21,6 +21,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleServiceFunction}
           />
           <BiztoolTableList
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.service_tables}
             type={props.type.service}
@@ -35,6 +36,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleProductFunction}
           />
           <BiztoolTableList
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.product_tables}
             type={props.type.product}
@@ -47,6 +49,7 @@ const BiztoolBody = (props) => {
         <div >
           <div className='miscellaneous-table-header'>ผู้ถือหุ้น</div>
           <BiztoolTableList
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.equity_contribution_tables}
             type={props.type.equityContribution}
@@ -56,6 +59,7 @@ const BiztoolBody = (props) => {
         <div>
           <div className='miscellaneous-table-header'>ผู้รับปันผล</div>
           <BiztoolTableList
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.equity_repayment_tables}
             type={props.type.equityRepayment}
@@ -65,6 +69,7 @@ const BiztoolBody = (props) => {
         <div>
           <div className='miscellaneous-table-header'>เงินกู้และการชำระเงินกู้</div>
           <BiztoolTableList
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.debt_issuance_tables}
             type={props.type.debtIssuance}
@@ -81,6 +86,7 @@ const BiztoolBody = (props) => {
         props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page &&
         <div className='biztool-body-flex '>
           <BiztoolTableList
+            addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData}
             type={props.type.page}

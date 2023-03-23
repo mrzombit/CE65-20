@@ -73,6 +73,34 @@ function OperationCostPage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const addRowHandle = (tableType, tableId) => {
+    const initialRow = {
+      name: "",
+      amount: 0,
+      period_id: "63de92ebd63688ac8b7ed999",
+      number: [],
+      start_date: new Date(),
+      cost_increase: 0,
+      cost_increase_period_id: "63de92ebd63688ac8b7ed999",
+    }
+    let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
+    shallowTables = shallowTables.map(eachTable => {
+      if (eachTable._id == tableId) eachTable.fixed_costs.push(initialRow)
+      return eachTable
+    })
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        fixed_cost_tables: shallowTables
+      }
+    }
+
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+  }
+
   return (
     <div className="d-flex">
       <BizSidebar />
@@ -83,6 +111,7 @@ function OperationCostPage() {
           handleFunction={config.addTableHandleFunction}
         />
         <BiztoolBody
+          addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}

@@ -59,7 +59,32 @@ function TotalInvestmentPage() {
       }
     }
     dispatch(projectUpdated(shallowSelectedProject))
-    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
+  const addRowHandle = (tableType, tableId) => {
+    const initialRow = {
+      name: "",
+      amount: 0,
+      account_id: "63de8eead63688ac8b7ed990",
+      is_initial: true,
+      start_date: new Date(),
+    }
+    let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
+    shallowTables = shallowTables.map(eachTable => {
+      if (eachTable._id == tableId) eachTable.investments.push(initialRow)
+      return eachTable
+    })
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        investment_tables: shallowTables
+      }
+    }
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
   return (
@@ -72,6 +97,7 @@ function TotalInvestmentPage() {
           handleFunction={config.addTableHandleFunction}
         />
         <BiztoolBody
+          addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}

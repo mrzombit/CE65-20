@@ -8,6 +8,8 @@ import BizEachItemPerYear from "../../../../bizTools/eachCellTableType/bizEachIt
 import { updateProject } from "../../../../../features/projectsSlice";
 import AddRow from "./addRow";
 import BiztoolRow from "./biztoolRow";
+import NewRow from "./biztoolCell/newRow";
+import Button from "react-bootstrap/esm/Button";
 
 const BiztoolTable = (props) => {
   // const tableId = props.tableId;
@@ -74,8 +76,7 @@ const BiztoolTable = (props) => {
   const dispatch = useDispatch();
   const selectedProject = useSelector(
     (state) => state.projects.selectedProject
-  );
-  const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
+);
 
   const columnStyles = props.tableStyle.column.map((each) => ({
     width: each.width,
@@ -86,40 +87,16 @@ const BiztoolTable = (props) => {
 
   useEffect(() => {
     const closeAddRow = (e) => {
-      // console.log(e.srcElement.innerText + e.srcElement.nodeName);
-      // console.log(e.srcElement.nodeName);
-      // console.log(e.srcElement);
       if (
         e.srcElement.innerText !== "เพิ่มรายการ" &&
         e.srcElement.nodeName !== "INPUT"
       ) {
-        // console.log("OUTSIDE!!")
-        //if add or edit data :
-        //AddProjectForm <AddProjectForm />
-
-        // if(e.srcElement.value !== null){
-        //   dispatch(updateProject(selectedProject));
-        // }
-
         setAddRowState(false);
       }
     };
     document.body.addEventListener("click", closeAddRow);
     return () => document.body.removeEventListener("click", closeAddRow);
   }, []);
-
-  const addRowHandle = (tableId) => {
-    setAddRowState(true);
-    alert(`add row! ${JSON.stringify(tableId)}`);
-    console.log(eachTable);
-  };
-
-  const handleChange = (event) => {
-    setInputVal(event.target.value);
-
-    console.log("value is:", event.target.value);
-  };
-
 
   return (
     <div className="mb-4">
@@ -243,22 +220,26 @@ const BiztoolTable = (props) => {
           />
         ))}
       {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
-        eachTable.equity_repayments.map((eachRow) => (
+        eachTable.equity_repayments.map((eachRow, index) => (
           <BiztoolRow
-            key={eachTable._id}
+            key={index}
             type={props.type}
             data={eachRow}
             onCellChange={props.onCellChange}
             address={
               {
-                tableId: eachTable._id,
+                tableId: `${index}`,
                 rowId: eachRow._id,
               }}
             tableStyle={props.tableStyle}
           />
         ))}
-        
-      <AddRow tableStyle={props.tableStyle} eachTable={props.eachTable} />
+
+      <button type="button"
+       className="btn btn-secondary w-100 text-start"
+        onClick={()=>props.addRowHandle(props.type, eachTable._id)}
+      >+ เพิ่มรายการใหม่</button>
+      {/* <AddRow tableStyle={props.tableStyle} eachTable={props.eachTable} /> */}
     </div>
   );
 };

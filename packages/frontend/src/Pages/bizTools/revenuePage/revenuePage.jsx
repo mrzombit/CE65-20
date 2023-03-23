@@ -82,7 +82,7 @@ function RevenuePage() {
         return eachTable
       }))
     }
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+    else if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
       shallowProductTables = shallowProductTables.map((eachTable => {
         if (eachTable._id == tableId) {
           let shallowRows = eachTable.products
@@ -104,7 +104,7 @@ function RevenuePage() {
                 return { ...eachRow, revenue_per_unit: Number(value) }
               }
               else if (columnIndex == 3) {
-                return { ...eachRow, cost_per_service: Number(value) }
+                return { ...eachRow, cost_per_unit: Number(value) }
               }
               else if (columnIndex == 4) {
                 return value.type == 'cost-increase-dropdown' ? {
@@ -149,6 +149,67 @@ function RevenuePage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const addRowHandle = (tableType, tableId) => {
+    const initialRow = {
+      service: {
+        name: "",
+        unit: 0,
+        unit_name: "",
+        serve_per_unit: 0,
+        revenue_per_service: 0,
+        cost_per_service: 0,
+        price_increase: 0,
+        price_increase_period_id: "63de92ebd63688ac8b7ed999",
+        cost_increase: 0,
+        cost_increase_period_id: "63de92ebd63688ac8b7ed999",
+        start_date: new Date(),
+        seasonal_trends: [],
+      },
+      product: {
+        name: "",
+        days_of_inventory: {
+          days: 0,
+          months: 0,
+        },
+        revenue_per_unit: 0,
+        cost_per_unit: 0,
+        price_increase: 0,
+        price_increase_period_id: "63de92ebd63688ac8b7ed999",
+        cost_increase: 0,
+        cost_increase_period_id: "63de92ebd63688ac8b7ed999",
+        start_date: new Date(),
+        seasonal_trends: [],
+      }
+    }
+
+    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
+
+    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+      shallowServiceTables = shallowServiceTables.map(eachTable => {
+        if (eachTable._id == tableId) eachTable.services.push(initialRow.service)
+        return eachTable
+      })
+    }
+    else if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+      shallowProductTables = shallowProductTables.map(eachTable => {
+        if (eachTable._id == tableId) eachTable.products.push(initialRow.product)
+        return eachTable
+      })
+    }
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        service_tables: shallowServiceTables,
+        product_tables: shallowProductTables
+      }
+    }
+
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
@@ -158,6 +219,7 @@ function RevenuePage() {
           title={config.title}
         />
         <BiztoolBody
+          addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}
