@@ -85,7 +85,6 @@ const BiztoolBody = (props) => {
             data={props.tableData}
             type={props.type.page}
             tableStyle={props.tableStyle}
-            handleFunction={props.handleFunction.addTableHandleServiceFunction}
           />
         </div>}
     </div>
