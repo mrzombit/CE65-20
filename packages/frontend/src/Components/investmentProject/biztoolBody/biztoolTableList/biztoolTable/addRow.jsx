@@ -22,23 +22,14 @@ const AddRow = (props) => {
     type: each.type,
     backgroundColor: each.backgroundColor,
   }));
+
   useEffect(() => {
     const closeAddRow = (e) => {
-      // console.log(e.srcElement.innerText + e.srcElement.nodeName);
-      // console.log(e.srcElement.nodeName);
-      // console.log(e.srcElement);
       if (
         e.srcElement.innerText !== "เพิ่มรายการ" &&
         e.srcElement.nodeName !== "INPUT"
+        // no input in add row
       ) {
-        // console.log("OUTSIDE!!")
-        //if add or edit data :
-        //AddProjectForm <AddProjectForm />
-
-        // if(e.srcElement.value !== null){
-        //   dispatch(updateProject(selectedProject));
-        // }
-
         setAddRowState(false);
       }
     };
@@ -48,29 +39,25 @@ const AddRow = (props) => {
 
   const addRowHandle = (tableId) => {
     setAddRowState(true);
-    // alert(`add row! ${JSON.stringify(tableId)}`);
-    // console.log(eachTable);
   };
 
   const handleChange = (event) => {
     setInputVal(event.target.value);
-
-    console.log("value is:", event.target.value);
   };
 
   const inputInitial = {
     totalInvestment: {
       name: "",
       amount: 0,
-      assetAcount: "",
+      account_id: "",
       start_date: "",
     },
     operationCost: {
       name: "",
       amount: 0,
-      cost_increase: "",
       period_id: "",
-      //ตาราง จำนวน(หน่วย)
+      cost_increase: 0,
+      cost_increase_period_id: "",
     },
     revenue: {
       service: {
@@ -80,18 +67,27 @@ const AddRow = (props) => {
         serve_per_unit: "",
         revenue_per_service: "",
         cost_per_service: "",
-        price_increase: "",
-        cost_increase: "",
+        price_increase: 0,
+        price_increase_period_id: "",
+        cost_increase: 0,
+        cost_increase_period_id: "",
         start_date: "",
+        seasonal_trends: [],
       },
       product: {
         name: "",
-        days_of_inventory: "",
+        days_of_inventory: {
+          days: 0,
+          months: 0,
+        },
         revenue_per_unit: "",
         cost_per_service: "",
-        price_increase: "",
-        // name: "",
-        // name: "",
+        price_increase: 0,
+        price_increase_period_id: "",
+        cost_increase: 0,
+        cost_increase_period_id: "",
+        start_date: "",
+        seasonal_trends: [],
       },
     },
     miscellaneous: {
@@ -103,13 +99,17 @@ const AddRow = (props) => {
       equityRepayment: {
         name: "",
         share: 0,
-        start_date: "",
+        repayment: {
+          period_id: "",
+          start_date: "",
+        }
       },
       debtIssuance: {
         name: "",
         amount: 0,
-        payments_date: "",
         apr: "",
+        period_id: "",
+        payments: [],
       },
     },
   };
@@ -136,7 +136,7 @@ const AddRow = (props) => {
                     onChange={handleChange}
                     value={inputVal}
                   />
-                  
+
                 </div>
               )}
               {index !== 0 && (
@@ -155,14 +155,7 @@ const AddRow = (props) => {
                     value={inputVal}
                   />
                 </div>
-
-
               )}
-              {/* {alert("eachColumn._id" + JSON.stringify(eachColumn.title))} */}
-              {/* {alert("EACH_TABLE: " + JSON.stringify(eachTable))} */}
-              {/* {alert("TableId: " + JSON.stringify(eachTable._id)+ ", ColId: " + JSON.stringify(eachColumn.colId))} */}
-              {/* {alert("table-name: " + JSON.stringify(eachTable.name)+ ", Col-title: " + JSON.stringify(eachColumn.title))} */}
-              {/* {alert(`table-name: ${JSON.stringify(eachTable.name)} [${JSON.stringify(eachTable._id)}], Col-title: ${JSON.stringify(eachColumn.title)} [${JSON.stringify(eachColumn.colId)}]`)} */}
             </>
           ))}
         </div>
@@ -171,15 +164,14 @@ const AddRow = (props) => {
       <div
         className="biztool-addrow d-flex align-items-center mx-1"
         style={{
-          width: `${
-            columnStyles.reduce(function (previousValue, currentValue) {
-              return { width: previousValue.width + currentValue.width };
-            }).width
-          }px`,
+          width: `${columnStyles.reduce(function (previousValue, currentValue) {
+            return { width: previousValue.width + currentValue.width };
+          }).width
+            }px`,
         }}
       >
         <div className="d-flex" onClick={() => addRowHandle(eachTable._id)}>
-          <div className="mx-2)">
+          <div className="mx-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"

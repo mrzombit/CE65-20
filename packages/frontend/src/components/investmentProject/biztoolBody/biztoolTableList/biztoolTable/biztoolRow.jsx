@@ -202,7 +202,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <InputCell
-                        data={props.data.cost_per_service}
+                        data={props.data.cost_per_unit}
                         type="percent"
                         colIndex={3}
                         tableType={props.type}

@@ -149,12 +149,75 @@ function MiscellaneousPage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const addRowHandle = (tableType, tableId) => {
+    const initialRow = {
+      equity_contribution: {
+        name: "",
+        unit: 0,
+        unit_name: "",
+      },
+      equity_repayment: {
+        name: "",
+        days_of_inventory: {
+          days: 0,
+          months: 0,
+        },
+        revenue_per_unit: 0,
+      },
+      debt_issuance: {
+        name: "",
+        days_of_inventory: {
+          days: 0,
+          months: 0,
+        },
+        revenue_per_unit: 0,
+      },
+    }
+
+    let shallowEquityContributionTables = JSON.parse(JSON.stringify(tableData.equity_contribution_tables))
+    let shallowEquityRepaymentTables = JSON.parse(JSON.stringify(tableData.equity_repayment_tables))
+    let shallowDebtIssuanceTables = JSON.parse(JSON.stringify(tableData.debt_issuance_tables))
+
+    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
+      shallowEquityContributionTables = shallowEquityContributionTables.map(eachTable => {
+        eachTable.equity_contributions.push(initialRow.equity_contribution)
+        return eachTable
+      })
+    }
+
+    else if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment) {
+      shallowEquityRepaymentTables = shallowEquityRepaymentTables.map(eachTable => {
+        eachTable.equity_repayments.push(initialRow.equity_repayment)
+        return eachTable
+      })
+    }
+    else if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
+      shallowDebtIssuanceTables = shallowDebtIssuanceTables.map(eachTable => {
+        eachTable.debt_issuances.push(initialRow.debt_issuance)
+        return eachTable
+      })
+    }
+
+    let shallowSelectedProject = {
+      ...selectedProject,
+      miscellaneous: {
+        equity_contribution: shallowEquityContributionTables[0].equity_contributions,
+        equity_repayment: shallowEquityRepaymentTables[0].equity_repayments,
+        debt_issuance: shallowDebtIssuanceTables[0].debt_issuances,
+      }
+    }
+
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
       <div className="p-4 biztool-body-width">
         <BiztoolHeader type={config.type} title={config.title} />
         <BiztoolBody
+          addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}

@@ -66,7 +66,7 @@ export interface Project extends Document {
                     months: Number,
                 },
                 revenue_per_unit: Number,
-                cost_per_service: Number,
+                cost_per_unit: Number,
                 price_increase: Number,
                 price_increase_period_id: string,
                 cost_increase: Number,
