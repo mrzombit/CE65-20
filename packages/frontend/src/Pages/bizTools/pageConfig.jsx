@@ -347,7 +347,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 7,
               title: "อัตราเพิ่มของราคาขาย",
-              width: 150,
+              width: 200,
               type: "dropdown",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -370,7 +370,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 8,
               title: "อัตราเพิ่มของต้นทุน",
-              width: 150,
+              width: 200,
               type: "dropdown",
               backgroundColor: "#ffffff",
               color: "#000000",
