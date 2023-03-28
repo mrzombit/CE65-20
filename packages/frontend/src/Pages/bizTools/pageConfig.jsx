@@ -1,18 +1,12 @@
 const BIZTOOL_PAGE_CONFIG = {
     projectConfig: {
+      
       type: { page: "page-config", pageConfig: "page-config" },
       title: "เกี่ยวกับธุรกิจ",
     },
     totalInvestment: {
       type: { page: "total-investment", totalInvestment: "total-investment" },
       title: "ต้นทุนธุรกิจ",
-      addTableHandleFunction: (input) => {
-        alert("popup!");
-      },
-      onChangeHandle: (table, row, col, value) => {
-        console.log(`talble #${table}`);
-        console.log(`${row}, ${col}, ${value}`);
-      },
       tableStyle: {
         showColumnHeader: true,
         column: [
@@ -72,13 +66,6 @@ const BIZTOOL_PAGE_CONFIG = {
     operationCost: {
       type: { page: "operation-cost", operationCost: "operation-cost" },
       title: "ค่าใช้จ่ายประจำ",
-      addTableHandleFunction: (input) => {
-        alert("popup!");
-      },
-      onChangeHandle: (table, row, col, value) => {
-        console.log(`talble #${table}`);
-        console.log(`${row}, ${col}, ${value}`);
-      },
       tableStyle: {
         showColumnHeader: true,
         column: [
@@ -165,22 +152,6 @@ const BIZTOOL_PAGE_CONFIG = {
         service: "revenue-service",
       },
       title: "รายรับ",
-      addTableHandleFunction: {
-        addTableHandleServiceFunction: (input) => {
-          alert("service");
-        },
-        addTableHandleProductFunction: (input) => {
-          alert("product");
-        },
-      },
-      onChangeHandle: {
-        onServiceChangeHandle: (table, row, col, value) => {
-          console.log(`${row}, ${col}, ${value}`);
-        },
-        onProductChangeHandle: (table, row, col, value) => {
-          console.log(`${row}, ${col}, ${value}`);
-        },
-      },
       tableStyle: {
         productTableStyle: {
           showColumnHeader: true,
@@ -411,28 +382,6 @@ const BIZTOOL_PAGE_CONFIG = {
         debtIssuance: "miscellaneous-debt-issuance",
       },
       title: "เงินกู้และหุ้นส่วน",
-      addTableHandleFunction: {
-        addTableHandleEquityContributionFunction: (input) => {
-          alert("EquityContribution");
-        },
-        addTableHandleEquityRepaymentFunction: (input) => {
-          alert("EquityRepayment");
-        },
-        addTableHandleDebtIssuanceFunction: (input) => {
-          alert("DebtIssuance");
-        },
-      },
-      onChangeHandle: {
-        onEquityContributionChangeHandle: (table, row, col, value) => {
-          console.log(`${row}, ${col}, ${value}`);
-        },
-        onEquityRepaymentChangeHandle: (table, row, col, value) => {
-          console.log(`${row}, ${col}, ${value}`);
-        },
-        onDebtIssuanceChangeHandle: (table, row, col, value) => {
-          console.log(`${row}, ${col}, ${value}`);
-        },
-      },
       tableStyle: {
         equityContributionTableStyle: {
           showColumnHeader: true,
@@ -440,7 +389,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "รายชื่อผู้ถือหุ้น",
-              width: 600,
+              width: 300,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -472,7 +421,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "รายชื่อผู้รับปันผล",
-              width: 600,
+              width: 300,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -504,7 +453,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "การกู้ยืม",
-              width: 200,
+              width: 300,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",

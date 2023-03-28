@@ -95,7 +95,7 @@ function MiscellaneousPage() {
               return { ...eachRow, name: value }
             }
             else if (columnIndex == 1) {
-              return { ...eachRow, share: value }
+              return { ...eachRow, share: parseFloat(value) }
             }
             else if (columnIndex == 2) {
               return { ...eachRow, repayment: value }
@@ -122,7 +122,7 @@ function MiscellaneousPage() {
               return { ...eachRow, start_date: value }
             }
             else if (columnIndex == 3) {
-              return { ...eachRow, apr: Number(value) }
+              return { ...eachRow, apr: parseFloat(value) }
             }
             else if (columnIndex == 4) {
               return { ...eachRow, period_id: value }
@@ -153,24 +153,23 @@ function MiscellaneousPage() {
     const initialRow = {
       equity_contribution: {
         name: "",
-        unit: 0,
-        unit_name: "",
+        amount: 0,
+        date: new Date(),
       },
       equity_repayment: {
         name: "",
-        days_of_inventory: {
-          days: 0,
-          months: 0,
+        share: 0,
+        repayment: {
+          period_id: "63de932fd63688ac8b7ed99f",
+          start_date: new Date(),
         },
-        revenue_per_unit: 0,
       },
       debt_issuance: {
         name: "",
-        days_of_inventory: {
-          days: 0,
-          months: 0,
-        },
-        revenue_per_unit: 0,
+        amount: 0,
+        apr: 0,
+        period_id: "63de932fd63688ac8b7ed99f", 
+        payments:[]
       },
     }
 

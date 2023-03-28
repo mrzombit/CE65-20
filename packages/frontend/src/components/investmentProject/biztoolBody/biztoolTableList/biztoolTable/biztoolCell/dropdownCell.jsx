@@ -49,8 +49,6 @@ const DropdownCell = (props) => {
       setIsLoaded(true)
     }
     setAllValue()
-    console.log('reset dropdown');
-    console.log(selectedPeriod);
   }, [dropdownOptions, selectedProject, props.onCellChange])
 
   return (

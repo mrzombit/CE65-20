@@ -5,7 +5,6 @@ const InputCell = (props) => {
   const selectedProject = useSelector(state => state.projects.selectedProject)
 
   useEffect(() => {
-    console.log('InputCell.jsx is rerendered');
   }, [selectedProject])
   
 
@@ -19,7 +18,8 @@ const InputCell = (props) => {
           width: `${props.width}px`,
           textAlign: `start`,
         }}
-        onKeyPress={(props.type == 'number'|| props.type == 'money' || props.type =='percent')?(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault():null}
+        onKeyPress={(props.type == 'number'|| props.type == 'money' )?(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault():
+        (props.type == 'percent')?(e) => !/([0-9\b]*[.])+/.test(e.key) && e.preventDefault():null}
         onChange={e =>
           props.type == 'date' ? props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, e.target.value) :
             props.type == 'number' ? props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, e.target.value) :
@@ -32,7 +32,7 @@ const InputCell = (props) => {
           props.type == 'number' ? props.data :
             props.type == 'money' ? props.data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
               props.type == 'text' ? props.data :
-                props.type == 'percent' ? `${props.data}%` :
+                props.type == 'percent' ? `${props.data}` :
                   'wrong type'
         }
       />

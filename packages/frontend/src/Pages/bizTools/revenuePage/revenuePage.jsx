@@ -51,7 +51,7 @@ function RevenuePage() {
                 return { ...eachRow, revenue_per_service: Number(value) }
               }
               else if (columnIndex == 5) {
-                return { ...eachRow, cost_per_service: Number(value) }
+                return { ...eachRow, cost_per_service: parseFloat(value) }
               }
               else if (columnIndex == 6) {
                 return value.type == 'cost-increase-dropdown' ? {
@@ -104,7 +104,7 @@ function RevenuePage() {
                 return { ...eachRow, revenue_per_unit: Number(value) }
               }
               else if (columnIndex == 3) {
-                return { ...eachRow, cost_per_unit: Number(value) }
+                return { ...eachRow, cost_per_unit: parseFloat(value) }
               }
               else if (columnIndex == 4) {
                 return value.type == 'cost-increase-dropdown' ? {
