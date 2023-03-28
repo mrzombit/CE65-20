@@ -10,11 +10,10 @@ import { fetchProjectById, projectUpdated, updateProject } from "../../../featur
 
 function RevenuePage() {
   const dispatch = useDispatch();
-  const selectedProject = useSelector(
-    (state) => state.projects.selectedProject
-  );
+  const selectedProject = useSelector((state) => state.projects.selectedProject);
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
   const [reload, setReload] = useState(false)
+
   useEffect(() => {
     if (isLoaded.projects) {
       dispatch(fetchProjectById(selectedProject._id));
@@ -153,41 +152,6 @@ function RevenuePage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
-  const addTableHandleFunction = (tableType) => {
-    let shallowServiceTable = {
-      name: "ชื่อตาราง",
-      description: "",
-      color: "#FFFFFF",
-      text_color: "#000000",
-      services: [],
-    }
-    let shallowProductTable = {
-      name: "ชื่อตาราง",
-      description: "",
-      color: "#FFFFFF",
-      text_color: "#000000",
-      products: [],
-    }
-
-    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
-    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
-    let newShallowServiceTables = tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service ?
-      [...shallowServiceTables, shallowServiceTable] : shallowServiceTables
-    let newShallowProducrTables = tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product ?
-      [...shallowProductTables, shallowServiceTable] : shallowProductTables
-
-    const shallowSelectedProject = {
-      ...selectedProject,
-      re: {
-        service_tables: newShallowServiceTables,
-        product_tables: newShallowProducrTables
-      }
-    }
-    setReload(false)
-    dispatch(projectUpdated(shallowSelectedProject))
-    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
-  }
-
   const addRowHandle = (tableType, tableId) => {
     const initialRow = {
       service: {
@@ -278,6 +242,57 @@ function RevenuePage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const addServiceTableHandleFunction = () => {
+    let shallowServiceTable = {
+      name: "ชื่อตาราง",
+      description: "",
+      color: "#FFFFFF",
+      text_color: "#000000",
+      services: [],
+    }
+
+    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let newShallowServiceTables = [...shallowServiceTables, shallowServiceTable]
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        ...selectedProject.revenue,
+        service_tables: newShallowServiceTables,
+      }
+    }
+
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
+  const addProductTableHandleFunction = () => {
+    let shallowProductTable = {
+      name: "ชื่อตาราง",
+      description: "",
+      color: "#FFFFFF",
+      text_color: "#000000",
+      products: [],
+    }
+
+    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
+    let newShallowProducrTables = [...shallowProductTables, shallowProductTable] 
+    
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        ...selectedProject.revenue,
+        product_tables: newShallowProducrTables
+
+      }
+    }
+
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
@@ -293,7 +308,8 @@ function RevenuePage() {
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
-          handleFunction={() => addTableHandleFunction}
+          handleServiceFunction={() => addServiceTableHandleFunction}
+          handleProductFunction={() => addProductTableHandleFunction}
         />
       </div>
     </div>

@@ -138,9 +138,7 @@ function OperationCostPage() {
     }
 
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
-    // console.log(JSON.stringify(shallowTables));
     let newShallowTables = [...shallowTables, shallowTable]
-    console.log(JSON.stringify(newShallowTables));
 
     const shallowSelectedProject = {
       ...selectedProject,

@@ -18,10 +18,10 @@ const BiztoolBody = (props) => {
           <BiztoolAddTable
             type={props.type.service}
             title="+ ตารางใหม่"
-            handleFunction={props.handleFunction.addTableHandleServiceFunction}
+            handleFunction={props.handleServiceFunction}
           />
           <BiztoolTableList
-            handleFunction={props.handleFunction.addTableHandleProductFunction}
+            handleFunction={props.handleServiceFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
@@ -35,10 +35,10 @@ const BiztoolBody = (props) => {
           <BiztoolAddTable
             type={props.type.product}
             title="+ ตารางใหม่"
-            handleFunction={props.handleFunction.addTableHandleProductFunction}
+            handleFunction={props.handleProductFunction}
           />
           <BiztoolTableList
-            handleFunction={props.handleFunction.addTableHandleProductFunction}
+            handleFunction={props.handleProductFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}

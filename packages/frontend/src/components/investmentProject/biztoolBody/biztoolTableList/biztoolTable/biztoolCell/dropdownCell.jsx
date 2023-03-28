@@ -61,8 +61,8 @@ const DropdownCell = (props) => {
           }}
         >
           <Dropdown.Toggle className='biztool-input-cell' id="dropdown-autoclose-true">
-            {JSON.stringify(selectedPeriod)}
-            {/* {selectedPeriod.label.name.th} */}
+            {/* {JSON.stringify(selectedPeriod)} */}
+            {selectedPeriod.label.name.th}
           </Dropdown.Toggle>
           <Dropdown.Menu className='biztool-input-cell-no-border'>
             {dropdownOptions && dropdownOptions.map((option) => (
@@ -119,8 +119,8 @@ const DropdownCell = (props) => {
               }}
             >
               <Dropdown.Toggle className='biztool-input-cell-no-border' id="dropdown-autoclose-true">
-                {selectedCostIncreasePeriod.label.name.th}
-                {/* {JSON.stringify(selectedCostIncreasePeriod)} */}
+                {/* {selectedCostIncreasePeriod.label.name.th} */}
+                {JSON.stringify(selectedCostIncreasePeriod)}
               </Dropdown.Toggle>
               <Dropdown.Menu className='biztool-input-cell'>
                 {dropdownOptions && dropdownOptions.map((option) => (
