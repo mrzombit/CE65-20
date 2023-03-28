@@ -14,11 +14,15 @@ function RevenuePage() {
     (state) => state.projects.selectedProject
   );
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
-
+  const [reload, setReload] = useState(false)
   useEffect(() => {
     if (isLoaded.projects) {
-      dispatch(fetchProjectById(selectedProject));
+      dispatch(fetchProjectById(selectedProject._id));
       setIsLoaded({ user: true, project: true });
+    }
+    if (!reload) {
+      dispatch(fetchProjectById(selectedProject._id))
+      setReload(true)
     }
     setTableData(selectedProject.revenue)
   }, [selectedProject]);
@@ -149,6 +153,41 @@ function RevenuePage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const addTableHandleFunction = (tableType) => {
+    let shallowServiceTable = {
+      name: "ชื่อตาราง",
+      description: "",
+      color: "#FFFFFF",
+      text_color: "#000000",
+      services: [],
+    }
+    let shallowProductTable = {
+      name: "ชื่อตาราง",
+      description: "",
+      color: "#FFFFFF",
+      text_color: "#000000",
+      products: [],
+    }
+
+    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let newShallowServiceTables = tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service ?
+      [...shallowServiceTables, shallowServiceTable] : shallowServiceTables
+    let newShallowProducrTables = tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product ?
+      [...shallowProductTables, shallowServiceTable] : shallowProductTables
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      re: {
+        service_tables: newShallowServiceTables,
+        product_tables: newShallowProducrTables
+      }
+    }
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
   const addRowHandle = (tableType, tableId) => {
     const initialRow = {
       service: {
@@ -207,7 +246,7 @@ function RevenuePage() {
     }
 
     dispatch(projectUpdated(shallowSelectedProject))
-    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
   const tableHeaderOnChange = (tableType, tableId, value) => {
@@ -236,7 +275,7 @@ function RevenuePage() {
     }
 
     dispatch(projectUpdated(shallowSelectedProject))
-    dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
   return (
@@ -254,7 +293,7 @@ function RevenuePage() {
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
-          handleFunction={config.addTableHandleFunction}
+          handleFunction={() => addTableHandleFunction}
         />
       </div>
     </div>

@@ -13,13 +13,14 @@ function TotalInvestmentPage() {
   const dispatch = useDispatch();
   const selectedProject = useSelector((state) => state.projects.selectedProject);
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
- const [reload, setReload] = useState(false)
+  const [reload, setReload] = useState(false)
+
   useEffect(() => {
     if (isLoaded.projects) {
       dispatch(fetchProjectById(selectedProject._id));
       setIsLoaded({ user: true, project: true });
     }
-    if(!reload){
+    if (!reload) {
       dispatch(fetchProjectById(selectedProject._id))
       setReload(true)
     }
@@ -92,7 +93,7 @@ function TotalInvestmentPage() {
   }
 
   const tableHeaderOnChange = (tableType, tableId, value) => {
-    
+
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
     shallowTables = shallowTables.map(eachTable => {
       if (eachTable._id == tableId) eachTable.name = value
@@ -122,7 +123,6 @@ function TotalInvestmentPage() {
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
     // console.log(JSON.stringify(shallowTables));
     let newShallowTables = [...shallowTables, shallowTable]
-    console.log(JSON.stringify(newShallowTables));
 
     const shallowSelectedProject = {
       ...selectedProject,
@@ -143,9 +143,10 @@ function TotalInvestmentPage() {
         <BiztoolHeader
           type={config.type}
           title={config.title}
-          handleFunction={addTableHandleFunction}
+          handleFunction={() => addTableHandleFunction}
         />
         <BiztoolBody
+          handleFunction={() => addTableHandleFunction}
           tableHeaderOnChange={tableHeaderOnChange}
           addRowHandle={addRowHandle}
           onCellChange={onCellChange}

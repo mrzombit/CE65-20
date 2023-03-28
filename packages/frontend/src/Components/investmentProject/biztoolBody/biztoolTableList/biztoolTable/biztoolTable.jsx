@@ -72,6 +72,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
         eachTable.investments.map((eachRow) => (
           <BiztoolRow
+            handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
             data={eachRow}
@@ -87,6 +88,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
         eachTable.fixed_costs.map((eachRow) => (
           <BiztoolRow
+            handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
             data={eachRow}
@@ -102,6 +104,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service &&
         eachTable.services.map((eachRow) => (
           <BiztoolRow
+            handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
             data={eachRow}
@@ -117,6 +120,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product &&
         eachTable.products.map((eachRow) => (
           <BiztoolRow
+            handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
             data={eachRow}

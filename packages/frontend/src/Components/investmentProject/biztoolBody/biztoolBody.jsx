@@ -21,6 +21,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleServiceFunction}
           />
           <BiztoolTableList
+            handleFunction={props.handleFunction.addTableHandleProductFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
@@ -37,6 +38,7 @@ const BiztoolBody = (props) => {
             handleFunction={props.handleFunction.addTableHandleProductFunction}
           />
           <BiztoolTableList
+            handleFunction={props.handleFunction.addTableHandleProductFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
@@ -88,6 +90,7 @@ const BiztoolBody = (props) => {
         props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page &&
         <div className='biztool-body-flex '>
           <BiztoolTableList
+            handleFunction={props.handleFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}

@@ -7,6 +7,7 @@ const BiztoolTableList = (props) => {
       {Array.isArray(props.data) ?
         props.data.map((eachTable) =>
           <BiztoolTable
+            handleFunction={props.handleFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
@@ -17,6 +18,7 @@ const BiztoolTableList = (props) => {
           />
         ) : [].map((eachTable) =>
           <BiztoolTable
+            handleFunction={props.handleFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
