@@ -22,6 +22,10 @@ import RevenuePage from "./pages/bizTools/revenuePage/revenuePage";
 import FFCPage from "./pages/checkBiz/ffcPage/ffcPage";
 import StatementsPage from "./pages/checkBiz/statementsPage/statementsPage";
 import CashFlowStatement from "./pages/checkBiz/statementsPage/cashFlowStatementPage";
+import SensitivityCashflow from "./components/sensitivity/sensitivityCashflow";
+import SensitivityIncome from "./components/sensitivity/sensitivityIncome";
+import CashflowChartPage from "./pages/checkBiz/statementsPage/chartPages/cashflowChartPage";
+import IncomeChartPage from "./pages/checkBiz/statementsPage/chartPages/incomeChartPage";
 import ProfitLossStatement from "./pages/checkBiz/statementsPage/profitLossStatement";
 import CustomStatementPage from "./pages/checkBiz/statementsPage/customStatementPage";
 import ProjectConfigPage from "./pages/bizTools/projectConfigPage/projectConfigPage";
@@ -74,6 +78,10 @@ function App() {
               <Route path="/CustomStatements" element={<CustomStatementPage />} />
               <Route path="/CashFlowStatements" element={<CashFlowStatement />} />
               <Route path="/ProfitLossStatements" element={<ProfitLossStatement />} />
+              <Route path="/Sensitivity/cashflow" element={<SensitivityCashflow />} />
+              <Route path="/Sensitivity/income" element={<SensitivityIncome />} />
+              <Route path="/Chart/cashflow" element={<CashflowChartPage />} />
+              <Route path="/Chart/income" element={<IncomeChartPage />} />
 
               <Route path="*" element={<LandingPage />} />
               {/* <Route path="/NewInvestmentProject" element={<NewInvestmentProject />} /> */}
