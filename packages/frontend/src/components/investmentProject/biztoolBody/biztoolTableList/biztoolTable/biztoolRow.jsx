@@ -21,6 +21,7 @@ const BiztoolRow = (props) => {
             {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
                 <div className='d-flex'>
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
@@ -29,6 +30,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.amount}
                         colIndex={1}
                         type="money"
@@ -37,6 +39,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={props.data.account_id}
                         tableType={props.type}
                         colIndex={2}
@@ -45,6 +48,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         tableType={props.type}
                         colIndex={3}
@@ -58,6 +62,7 @@ const BiztoolRow = (props) => {
             {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
                 <div className='d-flex'>
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
@@ -66,6 +71,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.amount}
                         type="money"
                         colIndex={1}
@@ -74,6 +80,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.cost_increase, cost_increase_period_id: props.data.cost_increase_period_id }}
                         type="cost-increase-dropdown"
                         colIndex={2}
@@ -82,6 +89,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={props.data.period_id}
                         type="period-dropdown"
                         colIndex={3}
@@ -90,6 +98,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[3].width} />
                     <NumbersTableCell
+                        handleFunction={props.handleFunction}
                         data={props.data.numbers}
                         type="numbers-table"
                         colIndex={4}
@@ -102,6 +111,7 @@ const BiztoolRow = (props) => {
             {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service &&
                 <div className='d-flex'>
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
@@ -110,6 +120,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.unit}
                         type="number"
                         colIndex={1}
@@ -118,6 +129,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.unit_name}
                         type="text"
                         colIndex={2}
@@ -126,6 +138,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.serve_per_unit}
                         type="number"
                         colIndex={3}
@@ -134,6 +147,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[3].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.revenue_per_service}
                         type="money"
                         colIndex={4}
@@ -142,6 +156,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[4].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.cost_per_service}
                         type="percent"
                         colIndex={5}
@@ -150,6 +165,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[5].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.price_increase, cost_increase_period_id: props.data.price_increase_period_id }}
                         type="cost-increase-dropdown"
                         colIndex={6}
@@ -158,6 +174,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[6].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.cost_increase, cost_increase_period_id: props.data.cost_increase_period_id }}
                         type="cost-increase-dropdown"
                         colIndex={7}
@@ -166,6 +183,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[7].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         type="date"
                         colIndex={8}
@@ -178,6 +196,7 @@ const BiztoolRow = (props) => {
             {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product &&
                 <div className='d-flex'>
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
@@ -186,6 +205,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.days_of_inventory.months}
                         type="number"
                         colIndex={1}
@@ -194,6 +214,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.revenue_per_unit}
                         type="money"
                         colIndex={2}
@@ -202,6 +223,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.cost_per_unit}
                         type="percent"
                         colIndex={3}
@@ -210,6 +232,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[3].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.price_increase, cost_increase_period_id: props.data.price_increase_period_id }}
                         type="cost-increase-dropdown"
                         colIndex={4}
@@ -218,6 +241,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[4].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.cost_increase, cost_increase_period_id: props.data.cost_increase_period_id }}
                         type="cost-increase-dropdown"
                         colIndex={5}
@@ -226,6 +250,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[5].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         type="date"
                         colIndex={6}
@@ -234,6 +259,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[6].width} />
                     <SeasonalTrendsTable
+                        handleFunction={props.handleFunction}
                         data={props.data.seasonal_trends}
                         type="seasonal-trends-table"
                         colIndex={7}
@@ -246,6 +272,7 @@ const BiztoolRow = (props) => {
             {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
                 <div className='d-flex'>
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
@@ -254,6 +281,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.amount}
                         type="money"
                         colIndex={1}
@@ -262,6 +290,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.date}
                         type="date"
                         colIndex={2}
@@ -274,6 +303,7 @@ const BiztoolRow = (props) => {
             {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
                 <div className='d-flex'>
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
@@ -282,6 +312,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.share}
                         type="percent"
                         colIndex={1}
@@ -290,6 +321,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <RepaymentsTable
+                        handleFunction={props.handleFunction}
                         data={props.data.repayment}
                         type="repayments-table"
                         colIndex={2}
@@ -302,6 +334,7 @@ const BiztoolRow = (props) => {
             {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
                 <div className='d-flex'>
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
@@ -310,6 +343,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.amount}
                         type="money"
                         colIndex={1}
@@ -318,6 +352,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         type="date"
                         colIndex={2}
@@ -326,6 +361,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <InputCell
+                        handleFunction={props.handleFunction}
                         data={props.data.apr}
                         type="percent"
                         colIndex={3}
@@ -334,6 +370,7 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[3].width} />
                     <DropdownCell
+                        handleFunction={props.handleFunction}
                         data={props.data.period_id}
                         type="period-dropdown"
                         colIndex={4}
@@ -343,6 +380,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[4].width}
                     />
                     <PaymentsTable
+                        handleFunction={props.handleFunction}
                         data={props.data.payments}
                         type="payments-table"
                         colIndex={5}

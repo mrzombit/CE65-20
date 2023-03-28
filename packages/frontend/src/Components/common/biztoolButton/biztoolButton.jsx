@@ -7,7 +7,7 @@ const BiztoolButton = (props) => {
     <div className=''>
       {props.style == "filled" &&
         <div
-          onClick={props.handleFunction}
+          onClick={props.handleFunction(props.data)}
           className='btn filled-biztool-button'
         >
           <div>{props.title}</div>

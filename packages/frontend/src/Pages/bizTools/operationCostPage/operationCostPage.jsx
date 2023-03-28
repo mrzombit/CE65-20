@@ -15,11 +15,16 @@ function OperationCostPage() {
     (state) => state.projects.selectedProject
   );
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
+  const [reload, setReload] = useState(false)
 
   useEffect(() => {
     if (isLoaded.projects) {
-      dispatch(fetchProjectById(selectedProject));
+      dispatch(fetchProjectById(selectedProject._id));
       setIsLoaded({ user: true, project: true });
+    }
+    if(!reload){
+      dispatch(fetchProjectById(selectedProject._id))
+      setReload(true)
     }
     setTableData(selectedProject.expense.fixed_cost_tables)
   }, [selectedProject]);
@@ -123,6 +128,32 @@ function OperationCostPage() {
 
   }
 
+  const addTableHandleFunction = (data) => {
+    let shallowTable = {
+      name: "ชื่อตาราง",
+      description: "",
+      color: "#FFFFFF",
+      text_color: "#000000",
+      fixed_costs: [],
+    }
+
+    let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
+    // console.log(JSON.stringify(shallowTables));
+    let newShallowTables = [...shallowTables, shallowTable]
+    console.log(JSON.stringify(newShallowTables));
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        fixed_cost_tables: newShallowTables
+      }
+    }
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
   return (
     <div className="d-flex">
       <BizSidebar />
@@ -130,9 +161,10 @@ function OperationCostPage() {
         <BiztoolHeader
           type={config.type}
           title={config.title}
-          handleFunction={config.addTableHandleFunction}
+          handleFunction={() => addTableHandleFunction}
         />
         <BiztoolBody
+          handleFunction={() => addTableHandleFunction}
           tableHeaderOnChange={tableHeaderOnChange}
           addRowHandle={addRowHandle}
           onCellChange={onCellChange}

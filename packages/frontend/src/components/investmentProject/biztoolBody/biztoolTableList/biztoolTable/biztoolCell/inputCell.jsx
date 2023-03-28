@@ -5,7 +5,7 @@ const InputCell = (props) => {
   const selectedProject = useSelector(state => state.projects.selectedProject)
 
   useEffect(() => {
-  }, [selectedProject])
+  }, [selectedProject,props.handleFunction])
   
 
   return (

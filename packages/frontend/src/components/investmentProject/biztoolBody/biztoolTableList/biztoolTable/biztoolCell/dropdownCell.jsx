@@ -49,7 +49,7 @@ const DropdownCell = (props) => {
       setIsLoaded(true)
     }
     setAllValue()
-  }, [dropdownOptions, selectedProject, props.onCellChange])
+  }, [dropdownOptions, selectedProject, props.onCellChange, props.handleFunction])
 
   return (
     <div style={{ width: `${props.width}px` }}>
@@ -61,8 +61,8 @@ const DropdownCell = (props) => {
           }}
         >
           <Dropdown.Toggle className='biztool-input-cell' id="dropdown-autoclose-true">
-            {/* {JSON.stringify(selectedPeriod)} */}
-            {selectedPeriod.label.name.th}
+            {JSON.stringify(selectedPeriod)}
+            {/* {selectedPeriod.label.name.th} */}
           </Dropdown.Toggle>
           <Dropdown.Menu className='biztool-input-cell-no-border'>
             {dropdownOptions && dropdownOptions.map((option) => (

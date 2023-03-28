@@ -6,7 +6,7 @@ const BiztoolAddTable = (props) => {
   return (
     <BiztoolButton
       style="filled"
-      type={`add-${props.type}-table`}
+      data={props.type}
       title="+ ตารางใหม่"
       handleFunction={props.handleFunction}
     />
