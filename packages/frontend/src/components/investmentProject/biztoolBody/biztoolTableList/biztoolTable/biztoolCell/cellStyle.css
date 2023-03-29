@@ -1,7 +1,27 @@
 .biztool-input-cell {
-    border-radius: 0% !important;
-  }
-  .biztool-input-cell-no-border {
-    border-radius: 0% !important;
-    border: none !important;
-  }
+  border-radius: 0% !important;
+}
+
+.biztool-input-cell-no-border {
+  border-radius: 0% !important;
+  border: none !important;
+}
+
+.option-cell:hover {
+  cursor: pointer;
+  background-color: rgb(243, 243, 243);
+}
+
+.option-cell {
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  height: 45px;
+}
+
+.hide-option-cell {
+  width: 25px;
+  height: 45px;
+}

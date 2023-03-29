@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import "./biztoolTable.css";
 import BIZTOOL_PAGE_CONFIG from "../../../../../pages/bizTools/pageConfig";
 import BiztoolRow from "./biztoolRow";
+import OptionCell from "./biztoolCell/optionCell";
 
 const BiztoolTable = (props) => {
   const eachTable = props.eachTable;
@@ -13,9 +14,35 @@ const BiztoolTable = (props) => {
     backgroundColor: each.backgroundColor,
   }));
 
+  const widthArr = props.tableStyle.column.map((each) => each.width)
+  const [showOption, setShowOption] = useState(false)
+
   return (
-    <div className="mb-4">
-      <div key={eachTable._id} name="Column Headers" className="d-flex">
+    <div className="mb-4 table-overflow-style">
+      <div key={eachTable._id} name="Column Headers" className="d-flex" onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+        {(props.type != BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
+          props.type != BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
+          props.type != BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) ?
+          <OptionCell
+            showOption={showOption}
+            isTable={true}
+            colIndex={'option'}
+            tableType={props.type}
+            address={
+              {
+                tableId: eachTable._id,
+                rowId: '',
+              }}
+            handleTableOptionFunction={props.handleTableOptionFunction}
+          /> :
+          <OptionCell
+            showOption={false}
+            isTable={true}
+            colIndex={'option'}
+            tableType={props.type}
+            address={props.address}
+          />
+        }
         {props.tableStyle.column.map((eachColumn, index) => (
           <>
             {index == 0 && props.type != BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
@@ -72,6 +99,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
         eachTable.investments.map((eachRow) => (
           <BiztoolRow
+            handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
@@ -88,6 +116,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
         eachTable.fixed_costs.map((eachRow) => (
           <BiztoolRow
+            handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
@@ -104,6 +133,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service &&
         eachTable.services.map((eachRow) => (
           <BiztoolRow
+            handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
@@ -120,6 +150,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product &&
         eachTable.products.map((eachRow) => (
           <BiztoolRow
+            handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachTable._id}
             type={props.type}
@@ -136,6 +167,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
         eachTable.debt_issuances.map((eachRow) => (
           <BiztoolRow
+            handleRowOptionFunction={props.handleRowOptionFunction}
             key={eachTable._id}
             type={props.type}
             data={eachRow}
@@ -151,6 +183,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
         eachTable.equity_contributions.map((eachRow) => (
           <BiztoolRow
+            handleRowOptionFunction={props.handleRowOptionFunction}
             key={eachTable._id}
             type={props.type}
             data={eachRow}
@@ -166,6 +199,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
         eachTable.equity_repayments.map((eachRow, index) => (
           <BiztoolRow
+            handleRowOptionFunction={props.handleRowOptionFunction}
             key={index}
             type={props.type}
             data={eachRow}
@@ -179,10 +213,20 @@ const BiztoolTable = (props) => {
           />
         ))}
 
-      <button type="button"
-        className="btn btn-secondary w-100 text-start"
-        onClick={() => props.addRowHandle(props.type, eachTable._id)}
-      >+ เพิ่มรายการใหม่</button>
+      <div className="d-flex">
+        <OptionCell
+          showOption={false}
+          isTable={true}
+          colIndex={'option'}
+          tableType={props.type}
+          address={props.address}
+        />
+        <button type="button"
+          className="text-start add-row-button"
+          style={{width: `${widthArr.reduce((partialSum, a) => partialSum + a, 0)}px`}}
+          onClick={() => props.addRowHandle(props.type, eachTable._id)}
+        >+ เพิ่มรายการใหม่</button>
+      </div>
     </div>
   );
 };
