@@ -25,3 +25,15 @@
   width: 25px;
   height: 45px;
 }
+
+.seasonal-row-style {
+  overflow: scroll;
+  min-width: 400px;
+  border: 1px solid rgb(21, 95, 255);
+}
+
+.seasonal-cell-style {
+  min-width: 100px;
+  border: 1px solid aquamarine;
+  border-radius: 0% !important;
+}

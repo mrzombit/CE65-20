@@ -236,7 +236,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 8,
               title: "แนวโน้มการขายรายเดือน",
-              width: 180,
+              width: 400,
               type: "dropdown",
               backgroundColor: "#ffffff",
               color: "#000000",

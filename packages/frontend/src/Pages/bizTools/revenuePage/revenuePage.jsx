@@ -131,7 +131,9 @@ function RevenuePage() {
                 return { ...eachRow, start_date: value }
               }
               else if (columnIndex == 7) {
-                return { ...eachRow, seasonal_trends: value }
+                const shallowSeasonalTrends = eachRow.seasonal_trends
+                shallowSeasonalTrends[value.index] = Number(value.value)
+                return { ...eachRow, seasonal_trends: shallowSeasonalTrends }
               }
             }
             return eachRow
@@ -181,7 +183,11 @@ function RevenuePage() {
         cost_increase: 0,
         cost_increase_period_id: "63de92ebd63688ac8b7ed999",
         start_date: new Date(),
-        seasonal_trends: [],
+        seasonal_trends: [
+          100,100,100,100,
+          100,100,100,100,
+          100,100,100,100
+        ],
       }
     }
 
