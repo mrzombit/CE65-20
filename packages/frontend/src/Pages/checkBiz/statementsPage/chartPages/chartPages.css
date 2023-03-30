@@ -6,6 +6,7 @@
     width: 70vw !important; 
 }
 
-.card {
-    
+.chart-input {
+    width: 150px;
+    padding-left: 10px;
 }
