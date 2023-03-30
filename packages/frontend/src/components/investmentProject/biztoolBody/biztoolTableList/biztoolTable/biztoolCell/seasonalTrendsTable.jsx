@@ -7,11 +7,29 @@ const SeasonalTrendsTable = (props) => {
 
   useEffect(() => {
   }, [selectedProject, props.handleFunction, props.onCellChange])
-  console.log(props.width);
+  
+  const monthsName = [
+    "มกราคม",
+    "กุมภาพันธ์",
+    "มีนาคม",
+    "เมษายน",
+    "พฤษภาคม",
+    "มิถุนายน",
+    "กรกฏาคม",
+    "สิงหาคม",
+    "กันยายน",
+    "ตุลาคม",
+    "พฤศจิกายน",
+    "ธันวาคม",
+  ]
   return (
     <div className='d-flex seasonal-row-style'  >
       {/* {props.data.length} */}
       {props.data.map((each, i) =>
+      <div className="d-flex">
+        <div className='seasonal-month-style'>
+        {monthsName[i]}
+        </div>
         <input className='seasonal-cell-style'
           value={each}
           onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
@@ -25,6 +43,7 @@ const SeasonalTrendsTable = (props) => {
             )
           }
         />
+        </div>
       )}
     </div>
   )
