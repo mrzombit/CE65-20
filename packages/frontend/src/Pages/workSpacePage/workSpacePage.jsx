@@ -13,12 +13,21 @@ import ProjectCard from "../../components/projects/projectCard/projectCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByUsername } from "../../features/usersSlice";
-import { fetchProjectsByUserId, setSelectedProject } from "../../features/projectsSlice";
+import { addNewProject, fetchProjectsByUserId, setSelectedProject } from "../../features/projectsSlice";
 import BiztoolPopup from "../../components/common/biztoolPopup";
 import AddProjectForm from "../../components/projects/AddProjectForm";
+import BiztoolOption from "../../components/common/biztoolOption";
+import ProjectOptionMenu from "./projectOptionMenu";
 
 function WorkSpacePage() {
   const [newProjectPopupState, setNewProjectPopupState] = useState(false);
+  const [projectOptionState, setProjectOptionState] = useState(false);
+  const [projectData, setProjectData] = useState()
+  const [optionAddress, setOptionAddress] = useState({
+    left: 0,
+    top: 0
+  })
+  const [thisElement, setThisElement] = useState("")
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -52,13 +61,44 @@ function WorkSpacePage() {
     navigate('/ProjectConfig')
   }
 
+  const onProjectOptionHandle = (data, left, top, element) => {
+    setThisElement(thisElement)
+    setOptionAddress({
+      left: left,
+      top: top
+    })
+    
+    if (!projectData || (data._id !== projectData._id)) {
+      setProjectData(data)
+      setProjectOptionState(true)
+    }
+    else {
+      setProjectOptionState(false)
+    }
+  }
+
+  // if (thisElement) {
+  //   document.addEventListener('click', function (e) {
+  //     if (!document.getElementById(thisElement).contains(e.target)) {
+  //       setProjectOptionState(false)
+  //     }
+  //   })
+  // }
+
   return (
-    <div>
+    <div id='workspace-id'>
       <BiztoolPopup
         leftTitle="สร้างโปรเจกธุรกิจใหม่"
         content={<AddProjectForm />}
         trigger={newProjectPopupState}
         close={() => setNewProjectPopupState(false)}
+      />
+      <BiztoolOption
+        left={optionAddress.left}
+        top={optionAddress.top}
+        content={<ProjectOptionMenu projectData={projectData} setProjectOptionState={setProjectOptionState}/>}
+        trigger={projectOptionState}
+        close={() => setProjectOptionState(false)}
       />
       <div className="ws">
         <p className="head-text-ws mt-4">ธุรกิจของฉัน</p>
@@ -93,9 +133,22 @@ function WorkSpacePage() {
         </div>
         <div className="d-flex my-3">
           {projects.map((each) => (
-            <button style={{background: "none", border: "none"}}key={each._id} onClick={() => handleProjectOnClick(each)}>
-              <ProjectCard name={each.name.slice(0, 12) + (each.name.length > 12 ? "..." : "")} lastEdit="Edited 2 hours ago" />
-            </button>
+            <div className="d-flex">
+              <button style={{ background: "none", border: "none" }} key={each._id} onClick={() => handleProjectOnClick(each)}>
+                <ProjectCard name={each.name.slice(0, 12) + (each.name.length > 12 ? "..." : "")} lastEdit="Edited 2 hours ago" />
+              </button>
+              <button
+                id={each._id}
+                className="project-option-button-style"
+                onClick={() =>
+                  onProjectOptionHandle(each,
+                    document.getElementById(each._id).getBoundingClientRect().left,
+                    document.getElementById(each._id).getBoundingClientRect().top,
+                    each._id
+                  )}>
+                ...
+              </button>
+            </div>
           ))}
         </div>
       </div>
