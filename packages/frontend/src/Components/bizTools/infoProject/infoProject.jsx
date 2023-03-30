@@ -18,6 +18,7 @@ import timeToShow from "../../common/timeToShow";
 import BiztoolPopup from "../../common/biztoolPopup";
 import BusinessGoalContent from "../../projects/businessGoal/businessGoalContent";
 import CashflowContent from "../../projects/businessGoal/cashflowContent";
+import InitialPeriodMonths from "../../investmentProject/initialPeriodMonths";
 
 function infoProject(props) {
   const animatedComponents = makeAnimated();
@@ -43,7 +44,7 @@ function infoProject(props) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [counter, setCounter] = useState(0)
   const [doSubmitCheck, setDoSubmitCheck] = useState(false)
-  const round = selectedProject.industry_ids.length+4
+  const round = selectedProject.industry_ids.length + 4
 
   const [file, setFile] = useState()
   const [imageUrl, setImageUrl] = useState("")
@@ -51,6 +52,7 @@ function infoProject(props) {
   const [projectionPeriod, setprojectionPeriod] = useState()
   const [saleTrends, setSaleTrends] = useState()
   const [selectedBusinessGoals, setselectedBusinessGoals] = useState()
+  const [fixedCostTables, setFixedCostTables] = useState()
 
   const getCurrencyById = async (id) => {
     let shallowSelectedCurrency = {}
@@ -78,7 +80,6 @@ function infoProject(props) {
     setFile(null)
     setCounter(0)
     setImageName("")
-    // setEvent()
     setImageUrl("")
     setDoSubmitCheck(false)
     setSelectedIndustryIds(selectedProject.industry_ids)
@@ -150,6 +151,10 @@ function infoProject(props) {
       },
       sale_trends: JSON.parse(JSON.stringify(saleTrends)),
       business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals)),
+      expense: {
+        ...selectedProject.expense,
+        fixed_cost_tables: fixedCostTables
+      }
     }
     setDoSubmitCheck(true)
     setProjectShallow(ToUploadProjectShallow)
@@ -198,6 +203,37 @@ function infoProject(props) {
 
         }
       }
+      let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
+      shallowTables = shallowTables.map((eachTable => {
+        let shallowRows = eachTable.fixed_costs
+        shallowRows = shallowRows.map(eachRow => {
+          const shallowNumbersTrends = []
+          for (let i = 0; i < InitialPeriodMonths([
+            "มกราคม",
+            "กุมภาพันธ์",
+            "มีนาคม",
+            "เมษายน",
+            "พฤษภาคม",
+            "มิถุนายน",
+            "กรกฏาคม",
+            "สิงหาคม",
+            "กันยายน",
+            "ตุลาคม",
+            "พฤศจิกายน",
+            "ธันวาคม",
+          ],
+            selectedProject.model_config.start_date,
+            selectedProject.model_config.projection_period).length; i++) {
+            if(i< eachRow.number.length) shallowNumbersTrends.push(eachRow.number[i])
+            else shallowNumbersTrends.push(1)
+          }
+          return { ...eachRow, number: shallowNumbersTrends }
+        })
+        return eachTable
+      }
+      ))
+      
+      setFixedCostTables(shallowTables)
       setSaleTrends(shallowSaleTrends)
       setprojectionPeriod(e.target.value)
     }
@@ -438,7 +474,7 @@ function infoProject(props) {
                   // required
                   />
                 </div>
-              ): "Loading"}
+              ) : "Loading"}
             </div>
             <div className="w-100 ">
               <div className="text-center ">เป้าหมายธุรกิจ</div>

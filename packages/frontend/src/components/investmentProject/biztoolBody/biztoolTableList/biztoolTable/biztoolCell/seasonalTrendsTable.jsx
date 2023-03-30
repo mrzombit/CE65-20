@@ -22,6 +22,10 @@ const SeasonalTrendsTable = (props) => {
     "พฤศจิกายน",
     "ธันวาคม",
   ]
+
+  const indeOfMonths = (startDate, projectionPeriod) => {
+    
+  }
   return (
     <div className='d-flex seasonal-row-style'  >
       {/* {props.data.length} */}

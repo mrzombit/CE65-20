@@ -118,7 +118,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[3].width} />
                     <NumbersTableCell
                         handleFunction={props.handleFunction}
-                        data={props.data.numbers}
+                        data={props.data.number}
                         type="numbers-table"
                         colIndex={4}
                         tableType={props.type}

@@ -122,7 +122,7 @@ const BIZTOOL_PAGE_CONFIG = {
           {
             colId: 5,
             title: "จำนวน(หน่วย)",
-            width: 660,
+            width: 600,
             type: "cost-table",
             backgroundColor: "#ffffff",
             color: "#000000",
@@ -168,7 +168,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 2,
               title: "อายุสินค้า(เดือน)",
-              width: 115,
+              width: 150,
               type: "money",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -177,7 +177,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 3,
               title: "รายได้เฉลี่ย(บาท)/วัน",
-              width: 140,
+              width: 200,
               type: "money",
               backgroundColor: "#ffffff",
               color: "#000000",

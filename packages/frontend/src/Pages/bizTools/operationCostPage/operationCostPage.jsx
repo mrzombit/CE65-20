@@ -7,6 +7,7 @@ import BIZTOOL_PAGE_CONFIG from "../pageConfig";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjectById, projectUpdated, updateProject } from "../../../features/projectsSlice";
+import InitialPeriodMonths from "../../../components/investmentProject/initialPeriodMonths";
 
 
 function OperationCostPage() {
@@ -22,7 +23,7 @@ function OperationCostPage() {
       dispatch(fetchProjectById(selectedProject._id));
       setIsLoaded({ user: true, project: true });
     }
-    if(!reload){
+    if (!reload) {
       dispatch(fetchProjectById(selectedProject._id))
       setReload(true)
     }
@@ -58,7 +59,9 @@ function OperationCostPage() {
               return { ...eachRow, period_id: value }
             }
             else if (columnIndex == 4) {
-              return { ...eachRow, numbers: value }
+              const shallowNumbersTrends = eachRow.number
+              shallowNumbersTrends[value.index] = Number(value.value)
+              return { ...eachRow, number: shallowNumbersTrends }
             }
           }
           return eachRow
@@ -79,11 +82,30 @@ function OperationCostPage() {
   }
 
   const addRowHandle = (tableType, tableId) => {
+    const shallowNumber = []
+    for(let i = 0; i<InitialPeriodMonths([
+      "มกราคม",
+      "กุมภาพันธ์",
+      "มีนาคม",
+      "เมษายน",
+      "พฤษภาคม",
+      "มิถุนายน",
+      "กรกฏาคม",
+      "สิงหาคม",
+      "กันยายน",
+      "ตุลาคม",
+      "พฤศจิกายน",
+      "ธันวาคม",
+    ],
+      selectedProject.model_config.start_date,
+      selectedProject.model_config.projection_period).length; i++){
+        shallowNumber.push(1)
+      }
     const initialRow = {
       name: "",
       amount: 0,
       period_id: "63de92ebd63688ac8b7ed999",
-      number: [],
+      number: shallowNumber,
       start_date: new Date(),
       cost_increase: 0,
       cost_increase_period_id: "63de932fd63688ac8b7ed99f",
