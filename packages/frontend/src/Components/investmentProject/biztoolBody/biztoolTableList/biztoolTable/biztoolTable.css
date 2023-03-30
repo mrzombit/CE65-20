@@ -75,3 +75,23 @@
     border-radius: 0% !important;
     border: none !important;
   }
+
+  .add-row-button{
+    border: none;
+    background: white;
+    color: #343434;
+  }
+  .add-row-button:hover{
+    cursor: pointer;
+    background: #e4e4e4;
+    color: #fcfcfc;
+  }
+  .add-row-button:active{
+    cursor: pointer;
+    background: #a1a1a1;
+    color: rgb(218, 218, 218);
+  }
+
+  .table-overflow-style{
+    overflow: scroll;
+  }

@@ -10,11 +10,10 @@ import { fetchProjectById, projectUpdated, updateProject } from "../../../featur
 
 function RevenuePage() {
   const dispatch = useDispatch();
-  const selectedProject = useSelector(
-    (state) => state.projects.selectedProject
-  );
+  const selectedProject = useSelector((state) => state.projects.selectedProject);
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
   const [reload, setReload] = useState(false)
+
   useEffect(() => {
     if (isLoaded.projects) {
       dispatch(fetchProjectById(selectedProject._id));
@@ -132,7 +131,9 @@ function RevenuePage() {
                 return { ...eachRow, start_date: value }
               }
               else if (columnIndex == 7) {
-                return { ...eachRow, seasonal_trends: value }
+                const shallowSeasonalTrends = eachRow.seasonal_trends
+                shallowSeasonalTrends[value.index] = Number(value.value)
+                return { ...eachRow, seasonal_trends: shallowSeasonalTrends }
               }
             }
             return eachRow
@@ -149,41 +150,6 @@ function RevenuePage() {
         product_tables: shallowProductTables,
       }
     }
-    dispatch(projectUpdated(shallowSelectedProject))
-    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
-  }
-
-  const addTableHandleFunction = (tableType) => {
-    let shallowServiceTable = {
-      name: "ชื่อตาราง",
-      description: "",
-      color: "#FFFFFF",
-      text_color: "#000000",
-      services: [],
-    }
-    let shallowProductTable = {
-      name: "ชื่อตาราง",
-      description: "",
-      color: "#FFFFFF",
-      text_color: "#000000",
-      products: [],
-    }
-
-    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
-    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
-    let newShallowServiceTables = tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service ?
-      [...shallowServiceTables, shallowServiceTable] : shallowServiceTables
-    let newShallowProducrTables = tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product ?
-      [...shallowProductTables, shallowServiceTable] : shallowProductTables
-
-    const shallowSelectedProject = {
-      ...selectedProject,
-      re: {
-        service_tables: newShallowServiceTables,
-        product_tables: newShallowProducrTables
-      }
-    }
-    setReload(false)
     dispatch(projectUpdated(shallowSelectedProject))
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
@@ -217,7 +183,11 @@ function RevenuePage() {
         cost_increase: 0,
         cost_increase_period_id: "63de92ebd63688ac8b7ed999",
         start_date: new Date(),
-        seasonal_trends: [],
+        seasonal_trends: [
+          100,100,100,100,
+          100,100,100,100,
+          100,100,100,100
+        ],
       }
     }
 
@@ -278,6 +248,129 @@ function RevenuePage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const addServiceTableHandleFunction = () => {
+    let shallowServiceTable = {
+      name: "ชื่อตาราง",
+      description: "",
+      color: "#FFFFFF",
+      text_color: "#000000",
+      services: [],
+    }
+
+    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let newShallowServiceTables = [...shallowServiceTables, shallowServiceTable]
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        ...selectedProject.revenue,
+        service_tables: newShallowServiceTables,
+      }
+    }
+
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
+  const addProductTableHandleFunction = () => {
+    let shallowProductTable = {
+      name: "ชื่อตาราง",
+      description: "",
+      color: "#FFFFFF",
+      text_color: "#000000",
+      products: [],
+    }
+
+    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
+    let newShallowProducrTables = [...shallowProductTables, shallowProductTable]
+
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        ...selectedProject.revenue,
+        product_tables: newShallowProducrTables
+
+      }
+    }
+
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
+  const handleRowOptionFunction = (tableType, tableId, rowId) => {
+    let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
+    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+      shallowServiceTables = shallowServiceTables.map((eachTable) => {
+        if (eachTable._id == tableId) {
+          let shallowRows = []
+          eachTable.services.map(eachRow => {
+            if (eachRow._id !== rowId) shallowRows.push(eachRow)
+          })
+          eachTable.services = shallowRows
+        }
+        return eachTable
+      })
+    }
+    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+      shallowProductTables = shallowProductTables.map((eachTable) => {
+        if (eachTable._id == tableId) {
+          let shallowRows = []
+          eachTable.products.map(eachRow => {
+            if (eachRow._id !== rowId) shallowRows.push(eachRow)
+          })
+          eachTable.products = shallowRows
+        }
+        return eachTable
+      })
+    }
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        service_tables: shallowServiceTables,
+        product_tables: shallowProductTables,
+      }
+    }
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
+  const handleTableOptionFunction = (tableType, tableId) => {
+    let shallowServiceTables = []
+    let shallowProductTables = []
+    let serviceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
+    let productTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
+    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+      serviceTables.map((eachTable) => {
+        if (eachTable._id !== tableId) {
+          shallowServiceTables.push(eachTable)
+        }
+      })
+      shallowProductTables = productTables
+    }
+    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+      productTables.map((eachTable) => {
+        if (eachTable._id !== tableId) {
+          shallowProductTables.push(eachTable)
+        }
+      })
+      shallowServiceTables = serviceTables
+    }
+    const shallowSelectedProject = {
+      ...selectedProject,
+      revenue: {
+        service_tables: shallowServiceTables,
+        product_tables: shallowProductTables,
+      }
+    }
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
@@ -287,13 +380,16 @@ function RevenuePage() {
           title={config.title}
         />
         <BiztoolBody
+          handleTableOptionFunction={handleTableOptionFunction}
+          handleRowOptionFunction={handleRowOptionFunction}
           tableHeaderOnChange={tableHeaderOnChange}
           addRowHandle={addRowHandle}
           onCellChange={onCellChange}
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
-          handleFunction={() => addTableHandleFunction}
+          handleServiceFunction={() => addServiceTableHandleFunction}
+          handleProductFunction={() => addProductTableHandleFunction}
         />
       </div>
     </div>

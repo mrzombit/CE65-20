@@ -136,6 +136,50 @@ function TotalInvestmentPage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  const handleRowOptionFunction = (tableType, tableId, rowId) => {
+    let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
+    shallowTables = shallowTables.map((eachTable) => {
+      if (eachTable._id == tableId) {
+        let shallowRows = []
+        eachTable.investments.map(eachRow => {
+          if (eachRow._id !== rowId) shallowRows.push(eachRow)
+        })
+        eachTable.investments = shallowRows
+      }
+      return eachTable
+    })
+    const shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        investment_tables: shallowTables
+      }
+    }
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
+  const handleTableOptionFunction = (tableType, tableId) => {
+    let shallowTables = []
+    let tables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
+    tables.map((eachTable) => {
+      if (eachTable._id !== tableId) {
+        shallowTables.push(eachTable)
+      }
+    })
+    const shallowSelectedProject = {
+      ...selectedProject,
+      expense: {
+        ...selectedProject.expense,
+        investment_tables: shallowTables
+      }
+    }
+    setReload(false)
+    dispatch(projectUpdated(shallowSelectedProject))
+    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  }
+
   return (
     <div className="d-flex ">
       <BizSidebar />
@@ -146,6 +190,8 @@ function TotalInvestmentPage() {
           handleFunction={() => addTableHandleFunction}
         />
         <BiztoolBody
+          handleTableOptionFunction={handleTableOptionFunction}
+          handleRowOptionFunction={handleRowOptionFunction}
           handleFunction={() => addTableHandleFunction}
           tableHeaderOnChange={tableHeaderOnChange}
           addRowHandle={addRowHandle}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BIZTOOL_PAGE_CONFIG from '../../../../../pages/bizTools/pageConfig'
 import InputCell from './biztoolCell/inputCell'
 import DropdownCell from './biztoolCell/dropdownCell';
@@ -6,8 +6,12 @@ import NumbersTableCell from './biztoolCell/numbersTableCell';
 import PaymentsTable from './biztoolCell/paymentsTable';
 import RepaymentsTable from './biztoolCell/repaymentsTable';
 import SeasonalTrendsTable from './biztoolCell/seasonalTrendsTable';
+import OptionCell from './biztoolCell/optionCell';
 
 const BiztoolRow = (props) => {
+
+    const [showOption, setShowOption] = useState(false)
+
 
     const columnStyles = props.tableStyle.column.map((each) => ({
         width: each.width,
@@ -19,7 +23,14 @@ const BiztoolRow = (props) => {
     return (
         <div>
             {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
-                <div className='d-flex'>
+                <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+                    <OptionCell
+                        showOption={showOption}
+                        colIndex={'option'}
+                        tableType={props.type}
+                        address={props.address}
+                        handleRowOptionFunction={props.handleRowOptionFunction}
+                    />
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -60,7 +71,15 @@ const BiztoolRow = (props) => {
                 </div>
             }
             {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
-                <div className='d-flex'>
+                <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+
+                    <OptionCell
+                        showOption={showOption}
+                        colIndex={'option'}
+                        tableType={props.type}
+                        address={props.address}
+                        handleRowOptionFunction={props.handleRowOptionFunction}
+                    />
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -109,7 +128,15 @@ const BiztoolRow = (props) => {
                 </div>
             }
             {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service &&
-                <div className='d-flex'>
+                <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+
+                    <OptionCell
+                        showOption={showOption}
+                        colIndex={'option'}
+                        tableType={props.type}
+                        address={props.address}
+                        handleRowOptionFunction={props.handleRowOptionFunction}
+                    />
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -194,7 +221,15 @@ const BiztoolRow = (props) => {
                 </div>
             }
             {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product &&
-                <div className='d-flex'>
+                <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+
+                    <OptionCell
+                        showOption={showOption}
+                        colIndex={'option'}
+                        tableType={props.type}
+                        address={props.address}
+                        handleRowOptionFunction={props.handleRowOptionFunction}
+                    />
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -270,7 +305,14 @@ const BiztoolRow = (props) => {
                 </div>
             }
             {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
-                <div className='d-flex'>
+                <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+                    <OptionCell
+                        showOption={showOption}
+                        colIndex={'option'}
+                        tableType={props.type}
+                        address={props.address}
+                        handleRowOptionFunction={props.handleRowOptionFunction}
+                    />
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -301,7 +343,15 @@ const BiztoolRow = (props) => {
                 </div>
             }
             {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
-                <div className='d-flex'>
+                <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+
+                    <OptionCell
+                        showOption={showOption}
+                        colIndex={'option'}
+                        tableType={props.type}
+                        address={props.address}
+                        handleRowOptionFunction={props.handleRowOptionFunction}
+                    />
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -332,7 +382,15 @@ const BiztoolRow = (props) => {
                 </div>
             }
             {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
-                <div className='d-flex'>
+                <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+
+                    <OptionCell
+                        showOption={showOption}
+                        colIndex={'option'}
+                        tableType={props.type}
+                        address={props.address}
+                        handleRowOptionFunction={props.handleRowOptionFunction}
+                    />
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.name}

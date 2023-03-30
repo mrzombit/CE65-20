@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import BiztoolAddTable from '../biztoolAddTable/biztoolAddTable'
 import BiztoolTableList from './biztoolTableList/biztoolTableList'
 import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig'
-// import "./biztoolBody.css" 
+import "./biztoolBody.css" 
 
 const BiztoolBody = (props) => {
 
@@ -11,17 +11,19 @@ const BiztoolBody = (props) => {
   }, [])
 
   return (
-    <div className='biztool-body border border-dark p-2'>
+    <div className='biztool-body p-2'>
       {props.type.page == BIZTOOL_PAGE_CONFIG.revenue.type.page && <div className='biztool-body-flex '>
         <div >
           <div className='revenue-table-header'>บริการ/การผลิต</div>
           <BiztoolAddTable
             type={props.type.service}
             title="+ ตารางใหม่"
-            handleFunction={props.handleFunction.addTableHandleServiceFunction}
+            handleFunction={props.handleServiceFunction}
           />
           <BiztoolTableList
-            handleFunction={props.handleFunction.addTableHandleProductFunction}
+            handleTableOptionFunction={props.handleTableOptionFunction}
+            handleRowOptionFunction={props.handleRowOptionFunction}
+            handleFunction={props.handleServiceFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
@@ -35,10 +37,12 @@ const BiztoolBody = (props) => {
           <BiztoolAddTable
             type={props.type.product}
             title="+ ตารางใหม่"
-            handleFunction={props.handleFunction.addTableHandleProductFunction}
+            handleFunction={props.handleProductFunction}
           />
           <BiztoolTableList
-            handleFunction={props.handleFunction.addTableHandleProductFunction}
+            handleTableOptionFunction={props.handleTableOptionFunction}
+            handleRowOptionFunction={props.handleRowOptionFunction}
+            handleFunction={props.handleProductFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
@@ -53,6 +57,7 @@ const BiztoolBody = (props) => {
         <div >
           <div className='miscellaneous-table-header'>ผู้ถือหุ้น</div>
           <BiztoolTableList
+            handleRowOptionFunction={props.handleRowOptionFunction}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.equity_contribution_tables}
@@ -63,6 +68,7 @@ const BiztoolBody = (props) => {
         <div>
           <div className='miscellaneous-table-header'>ผู้รับปันผล</div>
           <BiztoolTableList
+            handleRowOptionFunction={props.handleRowOptionFunction}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.equity_repayment_tables}
@@ -73,6 +79,7 @@ const BiztoolBody = (props) => {
         <div>
           <div className='miscellaneous-table-header'>เงินกู้และการชำระเงินกู้</div>
           <BiztoolTableList
+            handleRowOptionFunction={props.handleRowOptionFunction}
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.debt_issuance_tables}
@@ -90,6 +97,8 @@ const BiztoolBody = (props) => {
         props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page &&
         <div className='biztool-body-flex '>
           <BiztoolTableList
+            handleTableOptionFunction={props.handleTableOptionFunction}
+            handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             tableHeaderOnChange={props.tableHeaderOnChange}
             addRowHandle={props.addRowHandle}
