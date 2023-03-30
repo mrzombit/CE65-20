@@ -14,7 +14,15 @@ import BIZTOOL_PAGE_CONFIG from "../../../bizTools/pageConfig";
 import EditSidebarTab from "../../../../components/sensitivity/sensitivityEdit/sidebar/editSidebarDataList";
 
 
-const incomeChartPage = (props) => {
+const incomeChartPage = () => {
+
+  let total_service_revenue = 0;
+  const [totalServiceRevenue, setTotalServiceRevenue] = useState()
+
+  function sum_service_revenue(x) {
+    total_service_revenue += x
+    // return setTotalServiceRevenue(total_service_revenue)
+  }
 
   const dispatch = useDispatch();
   const selectedProject = useSelector(
@@ -37,34 +45,14 @@ const incomeChartPage = (props) => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
-  // console.log(tableData)
 
   return (
     <div>
       <div className="d-flex">
         <BizSidebar />
-        <div
-          className={sidebar ? "p-4 chart-pages-body2" : "p-4 chart-pages-body"}
-        >
-          <StatementHearder
-            title="Income Statement"
-            sensitivityPath="/Sensitivity/income"
-            listPath="/ProfitLossStatements"
-            chartPath="/Chart/incom"
-          />
-          <div >
-            <CombinationCharts
-              tableData={tableData}
-            />
-            <div className="d-flex flex-row justify-content-around">
-              {/* <BarChart />
-              <BarChart />
-              <BarChart /> */}
-              {/* <DoughnutChart /> */}
-            </div>
-          </div>
-        </div>
-        {/* sidebar */}
+
+
+        {/*//////////////////// sidebar ///////////////////*/}
         <div className="d-flex justify-content-end">
           {sidebar ? (
             //SHOW SIDEBAR (EDIT TAB)
@@ -73,20 +61,33 @@ const incomeChartPage = (props) => {
               <div className="sen-sidebar-show" onClick={showSidebar}>
                 <AiOutlineDoubleLeft />
               </div>
+              รายได้การบริการ/วัน
+              <hr></hr>
+              {/* {alert(JSON.stringify(tableData.service_tables))} */}
+              {/* {alert(JSON.stringify(tableData.service_tables))} */}
+              {tableData.service_tables.map((pd) => (
+                <div>
 
-              <div>
-                <EditSidebarTab 
-                data={tableData.product_tables}
-                />
+                  {pd.services.map((service) => (
+                    <div>
+                      <div>
+                        {service.name}
+                        {(service.name !== "" && service.revenue_per_service !== 0) &&
+                          <input value={service.revenue_per_service} className="chart-input" />}
+                        {sum_service_revenue(service.revenue_per_service)}
 
-                {/* {tableData.product_tables.map((data) => (
-                  <>
-                    <div>{data.products}</div>
-                  </>
-                ))} */}
+                      </div>
+                    </div>
+                  )
+                  )}
 
-              </div>
+                  {/* {setTotalServiceRevenue(total_service_revenue)} */}
 
+
+                </div>
+
+              ))}
+              ====={total_service_revenue}
 
             </div>
           ) : (
@@ -99,6 +100,32 @@ const incomeChartPage = (props) => {
             </div>
           )}
         </div>
+        {/* //////////////////////////// */}
+
+        <div
+          className={sidebar ? "p-4 chart-pages-body2" : "p-4 chart-pages-body"}
+        >
+          <StatementHearder
+            title="Income Statement"
+            sensitivityPath="/Sensitivity/income"
+            listPath="/ProfitLossStatements"
+            chartPath="/Chart/incom"
+          />
+          <div >
+            {console.log(total_service_revenue)}
+            <CombinationCharts
+              total_service_revenue={total_service_revenue}
+            />
+            <div className="d-flex flex-row justify-content-around">
+              {/* <BarChart />
+              <BarChart />
+              <BarChart /> */}
+              {/* <DoughnutChart /> */}
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   );

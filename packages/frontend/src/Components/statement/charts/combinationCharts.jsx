@@ -1,11 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
+import ReactDOM from "react-dom";
 import { Chart } from 'primereact/chart';
+import incomeChartPage from '../../../pages/checkBiz/statementsPage/chartPages/incomeChartPage';
 
 export default function CombinationCharts(props) {
 	const [chartData, setChartData] = useState({});
 	const [chartOptions, setChartOptions] = useState({});
-	console.log(props.tableData)
+
+	let totalServiceRevenue = props.total_service_revenue;
+
+	console.log(totalServiceRevenue)
+
+
 	useEffect(() => {
 		const documentStyle = getComputedStyle(document.documentElement);
 		const textColor = documentStyle.getPropertyValue('--text-color');
@@ -21,12 +28,12 @@ export default function CombinationCharts(props) {
 					borderWidth: 2,
 					fill: false,
 					tension: 0.4,
-					data: [50, 25, 12, 48,] //รวม กระแสเงินสดรับ แต่ละปี
+					data: [50, 25, 12, 48,],
 				},
 				{
 					type: 'bar',
 					label: 'Dataset 2',
-					data: [21, 84, 24, 75],
+					data: [2, 84, 24, 75], //รวม กระแสเงินสดรับ แต่ละปี
 					backgroundColor:
 						'rgba(153, 102, 255, 0.2)',
 					borderColor:
@@ -73,9 +80,24 @@ export default function CombinationCharts(props) {
 			}
 		};
 
-		setChartData(data);
+		let shallowData = data
+
+		shallowData = shallowData.datasets.map(d => {
+			if (d.label == "Dataset 2") {
+				d.data = [totalServiceRevenue, 2, 2, 2] ////////ค่าถูก กราฟำม่ขึ้นนนนนนขขขขขข
+			}
+			return shallowData
+		})
+
+		console.log("OLD : " + JSON.stringify(data))
+		console.log("NEW : " + (JSON.stringify(shallowData)))
+
+		// alert(JSON.stringify(shallowData))
+
+
+		setChartData(shallowData[0]);
 		setChartOptions(options);
-	}, []);
+	}, [totalServiceRevenue]);
 
 	return (
 		<div className="card">
