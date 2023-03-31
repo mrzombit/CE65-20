@@ -10,7 +10,7 @@ export default function CombinationCharts(props) {
 
 	let totalServiceRevenue = props.total_service_revenue;
 
-	console.log(totalServiceRevenue)
+	// console.log(totalServiceRevenue)
 
 
 	useEffect(() => {
@@ -23,7 +23,7 @@ export default function CombinationCharts(props) {
 			datasets: [
 				{
 					type: 'line',
-					label: 'Dataset 1',
+					label: 'สุทธิ',
 					borderColor: documentStyle.getPropertyValue('--blue-500'),
 					borderWidth: 2,
 					fill: false,
@@ -32,7 +32,7 @@ export default function CombinationCharts(props) {
 				},
 				{
 					type: 'bar',
-					label: 'Dataset 2',
+					label: 'กระแสเงินสดรับ',
 					data: [2, 84, 24, 75], //รวม กระแสเงินสดรับ แต่ละปี
 					backgroundColor:
 						'rgba(153, 102, 255, 0.2)',
@@ -42,8 +42,8 @@ export default function CombinationCharts(props) {
 				},
 				{
 					type: 'bar',
-					label: 'Dataset 3',
-					data: [41, 52, 24, 74], //รวม กระแสเงินสดจ่าย แต่ละปี
+					label: 'กระแสเงินสดจ่าย',
+					data: [4000, 3200, 2400, 1400], //รวม กระแสเงินสดจ่าย แต่ละปี
 					backgroundColor: 'rgba(75, 192, 192, 0.2)',
 					borderColor: 'rgb(75, 192, 192)',
 					borderWidth: 1
@@ -83,14 +83,27 @@ export default function CombinationCharts(props) {
 		let shallowData = data
 
 		shallowData = shallowData.datasets.map(d => {
-			if (d.label == "Dataset 2") {
-				d.data = [totalServiceRevenue, 2, 2, 2] ////////ค่าถูก กราฟำม่ขึ้นนนนนนขขขขขข
+			let arr;
+			let arr2;
+			let total = []
+			if (d.label == "กระแสเงินสดรับ") {
+				arr = totalServiceRevenue
+				d.data = totalServiceRevenue ////////ค่าถูก กราฟำม่ขึ้นนนนนนขขขขขข
 			}
+			if (d.label == "กระแสเงินสดจ่าย") {
+				arr2 = d.data
+				d.data = [4000, 3200, 2400, 1400]
+			}
+			if (d.label == "สุทธิ") {		
+				// d.data = total.reduce((arr,arr2) => arr - arr2)
+				
+			}
+			// console.log( arr +"(-)" + arr2 )
 			return shallowData
 		})
 
-		console.log("OLD : " + JSON.stringify(data))
-		console.log("NEW : " + (JSON.stringify(shallowData)))
+		// console.log("OLD : " + JSON.stringify(data))
+		// console.log("NEW : " + (JSON.stringify(shallowData)))
 
 		// alert(JSON.stringify(shallowData))
 
