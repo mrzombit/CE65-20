@@ -98,7 +98,12 @@ function MiscellaneousPage() {
               return { ...eachRow, share: parseFloat(value) }
             }
             else if (columnIndex == 2) {
-              return { ...eachRow, repayment: value }
+              // console.log(JSON.stringify(value));
+              let shallowRepayment =  {
+                period_id: value.periodId,
+                start_date: value.startDate,
+              }
+              return { ...eachRow, repayment: shallowRepayment }
             }
           }
           return eachRow

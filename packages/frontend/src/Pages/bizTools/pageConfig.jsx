@@ -438,8 +438,8 @@ const BIZTOOL_PAGE_CONFIG = {
             },
             {
               colId: 3,
-              title: "วันที่ปันผล",
-              width: 220,
+              title: "การปันผล",
+              width: 470,
               type: "date",
               backgroundColor: "#ffffff",
               color: "#000000",
