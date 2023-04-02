@@ -167,6 +167,7 @@ const BiztoolTable = (props) => {
       {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
         eachTable.debt_issuances.map((eachRow) => (
           <BiztoolRow
+            setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
             handleRowOptionFunction={props.handleRowOptionFunction}
             key={eachTable._id}
             type={props.type}
@@ -223,7 +224,7 @@ const BiztoolTable = (props) => {
         />
         <button type="button"
           className="text-start add-row-button"
-          style={{width: `${widthArr.reduce((partialSum, a) => partialSum + a, 0)}px`}}
+          style={{ width: `${widthArr.reduce((partialSum, a) => partialSum + a, 0)}px` }}
           onClick={() => props.addRowHandle(props.type, eachTable._id)}
         >+ เพิ่มรายการใหม่</button>
       </div>

@@ -17,6 +17,7 @@ const BiztoolTableList = (props) => {
             eachTable={eachTable}
             type={props.type}
             tableStyle={props.tableStyle}
+            setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
           />
         ) : [].map((eachTable) =>
           <BiztoolTable
@@ -30,6 +31,7 @@ const BiztoolTableList = (props) => {
             eachTable={eachTable}
             type={props.type}
             tableStyle={props.tableStyle}
+            setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
           />
         )}
     </div>

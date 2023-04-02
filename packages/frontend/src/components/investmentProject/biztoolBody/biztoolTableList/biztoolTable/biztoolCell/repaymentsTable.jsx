@@ -7,7 +7,7 @@ const RepaymentsTable = (props) => {
   // onCellChange = (tableType, tableId, rowId, columnIndex, value)
   return (
     <div className='d-flex'>
-      <div className='border border-primary' style={{width: `120px`}}>รอบการปันผล</div>
+      <div className='seasonal-cell-style border border-primary' style={{width: `120px`}}>รอบการปันผล</div>
       <DropdownCell
         handleFunction={props.handleFunction}
         data={props.data.period_id}

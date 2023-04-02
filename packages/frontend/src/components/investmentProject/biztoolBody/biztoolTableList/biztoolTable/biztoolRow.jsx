@@ -437,15 +437,13 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[4].width}
                     />
-                    <PaymentsTable
-                        handleFunction={props.handleFunction}
-                        data={props.data.payments}
-                        type="payments-table"
-                        colIndex={5}
-                        tableType={props.type}
-                        onCellChange={props.onCellChange}
-                        address={props.address}
-                        width={columnStyles[5].width} />
+                    <div className='border border-primary d-flex' style={{width: `${columnStyles[5].width}px`}}>
+                        <button
+                        onClick={() => props.setRepaymentPopupStateFunction()}
+                        className='mx-4 my-1'
+                        style={{width: `${columnStyles[5].width-50}px`, backgroundColor: "#3448ad", color: "#ffffff"}}
+                        >ดูรายละอียดการชำระเงิน</button>
+                    </div>
                 </div>
             }
         </div>

@@ -10,6 +10,8 @@ import {
   projectUpdated,
   updateProject,
 } from "../../../features/projectsSlice";
+import BiztoolPopup from "../../../components/common/biztoolPopup";
+import PaymentsTable from "../../../components/investmentProject/biztoolBody/biztoolTableList/biztoolTable/biztoolCell/paymentsTable";
 
 function MiscellaneousPage() {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ function MiscellaneousPage() {
     (state) => state.projects.selectedProject
   );
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
+  const [repaymentPopupState, setRepaymentPopupState] = useState(false)
 
   useEffect(() => {
     if (isLoaded.projects) {
@@ -215,7 +218,18 @@ function MiscellaneousPage() {
     dispatch(updateProject({id: selectedProject._id, data: shallowSelectedProject}))
   }
 
+  const setRepaymentPopupStateFunction = () => {
+    setRepaymentPopupState(true)
+  }
+
   return (
+    <div>
+     <BiztoolPopup
+        preTitle={`รายละเอียดการชำระเงินกู้: ${selectedProject.name}`}
+        content={<PaymentsTable data={tableData?tableData.debt_issuance_tables:null} onCellChange={onCellChange}/>}
+        trigger={repaymentPopupState}
+        close={() => setRepaymentPopupState(false)}
+      />
     <div className="d-flex ">
       <BizSidebar />
       <div className="p-4 biztool-body-width">
@@ -226,9 +240,10 @@ function MiscellaneousPage() {
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
+          setRepaymentPopupStateFunction={setRepaymentPopupStateFunction}
         />
       </div>
-    </div>
+    </div></div>
   );
 }
 
