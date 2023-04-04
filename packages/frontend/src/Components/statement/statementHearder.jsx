@@ -24,7 +24,7 @@ const statementHearder = (props) => {
           <div className="d-flex col">
             <IconContext.Provider value={{ color: "#9fa7c2" }}>
               <Link to={props.sensitivityPath} >
-                <button>sensitivity</button>
+                {/* <button>sensitivity</button> */}
               </Link>
               &nbsp;
               <Link to={props.listPath}>

@@ -3,6 +3,6 @@
 }
 
 .biztool-body-flex {
-    overflow: hidden;
+    /* overflow: hidden; */
     flex: 1 0 0;
 }

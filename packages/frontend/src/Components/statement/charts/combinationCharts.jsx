@@ -9,9 +9,7 @@ export default function CombinationCharts(props) {
 	const [chartOptions, setChartOptions] = useState({});
 
 	let totalServiceRevenue = props.total_service_revenue;
-
-	// console.log(totalServiceRevenue)
-
+	let totalFixedCost = props.total_fixed_cost;
 
 	useEffect(() => {
 		const documentStyle = getComputedStyle(document.documentElement);
@@ -21,31 +19,40 @@ export default function CombinationCharts(props) {
 		const data = {
 			labels: ['2023', '2024', '2025', '2026',], //รวม กระแสเงินสุทธิ แต่ละปั
 			datasets: [
-				{
-					type: 'line',
-					label: 'สุทธิ',
-					borderColor: documentStyle.getPropertyValue('--blue-500'),
-					borderWidth: 2,
-					fill: false,
-					tension: 0.4,
-					data: [50, 25, 12, 48,],
-				},
+				// {
+				// 	type: 'line',
+				// 	label: 'สุทธิ',
+				// 	borderColor: documentStyle.getPropertyValue('--blue-500'),
+				// 	borderWidth: 2,
+				// 	fill: false,
+				// 	tension: 0.4,
+				// 	data: [7000, 8500, 5000, 8000,],
+				// },
+				// {
+				// 	type: 'line',
+				// 	label: 'สุทธิ',
+				// 	borderColor: documentStyle.getPropertyValue('--blue-500'),
+				// 	borderWidth: 2,
+				// 	fill: false,
+				// 	tension: 0.4,
+				// 	data: [40, 15, 22, 8,],
+				// },
 				{
 					type: 'bar',
 					label: 'กระแสเงินสดรับ',
-					data: [2, 84, 24, 75], //รวม กระแสเงินสดรับ แต่ละปี
-					backgroundColor:
-						'rgba(153, 102, 255, 0.2)',
-					borderColor:
-						'rgb(153, 102, 255)',
-					borderWidth: 1
+					data: [2, 84, 24, 75],
+					// data: [],
+					backgroundColor: 'rgba(75, 192, 192, 0.2)',
+					borderColor: 'rgb(75, 192, 192)',
+					borderWidth: 1,			
 				},
 				{
 					type: 'bar',
 					label: 'กระแสเงินสดจ่าย',
-					data: [4000, 3200, 2400, 1400], //รวม กระแสเงินสดจ่าย แต่ละปี
-					backgroundColor: 'rgba(75, 192, 192, 0.2)',
-					borderColor: 'rgb(75, 192, 192)',
+					data: [4000, 3200, 2400, 1400], 
+					// data: [],
+					backgroundColor:'rgba(153, 102, 255, 0.2)',
+					borderColor:'rgb(153, 102, 255)',
 					borderWidth: 1
 				}
 			]
@@ -83,21 +90,15 @@ export default function CombinationCharts(props) {
 		let shallowData = data
 
 		shallowData = shallowData.datasets.map(d => {
-			let arr;
-			let arr2;
-			let total = []
 			if (d.label == "กระแสเงินสดรับ") {
-				arr = totalServiceRevenue
-				d.data = totalServiceRevenue ////////ค่าถูก กราฟำม่ขึ้นนนนนนขขขขขข
+				d.data = totalServiceRevenue
 			}
 			if (d.label == "กระแสเงินสดจ่าย") {
-				arr2 = d.data
-				d.data = [4000, 3200, 2400, 1400]
+				d.data = totalFixedCost
 			}
-			if (d.label == "สุทธิ") {		
-				// d.data = total.reduce((arr,arr2) => arr - arr2)
-				
-			}
+			// if (d.label == "สุทธิ") {
+		
+			// }
 			// console.log( arr +"(-)" + arr2 )
 			return shallowData
 		})
@@ -110,7 +111,7 @@ export default function CombinationCharts(props) {
 
 		setChartData(shallowData[0]);
 		setChartOptions(options);
-	}, [totalServiceRevenue]);
+	}, [totalServiceRevenue,totalFixedCost]);
 
 	return (
 		<div className="card">

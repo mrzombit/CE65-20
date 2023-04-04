@@ -41,24 +41,26 @@ import { fetchSubscriptionPlans } from "./features/substriptionPlansSlice";
 
 function App() {
   type RootState = ReturnType<typeof store.getState>;
-  const dispatch = useDispatch<typeof store.dispatch>()
-  const isLoggedIn = useSelector<RootState, boolean>((state) => state.users.auth.isLoggedIn);
+  const dispatch = useDispatch<typeof store.dispatch>();
+  const isLoggedIn = useSelector<RootState, boolean>(
+    (state) => state.users.auth.isLoggedIn
+  );
 
   useEffect(() => {
-    dispatch(fetchAssetAccounts())
-    dispatch(fetchBusinessGoals())
-    dispatch(fetchCurrencies())
-    dispatch(fetchIndustries())
-    dispatch(fetchPeriods())
-    dispatch(fetchSubscriptionPlans())
-  }, [])
+    dispatch(fetchAssetAccounts());
+    dispatch(fetchBusinessGoals());
+    dispatch(fetchCurrencies());
+    dispatch(fetchIndustries());
+    dispatch(fetchPeriods());
+    dispatch(fetchSubscriptionPlans());
+  }, []);
 
   return (
     <Router>
       <div className="root-style">
         <MainSidebar />
         <div>
-          {isLoggedIn ?
+          {isLoggedIn ? (
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/Login" element={<LoginPage />} />
@@ -77,16 +79,17 @@ function App() {
               <Route path="/Statements" element={<StatementsPage />} />
               <Route path="/CustomStatements" element={<CustomStatementPage />} />
               <Route path="/CashFlowStatements" element={<CashFlowStatement />} />
-              <Route path="/ProfitLossStatements" element={<ProfitLossStatement />} />
-              <Route path="/Sensitivity/cashflow" element={<SensitivityCashflow />} />
-              <Route path="/Sensitivity/income" element={<SensitivityIncome />} />
+              <Route path="/ProfitLossStatements" element={<ProfitLossStatement />}/>
+              <Route path="/Sensitivity/cashflow" element={<SensitivityCashflow />}/>
+              <Route path="/Sensitivity/income" element={<SensitivityIncome />}/>
               <Route path="/Chart/cashflow" element={<CashflowChartPage />} />
               <Route path="/Chart/income" element={<IncomeChartPage />} />
 
               <Route path="*" element={<LandingPage />} />
               {/* <Route path="/NewInvestmentProject" element={<NewInvestmentProject />} /> */}
             </Routes>
-            : <Routes>
+          ) : (
+            <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/Login" element={<LoginPage />} />
               <Route path="/Register" element={<RegisterPage />} />
@@ -94,7 +97,7 @@ function App() {
               <Route path="*" element={<PleaseLogin />} />
               <Route path="/test" element={<DBTest1 />} />
             </Routes>
-          }
+          )}
         </div>
       </div>
     </Router>
