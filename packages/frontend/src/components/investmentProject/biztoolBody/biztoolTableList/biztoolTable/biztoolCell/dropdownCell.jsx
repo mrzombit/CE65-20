@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useSelector } from 'react-redux';
+import BIZTOOL_PAGE_CONFIG from '../../../../../../pages/bizTools/pageConfig';
 import "./cellStyle.css"
 
 const DropdownCell = (props) => {
@@ -51,18 +52,23 @@ const DropdownCell = (props) => {
     setAllValue()
   }, [dropdownOptions, selectedProject, props.onCellChange, props.handleFunction])
 
+  //date. setFullYear(date. getFullYear() + 1)
+
   return (
     <div style={{ width: `${props.width}px` }}>
       {isLoaded && <>{props.type == 'period-dropdown' &&
         <Dropdown
-          onSelect={(valueKey) => props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
+          onSelect={(valueKey) => props.tableType !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment ?
+            props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey) :
+             props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, { periodId: valueKey, startDate: props.startDate })
+          }
           style={{
             width: `${props.width}px`,
           }}
         >
           <Dropdown.Toggle className='biztool-input-cell' id="dropdown-autoclose-true">
             {/* {JSON.stringify(selectedPeriod)} */}
-            {selectedPeriod?selectedPeriod.label.name.th:"loading"}
+            {selectedPeriod ? selectedPeriod.label.name.th : "loading"}
           </Dropdown.Toggle>
           <Dropdown.Menu className='biztool-input-cell-no-border'>
             {dropdownOptions && dropdownOptions.map((option) => (
@@ -119,7 +125,7 @@ const DropdownCell = (props) => {
               }}
             >
               <Dropdown.Toggle className='biztool-input-cell-no-border' id="dropdown-autoclose-true">
-                {selectedCostIncreasePeriod?selectedCostIncreasePeriod.label.name.th:"Loading"}
+                {selectedCostIncreasePeriod ? selectedCostIncreasePeriod.label.name.th : "Loading"}
                 {/* {JSON.stringify(selectedCostIncreasePeriod)} */}
               </Dropdown.Toggle>
               <Dropdown.Menu className='biztool-input-cell'>
@@ -141,13 +147,15 @@ const DropdownCell = (props) => {
         {props.type == 'asset-account-dropdown' &&
           <Dropdown
             className='biztool-input-cell-no-border'
-            onSelect={(valueKey) => props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey)}
+            onSelect={(valueKey) =>
+              props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey)
+            }
             style={{
               width: `${props.width}px`,
             }}
           >
             <Dropdown.Toggle className='biztool-input-cell' id="dropdown-autoclose-true">
-              {selectedAssetAccount?selectedAssetAccount.label.name.th:"Loading"}
+              {selectedAssetAccount ? selectedAssetAccount.label.name.th : "Loading"}
               {/* {JSON.stringify(selectedAssetAccount)} */}
 
             </Dropdown.Toggle>

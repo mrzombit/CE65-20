@@ -85,6 +85,7 @@ const BiztoolBody = (props) => {
             data={props.tableData.debt_issuance_tables}
             type={props.type.debtIssuance}
             tableStyle={props.tableStyle.debtIssuanceTableStyle}
+            setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
           />
         </div>
       </div>}
