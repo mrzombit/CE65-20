@@ -1,6 +1,7 @@
 import React from "react";
 import { IconContext } from "react-icons";
 import { AiFillInfoCircle } from "react-icons/ai";
+import './titleFFC.css'
 
 function titleFFC(props) {
   return (

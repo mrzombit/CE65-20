@@ -18,3 +18,10 @@
 .tab-head-content {
     margin-left: 16.5rem;
 }
+
+.ffc-card-container {
+    width: 64vw;
+    padding: 20px;
+    background-color: #e4e4e4;
+    border-radius: 15px;
+}

@@ -50,7 +50,7 @@ function FFCPage() {
       <BizSidebar />
       <div className="p-4 biztool-body-width">
         <BiztoolHeader type={config.type} title={config.title} />
-        <div className="ffc">
+        <div className="ffc scoll-able-ffc">
           <p className="ffc-head-text my-5">
             Answer the following Questions to Assess Your Financial Feasibility
             Canvas
@@ -60,7 +60,7 @@ function FFCPage() {
               page={page}
               onPageNumberClick={nextPageNumber}
             />
-            <div className="ffc-body">
+            <div className="">
               {
                 {
                   pageone: <FFCOne onButtonClick={nextPage} />,

@@ -267,6 +267,7 @@ const cashflowChartPage = (props) => {
           />
           <div>
             <CombinationCharts
+              data_type="revenue"
               total_service_revenue={totalRevenue}
               total_fixed_cost={totalFixedCost}
             />
@@ -434,7 +435,7 @@ const cashflowChartPage = (props) => {
               /> */}
 
               <div className="table-name-side-text">กระแสเงินสดจากกิจกรรม(CFF)</div>
-              
+
               {/* <EditInputOnSidebar
                 name="รวมรายจ่าย"
                 type="text"

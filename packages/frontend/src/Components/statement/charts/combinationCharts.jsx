@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import { Chart } from 'primereact/chart';
@@ -16,101 +15,134 @@ export default function CombinationCharts(props) {
 		const textColor = documentStyle.getPropertyValue('--text-color');
 		const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
 		const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-		const data = {
-			labels: ['2023', '2024', '2025', '2026',], //รวม กระแสเงินสุทธิ แต่ละปั
-			datasets: [
-				// {
-				// 	type: 'line',
-				// 	label: 'สุทธิ',
-				// 	borderColor: documentStyle.getPropertyValue('--blue-500'),
-				// 	borderWidth: 2,
-				// 	fill: false,
-				// 	tension: 0.4,
-				// 	data: [7000, 8500, 5000, 8000,],
-				// },
-				// {
-				// 	type: 'line',
-				// 	label: 'สุทธิ',
-				// 	borderColor: documentStyle.getPropertyValue('--blue-500'),
-				// 	borderWidth: 2,
-				// 	fill: false,
-				// 	tension: 0.4,
-				// 	data: [40, 15, 22, 8,],
-				// },
-				{
-					type: 'bar',
-					label: 'กระแสเงินสดรับ',
-					data: [2, 84, 24, 75],
-					// data: [],
-					backgroundColor: 'rgba(75, 192, 192, 0.2)',
-					borderColor: 'rgb(75, 192, 192)',
-					borderWidth: 1,			
-				},
-				{
-					type: 'bar',
-					label: 'กระแสเงินสดจ่าย',
-					data: [4000, 3200, 2400, 1400], 
-					// data: [],
-					backgroundColor:'rgba(153, 102, 255, 0.2)',
-					borderColor:'rgb(153, 102, 255)',
-					borderWidth: 1
-				}
-			]
-		};
-		const options = {
-			maintainAspectRatio: false,
-			aspectRatio: 0.6,
-			plugins: {
-				legend: {
-					labels: {
-						color: textColor
-					}
-				}
-			},
-			scales: {
-				x: {
-					ticks: {
-						color: textColorSecondary
+		if (props.data_type == "revenue") {
+			const data = {
+				labels: ['2023', '2024', '2025', '2026'],
+				datasets: [
+					{
+						type: 'bar',
+						label: 'กระแสเงินสดรับ',
+						data: [2, 84, 24, 75],
+						backgroundColor: 'rgba(75, 192, 192, 0.2)',
+						borderColor: 'rgb(75, 192, 192)',
+						borderWidth: 1,
 					},
-					grid: {
-						color: surfaceBorder
+					{
+						type: 'bar',
+						label: 'กระแสเงินสดจ่าย',
+						data: [4000, 3200, 2400, 1400],
+						backgroundColor: 'rgba(153, 102, 255, 0.2)',
+						borderColor: 'rgb(153, 102, 255)',
+						borderWidth: 1
+					}
+				]
+			};
+
+			const options = {
+				maintainAspectRatio: false,
+				aspectRatio: 0.6,
+				plugins: {
+					legend: {
+						labels: {
+							color: textColor
+						}
 					}
 				},
-				y: {
-					ticks: {
-						color: textColorSecondary
+				scales: {
+					x: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
 					},
-					grid: {
-						color: surfaceBorder
+					y: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
 					}
 				}
-			}
-		};
+			};
 
-		let shallowData = data
+			let shallowData = data
 
-		shallowData = shallowData.datasets.map(d => {
-			if (d.label == "กระแสเงินสดรับ") {
-				d.data = totalServiceRevenue
-			}
-			if (d.label == "กระแสเงินสดจ่าย") {
-				d.data = totalFixedCost
-			}
-			// if (d.label == "สุทธิ") {
-		
-			// }
-			// console.log( arr +"(-)" + arr2 )
-			return shallowData
-		})
+			shallowData = shallowData.datasets.map(d => {
+				if (d.label == "กระแสเงินสดรับ") {
+					d.data = totalServiceRevenue
+				}
+				if (d.label == "กระแสเงินสดจ่าย") {
+					d.data = totalFixedCost
+				}
 
-		// console.log("OLD : " + JSON.stringify(data))
-		// console.log("NEW : " + (JSON.stringify(shallowData)))
-
-		// alert(JSON.stringify(shallowData))
+				return shallowData
+			})
 
 
-		setChartData(shallowData[0]);
-		setChartOptions(options);
+			setChartData(shallowData[0]);
+			setChartOptions(options);
+		}
+		if (props.data_type == "expense") {
+			const data = {
+				labels: ['2023', '2024', '2025', '2026'],
+				datasets: [
+					{
+						type: 'bar',
+						label: 'กระแสเงินสดรับ',
+						data: [2, 84, 24, 75],
+						backgroundColor: 'rgba(75, 192, 192, 0.2)',
+						borderColor: 'rgb(75, 192, 192)',
+						borderWidth: 1,
+					},
+					{
+						type: 'bar',
+						label: 'กระแสเงินสดจ่าย',
+						data: [400, 320, 240, 140],
+						backgroundColor: 'rgba(153, 102, 255, 0.2)',
+						borderColor: 'rgb(153, 102, 255)',
+						borderWidth: 1
+					}
+				]
+			};
+
+			const options = {
+				maintainAspectRatio: false,
+				aspectRatio: 0.6,
+				plugins: {
+					legend: {
+						labels: {
+							color: textColor
+						}
+					}
+				},
+				scales: {
+					x: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
+					},
+					y: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
+					}
+				}
+			};
+
+
+
+			setChartData(data);
+			setChartOptions(options);
+		}
 	}, [totalServiceRevenue,totalFixedCost]);
 
 	return (

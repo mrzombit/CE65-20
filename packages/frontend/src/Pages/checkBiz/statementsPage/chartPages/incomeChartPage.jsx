@@ -207,6 +207,7 @@ const incomeChartPage = (props) => {
           />
           <div>
             <CombinationCharts
+              data_type="revenue"
               total_service_revenue={totalRevenue}
               total_fixed_cost={totalFixedCost}
             />
@@ -271,7 +272,7 @@ const incomeChartPage = (props) => {
                     resultDisplay={true}
                   />
                 </div>
-              </div>
+              </div> 
 
               <div className="table-name-side-text">
                 รายได้การขายสินค้า/วัน
