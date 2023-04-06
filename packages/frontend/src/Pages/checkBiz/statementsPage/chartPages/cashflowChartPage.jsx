@@ -26,6 +26,7 @@ const cashflowChartPage = (props) => {
   // const totalFixedCost = [17000,15000,10000];
   const totalRevenue = [];
   const totalFixedCost = [];
+  const totalCFO = [];
 
   const dispatch = useDispatch();
   const selectedProject = useSelector(
@@ -192,6 +193,13 @@ const cashflowChartPage = (props) => {
     return totalValue;
   }
 
+  function total_income() {
+    let totalValue = 0
+    totalValue = calculateRevenue() - calculateFixedCost()
+    totalCFO.push(totalValue)
+    return totalValue
+}
+
 
   ///////////////////////////////////////////
   const [groups, setGroups] = useState({
@@ -268,8 +276,8 @@ const cashflowChartPage = (props) => {
           <div>
             <CombinationCharts
               data_type="revenue"
-              total_service_revenue={totalRevenue}
-              total_fixed_cost={totalFixedCost}
+              total_service_revenue={totalCFO   }
+              // total_fixed_cost={totalFixedCost}
             />
           </div>
         </div>
@@ -284,23 +292,23 @@ const cashflowChartPage = (props) => {
                 <div className="d-flex justify-content-between">
                   <div>CFO</div>
                   <div>
-                    {calculateRevenue_service() + calculateRevenue_product()}
+                    {total_income()}
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div>CFI</div>
-                  <div>{calculateTotalFixdcost()}</div>
+                  {/* <div>{calculateTotalFixdcost()}</div> */}
                 </div>
                 <div className="d-flex justify-content-between">
                   <div>CFF</div>
-                  <div>{calculateRevenue() - calculateFixedCost()}</div>
+                  {/* <div>{calculateRevenue() - calculateFixedCost()}</div> */}
                 </div>
 
               </div>
               <div className="total-text">
                 <div className="d-flex justify-content-between">
                   <div>กระแสเงินสดสุทธิ</div>
-                  <div></div>
+                  <div>{total_income()}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div>เงินสดต้นงวด</div>

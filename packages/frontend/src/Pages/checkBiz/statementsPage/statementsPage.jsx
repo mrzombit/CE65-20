@@ -22,8 +22,8 @@ function StatementsPage() {
           <div className="d-flex flex-column justify-content-center align-items-start">
             <div className="statement-block ">
               <Link to="/CustomStatements"><StatementCard name="Custom Statement" detail="Create you own statement" /></Link>
-              <Link to="/CashFlowStatements"><StatementCard name="Cash Flow Statement" detail="Create you Cash Flow statement" /></Link>
-              <Link to="/ProfitLossStatements"><StatementCard name="Profit & Loss Statement" detail="Create you Profit & Loss statement" /></Link>
+              <Link to="/Chart/cashflow"><StatementCard name="Cash Flow Statement" detail="Create you Cash Flow statement" /></Link>
+              <Link to="/Chart/income"><StatementCard name="Profit & Loss Statement" detail="Create you Profit & Loss statement" /></Link>
             </div>
           </div>
         </div>

@@ -87,24 +87,24 @@ export default function CombinationCharts(props) {
 		}
 		if (props.data_type == "expense") {
 			const data = {
-				labels: ['2023', '2024', '2025', '2026'],
+				labels: ['ช่างทำผม 1', 'ช่างทำผม 2', 'ค่าน้ำ', 'ค่าไฟ'],
 				datasets: [
 					{
 						type: 'bar',
-						label: 'กระแสเงินสดรับ',
-						data: [2, 84, 24, 75],
+						label: 'กระแสเงินสดจ่าย',
+						data: [15000, 15000, 7000, 3000],
 						backgroundColor: 'rgba(75, 192, 192, 0.2)',
 						borderColor: 'rgb(75, 192, 192)',
 						borderWidth: 1,
 					},
-					{
-						type: 'bar',
-						label: 'กระแสเงินสดจ่าย',
-						data: [400, 320, 240, 140],
-						backgroundColor: 'rgba(153, 102, 255, 0.2)',
-						borderColor: 'rgb(153, 102, 255)',
-						borderWidth: 1
-					}
+					// {
+					// 	type: 'bar',
+					// 	label: 'กระแสเงินสดจ่าย',
+					// 	data: [400, 320, 240, 140],
+					// 	backgroundColor: 'rgba(153, 102, 255, 0.2)',
+					// 	borderColor: 'rgb(153, 102, 255)',
+					// 	borderWidth: 1
+					// }
 				]
 			};
 

@@ -199,22 +199,61 @@ const ffcCard = (props) => {
         return totalValue
     }
 
+    function calculateCFO() {
+        let result = 0
+        result = calculateRevenue() - calculateFixedCost();
+        return result
+    }
+
+    function calculateCFI() {
+        let result = 0
+        return result
+    }
+
+    function calculateCFF() {
+        let result = 0
+        return result
+    }
+
+    function netCashflow() {
+        let result = 0
+        result = calculateCFO() + calculateCFI() + calculateCFF()
+        return result
+    }
+
+    //////////////////////////////////////////// FFC 5
+
+    function calculateCashFlows(initialInvestment, annualGrowthRate, numberOfYears) {
+        let cashFlows = [];
+        let currentCashFlow = initialInvestment;
+        
+        for (let i = 0; i < numberOfYears; i++) {
+          cashFlows.push(currentCashFlow);
+          currentCashFlow = currentCashFlow * (1 + annualGrowthRate);
+        }
+        
+        return cashFlows;
+      }
+
     function calculateNPV(initialInvestment, cashFlows, discountRate) {
         let presentValueOfCashFlows = 0
         for (let i = 0; i < cashFlows.length; i++) {
-          presentValueOfCashFlows += cashFlows[i] / Math.pow((1 + discountRate), i + 1)
+            presentValueOfCashFlows += cashFlows[i] / Math.pow((1 + discountRate), i + 1)
         }
         const netPresentValue = presentValueOfCashFlows - initialInvestment
         return netPresentValue
-      }      
+    }
 
     const math = create(all)
 
     function calculateIRR(cashFlows) {
-        const guess = 0.1 // Initial guess for IRR
-        const result = math.numeric.irr(cashFlows, guess)
-        return result
+        const math = require('mathjs');
+
+        const irr = math.finance.IRR(cashFlows);
+        return irr
     }
+
+
 
     function calculatePaybackPeriod(initialInvestment, cashFlows) {
         let cumulativeCashFlow = -initialInvestment // Add the initial investment as a negative cash flow
@@ -242,6 +281,7 @@ const ffcCard = (props) => {
     }
 
 
+    //////////////////////////////////////////// FFC 5 ;
 
     return (
         <div className="ffc-card-container">
@@ -452,7 +492,7 @@ const ffcCard = (props) => {
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            {/* <td>{calculateIRR(cashFlows)}</td> */}
+                                            {/* <td>{calculateIRR(calculateFixedCost())}</td> */}
                                         </tr>
                                         <tr>
                                             <td>Payback period</td>

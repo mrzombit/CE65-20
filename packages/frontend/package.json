@@ -27,6 +27,7 @@
     "mathjs": "^11.8.0",
     "moment": "^2.29.4",
     "multi-range-slider-react": "^2.0.3",
+    "numeric": "^1.2.6",
     "primeicons": "^6.0.1",
     "primereact": "^9.2.1",
     "prop-types": "^15.8.1",

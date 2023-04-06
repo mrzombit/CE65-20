@@ -16,8 +16,8 @@ function ffcSix() {
           </div>
           <div >
             <FFCCard
-              type="financial-return"
-              tableName="Financial Returns"
+              type="entrepreneurial-decision"
+              tableName="Entrepreneurial Decision"
             />
           </div>
         </div>
