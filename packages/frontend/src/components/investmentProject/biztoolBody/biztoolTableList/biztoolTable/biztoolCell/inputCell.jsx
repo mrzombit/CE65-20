@@ -22,13 +22,14 @@ const InputCell = (props) => {
             props.type === 'unit' ? 100 : 70)}px`,
           textAlign: `start`,
         }}
+        disabled={props.disabled?true:false}
         onKeyPress={(props.type === 'number' || props.type === 'money' || props.type === 'date' || props.type === 'unit') ? (e) => !/[0-9\b]+/.test(e.key) && e.preventDefault() :
           (props.type === 'percent') ? (e) => !/([0-9\b]*[.])+/.test(e.key) && e.preventDefault() : null}
         onChange={e =>
           props.type === 'date' ?
             props.tableType !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment ?
               props.onCellChange(props.tableType, props.address.tableId!==undefined?props.address.tableId:'', props.address.rowId, props.colIndex, e.target.value) :
-              props.onCellChange(props.tableType, props.address.tableId!==undefined?props.address.tableId:'', props.address.rowId, props.colIndex, { periodId: props.periodId, startDate: e.target.value })
+              props.onCellChange(props.tableType,'', props.address.rowId, props.colIndex, { periodId: props.periodId, startDate: e.target.value })
             :
             props.type === 'number' ? props.onCellChange(props.tableType, props.address.tableId!==undefined?props.address.tableId:'', props.address.rowId, props.colIndex, e.target.value) :
               props.type === 'unit' ? props.onCellChange(props.tableType, props.address.tableId!==undefined?props.address.tableId:'', props.address.rowId, props.colIndex, { unit: e.target.value, unitName: props.data.unitName }) :

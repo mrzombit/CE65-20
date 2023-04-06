@@ -161,23 +161,7 @@ const BiztoolTable = (props) => {
             tableStyle={props.tableStyle}
           />
         ))}
-      {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
-        eachTable.debt_issuances.map((eachRow) => (
-          <BiztoolRow
-            setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
-            handleRowOptionFunction={props.handleRowOptionFunction}
-            key={eachRow._id}
-            type={props.type}
-            data={eachRow}
-            onCellChange={props.onCellChange}
-            address={
-              {
-                tableId: '',
-                rowId: eachRow._id,
-              }}
-            tableStyle={props.tableStyle}
-          />
-        ))}
+
       {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
         eachTable.equity_contributions.map((eachRow) => (
           <BiztoolRow
@@ -195,17 +179,39 @@ const BiztoolTable = (props) => {
           />
         ))}
       {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
-        eachTable.equity_repayments.map((eachRow, index) => (
+        eachTable.equity_repayments.map((eachRow) => (
           <BiztoolRow
             handleRowOptionFunction={props.handleRowOptionFunction}
             key={eachRow._id}
             type={props.type}
             data={eachRow}
+            allData={props.allData}
+            address={
+              {
+                tableId: '',
+                rowId: eachRow._id,
+              }}
             onCellChange={props.onCellChange}
             tableStyle={props.tableStyle}
           />
         ))}
-
+      {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
+        eachTable.debt_issuances.map((eachRow) => (
+          <BiztoolRow
+            setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
+            handleRowOptionFunction={props.handleRowOptionFunction}
+            key={eachRow._id}
+            type={props.type}
+            data={eachRow}
+            onCellChange={props.onCellChange}
+            address={
+              {
+                tableId: '',
+                rowId: eachRow._id,
+              }}
+            tableStyle={props.tableStyle}
+          />
+        ))}
       <div className="d-flex">
         <OptionCell
           showOption={false}
@@ -214,7 +220,7 @@ const BiztoolTable = (props) => {
           tableType={props.type}
           address={props.address}
         />
-        {props.type !== BIZTOOL_PAGE_CONFIG.miscellaneous.equityRepayment && <button type="button"
+        {props.type !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment && <button type="button"
           className="text-start add-row-button"
           style={{ width: `${widthArr.reduce((partialSum, a) => partialSum + a, 0)}px` }}
           onClick={() => props.addRowHandle(props.type, eachTable._id)}

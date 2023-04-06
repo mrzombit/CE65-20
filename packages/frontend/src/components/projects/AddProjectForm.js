@@ -87,7 +87,15 @@ const AddProjectForm = () => {
           fixed_cost_tables: [],
         },
         miscellaneous: {
-          equity_contribution: [],
+          equity_contribution: [{
+            name: `ฉัน`,
+            amount: 0,
+            date: new Date(),
+            repayment: {
+              period_id: "63de932fd63688ac8b7ed99f",
+              start_date: new Date(),
+            }
+          }],
           equity_repayment: [],
           debt_issuance: [],
           ffcReason: "",
@@ -177,7 +185,7 @@ const AddProjectForm = () => {
   const setCashflow = (newData) => {
     const shallowBusienssGoals = JSON.parse(JSON.stringify(selectedBusinessGoals))
     const shallowBusienssGoals2 = JSON.parse(JSON.stringify(shallowBusienssGoals)).map(each => {
-      return each.name.en ===newData.name.en ? newData : each
+      return each.name.en === newData.name.en ? newData : each
     })
     setselectedBusinessGoals(JSON.parse(JSON.stringify(shallowBusienssGoals2)))
   }
@@ -223,7 +231,7 @@ const AddProjectForm = () => {
               <div className="input-container ">
                 <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
                 <BizLogo />
-                {file?<div>{file.name}</div>:null}
+                {file ? <div>{file.name}</div> : null}
                 <div>
                   <button
                     for="getFiles"
@@ -376,8 +384,8 @@ const AddProjectForm = () => {
                   onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                   required
                 />}
-                {(eachGoal.name.en ==='Yearly Cashflow' || eachGoal.name.en ==='Monthly Cashflow') && <button
-                  onClick={() => handleCashflowState(eachGoal.name.en ==='Yearly Cashflow' ? 'yearly' : 'monthly', eachGoal)}
+                {(eachGoal.name.en === 'Yearly Cashflow' || eachGoal.name.en === 'Monthly Cashflow') && <button
+                  onClick={() => handleCashflowState(eachGoal.name.en === 'Yearly Cashflow' ? 'yearly' : 'monthly', eachGoal)}
                   className="sale-trend-input">
                   แก้ไข
                 </button>}

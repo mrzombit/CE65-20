@@ -72,6 +72,7 @@ const BiztoolBody = (props) => {
             addRowHandle={props.addRowHandle}
             onCellChange={props.onCellChange}
             data={props.tableData.equity_repayment_tables}
+            allData={props.tableData}
             type={props.type.equityRepayment}
             tableStyle={props.tableStyle.equityRepaymentTableStyle}
           />

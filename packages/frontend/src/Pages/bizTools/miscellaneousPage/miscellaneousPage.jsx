@@ -20,21 +20,11 @@ function MiscellaneousPage() {
   );
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
   const [repaymentPopupState, setRepaymentPopupState] = useState(false)
-  const [equityIdAdded, setEquityIdAdded] = useState(false)
 
   useEffect(() => {
     if (isLoaded.projects) {
       dispatch(fetchProjectById(selectedProject));
       setIsLoaded({ user: true, project: true });
-    }
-    if (equityIdAdded) {
-      console.log('added');
-      const shallowLastestEquityId = selectedProject.miscellaneous.equity_contribution[selectedProject.miscellaneous.equity_contribution.length - 1]._id
-      console.log(shallowLastestEquityId);
-      if (shallowLastestEquityId !== undefined) {
-        generateEquityRepaymentRow(shallowLastestEquityId)
-        setEquityIdAdded(false)
-      }
     }
     setTableData({
       equity_contribution_tables: [
@@ -44,7 +34,7 @@ function MiscellaneousPage() {
       ],
       equity_repayment_tables: [
         {
-          equity_repayments: selectedProject.miscellaneous.equity_repayment,
+          equity_repayments: selectedProject.miscellaneous.equity_contribution,
         },
       ],
       debt_issuance_tables: [
@@ -53,7 +43,7 @@ function MiscellaneousPage() {
         },
       ],
     })
-  }, [selectedProject, equityIdAdded]);
+  }, [selectedProject]);
 
   const [tableData, setTableData] = useState({
     equity_contribution_tables: [
@@ -63,7 +53,7 @@ function MiscellaneousPage() {
     ],
     equity_repayment_tables: [
       {
-        equity_repayments: selectedProject.miscellaneous.equity_repayment,
+        equity_repayments: selectedProject.miscellaneous.equity_contribution,
       },
     ],
     debt_issuance_tables: [
@@ -99,7 +89,25 @@ function MiscellaneousPage() {
         return eachTable
       }))
     }
-    if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
+    else if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment) {
+      shallowEquityRepaymentTables = shallowEquityRepaymentTables.map((eachTable => {
+        let shallowRows = eachTable.equity_repayments
+        shallowRows = shallowRows.map(eachRow => {
+          if (eachRow._id === rowId) {
+            if (columnIndex === 2) {
+              //edit
+              console.log(JSON.stringify(value));
+              const shallowDate = new Date(value.startDate)
+              return { ...eachRow, repayment: {period_id: value.periodId, start_date: shallowDate} }
+            }
+          }
+          return eachRow
+        })
+        eachTable.equity_repayments = shallowRows
+        return eachTable
+      }))
+    }
+    else if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
       shallowDebtIssuanceTables = shallowDebtIssuanceTables.map((eachTable => {
         let shallowRows = eachTable.debt_issuances
         shallowRows = shallowRows.map(eachRow => {
@@ -113,13 +121,10 @@ function MiscellaneousPage() {
             return { ...eachRow, start_date: value }
           }
           else if (columnIndex === 3) {
-            return { ...eachRow, apr: parseFloat(value) }
+            return { ...eachRow, apr: value }
           }
           else if (columnIndex === 4) {
             return { ...eachRow, period_id: value }
-          }
-          else if (columnIndex === 5) {
-            return { ...eachRow, payments: value }
           }
           return eachRow
         })
@@ -130,8 +135,10 @@ function MiscellaneousPage() {
     let shallowSelectedProject = {
       ...selectedProject,
       miscellaneous: {
-        equity_contribution: shallowEquityContributionTables[0].equity_contributions,
-        equity_repayment: shallowEquityRepaymentTables[0].equity_repayments,
+        equity_contribution: tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution?
+        shallowEquityContributionTables[0].equity_contributions:
+        shallowEquityRepaymentTables[0].equity_repayments
+        ,
         debt_issuance: shallowDebtIssuanceTables[0].debt_issuances,
       }
     }
@@ -141,19 +148,23 @@ function MiscellaneousPage() {
 
   const addRowHandle = (tableType) => {
     let shallowEquityContributionTables = JSON.parse(JSON.stringify(tableData.equity_contribution_tables))
-    let shallowEquityRepaymentTables = JSON.parse(JSON.stringify(tableData.equity_repayment_tables))
     let shallowDebtIssuanceTables = JSON.parse(JSON.stringify(tableData.debt_issuance_tables))
     const initialRow = {
       equity_contribution: {
-        name: `ผู้ถือหุ้น(${tableData.equity_contribution_tables[0].equity_contributions.length>0?tableData.equity_contribution_tables[0].equity_contributions.lengt:''})`,
+        name: `${tableData.equity_contribution_tables[0].equity_contributions.length > 0 ? `ผู้ถือหุ้น (${tableData.equity_contribution_tables[0].equity_contributions.length})` : 'ฉัน'}`,
         amount: 0,
         date: new Date(),
+        repayment: {
+          period_id: "63de932fd63688ac8b7ed99f",
+          start_date: new Date(),
+      }
       },
       debt_issuance: {
-        name: `การกู้ยืม${tableData.debt_issuance_tables[0].debt_issuances.length}`,
+        name: `การกู้ยืม${tableData.debt_issuance_tables[0].debt_issuances.length > 0 ? ` (${tableData.debt_issuance_tables[0].debt_issuances.length})` : ''}`,
         amount: 0,
         apr: 0,
         period_id: "63de932fd63688ac8b7ed99f",
+        start_date: new Date(),
         payments: []
       },
     }
@@ -162,7 +173,6 @@ function MiscellaneousPage() {
         eachTable.equity_contributions.push(initialRow.equity_contribution)
         return eachTable
       })
-      setEquityIdAdded(true)
     }
     else if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
       shallowDebtIssuanceTables = shallowDebtIssuanceTables.map(eachTable => {
@@ -175,7 +185,6 @@ function MiscellaneousPage() {
       ...selectedProject,
       miscellaneous: {
         equity_contribution: shallowEquityContributionTables[0].equity_contributions,
-        equity_repayment: shallowEquityRepaymentTables[0].equity_repayments,
         debt_issuance: shallowDebtIssuanceTables[0].debt_issuances,
       }
     }
@@ -183,45 +192,12 @@ function MiscellaneousPage() {
     dispatch(projectUpdated(shallowSelectedProject))
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
-
-  const generateEquityRepaymentRow = (shallowLastestEquityId) => {
-    let shallowEquityContributionTables = JSON.parse(JSON.stringify(tableData.equity_contribution_tables))
-    let shallowEquityRepaymentTables = JSON.parse(JSON.stringify(tableData.equity_repayment_tables))
-    let shallowDebtIssuanceTables = JSON.parse(JSON.stringify(tableData.debt_issuance_tables))
-
-    shallowEquityRepaymentTables = shallowEquityRepaymentTables.map(eachTable => {
-      eachTable.equity_repayments.push({
-        equity_contribution_id: shallowLastestEquityId,
-        repayment:
-        {
-          period_id: "63de932fd63688ac8b7ed99f",
-          start_date: new Date(),
-        }
-      })
-      return eachTable
-    })
-
-
-    let shallowSelectedProject = {
-      ...selectedProject,
-      miscellaneous: {
-        equity_contribution: shallowEquityContributionTables[0].equity_contributions,
-        equity_repayment: shallowEquityRepaymentTables[0].equity_repayments,
-        debt_issuance: shallowDebtIssuanceTables[0].debt_issuances,
-      }
-    }
-
-    dispatch(projectUpdated(shallowSelectedProject))
-    dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
-  }
-
   const setRepaymentPopupStateFunction = () => {
     setRepaymentPopupState(true)
   }
 
   const handleRowOptionFunction = (tableType, tableId, rowId) => {
     let shallowEquityContributionTables = JSON.parse(JSON.stringify(tableData.equity_contribution_tables))
-    let shallowEquityRepaymentTables = JSON.parse(JSON.stringify(tableData.equity_repayment_tables))
     let shallowDebtIssuanceTables = JSON.parse(JSON.stringify(tableData.debt_issuance_tables))
 
     if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
@@ -229,21 +205,6 @@ function MiscellaneousPage() {
         let shallowRows = []
         eachTable.equity_contributions.forEach((eachRow) => {
           if (eachRow._id !== rowId) shallowRows.push(eachRow)
-          else {
-            // console.log('a\n');
-            //shallowEquityRepaymentTables = 
-            shallowEquityRepaymentTables = shallowEquityRepaymentTables.map(eachTable => {
-              let shallowEquityRepaymentRows = []
-              eachTable.equity_repayments.forEach(eachRepaymentRow => {
-                console.log(eachRepaymentRow.equity_contribution_id);
-                console.log(eachRow._id);
-                // if (eachRepaymentRow.equity_contribution_id !== eachRow._id) shallowEquityRepaymentRows.push(eachRepaymentRow)
-                shallowEquityRepaymentRows.push(eachRepaymentRow)
-              })
-              eachTable.equity_repayments = shallowEquityRepaymentRows
-              return eachTable
-            })
-          }
         }
         )
         eachTable.equity_contributions = shallowRows
@@ -264,7 +225,6 @@ function MiscellaneousPage() {
       ...selectedProject,
       miscellaneous: {
         equity_contribution: shallowEquityContributionTables[0].equity_contributions,
-        equity_repayment: shallowEquityRepaymentTables[0].equity_repayments,
         debt_issuance: shallowDebtIssuanceTables[0].debt_issuances,
       }
     }

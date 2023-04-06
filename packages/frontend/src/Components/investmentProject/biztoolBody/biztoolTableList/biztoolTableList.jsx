@@ -17,6 +17,7 @@ const BiztoolTableList = (props) => {
             eachTable={eachTable}
             type={props.type}
             tableStyle={props.tableStyle}
+            allData={props.allData?props.allData:null}
             setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
           />
         ) : null}

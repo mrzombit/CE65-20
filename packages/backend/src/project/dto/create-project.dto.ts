@@ -110,21 +110,18 @@ export class CreateProjectDTO {
             name: string,
             amount: Number,
             date: Date,
-        }],
-        equity_repayment: [{
-            equity_contribution_id: string,
             repayment:
             {
                 period_id: string,
                 start_date: Date,
             }
-            ,
         }],
         debt_issuance: [{
             name: string,
             amount: Number,
             apr: Number,
             period_id: string,
+            start_date: Date,
             payments: [
                 {
                     name: string,

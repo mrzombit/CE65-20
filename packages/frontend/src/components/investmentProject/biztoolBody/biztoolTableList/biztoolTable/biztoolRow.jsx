@@ -5,6 +5,7 @@ import DropdownCell from './biztoolCell/dropdownCell';
 import RepaymentsTable from './biztoolCell/repaymentsTable';
 import SeasonalTrendsTable from './biztoolCell/seasonalTrendsTable';
 import OptionCell from './biztoolCell/optionCell';
+import KCalculator from '../../../../common/kCalulator';
 
 const BiztoolRow = (props) => {
 
@@ -306,7 +307,7 @@ const BiztoolRow = (props) => {
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
 
                     <OptionCell
-                        showOption={showOption}
+                        showOption={props.data.name!=='ฉัน'?showOption:false}
                         colIndex={'option'}
                         tableType={props.type}
                         address={props.address}
@@ -351,18 +352,24 @@ const BiztoolRow = (props) => {
                         address={props.address}
                     />
                     <InputCell
+                        disabled ={true}
                         handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
                         colIndex={0}
                         tableType={props.type}
+                        onCellChange={props.onCellChange}
+                        address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
+                        disabled ={true}
                         handleFunction={props.handleFunction}
-                        data={props.data.share}
+                        data={KCalculator(props.allData, props.data.amount)}
                         type="percent"
                         colIndex={1}
                         tableType={props.type}
+                        onCellChange={props.onCellChange}
+                        address={props.address}
                         width={columnStyles[1].width} />
                     <RepaymentsTable
                         handleFunction={props.handleFunction}
@@ -370,6 +377,8 @@ const BiztoolRow = (props) => {
                         type="repayments-table"
                         colIndex={2}
                         tableType={props.type}
+                        address={props.address}
+                        onCellChange={props.onCellChange}
                         width={columnStyles[2].width} />
                 </div>
             }
