@@ -19,11 +19,11 @@ const BiztoolHeader = (props) => {
             </IconContext.Provider>
           </Link>
         </div>
-        {props.type.page != BIZTOOL_PAGE_CONFIG.revenue.type.page &&
-          props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
-          props.type.page != BIZTOOL_PAGE_CONFIG.projectConfig.type.page &&
-          props.type.page != BIZTOOL_PAGE_CONFIG.ffc.type.page &&
-          props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page &&
+        {props.type.page !== BIZTOOL_PAGE_CONFIG.revenue.type.page &&
+          props.type.page !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
+          props.type.page !== BIZTOOL_PAGE_CONFIG.projectConfig.type.page &&
+          props.type.page !== BIZTOOL_PAGE_CONFIG.ffc.type.page &&
+          props.type.page !== BIZTOOL_PAGE_CONFIG.statement.type.page &&
           <BiztoolAddTable
             type={props.type}
             title="+ ตารางใหม่"

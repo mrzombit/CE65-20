@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import InfoProject from "../../../components/bizTools/infoProject/infoProject";
 
@@ -7,7 +7,7 @@ import BIZTOOL_PAGE_CONFIG from "../pageConfig";
 
 function ProjectConfigPage() {
 
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.projectConfig)
+  const config = BIZTOOL_PAGE_CONFIG.projectConfig
 
   return (
     <div className="d-flex">

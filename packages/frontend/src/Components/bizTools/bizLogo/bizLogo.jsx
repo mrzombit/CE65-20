@@ -1,6 +1,5 @@
 import React from "react";
 import "./bizLogo.css";
-import { GiHairStrands } from "react-icons/gi";
 import { GiCoffeeCup } from "react-icons/gi";
 
 function bizLogo() {

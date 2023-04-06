@@ -1,8 +1,4 @@
-import React, { useState } from "react";
-import Html from "react-pdf-html";
-import ExportPdfComponent from "../../../components/statement/ExportPdfComponent";
-import { Document, Page } from "react-pdf";
-import { PDFViewer } from "@react-pdf/renderer";
+import React from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import BizSidebar from '../../../components/bizTools/bizSidebar/bizSidebar'
@@ -10,13 +6,18 @@ import StatementHearder from '../../../components/statement/statementHearder';
 import "./statementsPage.css";
 import IncomeDocument from '../../../components/statement/documents/incomeDocument';
 
-const profitLossStatement = () => {
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+// import Html from "react-pdf-html";
+// import ExportPdfComponent from "../../../components/statement/ExportPdfComponent";
+// import { Document, Page } from "react-pdf";
+// import { PDFViewer } from "@react-pdf/renderer";
 
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
+const profitLossStatement = () => {
+  // const [numPages, setNumPages] = useState(null);
+  // const [pageNumber, setPageNumber] = useState(1);
+
+  // function onDocumentLoadSuccess({ numPages }) {
+  //   setNumPages(numPages);
+  // }
 
   const printDocument = () => {
     const input = document.getElementById("divToPrint");

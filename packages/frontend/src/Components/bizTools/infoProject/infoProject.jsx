@@ -56,7 +56,7 @@ function infoProject(props) {
 
   const getCurrencyById = async (id) => {
     let shallowSelectedCurrency = {}
-    const response = await axios.get(`${CURRENCY_CREATE_URL}${id}`)
+    await axios.get(`${CURRENCY_CREATE_URL}${id}`)
       .then(res => {
         shallowSelectedCurrency = [{ value: res.data._id, label: res.data.name.local }]
         setSelectedCurrency(shallowSelectedCurrency)
@@ -64,9 +64,9 @@ function infoProject(props) {
       .catch(err => false);
   }
 
-  const getIndustryByIds = async (ids) => {
+  const getIndustryByIds = async () => {
     let shallowSelectedIndustry = selectedIndustries
-    await selectedProject.industry_ids.map(id => {
+    await selectedProject.industry_ids.forEach(id => {
       axios.get(`${INDUSTRY_CREATE_URL}${id}`)
         .then(res => {
           shallowSelectedIndustry.push({ value: res.data._id, label: res.data.name.th })
@@ -111,7 +111,7 @@ function infoProject(props) {
     else if (doSubmitCheck) {
       // alert(JSON.stringify(selectedBusinessGoals));
 
-      if (imageUrl != "") {
+      if (imageUrl !== "") {
         dispatch(updateProject({ id: selectedProject._id, data: { ...projectShallow, logo_url: imageUrl, business_goals: selectedBusinessGoals } }))
         dispatch(projectUpdated({ ...projectShallow, logo_url: imageUrl, business_goals: (selectedBusinessGoals) }))
         console.log('with img');
@@ -124,7 +124,7 @@ function infoProject(props) {
       }
       resetValue()
     }
-    if (saleTrends == undefined) {
+    if (saleTrends === undefined) {
       setSaleTrends(selectedProject.sale_trends)
     }
     setCounter(counter + 1)
@@ -138,7 +138,7 @@ function infoProject(props) {
       name: event.name,
       industry_ids: selectedIndustryIds,
       description: event.description,
-      logo_url: imageUrl != '' ? imageUrl : selectedProject.logo_url,
+      logo_url: imageUrl !== '' ? imageUrl : selectedProject.logo_url,
       created_date: selectedProject.created_date,
       modified_date: new Date(),
       model_config: {
@@ -188,7 +188,7 @@ function infoProject(props) {
 
   const onProjectionPeriodChange = (e) => {
     let shallowSaleTrends = []
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       for (let i = 0; i < e.target.value; i++) {
         if (i <= projectionPeriod - 1) {
           shallowSaleTrends.push(saleTrends[i])
@@ -205,8 +205,7 @@ function infoProject(props) {
       }
       let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
       shallowTables = shallowTables.map((eachTable => {
-        let shallowRows = eachTable.fixed_costs
-        shallowRows = shallowRows.map(eachRow => {
+        eachTable.fixed_costs.map(eachRow => {
           const shallowNumbersTrends = []
           for (let i = 0; i < InitialPeriodMonths([
             "มกราคม",
@@ -244,7 +243,7 @@ function infoProject(props) {
   const [cashflowStateType, setCashflowStateType] = useState()
   const [currenCashflowData, setCurrenCashflowData] = useState()
   const handleCashflowState = (type, data) => {
-    setCashflowStateType(type == 'yearly' ? 'รายปี' : 'รายเดือน')
+    setCashflowStateType(type === 'yearly' ? 'รายปี' : 'รายเดือน')
     setCurrenCashflowData(data)
     setSetCashflowState(true)
   }
@@ -261,7 +260,7 @@ function infoProject(props) {
   const addBusinessGoalHandle = (selectedGoal) => {
     let shallowBusienssGoals = JSON.parse(JSON.stringify(selectedBusinessGoals))
     let shallowSelectedGoal = JSON.parse(JSON.stringify(selectedGoal))
-    if (!shallowBusienssGoals.find(each => each.name.en == shallowSelectedGoal.name.en)) {
+    if (!shallowBusienssGoals.find(each => each.name.en === shallowSelectedGoal.name.en)) {
       // alert(JSON.stringify(shallowSelectedGoal))
       shallowBusienssGoals.push(JSON.parse(JSON.stringify(shallowSelectedGoal)))
       // alert(JSON.stringify(selectedGoal))
@@ -276,7 +275,7 @@ function infoProject(props) {
   const setCashflow = (newData) => {
     const shallowBusienssGoals = JSON.parse(JSON.stringify(selectedBusinessGoals))
     const shallowBusienssGoals2 = JSON.parse(JSON.stringify(shallowBusienssGoals)).map(each => {
-      return each.name.en == newData.name.en ? newData : each
+      return each.name.en === newData.name.en ? newData : each
     })
     setselectedBusinessGoals(JSON.parse(JSON.stringify(shallowBusienssGoals2)))
   }
@@ -323,10 +322,10 @@ function infoProject(props) {
               <div className="d-flex flex-col">
                 <div className="input-container ">
                   <div className="label-newInvest-pj">โลโก้ธุรกิจ </div>
-                  {selectedProject.logo_url == "" ? <BizLogo /> :
+                  {selectedProject.logo_url === "" ? <BizLogo /> :
                     <div>
                       <div className="LogoImageStyle">
-                        <img src={`${WEB_URL}${selectedProject.logo_url}`}
+                        <img alt={selectedProject.logo_url} src={`${WEB_URL}${selectedProject.logo_url}`}
                           className='mw-100 mh-100'
                         />
                       </div>
@@ -335,7 +334,7 @@ function infoProject(props) {
                   }
                   <div>
                     <button
-                      for="getFiles"
+                      htmlFor="getFiles"
                       type="button"
                       className="btn btn-primary"
                       onClick={() => document.getElementById('getFiles').click()}
@@ -453,7 +452,7 @@ function infoProject(props) {
                   />
                 </div>
               </div>
-              <button type="submit" class="btn login-butt">
+              <button type="submit" className="btn login-butt">
                 บันทึกการแก้ไข
               </button>
             </div>
@@ -461,8 +460,8 @@ function infoProject(props) {
           <div className="d-flex mt-2">
             <div className="w-100 ">
               <div className="text-center">แนวโน้มยอดขาย</div>
-              {saleTrends ? saleTrends.map((eachTrend) =>
-                <div className="d-flex">
+              {saleTrends ? saleTrends.map((eachTrend,index) =>
+                <div className="d-flex" key={index}>
                   <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
                   <input
                     className="sale-trend-input"
@@ -479,7 +478,7 @@ function infoProject(props) {
             <div className="w-100 ">
               <div className="text-center ">เป้าหมายธุรกิจ</div>
               {selectedBusinessGoals ? selectedBusinessGoals.map((eachGoal, index) => (
-                <div className="d-flex">
+                <div className="d-flex" key={index}>
                   <div
                     key={eachGoal._id}
                     className="w-50 business-goal-box">
@@ -492,8 +491,8 @@ function infoProject(props) {
                     onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                     required
                   />}
-                  {(eachGoal.name.en == 'Yearly Cashflow' || eachGoal.name.en == 'Monthly Cashflow') && <button
-                    onClick={() => handleCashflowState(eachGoal.name.en == 'Yearly Cashflow' ? 'yearly' : 'monthly', eachGoal)}
+                  {(eachGoal.name.en === 'Yearly Cashflow' || eachGoal.name.en === 'Monthly Cashflow') && <button
+                    onClick={() => handleCashflowState(eachGoal.name.en === 'Yearly Cashflow' ? 'yearly' : 'monthly', eachGoal)}
                     className="sale-trend-input">
                     แก้ไข
                   </button>}

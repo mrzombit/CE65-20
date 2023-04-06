@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
 import BiztoolHeader from "../../../components/investmentProject/biztoolHeader/biztoolHeader";
 import StatementCard from "../../../components/subscription/statementCard/statementCard";
 import BIZTOOL_PAGE_CONFIG from "../../bizTools/pageConfig";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./statementsPage.css";
 
 
 function StatementsPage() {
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.statement)
+  const config = BIZTOOL_PAGE_CONFIG.statement
 
   return (
     <div className="d-flex ">

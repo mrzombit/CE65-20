@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useSelector } from 'react-redux';
 import BIZTOOL_PAGE_CONFIG from '../../../../../../pages/bizTools/pageConfig';
 import "./cellStyle.css"
@@ -20,16 +19,16 @@ const DropdownCell = (props) => {
   const setAllValue = async () => {
     await setSelectedPeriod({
       value: props.data,
-      label: periods.find(each => props.data == each._id)
+      label: periods.find(each => props.data === each._id)
     })
     await setSelectedCostIncreasePeriod({
       value: props.data.cost_increase_period_id,
-      label: periods.find(each => props.data.cost_increase_period_id == each._id)
+      label: periods.find(each => props.data.cost_increase_period_id === each._id)
     })
     await setSelectedCostIncrease(props.data.cost_increase)
     await setSelectedAssetAccount({
       value: props.data,
-      label: assetAccounts.find(each => props.data == each._id)
+      label: assetAccounts.find(each => props.data === each._id)
     })
   }
   useEffect(() => {
@@ -40,7 +39,7 @@ const DropdownCell = (props) => {
           return { value: each._id, label: each.name.th }
         })
       }
-      else if (props.type == 'asset-account-dropdown') {
+      else if (props.type === 'asset-account-dropdown') {
         shallowOptions = assetAccounts.map(each => {
           return { value: each._id, label: each.name.th }
         })
@@ -56,11 +55,11 @@ const DropdownCell = (props) => {
 
   return (
     <div style={{ width: `${props.width}px` }}>
-      {isLoaded && <>{props.type == 'period-dropdown' &&
+      {isLoaded && <>{props.type === 'period-dropdown' &&
         <Dropdown
           onSelect={(valueKey) => props.tableType !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment ?
             props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, valueKey) :
-             props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, { periodId: valueKey, startDate: props.startDate })
+            props.onCellChange(props.tableType, props.address.tableId, props.address.rowId, props.colIndex, { periodId: valueKey, startDate: props.startDate })
           }
           style={{
             width: `${props.width}px`,
@@ -73,6 +72,7 @@ const DropdownCell = (props) => {
           <Dropdown.Menu className='biztool-input-cell-no-border'>
             {dropdownOptions && dropdownOptions.map((option) => (
               <Dropdown.Item
+                key={option.value}
                 className='biztool-input-cell-no-border'
                 eventKey={option.value}
                 style={{
@@ -85,7 +85,7 @@ const DropdownCell = (props) => {
           </Dropdown.Menu>
         </Dropdown>
       }
-        {props.type == 'cost-increase-dropdown' &&
+        {props.type === 'cost-increase-dropdown' &&
           <div className='d-flex border border-primary biztool-input-cell'>
             <input
               className='biztool-input-cell-no-border'
@@ -131,6 +131,7 @@ const DropdownCell = (props) => {
               <Dropdown.Menu className='biztool-input-cell'>
                 {dropdownOptions && dropdownOptions.map((option) => (
                   <Dropdown.Item
+                    key={option.value}
                     className='biztool-input-cell-no-border'
                     eventKey={option.value}
                     style={{
@@ -144,7 +145,7 @@ const DropdownCell = (props) => {
             </Dropdown>
           </div>
         }
-        {props.type == 'asset-account-dropdown' &&
+        {props.type === 'asset-account-dropdown' &&
           <Dropdown
             className='biztool-input-cell-no-border'
             onSelect={(valueKey) =>
@@ -162,6 +163,7 @@ const DropdownCell = (props) => {
             <Dropdown.Menu className='biztool-input-cell-no-border'>
               {dropdownOptions && dropdownOptions.map((option) => (
                 <Dropdown.Item
+                  key={option.value}
                   className='biztool-input-cell-no-border'
                   eventKey={option.value}
                   style={{

@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import BarChart from "../../../../components/statement/charts/barChart";
 import CombinationCharts from "../../../../components/statement/charts/combinationCharts";
-import CombinationChartsMinMax from "../../../../components/statement/charts/combinationChartsMinMax";
-import StackedBar from "../../../../components/statement/charts/stackedBar";
-import DoughnutChart from "../../../../components/statement/charts/doughnutChart";
 import BizSidebar from "../../../../components/bizTools/bizSidebar/bizSidebar";
 import StatementHearder from "../../../../components/statement/statementHearder";
 import "./chartPages.css";
-import SensitivityEditSidebar from "../../../../components/sensitivity/sensitivityEdit/sidebar/sensitivityEditSidebar";
 import { AiOutlineDoubleLeft } from "react-icons/ai";
 import "./../../../../components/sensitivity/sensitivityEdit/sidebar/sensitivityEditSidebar.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,12 +11,30 @@ import {
   projectUpdated,
   updateProject,
 } from "../../../../features/projectsSlice";
-import BIZTOOL_PAGE_CONFIG from "../../../bizTools/pageConfig";
 import EditInputOnSidebar from "../../../../components/checkbiz/sidebarEditdata/editInputOnSidebar";
-import * as cbf from "../../../../components/checkbiz/checkbizFormula/checkbizFormula_try";
+
+// import * as cbf from "../../../../components/checkbiz/checkbizFormula/checkbizFormula_try";
+// import BarChart from "../../../../components/statement/charts/barChart";
+// import CombinationChartsMinMax from "../../../../components/statement/charts/combinationChartsMinMax";
+// import StackedBar from "../../../../components/statement/charts/stackedBar";
+// import DoughnutChart from "../../../../components/statement/charts/doughnutChart";
+// import SensitivityEditSidebar from "../../../../components/sensitivity/sensitivityEdit/sidebar/sensitivityEditSidebar";
+// import BIZTOOL_PAGE_CONFIG from "../../../bizTools/pageConfig";
 
 const cashflowChartPage = (props) => {
-  const yearRange = [1, 2, 3, 4];
+  // const [newRevenuePerService, setNewRevenuePerService] = useState(null);
+  // const config = BIZTOOL_PAGE_CONFIG.revenue
+  // const [tableService, setTableService] = useState();
+  // const [service, setService] = useState();
+  // const [revenuePerService, setRevenuePerService] = useState();
+  // const yearRange = [1, 2, 3, 4];
+  // const [message, setMessage] = useState("");
+
+  // const handleChange = (event) => {
+  //   setMessage(event.target.value);
+  //   console.log("value is:", event.target.value);
+  // };
+
   // const totalRevenue = [15000,17000,15000];
   // const totalFixedCost = [17000,15000,10000];
   const totalRevenue = [];
@@ -34,7 +47,6 @@ const cashflowChartPage = (props) => {
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
   const [reload, setReload] = useState(false);
 
-  const [newRevenuePerService, setNewRevenuePerService] = useState(null);
 
   useEffect(() => {
     if (isLoaded.projects) {
@@ -55,12 +67,7 @@ const cashflowChartPage = (props) => {
   const [tableExpenseData, setTableExpenseData] = useState(
     selectedProject.expense
   );
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.revenue);
-
-  const [tableService, setTableService] = useState();
-  const [service, setService] = useState();
-  const [revenuePerService, setRevenuePerService] = useState();
-
+  
   const onValChange = (tableID, unitID, amountPerUnit) => {
     let shallowServiceTables = JSON.parse(
       JSON.stringify(selectedProject.revenue.service_tables)
@@ -73,10 +80,10 @@ const cashflowChartPage = (props) => {
     );
 
     shallowServiceTables = shallowServiceTables.map((eachTableService) => {
-      if (eachTableService._id == tableID) {
+      if (eachTableService._id === tableID) {
         eachTableService.services = eachTableService.services.map(
           (eachService) => {
-            if (eachService._id == unitID) {
+            if (eachService._id === unitID) {
               if (eachService.revenue_per_service !== amountPerUnit) {
                 eachService.revenue_per_service = amountPerUnit;
               }
@@ -89,10 +96,10 @@ const cashflowChartPage = (props) => {
     });
 
     shallowProductTables = shallowProductTables.map((eachTableProduct) => {
-      if (eachTableProduct._id == tableID) {
+      if (eachTableProduct._id === tableID) {
         eachTableProduct.products = eachTableProduct.products.map(
           (eachProduct) => {
-            if (eachProduct._id == unitID) {
+            if (eachProduct._id === unitID) {
               if (eachProduct.revenue_per_unit !== amountPerUnit) {
                 eachProduct.revenue_per_unit = amountPerUnit;
               }
@@ -106,10 +113,10 @@ const cashflowChartPage = (props) => {
 
     shallowFixedCostTables = shallowFixedCostTables.map(
       (eachTableFixedCost) => {
-        if (eachTableFixedCost._id == tableID) {
+        if (eachTableFixedCost._id === tableID) {
           eachTableFixedCost.fixed_costs = eachTableFixedCost.fixed_costs.map(
             (eachFixedCost) => {
-              if (eachFixedCost._id == unitID) {
+              if (eachFixedCost._id === unitID) {
                 if (eachFixedCost.amount !== amountPerUnit) {
                   eachFixedCost.amount = amountPerUnit;
                 }
@@ -136,14 +143,6 @@ const cashflowChartPage = (props) => {
     dispatch(
       updateProject({ id: selectedProject._id, data: shallowSelectedProject })
     );
-  };
-
-  const [message, setMessage] = useState("");
-
-  const handleChange = (event) => {
-    setMessage(event.target.value);
-
-    console.log("value is:", event.target.value);
   };
 
   const [sidebar, setSidebar] = useState(true);
@@ -319,7 +318,7 @@ const cashflowChartPage = (props) => {
                   {/* <div className="total-text">{tableService.name}</div> */}
                   {tableService.services.map((eachService) => (
                     <div key={eachService._id}>
-                      {eachService.name != "" && (
+                      {eachService.name !== "" && (
                         <EditInputOnSidebar
                           name={eachService.name}
                           type="text"
@@ -343,7 +342,7 @@ const cashflowChartPage = (props) => {
                   {/* <div className="total-text">{tableProduct.name}</div> */}
                   {tableProduct.products.map((eachProduct) => (
                     <div key={eachProduct._id}>
-                      {eachProduct.name != "" && (
+                      {eachProduct.name !== "" && (
                         <EditInputOnSidebar
                           name={eachProduct.name}
                           type="text"
@@ -367,7 +366,7 @@ const cashflowChartPage = (props) => {
                   {/* <div className="total-text">{tableFixedCost.name}</div> */}
                   {tableFixedCost.fixed_costs.map((eachFixedCost) => (
                     <div key={eachFixedCost._id}>
-                      {eachFixedCost.name != "" && (
+                      {eachFixedCost.name !== "" && (
                         <EditInputOnSidebar
                           name={eachFixedCost.name}
                           type="text"

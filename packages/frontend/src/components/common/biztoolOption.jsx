@@ -1,7 +1,5 @@
 import React from "react";
 import "./biztoolOption.css";
-import { AiOutlineClose } from "react-icons/ai";
-import './biztoolOption.css'
 
 const BiztoolOption = (props) => {
     return props.trigger ? (

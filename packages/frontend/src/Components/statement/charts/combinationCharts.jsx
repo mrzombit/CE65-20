@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from "react-dom";
 import { Chart } from 'primereact/chart';
-import incomeChartPage from '../../../pages/checkBiz/statementsPage/chartPages/incomeChartPage';
 
 export default function CombinationCharts(props) {
 	const [chartData, setChartData] = useState({});
@@ -15,7 +13,7 @@ export default function CombinationCharts(props) {
 		const textColor = documentStyle.getPropertyValue('--text-color');
 		const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
 		const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-		if (props.data_type == "revenue") {
+		if (props.data_type === "revenue") {
 			const data = {
 				labels: ['2023', '2024', '2025', '2026'],
 				datasets: [
@@ -71,10 +69,10 @@ export default function CombinationCharts(props) {
 			let shallowData = data
 
 			shallowData = shallowData.datasets.map(d => {
-				if (d.label == "กระแสเงินสดรับ") {
+				if (d.label === "กระแสเงินสดรับ") {
 					d.data = totalServiceRevenue
 				}
-				if (d.label == "กระแสเงินสดจ่าย") {
+				if (d.label === "กระแสเงินสดจ่าย") {
 					d.data = totalFixedCost
 				}
 
@@ -85,7 +83,7 @@ export default function CombinationCharts(props) {
 			setChartData(shallowData[0]);
 			setChartOptions(options);
 		}
-		if (props.data_type == "expense") {
+		if (props.data_type === "expense") {
 			const data = {
 				labels: ['2023', '2024', '2025', '2026'],
 				datasets: [

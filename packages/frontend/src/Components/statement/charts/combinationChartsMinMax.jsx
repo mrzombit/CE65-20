@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from "react-dom";
 import { Chart } from 'primereact/chart';
 
 export default function CombinationChartsMinMax(props) {

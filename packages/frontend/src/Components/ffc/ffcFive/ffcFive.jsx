@@ -1,10 +1,11 @@
 import React from "react";
 import TitleFFC from "../titleFFC/titleFFC";
 import "../ffcOne/ffcOne.css";
-import BizTableInvestment from "../../bizTools/bizTable/bizTableInvestment";
 import FFCCard from "../ffcCard/ffcCard";
-import FFCHeadCard from "../ffcCard/ffcHeadCard";
 import "../ffcCard/ffcCard.css"
+
+// import BizTableInvestment from "../../bizTools/bizTable/bizTableInvestment";
+// import FFCHeadCard from "../ffcCard/ffcHeadCard";
 
 function ffcFive() {
   return (

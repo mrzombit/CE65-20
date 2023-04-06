@@ -3,7 +3,6 @@ import BIZTOOL_PAGE_CONFIG from '../../../../../pages/bizTools/pageConfig'
 import InputCell from './biztoolCell/inputCell'
 import DropdownCell from './biztoolCell/dropdownCell';
 import NumbersTableCell from './biztoolCell/numbersTableCell';
-import PaymentsTable from './biztoolCell/paymentsTable';
 import RepaymentsTable from './biztoolCell/repaymentsTable';
 import SeasonalTrendsTable from './biztoolCell/seasonalTrendsTable';
 import OptionCell from './biztoolCell/optionCell';
@@ -22,7 +21,7 @@ const BiztoolRow = (props) => {
 
     return (
         <div>
-            {props.type == BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
+            {props.type === BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
                     <OptionCell
                         showOption={showOption}
@@ -70,7 +69,7 @@ const BiztoolRow = (props) => {
 
                 </div>
             }
-            {props.type == BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
+            {props.type === BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
 
                     <OptionCell
@@ -127,7 +126,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[4].width} />
                 </div>
             }
-            {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.service &&
+            {props.type === BIZTOOL_PAGE_CONFIG.revenue.type.service &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
 
                     <OptionCell
@@ -220,7 +219,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[8].width} />
                 </div>
             }
-            {props.type == BIZTOOL_PAGE_CONFIG.revenue.type.product &&
+            {props.type === BIZTOOL_PAGE_CONFIG.revenue.type.product &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
 
                     <OptionCell
@@ -304,7 +303,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[7].width} />
                 </div>
             }
-            {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
+            {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
                     <OptionCell
                         showOption={showOption}
@@ -342,7 +341,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[2].width} />
                 </div>
             }
-            {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
+            {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
 
                     <OptionCell
@@ -381,7 +380,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[2].width} />
                 </div>
             }
-            {props.type == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
+            {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
 
                     <OptionCell

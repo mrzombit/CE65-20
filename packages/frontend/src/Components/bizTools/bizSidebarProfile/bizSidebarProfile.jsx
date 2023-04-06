@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { bizSidebarProfileData } from "./bizSidebarProfileData";
@@ -6,9 +6,6 @@ import "./bizSidebarProfile.css";
 
 function bizSidebarProfile() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [sidebar, setSidebar] = useState(false);
-
-  const showSidebar = () => setSidebar(!sidebar);
 
   return (
     <div>

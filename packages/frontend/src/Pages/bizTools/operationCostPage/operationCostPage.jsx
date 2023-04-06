@@ -31,23 +31,23 @@ function OperationCostPage() {
   }, [selectedProject]);
 
   const [tableData, setTableData] = useState(selectedProject.expense.fixed_cost_tables)
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.operationCost)
+  const config  = BIZTOOL_PAGE_CONFIG.operationCost
 
   const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
     shallowTables = shallowTables.map((eachTable => {
-      if (eachTable._id == tableId) {
+      if (eachTable._id === tableId) {
         let shallowRows = eachTable.fixed_costs
         shallowRows = shallowRows.map(eachRow => {
-          if (eachRow._id == rowId) {
-            if (columnIndex == 0) {
+          if (eachRow._id === rowId) {
+            if (columnIndex === 0) {
               return { ...eachRow, name: value }
             }
-            else if (columnIndex == 1) {
+            else if (columnIndex === 1) {
               return { ...eachRow, amount: Number(value) }
             }
-            else if (columnIndex == 2) {
-              return value.type == 'cost-increase-dropdown' ? {
+            else if (columnIndex === 2) {
+              return value.type === 'cost-increase-dropdown' ? {
                 ...eachRow,
                 cost_increase: value.cost_increase,
               } : {
@@ -55,10 +55,10 @@ function OperationCostPage() {
                 cost_increase_period_id: value.cost_increase_period_id
               }
             }
-            else if (columnIndex == 3) {
+            else if (columnIndex === 3) {
               return { ...eachRow, period_id: value }
             }
-            else if (columnIndex == 4) {
+            else if (columnIndex === 4) {
               const shallowNumbersTrends = eachRow.number
               shallowNumbersTrends[value.index] = Number(value.value)
               return { ...eachRow, number: shallowNumbersTrends }
@@ -112,7 +112,7 @@ function OperationCostPage() {
     }
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
     shallowTables = shallowTables.map(eachTable => {
-      if (eachTable._id == tableId) eachTable.fixed_costs.push(initialRow)
+      if (eachTable._id === tableId) eachTable.fixed_costs.push(initialRow)
       return eachTable
     })
 
@@ -133,7 +133,7 @@ function OperationCostPage() {
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
 
     shallowTables = shallowTables.map(eachTable => {
-      if (eachTable._id == tableId) eachTable.name = value
+      if (eachTable._id === tableId) eachTable.name = value
       return eachTable
     })
 
@@ -177,9 +177,9 @@ function OperationCostPage() {
   const handleRowOptionFunction = (tableType, tableId, rowId) => {
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
     shallowTables = shallowTables.map((eachTable) => {
-      if (eachTable._id == tableId) {
+      if (eachTable._id === tableId) {
         let shallowRows = []
-        eachTable.fixed_costs.map(eachRow => {
+        eachTable.fixed_costs.forEach(eachRow => {
           if (eachRow._id !== rowId) shallowRows.push(eachRow)
         })
         eachTable.fixed_costs = shallowRows
@@ -201,7 +201,7 @@ function OperationCostPage() {
   const handleTableOptionFunction = (tableType, tableId) => {
     let shallowTables = []
     let tables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
-    tables.map((eachTable) => {
+    tables.forEach((eachTable) => {
       if (eachTable._id !== tableId) {
         shallowTables.push(eachTable)
       }

@@ -25,7 +25,6 @@ const NumbersTableCell = (props) => {
       selectedProject.model_config.projection_period
     ))
 
-  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     setPeriodMonthsName(InitialPeriodMonths(

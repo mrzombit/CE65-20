@@ -15,7 +15,7 @@ import BIZTOOL_PAGE_CONFIG from "../../bizTools/pageConfig";
 function FFCPage() {
   const [page, setPage] = useState("pageone");
 
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.ffc);
+  const config = BIZTOOL_PAGE_CONFIG.ffc
 
   const nextPage = (page) => {
     setPage(page);

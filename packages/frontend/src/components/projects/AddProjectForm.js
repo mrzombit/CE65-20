@@ -11,7 +11,7 @@ import ProjectTempleteCard from "./projectTempleteCard/projectTempleteCard";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { addNewProject, setSelectedProject, updateProject } from "../../features/projectsSlice";
+import { addNewProject, setSelectedProject } from "../../features/projectsSlice";
 import BiztoolPopup from "../common/biztoolPopup";
 import BusinessGoalContent from "./businessGoal/businessGoalContent";
 import CashflowContent from "./businessGoal/cashflowContent";
@@ -23,7 +23,7 @@ const AddProjectForm = () => {
   const [cashflowStateType, setCashflowStateType] = useState()
   const [currenCashflowData, setCurrenCashflowData] = useState()
   const handleCashflowState = (type, data) => {
-    setCashflowStateType(type == 'yearly' ? 'รายปี' : 'รายเดือน')
+    setCashflowStateType(type === 'yearly' ? 'รายปี' : 'รายเดือน')
     setCurrenCashflowData(data)
     setSetCashflowState(true)
   }
@@ -49,7 +49,7 @@ const AddProjectForm = () => {
   const [selectedBusinessGoals, setselectedBusinessGoals] = useState([])
 
   useEffect(() => {
-    if (imageUrl == "") {
+    if (imageUrl === "") {
       const shallowIndustryOptions = industries.map((each) => {
         return { value: each._id, label: each.name.th }
       })
@@ -124,7 +124,7 @@ const AddProjectForm = () => {
 
   const onProjectionPeriodChange = (e) => {
     let shallowSaleTrends = []
-    if (e.target.value != '') {
+    if (e.target.value !== '') {
       for (let i = 0; i < e.target.value; i++) {
         if (i <= projectionPeriod - 1) {
           shallowSaleTrends.push(saleTrends[i])
@@ -150,11 +150,6 @@ const AddProjectForm = () => {
     setsaleTrends(shallowSaleTrends)
   }
 
-  const onSelectedBuisnessGoalsChange = (e) => {
-    setselectedBusinessGoals(e.target.value)
-
-  }
-
   const onCurrencyChange = (e) => {
     setSelectedCurrencyId(e.value)
   }
@@ -169,7 +164,7 @@ const AddProjectForm = () => {
   const addBusinessGoalHandle = (selectedGoal) => {
     let shallowBusienssGoals = JSON.parse(JSON.stringify(selectedBusinessGoals))
     let shallowSelectedGoal = JSON.parse(JSON.stringify(selectedGoal))
-    if (!shallowBusienssGoals.find(each => each.name.en == shallowSelectedGoal.name.en)) {
+    if (!shallowBusienssGoals.find(each => each.name.en === shallowSelectedGoal.name.en)) {
       // alert(JSON.stringify(shallowSelectedGoal))
       shallowBusienssGoals.push(JSON.parse(JSON.stringify(shallowSelectedGoal)))
       setselectedBusinessGoals(JSON.parse(JSON.stringify(shallowBusienssGoals)))
@@ -182,7 +177,7 @@ const AddProjectForm = () => {
   const setCashflow = (newData) => {
     const shallowBusienssGoals = JSON.parse(JSON.stringify(selectedBusinessGoals))
     const shallowBusienssGoals2 = JSON.parse(JSON.stringify(shallowBusienssGoals)).map(each => {
-      return each.name.en == newData.name.en ? newData : each
+      return each.name.en ===newData.name.en ? newData : each
     })
     setselectedBusinessGoals(JSON.parse(JSON.stringify(shallowBusienssGoals2)))
   }
@@ -317,7 +312,7 @@ const AddProjectForm = () => {
               classNamePrefix="select"
               onChange={(e) => onIndustryChange(e)}
             />
-            {/* <label class="form-label select-label">Example label</label> */}
+            {/* <label className="form-label select-label">Example label</label> */}
             <div className="d-flex flex-col">
               <div className="input-container">
                 <BizTextInfo title="ภาษีเงินได้ (%)" />
@@ -342,7 +337,7 @@ const AddProjectForm = () => {
                 />
               </div>
             </div>
-            <button type="submit" class="btn login-butt">
+            <button type="submit" className="btn login-butt">
               สร้างโปรเจก
             </button>
           </div>
@@ -381,8 +376,8 @@ const AddProjectForm = () => {
                   onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                   required
                 />}
-                {(eachGoal.name.en == 'Yearly Cashflow' || eachGoal.name.en == 'Monthly Cashflow') && <button
-                  onClick={() => handleCashflowState(eachGoal.name.en == 'Yearly Cashflow' ? 'yearly' : 'monthly', eachGoal)}
+                {(eachGoal.name.en ==='Yearly Cashflow' || eachGoal.name.en ==='Monthly Cashflow') && <button
+                  onClick={() => handleCashflowState(eachGoal.name.en ==='Yearly Cashflow' ? 'yearly' : 'monthly', eachGoal)}
                   className="sale-trend-input">
                   แก้ไข
                 </button>}

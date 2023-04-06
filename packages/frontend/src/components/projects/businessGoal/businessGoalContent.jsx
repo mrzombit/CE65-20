@@ -13,9 +13,9 @@ const BusinessGoalContent = (props) => {
 
     const onSelectedGoalChange = (id) => {
         let shallowBusinessGoals = JSON.parse(JSON.stringify(businessGoals))
-        let shallowOnSelectedGoal = shallowBusinessGoals.find(each => each._id == id)
+        let shallowOnSelectedGoal = shallowBusinessGoals.find(each => each._id === id)
         shallowOnSelectedGoal.detail.cashflows = []
-        if (shallowOnSelectedGoal.name.en == 'Yearly Cashflow') {
+        if (shallowOnSelectedGoal.name.en === 'Yearly Cashflow') {
             // alert(shallowOnSelectedGoal.detail.cashflows)
             // alert(JSON.stringify(shallowOnSelectedGoal.detail.cashflows))
 
@@ -23,7 +23,7 @@ const BusinessGoalContent = (props) => {
                 shallowOnSelectedGoal.detail.cashflows.push(0)
             }
         }
-        else if (shallowOnSelectedGoal.name.en == 'Monthly Cashflow') {
+        else if (shallowOnSelectedGoal.name.en === 'Monthly Cashflow') {
             // alert(shallowOnSelectedGoal.detail.cashflows)
             // alert(JSON.stringify(shallowOnSelectedGoal.detail.cashflows))
 
@@ -73,10 +73,10 @@ const BusinessGoalContent = (props) => {
 
             {onSelectedGoal && <div className='cashflows-pane'>
                 <div >เป้าหมายทีต้องการ:</div>
-                {(onSelectedGoal.name.en == 'Yearly Cashflow' || onSelectedGoal.name.en == 'Monthly Cashflow') &&
+                {(onSelectedGoal.name.en === 'Yearly Cashflow' || onSelectedGoal.name.en === 'Monthly Cashflow') &&
                     onSelectedGoal.detail.cashflows.map((eachCashflow, index) => (
                         <div className='d-flex'>
-                            <div className="w-50 sale-trend-box">{`กระแสเงินสด${onSelectedGoal.name.en == 'Yearly Cashflow' ?
+                            <div className="w-50 sale-trend-box">{`กระแสเงินสด${onSelectedGoal.name.en === 'Yearly Cashflow' ?
                                 'ปีที่ ' : 'เดือนที่ '}${index + 1}`
                             }</div>
                             <input
@@ -104,13 +104,13 @@ const BusinessGoalContent = (props) => {
             }
             <div className='d-flex justify-content-between'>
                 <button
-                    class="btn login-butt"
+                    className="btn login-butt"
                     onClick={() => props.close(false)}
                 >
                     ยกเลิก
                 </button>
                 <button
-                    class="btn login-butt"
+                    className="btn login-butt"
                     onClick={() => onSelectedGoal ? props.addBusinessGoalHandle(onSelectedGoal) : alert('กรุณาเลือกเป้าหมายธุรกิจ')}
                 >
                     เพิ่ม

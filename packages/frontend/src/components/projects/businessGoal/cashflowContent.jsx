@@ -11,7 +11,7 @@ const CashflowContent = (props) => {
         <div className='cashflows-pane'>
             {props.data.detail.cashflows.map((eachCashflow, index) => (
                 <div className='d-flex'>
-                    <div className="w-50 sale-trend-box">{`กระแสเงินสด${props.data.name.en == 'Yearly Cashflow' ?
+                    <div className="w-50 sale-trend-box">{`กระแสเงินสด${props.data.name.en === 'Yearly Cashflow' ?
                         'ปีที่ ' : 'เดือนที่ '}${index + 1}`
                     }</div>
                     <input
@@ -27,7 +27,7 @@ const CashflowContent = (props) => {
             ))
             }
             <button
-                class="btn login-butt"
+                className="btn login-butt"
                 onClick={() => props.close(false)}
             >
                 ย้้อนกลับ
