@@ -59,7 +59,7 @@ const BiztoolTable = (props) => {
                   type='text'
                   className="biztool-header-cell-input biztool-header-cell column border border-dark"
                   style={{
-                    minWidth: `${columnStyles[index].width}px`,
+                    width: `${columnStyles[index].width}px`,
                   }}
                   value={eachTable.name ? eachTable.name : eachColumn.title}
                   onChange={e => props.tableHeaderOnChange(props.type, eachTable._id, e.target.value)}
@@ -73,7 +73,7 @@ const BiztoolTable = (props) => {
                 type='text'
                 className="biztool-header-cell column border border-dark"
                 style={{
-                  minWidth: `${columnStyles[index].width}px`,
+                  width: `${columnStyles[index].width}px`,
                 }}
               >
                 {eachTable.name ? eachTable.name : eachColumn.title}

@@ -156,8 +156,8 @@ const BiztoolRow = (props) => {
                         width={columnStyles[0].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
-                        data={props.data.unit}
-                        type="number"
+                        data={{unit: props.data.unit, unitName: props.data.unit_name}}
+                        type="unit"
                         colIndex={1}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
@@ -165,8 +165,8 @@ const BiztoolRow = (props) => {
                         width={columnStyles[1].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
-                        data={props.data.unit_name}
-                        type="text"
+                        data={props.data.serve_per_unit}
+                        type="number"
                         colIndex={2}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
@@ -174,8 +174,8 @@ const BiztoolRow = (props) => {
                         width={columnStyles[2].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
-                        data={props.data.serve_per_unit}
-                        type="number"
+                        data={props.data.revenue_per_service}
+                        type="money"
                         colIndex={3}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
@@ -183,23 +183,14 @@ const BiztoolRow = (props) => {
                         width={columnStyles[3].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
-                        data={props.data.revenue_per_service}
-                        type="money"
+                        data={props.data.cost_per_service}
+                        type="percent"
                         colIndex={4}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
                         width={columnStyles[4].width} />
-                    <InputCell
-                        handleFunction={props.handleFunction}
-                        data={props.data.cost_per_service}
-                        type="percent"
-                        colIndex={5}
-                        tableType={props.type}
-                        onCellChange={props.onCellChange}
-                        address={props.address}
-                        width={columnStyles[5].width} />
-                    <DropdownCell
+                    {/* <DropdownCell
                         handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.price_increase, cost_increase_period_id: props.data.price_increase_period_id }}
                         type="cost-increase-dropdown"
@@ -207,8 +198,8 @@ const BiztoolRow = (props) => {
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
-                        width={columnStyles[6].width} />
-                    <DropdownCell
+                        width={columnStyles[6].width} /> */}
+                    {/* <DropdownCell
                         handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.cost_increase, cost_increase_period_id: props.data.cost_increase_period_id }}
                         type="cost-increase-dropdown"
@@ -216,16 +207,16 @@ const BiztoolRow = (props) => {
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
-                        width={columnStyles[7].width} />
+                        width={columnStyles[7].width} /> */}
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         type="date"
-                        colIndex={8}
+                        colIndex={5}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
-                        width={columnStyles[8].width} />
+                        width={columnStyles[5].width} />
                 </div>
             }
             {props.type === BIZTOOL_PAGE_CONFIG.revenue.type.product &&
@@ -247,7 +238,7 @@ const BiztoolRow = (props) => {
                         onCellChange={props.onCellChange}
                         address={props.address}
                         width={columnStyles[0].width} />
-                    <InputCell
+                    {/* <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.days_of_inventory.months}
                         type="number"
@@ -255,26 +246,26 @@ const BiztoolRow = (props) => {
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
-                        width={columnStyles[1].width} />
+                        width={columnStyles[1].width} /> */}
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.revenue_per_unit}
                         type="money"
+                        colIndex={1}
+                        tableType={props.type}
+                        onCellChange={props.onCellChange}
+                        address={props.address}
+                        width={columnStyles[1].width} />
+                    <InputCell
+                        handleFunction={props.handleFunction}
+                        data={props.data.cost_per_unit}
+                        type="percent"
                         colIndex={2}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
                         width={columnStyles[2].width} />
-                    <InputCell
-                        handleFunction={props.handleFunction}
-                        data={props.data.cost_per_unit}
-                        type="percent"
-                        colIndex={3}
-                        tableType={props.type}
-                        onCellChange={props.onCellChange}
-                        address={props.address}
-                        width={columnStyles[3].width} />
-                    <DropdownCell
+                    {/* <DropdownCell
                         handleFunction={props.handleFunction}
                         data={{ cost_increase: props.data.price_increase, cost_increase_period_id: props.data.price_increase_period_id }}
                         type="cost-increase-dropdown"
@@ -291,25 +282,25 @@ const BiztoolRow = (props) => {
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
-                        width={columnStyles[5].width} />
+                        width={columnStyles[5].width} /> */}
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         type="date"
-                        colIndex={6}
+                        colIndex={3}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
-                        width={columnStyles[6].width} />
+                        width={columnStyles[3].width} />
                     <SeasonalTrendsTable
                         handleFunction={props.handleFunction}
                         data={props.data.seasonal_trends}
                         type="seasonal-trends-table"
-                        colIndex={7}
+                        colIndex={4}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
-                        width={columnStyles[7].width} />
+                        width={columnStyles[4].width} />
                 </div>
             }
             {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&

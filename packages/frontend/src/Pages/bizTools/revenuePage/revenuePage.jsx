@@ -42,39 +42,18 @@ function RevenuePage() {
                 return { ...eachRow, name: value }
               }
               else if (columnIndex === 1) {
-                return { ...eachRow, unit: Number(value) }
+                return { ...eachRow, unit: Number(value.unit),unit_name: value.unitName}
               }
               else if (columnIndex === 2) {
-                return { ...eachRow, unit_name: value }
-              }
-              else if (columnIndex === 3) {
                 return { ...eachRow, serve_per_unit: Number(value) }
               }
-              else if (columnIndex === 4) {
+              else if (columnIndex === 3) {
                 return { ...eachRow, revenue_per_service: Number(value) }
               }
-              else if (columnIndex === 5) {
+              else if (columnIndex === 4) {
                 return { ...eachRow, cost_per_service: parseFloat(value) }
               }
-              else if (columnIndex === 6) {
-                return value.type === 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  price_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  price_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex === 7) {
-                return value.type === 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  cost_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  cost_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex === 8) {
+              else if (columnIndex === 5) {
                 return { ...eachRow, start_date: value }
               }
             }
@@ -95,42 +74,15 @@ function RevenuePage() {
                 return { ...eachRow, name: value }
               }
               else if (columnIndex === 1) {
-                return {
-                  ...eachRow,
-                  days_of_inventory: {
-                    ...eachRow.days_of_inventory,
-                    months: Number(value),
-                  }
-                }
-              }
-              else if (columnIndex === 2) {
                 return { ...eachRow, revenue_per_unit: Number(value) }
               }
-              else if (columnIndex === 3) {
+              else if (columnIndex === 2) {
                 return { ...eachRow, cost_per_unit: parseFloat(value) }
               }
-              else if (columnIndex === 4) {
-                return value.type === 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  price_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  price_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex === 5) {
-                return value.type === 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  cost_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  cost_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex === 6) {
+              else if (columnIndex === 3) {
                 return { ...eachRow, start_date: value }
               }
-              else if (columnIndex === 7) {
+              else if (columnIndex === 4) {
                 const shallowSeasonalTrends = eachRow.seasonal_trends
                 shallowSeasonalTrends[value.index] = Number(value.value)
                 return { ...eachRow, seasonal_trends: shallowSeasonalTrends }
@@ -157,12 +109,12 @@ function RevenuePage() {
   const addRowHandle = (tableType, tableId) => {
     const initialRow = {
       service: {
-        name: "",
-        unit: 0,
-        unit_name: "",
-        serve_per_unit: 0,
+        name: "บริการ",
+        unit: 1,
+        unit_name: "หน่วย",
+        serve_per_unit: 1,
         revenue_per_service: 0,
-        cost_per_service: 0,
+        cost_per_service: 30,
         price_increase: 0,
         price_increase_period_id: "63de92ebd63688ac8b7ed999",
         cost_increase: 0,

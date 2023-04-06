@@ -28,7 +28,7 @@
 
 .seasonal-row-style {
   overflow: scroll;
-  min-width: 400px;
+  width: 330px !important;
   border: 1px solid rgb(21, 95, 255);
 }
 .numbers-table-style{
