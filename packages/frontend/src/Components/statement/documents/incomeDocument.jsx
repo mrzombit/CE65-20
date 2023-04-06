@@ -8,7 +8,7 @@ const incomeDocument = () => {
 
   return (
     <div className="">
-      <table class="table container table-hover">
+      <table className="table container table-hover">
         <thead>
           <tr className="table-dark">
             <th scope="col">รายการ</th>

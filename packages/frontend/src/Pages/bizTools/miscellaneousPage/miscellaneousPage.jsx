@@ -62,24 +62,24 @@ function MiscellaneousPage() {
       },
     ],
   });
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.miscellaneous);
+  const config =  BIZTOOL_PAGE_CONFIG.miscellaneous
 
   const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
     let shallowEquityContributionTables = JSON.parse(JSON.stringify(tableData.equity_contribution_tables))
     let shallowEquityRepaymentTables = JSON.parse(JSON.stringify(tableData.equity_repayment_tables))
     let shallowDebtIssuanceTables = JSON.parse(JSON.stringify(tableData.debt_issuance_tables))
-    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
       shallowEquityContributionTables = shallowEquityContributionTables.map((eachTable => {
         let shallowRows = eachTable.equity_contributions
         shallowRows = shallowRows.map(eachRow => {
-          if (eachRow._id == rowId) {
-            if (columnIndex == 0) {
+          if (eachRow._id === rowId) {
+            if (columnIndex === 0) {
               return { ...eachRow, name: value }
             }
-            else if (columnIndex == 1) {
+            else if (columnIndex === 1) {
               return { ...eachRow, amount: Number(value) }
             }
-            else if (columnIndex == 2) {
+            else if (columnIndex === 2) {
               return { ...eachRow, date: value }
             }
           }
@@ -89,18 +89,18 @@ function MiscellaneousPage() {
         return eachTable
       }))
     }
-    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment) {
       shallowEquityRepaymentTables = shallowEquityRepaymentTables.map((eachTable => {
         let shallowRows = eachTable.equity_repayments
         shallowRows = shallowRows.map(eachRow => {
-          if (eachRow._id == rowId) {
-            if (columnIndex == 0) {
+          if (eachRow._id === rowId) {
+            if (columnIndex === 0) {
               return { ...eachRow, name: value }
             }
-            else if (columnIndex == 1) {
+            else if (columnIndex === 1) {
               return { ...eachRow, share: parseFloat(value) }
             }
-            else if (columnIndex == 2) {
+            else if (columnIndex === 2) {
               // console.log(JSON.stringify(value));
               let shallowRepayment =  {
                 period_id: value.periodId,
@@ -115,27 +115,27 @@ function MiscellaneousPage() {
         return eachTable
       }))
     }
-    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
       shallowDebtIssuanceTables = shallowDebtIssuanceTables.map((eachTable => {
-        if (eachTable._id == tableId) {
+        if (eachTable._id === tableId) {
           let shallowRows = eachTable.debt_issuances
           shallowRows = shallowRows.map(eachRow => {
-            if (columnIndex == 0) {
+            if (columnIndex === 0) {
               return { ...eachRow, name: value }
             }
-            else if (columnIndex == 1) {
+            else if (columnIndex === 1) {
               return { ...eachRow, amount: value }
             }
-            else if (columnIndex == 2) {
+            else if (columnIndex === 2) {
               return { ...eachRow, start_date: value }
             }
-            else if (columnIndex == 3) {
+            else if (columnIndex === 3) {
               return { ...eachRow, apr: parseFloat(value) }
             }
-            else if (columnIndex == 4) {
+            else if (columnIndex === 4) {
               return { ...eachRow, period_id: value }
             }
-            else if (columnIndex == 5) {
+            else if (columnIndex === 5) {
               return { ...eachRow, payments: value }
             }
             return eachRow
@@ -185,20 +185,20 @@ function MiscellaneousPage() {
     let shallowEquityRepaymentTables = JSON.parse(JSON.stringify(tableData.equity_repayment_tables))
     let shallowDebtIssuanceTables = JSON.parse(JSON.stringify(tableData.debt_issuance_tables))
 
-    if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
       shallowEquityContributionTables = shallowEquityContributionTables.map(eachTable => {
         eachTable.equity_contributions.push(initialRow.equity_contribution)
         return eachTable
       })
     }
 
-    else if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment) {
+    else if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment) {
       shallowEquityRepaymentTables = shallowEquityRepaymentTables.map(eachTable => {
         eachTable.equity_repayments.push(initialRow.equity_repayment)
         return eachTable
       })
     }
-    else if (tableType == BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
+    else if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) {
       shallowDebtIssuanceTables = shallowDebtIssuanceTables.map(eachTable => {
         eachTable.debt_issuances.push(initialRow.debt_issuance)
         return eachTable

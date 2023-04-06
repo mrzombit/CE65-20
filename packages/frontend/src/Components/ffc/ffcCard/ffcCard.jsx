@@ -5,16 +5,8 @@ import { IconContext } from "react-icons";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaThList } from "react-icons/fa";
 
-import BarChart from '../../statement/charts/barChart';
 import CombinationCharts from '../../statement/charts/combinationCharts';
-import CombinationChartsMinMax from '../../statement/charts/combinationChartsMinMax';
-import stackedBar from '../../statement/charts/stackedBar';
-import DoughnutChart from '../../statement/charts/doughnutChart';
-import bizSidebar from '../../bizTools/bizSidebar/bizSidebar';
-import statementHearder from '../../statement/statementHearder';
 import "../../../pages/checkBiz/statementsPage/chartPages/chartPages.css";
-import sensitivityEditSidebar from '../../sensitivity/sensitivityEdit/sidebar/sensitivityEditSidebar';
-import { AiOutlineDoubleLeft } from "react-icons/ai";
 import "../../sensitivity/sensitivityEdit/sidebar/sensitivityEditSidebar.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -22,17 +14,38 @@ import {
     projectUpdated,
     updateProject,
 } from "../../../features/projectsSlice";
-import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig';
 import EditInputOnSidebar from "../../checkbiz/sidebarEditdata/editInputOnSidebar";
 
+// import BarChart from '../../statement/charts/barChart';
+// import CombinationChartsMinMax from '../../statement/charts/combinationChartsMinMax';
+// import stackedBar from '../../statement/charts/stackedBar';
+// import DoughnutChart from '../../statement/charts/doughnutChart';
+// import bizSidebar from '../../bizTools/bizSidebar/bizSidebar';
+// import statementHearder from '../../statement/statementHearder';
+// import sensitivityEditSidebar from '../../sensitivity/sensitivityEdit/sidebar/sensitivityEditSidebar';
+// import { AiOutlineDoubleLeft } from "react-icons/ai";
+// import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig';
+
 const ffcCard = (props) => {
+    // const [tableName, setTableName] = useState("");
+    // const [newRevenuePerService, setNewRevenuePerService] = useState(null);
+    // const config = BIZTOOL_PAGE_CONFIG.revenue
+    // const [tableService, setTableService] = useState();
+    // const [service, setService] = useState();
+    // const [revenuePerService, setRevenuePerService] = useState();
+    // const [message, setMessage] = useState("");
+    // const [sidebar, setSidebar] = useState(true);
+    // const showSidebar = () => setSidebar(!sidebar);
+
+    // const handleChange = (event) => {
+    //     setMessage(event.target.value);
+    //     console.log("value is:", event.target.value);
+    // };
+    
 
     const [chart, setChart] = useState(false);
-    const [tableName, setTableName] = useState("");
     const totalRevenue = [];
     const totalFixedCost = [];
-
-
 
     const dispatch = useDispatch();
     const selectedProject = useSelector(
@@ -41,7 +54,6 @@ const ffcCard = (props) => {
     const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
     const [reload, setReload] = useState(false);
 
-    const [newRevenuePerService, setNewRevenuePerService] = useState(null);
 
     useEffect(() => {
         if (isLoaded.projects) {
@@ -62,11 +74,6 @@ const ffcCard = (props) => {
     const [tableExpenseData, setTableExpenseData] = useState(
         selectedProject.expense
     );
-    const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.revenue);
-
-    const [tableService, setTableService] = useState();
-    const [service, setService] = useState();
-    const [revenuePerService, setRevenuePerService] = useState();
 
     const onValChange = (tableID, unitID, amountPerUnit) => {
         let shallowServiceTables = JSON.parse(
@@ -80,10 +87,10 @@ const ffcCard = (props) => {
         );
 
         shallowServiceTables = shallowServiceTables.map((eachTableService) => {
-            if (eachTableService._id == tableID) {
+            if (eachTableService._id === tableID) {
                 eachTableService.services = eachTableService.services.map(
                     (eachService) => {
-                        if (eachService._id == unitID) {
+                        if (eachService._id === unitID) {
                             if (eachService.revenue_per_service !== amountPerUnit) {
                                 eachService.revenue_per_service = amountPerUnit;
                             }
@@ -96,10 +103,10 @@ const ffcCard = (props) => {
         });
 
         shallowProductTables = shallowProductTables.map((eachTableProduct) => {
-            if (eachTableProduct._id == tableID) {
+            if (eachTableProduct._id === tableID) {
                 eachTableProduct.products = eachTableProduct.products.map(
                     (eachProduct) => {
-                        if (eachProduct._id == unitID) {
+                        if (eachProduct._id === unitID) {
                             if (eachProduct.revenue_per_unit !== amountPerUnit) {
                                 eachProduct.revenue_per_unit = amountPerUnit;
                             }
@@ -113,10 +120,10 @@ const ffcCard = (props) => {
 
         shallowFixedCostTables = shallowFixedCostTables.map(
             (eachTableFixedCost) => {
-                if (eachTableFixedCost._id == tableID) {
+                if (eachTableFixedCost._id === tableID) {
                     eachTableFixedCost.fixed_costs = eachTableFixedCost.fixed_costs.map(
                         (eachFixedCost) => {
-                            if (eachFixedCost._id == unitID) {
+                            if (eachFixedCost._id === unitID) {
                                 if (eachFixedCost.amount !== amountPerUnit) {
                                     eachFixedCost.amount = amountPerUnit;
                                 }
@@ -144,17 +151,6 @@ const ffcCard = (props) => {
             updateProject({ id: selectedProject._id, data: shallowSelectedProject })
         );
     };
-
-    const [message, setMessage] = useState("");
-
-    const handleChange = (event) => {
-        setMessage(event.target.value);
-
-        console.log("value is:", event.target.value);
-    };
-
-    const [sidebar, setSidebar] = useState(true);
-    const showSidebar = () => setSidebar(!sidebar);
 
     function calculateRevenue_service() {
         let sum_service_revenue = 0;
@@ -288,7 +284,7 @@ const ffcCard = (props) => {
             <div>
                 <div className='d-flex justify-content-between'>
                     <div className="ffc-table-name">{props.tableName ? props.tableName : "tableName"}</div>
-                    <div class='d-flex'>
+                    <div className='d-flex'>
                         <IconContext.Provider value={{ color: "#9fa7c2" }}>
                             <FaThList onClick={() => setChart(false)} />&nbsp;
                             <BsFillBarChartFill onClick={() => setChart(true)} />
@@ -311,7 +307,7 @@ const ffcCard = (props) => {
                         :
                         <div className='ffc-card-body'>
                             {props.type === "revenue" &&
-                                <table class="table table-sm ffc-table-text">
+                                <table className="table table-sm ffc-table-text">
                                     <thead>
                                         <tr>
                                             <th style={{ width: "390px" }} scope="col">name</th>
@@ -347,7 +343,7 @@ const ffcCard = (props) => {
 
                             }
                             {props.type === "revenue-service" &&
-                                <table class="table table-sm ffc-table-text">
+                                <table className="table table-sm ffc-table-text">
                                     <thead>
                                         <tr>
                                             <th style={{ width: "390px" }} scope="col">name</th>
@@ -372,7 +368,7 @@ const ffcCard = (props) => {
 
                             }
                             {props.type === "revenue-product" &&
-                                <table class="table table-sm ffc-table-text">
+                                <table className="table table-sm ffc-table-text">
                                     <thead>
                                         <tr>
                                             <th style={{ width: "390px" }} scope="col">name</th>
@@ -401,7 +397,7 @@ const ffcCard = (props) => {
                                         {/* <div className="total-text">{tableFixedCost.name}</div> */}
                                         {tableFixedCost.fixed_costs.map((eachFixedCost) => (
                                             <div key={eachFixedCost._id}>
-                                                {eachFixedCost.name != "" && (
+                                                {eachFixedCost.name !== "" && (
                                                     <EditInputOnSidebar
                                                         name={eachFixedCost.name}
                                                         type="text"
@@ -421,7 +417,7 @@ const ffcCard = (props) => {
                                     </div>
                                 ))}
                             {props.type === "expense" &&
-                                <table class="table table-sm ffc-table-text">
+                                <table className="table table-sm ffc-table-text">
                                     <thead>
                                         <tr>
                                             <th style={{ width: "390px" }} scope="col">name</th>
@@ -445,7 +441,7 @@ const ffcCard = (props) => {
                                 </table>
                             }
                             {props.type === "total-investment" &&
-                                <table class="table table-sm ffc-table-text">
+                                <table className="table table-sm ffc-table-text">
                                     <thead>
                                         <tr>
                                             <th style={{ width: "390px" }} scope="col">name</th>
@@ -469,7 +465,7 @@ const ffcCard = (props) => {
                                 </table>
                             }
                             {props.type === "financial-return" &&
-                                <table class="table table-sm ffc-table-text">
+                                <table className="table table-sm ffc-table-text">
                                     <thead>
                                         <tr>
                                             <th style={{ width: "390px" }} scope="col">Financial Return</th>

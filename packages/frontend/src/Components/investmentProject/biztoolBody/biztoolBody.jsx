@@ -12,7 +12,7 @@ const BiztoolBody = (props) => {
 
   return (
     <div className='biztool-body p-2'>
-      {props.type.page == BIZTOOL_PAGE_CONFIG.revenue.type.page && <div className='biztool-body-flex '>
+      {props.type.page === BIZTOOL_PAGE_CONFIG.revenue.type.page && <div className='biztool-body-flex '>
         <div >
           <div className='revenue-table-header'>บริการ/การผลิต</div>
           <BiztoolAddTable
@@ -53,7 +53,7 @@ const BiztoolBody = (props) => {
         </div>
       </div>}
 
-      {props.type.page == BIZTOOL_PAGE_CONFIG.miscellaneous.type.page && <div className='biztool-body-flex '>
+      {props.type.page === BIZTOOL_PAGE_CONFIG.miscellaneous.type.page && <div className='biztool-body-flex '>
         <div >
           <div className='miscellaneous-table-header'>ผู้ถือหุ้น</div>
           <BiztoolTableList
@@ -90,12 +90,12 @@ const BiztoolBody = (props) => {
         </div>
       </div>}
 
-      {props.type.page != BIZTOOL_PAGE_CONFIG.revenue.type.page &&
-        props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
-        props.type.page != BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
-        props.type.page != BIZTOOL_PAGE_CONFIG.projectConfig.type.page &&
-        props.type.page != BIZTOOL_PAGE_CONFIG.ffc.type.page &&
-        props.type.page != BIZTOOL_PAGE_CONFIG.statement.type.page &&
+      {props.type.page !==BIZTOOL_PAGE_CONFIG.revenue.type.page &&
+        props.type.page !==BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
+        props.type.page !==BIZTOOL_PAGE_CONFIG.miscellaneous.type.page &&
+        props.type.page !==BIZTOOL_PAGE_CONFIG.projectConfig.type.page &&
+        props.type.page !==BIZTOOL_PAGE_CONFIG.ffc.type.page &&
+        props.type.page !==BIZTOOL_PAGE_CONFIG.statement.type.page &&
         <div className='biztool-body-flex '>
           <BiztoolTableList
             handleTableOptionFunction={props.handleTableOptionFunction}

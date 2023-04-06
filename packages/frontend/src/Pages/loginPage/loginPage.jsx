@@ -34,14 +34,14 @@ function LoginPage() {
             style={{ transform: "scale(0.7) translate(-10%, 0%)" }}
           />
         </div>
-        <div class="col-sm-4 lp" style={{ transform: " translate(0%, 20%)" }}>
+        <div className="col-sm-4 lp" style={{ transform: " translate(0%, 20%)" }}>
           <form onSubmit={handleSubmit(doSubmit)}>
-            <p class="head-font ">Welcome back </p>
+            <p className="head-font ">Welcome back </p>
             <p className="low-font">Sign in to your account</p>
 
-            <div class="form-group text-field my-4">
+            <div className="form-group text-field my-4">
               <input type="username"
-                class="form-control"
+                className="form-control"
                 id="exampleInputUsername1"
                 aria-describedby="usernameHelp"
                 {...register('username', { required: true })}
@@ -49,9 +49,9 @@ function LoginPage() {
               <label>Username</label>
             </div>
 
-            <div class="form-group text-field my-3">
+            <div className="form-group text-field my-3">
               <input type="password"
-                class="form-control"
+                className="form-control"
                 id="exampleInputPassword1"
                 {...register('password', { required: true })}
                 required />
@@ -63,14 +63,14 @@ function LoginPage() {
                 <p>Forget Password ?</p>
               </Link>
               <ConditionalLink condition={auth.isLoggedIn} to="/Workspace" style={{ textDecoration: "none" }} >
-                <button type="submit" class="btn login-butt">
+                <button type="submit" className="btn login-butt">
                   Sign in
                 </button>
               </ConditionalLink>
             </div>
             <hr></hr>
             <div className=" d-flex justify-content-center">
-              <button type="button" class="btn gg-butt my-2">
+              <button type="button" className="btn gg-butt my-2">
                 <FcGoogle className="mx-3 gg-icon" /> Sign in with Google
               </button>
             </div>

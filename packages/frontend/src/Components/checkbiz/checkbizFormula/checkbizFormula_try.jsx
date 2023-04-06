@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext  } from "react";
+import { useEffect, useState  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjectById, projectUpdated, updateProject } from "../../../features/projectsSlice"
 import BIZTOOL_PAGE_CONFIG from "../../../pages/bizTools/pageConfig";
@@ -43,9 +43,9 @@ const onValChange = (tableID, unitID, amountPerUnit) => {
   let shallowFixedCostTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
 
   shallowServiceTables = shallowServiceTables.map((eachTableService) => {
-    if (eachTableService._id == tableID) {
+    if (eachTableService._id === tableID) {
       eachTableService.services = eachTableService.services.map((eachService) => {
-        if (eachService._id == unitID) {
+        if (eachService._id === unitID) {
           if (eachService.revenue_per_service !== amountPerUnit) {
             eachService.revenue_per_service = amountPerUnit
           }
@@ -57,9 +57,9 @@ const onValChange = (tableID, unitID, amountPerUnit) => {
   })
 
   shallowProductTables = shallowProductTables.map((eachTableProduct) => {
-    if (eachTableProduct._id == tableID) {
+    if (eachTableProduct._id === tableID) {
       eachTableProduct.products = eachTableProduct.products.map((eachProduct) => {
-        if (eachProduct._id == unitID) {
+        if (eachProduct._id === unitID) {
           if (eachProduct.revenue_per_unit !== amountPerUnit) {
             eachProduct.revenue_per_unit = amountPerUnit
           }
@@ -71,9 +71,9 @@ const onValChange = (tableID, unitID, amountPerUnit) => {
   })
 
   shallowFixedCostTables = shallowFixedCostTables.map((eachTableFixedCost) => {
-    if (eachTableFixedCost._id == tableID) {
+    if (eachTableFixedCost._id === tableID) {
       eachTableFixedCost.fixed_costs = eachTableFixedCost.fixed_costs.map((eachFixedCost) => {
-        if (eachFixedCost._id == unitID) {
+        if (eachFixedCost._id === unitID) {
           if (eachFixedCost.amount !== amountPerUnit) {
             eachFixedCost.amount = amountPerUnit
           }

@@ -97,6 +97,7 @@ export const ProjectSchema = new mongoose.Schema({
             text_color: String,
             fixed_costs: [{
                 name: String,
+                unit: Number,
                 amount: Number,
                 period_id: String,
                 number: [],

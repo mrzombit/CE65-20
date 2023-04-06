@@ -28,25 +28,25 @@ function TotalInvestmentPage() {
   }, [selectedProject]);
 
   const [tableData, setTableData] = useState(selectedProject.expense.investment_tables);
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.totalInvestment);
+  const config = BIZTOOL_PAGE_CONFIG.totalInvestment
 
   const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
     shallowTables = shallowTables.map((eachTable => {
-      if (eachTable._id == tableId) {
+      if (eachTable._id === tableId) {
         let shallowRows = eachTable.investments
         shallowRows = shallowRows.map(eachRow => {
-          if (eachRow._id == rowId) {
-            if (columnIndex == 0) {
+          if (eachRow._id === rowId) {
+            if (columnIndex === 0) {
               return { ...eachRow, name: value }
             }
-            else if (columnIndex == 1) {
+            else if (columnIndex === 1) {
               return { ...eachRow, amount: Number(value) }
             }
-            else if (columnIndex == 2) {
+            else if (columnIndex === 2) {
               return { ...eachRow, account_id: value }
             }
-            else if (columnIndex == 3) {
+            else if (columnIndex === 3) {
               return { ...eachRow, start_date: value }
             }
           }
@@ -77,7 +77,7 @@ function TotalInvestmentPage() {
     }
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
     shallowTables = shallowTables.map(eachTable => {
-      if (eachTable._id == tableId) eachTable.investments.push(initialRow)
+      if (eachTable._id === tableId) eachTable.investments.push(initialRow)
       return eachTable
     })
 
@@ -96,7 +96,7 @@ function TotalInvestmentPage() {
 
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
     shallowTables = shallowTables.map(eachTable => {
-      if (eachTable._id == tableId) eachTable.name = value
+      if (eachTable._id === tableId) eachTable.name = value
       return eachTable
     })
 
@@ -139,9 +139,9 @@ function TotalInvestmentPage() {
   const handleRowOptionFunction = (tableType, tableId, rowId) => {
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
     shallowTables = shallowTables.map((eachTable) => {
-      if (eachTable._id == tableId) {
+      if (eachTable._id === tableId) {
         let shallowRows = []
-        eachTable.investments.map(eachRow => {
+        eachTable.investments.forEach(eachRow => {
           if (eachRow._id !== rowId) shallowRows.push(eachRow)
         })
         eachTable.investments = shallowRows
@@ -163,7 +163,7 @@ function TotalInvestmentPage() {
   const handleTableOptionFunction = (tableType, tableId) => {
     let shallowTables = []
     let tables = JSON.parse(JSON.stringify(selectedProject.expense.investment_tables))
-    tables.map((eachTable) => {
+    tables.forEach((eachTable) => {
       if (eachTable._id !== tableId) {
         shallowTables.push(eachTable)
       }

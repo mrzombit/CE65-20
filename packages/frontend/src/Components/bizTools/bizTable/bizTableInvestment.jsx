@@ -1,12 +1,12 @@
 import React from "react";
 import { bizTableInvestmentData } from "./bizTableInvestmentData";
 import "./bizTableInvestment.css";
-import { AiFillUpCircle } from "react-icons/ai";
+// import { AiFillUpCircle } from "react-icons/ai";
 
 function bizTableInvestment(props) {
   return (
-    <div class="bt">
-      <table class="table container tb-con" >
+    <div className="bt">
+      <table className="table container tb-con" >
         <thead>
           <tr>
             <th scope="col">{props.name}</th>

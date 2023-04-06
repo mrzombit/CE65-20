@@ -70,7 +70,7 @@ function DBTest2() {
               <div className="m-2 w-50 justify-content-end">name</div>
               <div className="m-2 w-50 justify-content-center text-danger">{user.name}</div>
               <input
-                type="name" class="form-control"
+                type="name" className="form-control"
                 {...register('name', { required: true })}
                 className="m-2 w-50 justify-content-center" />
               <button className="m-2 btn w-50 justify-content-center btn-primary" type="submit">save</button>

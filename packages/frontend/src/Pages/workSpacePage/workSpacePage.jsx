@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./workSpacePage.css";
 import Bizbutton from "../../components/bizTools/bizButton/bizButton";
 import {
@@ -13,7 +13,7 @@ import ProjectCard from "../../components/projects/projectCard/projectCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserByUsername } from "../../features/usersSlice";
-import { addNewProject, fetchProjectsByUserId, setSelectedProject } from "../../features/projectsSlice";
+import { fetchProjectsByUserId, setSelectedProject } from "../../features/projectsSlice";
 import BiztoolPopup from "../../components/common/biztoolPopup";
 import AddProjectForm from "../../components/projects/AddProjectForm";
 import BiztoolOption from "../../components/common/biztoolOption";
@@ -35,11 +35,10 @@ function WorkSpacePage() {
   const user = useSelector(state => state.users.user)
   const projects = useSelector(state => state.projects.projects)
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false })
-  const isAlert = useRef(false)
 
   useEffect(() => {
     if (auth.username) {
-      if (auth.token != "") {
+      if (auth.token !=="") {
         if (!isLoaded.user) {
           dispatch(fetchUserByUsername({ username: auth.username, token: auth.token }))
           setIsLoaded({ user: true, projects: false })
@@ -133,7 +132,7 @@ function WorkSpacePage() {
         </div>
         <div className="d-flex my-3">
           {projects.map((each) => (
-            <div className="d-flex">
+            <div className="d-flex" key={each._id}>
               <button style={{ background: "none", border: "none" }} key={each._id} onClick={() => handleProjectOnClick(each)}>
                 <ProjectCard name={each.name.slice(0, 12) + (each.name.length > 12 ? "..." : "")} lastEdit="Edited 2 hours ago" />
               </button>

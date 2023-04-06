@@ -27,54 +27,33 @@ function RevenuePage() {
   }, [selectedProject]);
 
   const [tableData, setTableData] = useState(selectedProject.revenue)
-  const [config, setConfig] = useState(BIZTOOL_PAGE_CONFIG.revenue)
+  const config = BIZTOOL_PAGE_CONFIG.revenue
 
   const onCellChange = (tableType, tableId, rowId, columnIndex, value) => {
     let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
     let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.service) {
       shallowServiceTables = shallowServiceTables.map((eachTable => {
-        if (eachTable._id == tableId) {
+        if (eachTable._id === tableId) {
           let shallowRows = eachTable.services
           shallowRows = shallowRows.map(eachRow => {
-            if (eachRow._id == rowId) {
-              if (columnIndex == 0) {
+            if (eachRow._id === rowId) {
+              if (columnIndex === 0) {
                 return { ...eachRow, name: value }
               }
-              else if (columnIndex == 1) {
-                return { ...eachRow, unit: Number(value) }
+              else if (columnIndex === 1) {
+                return { ...eachRow, unit: Number(value.unit),unit_name: value.unitName}
               }
-              else if (columnIndex == 2) {
-                return { ...eachRow, unit_name: value }
-              }
-              else if (columnIndex == 3) {
+              else if (columnIndex === 2) {
                 return { ...eachRow, serve_per_unit: Number(value) }
               }
-              else if (columnIndex == 4) {
+              else if (columnIndex === 3) {
                 return { ...eachRow, revenue_per_service: Number(value) }
               }
-              else if (columnIndex == 5) {
+              else if (columnIndex === 4) {
                 return { ...eachRow, cost_per_service: parseFloat(value) }
               }
-              else if (columnIndex == 6) {
-                return value.type == 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  price_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  price_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex == 7) {
-                return value.type == 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  cost_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  cost_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex == 8) {
+              else if (columnIndex === 5) {
                 return { ...eachRow, start_date: value }
               }
             }
@@ -85,52 +64,25 @@ function RevenuePage() {
         return eachTable
       }))
     }
-    else if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+    else if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.product) {
       shallowProductTables = shallowProductTables.map((eachTable => {
-        if (eachTable._id == tableId) {
+        if (eachTable._id === tableId) {
           let shallowRows = eachTable.products
           shallowRows = shallowRows.map(eachRow => {
-            if (eachRow._id == rowId) {
-              if (columnIndex == 0) {
+            if (eachRow._id === rowId) {
+              if (columnIndex === 0) {
                 return { ...eachRow, name: value }
               }
-              else if (columnIndex == 1) {
-                return {
-                  ...eachRow,
-                  days_of_inventory: {
-                    ...eachRow.days_of_inventory,
-                    months: Number(value),
-                  }
-                }
-              }
-              else if (columnIndex == 2) {
+              else if (columnIndex === 1) {
                 return { ...eachRow, revenue_per_unit: Number(value) }
               }
-              else if (columnIndex == 3) {
+              else if (columnIndex === 2) {
                 return { ...eachRow, cost_per_unit: parseFloat(value) }
               }
-              else if (columnIndex == 4) {
-                return value.type == 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  price_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  price_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex == 5) {
-                return value.type == 'cost-increase-dropdown' ? {
-                  ...eachRow,
-                  cost_increase: value.cost_increase,
-                } : {
-                  ...eachRow,
-                  cost_increase_period_id: value.cost_increase_period_id
-                }
-              }
-              else if (columnIndex == 6) {
+              else if (columnIndex === 3) {
                 return { ...eachRow, start_date: value }
               }
-              else if (columnIndex == 7) {
+              else if (columnIndex === 4) {
                 const shallowSeasonalTrends = eachRow.seasonal_trends
                 shallowSeasonalTrends[value.index] = Number(value.value)
                 return { ...eachRow, seasonal_trends: shallowSeasonalTrends }
@@ -157,12 +109,12 @@ function RevenuePage() {
   const addRowHandle = (tableType, tableId) => {
     const initialRow = {
       service: {
-        name: "",
-        unit: 0,
-        unit_name: "",
-        serve_per_unit: 0,
+        name: "บริการ",
+        unit: 1,
+        unit_name: "หน่วย",
+        serve_per_unit: 1,
         revenue_per_service: 0,
-        cost_per_service: 0,
+        cost_per_service: 30,
         price_increase: 0,
         price_increase_period_id: "63de92ebd63688ac8b7ed999",
         cost_increase: 0,
@@ -194,15 +146,15 @@ function RevenuePage() {
     let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
     let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
 
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.service) {
       shallowServiceTables = shallowServiceTables.map(eachTable => {
-        if (eachTable._id == tableId) eachTable.services.push(initialRow.service)
+        if (eachTable._id === tableId) eachTable.services.push(initialRow.service)
         return eachTable
       })
     }
-    else if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+    else if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.product) {
       shallowProductTables = shallowProductTables.map(eachTable => {
-        if (eachTable._id == tableId) eachTable.products.push(initialRow.product)
+        if (eachTable._id === tableId) eachTable.products.push(initialRow.product)
         return eachTable
       })
     }
@@ -223,15 +175,15 @@ function RevenuePage() {
     let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
     let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
 
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.service) {
       shallowServiceTables = shallowServiceTables.map(eachTable => {
-        if (eachTable._id == tableId) eachTable.name = value
+        if (eachTable._id === tableId) eachTable.name = value
         return eachTable
       })
     }
-    else if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+    else if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.product) {
       shallowProductTables = shallowProductTables.map(eachTable => {
-        if (eachTable._id == tableId) eachTable.name = value
+        if (eachTable._id === tableId) eachTable.name = value
         return eachTable
       })
     }
@@ -290,7 +242,6 @@ function RevenuePage() {
       revenue: {
         ...selectedProject.revenue,
         product_tables: newShallowProducrTables
-
       }
     }
 
@@ -302,11 +253,11 @@ function RevenuePage() {
   const handleRowOptionFunction = (tableType, tableId, rowId) => {
     let shallowServiceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
     let shallowProductTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.service) {
       shallowServiceTables = shallowServiceTables.map((eachTable) => {
-        if (eachTable._id == tableId) {
+        if (eachTable._id === tableId) {
           let shallowRows = []
-          eachTable.services.map(eachRow => {
+          eachTable.services.forEach(eachRow => {
             if (eachRow._id !== rowId) shallowRows.push(eachRow)
           })
           eachTable.services = shallowRows
@@ -314,11 +265,11 @@ function RevenuePage() {
         return eachTable
       })
     }
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+    if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.product) {
       shallowProductTables = shallowProductTables.map((eachTable) => {
-        if (eachTable._id == tableId) {
+        if (eachTable._id === tableId) {
           let shallowRows = []
-          eachTable.products.map(eachRow => {
+          eachTable.products.forEach(eachRow => {
             if (eachRow._id !== rowId) shallowRows.push(eachRow)
           })
           eachTable.products = shallowRows
@@ -343,16 +294,16 @@ function RevenuePage() {
     let shallowProductTables = []
     let serviceTables = JSON.parse(JSON.stringify(selectedProject.revenue.service_tables))
     let productTables = JSON.parse(JSON.stringify(selectedProject.revenue.product_tables))
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.service) {
-      serviceTables.map((eachTable) => {
+    if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.service) {
+      serviceTables.forEach((eachTable) => {
         if (eachTable._id !== tableId) {
           shallowServiceTables.push(eachTable)
         }
       })
       shallowProductTables = productTables
     }
-    if (tableType == BIZTOOL_PAGE_CONFIG.revenue.type.product) {
-      productTables.map((eachTable) => {
+    if (tableType === BIZTOOL_PAGE_CONFIG.revenue.type.product) {
+      productTables.forEach((eachTable) => {
         if (eachTable._id !== tableId) {
           shallowProductTables.push(eachTable)
         }

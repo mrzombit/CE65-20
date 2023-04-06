@@ -1,9 +1,6 @@
 
 function InitialPeriodMonths(monthsName, startDate, projectionPeriod) {
-  console.log(startDate);
   let date = new Date(startDate)
-  console.log(date);
-  console.log(date.getMonth());
   let startMonthIndex = date.getMonth()
   let result = []
   for (let i = startMonthIndex; i < 12; i++) {

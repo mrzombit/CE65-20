@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
+
 import { Link } from "react-router-dom";
 import {
   bizSidebarData_biztools,
@@ -8,14 +6,10 @@ import {
 } from "./bizSidebarData";
 import "./bizSidebar.css";
 import { IconContext } from "react-icons";
-import * as IoIcons from "react-icons/io";
-import { VscAccount, VscHome, VscExtensions } from "react-icons/vsc";
 import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
 
 function bizSidebar() {
-  const [sidebar, setSidebar] = useState(false);
-
-  const showSidebar = () => setSidebar(!sidebar);
 
   const selectedProject = useSelector(state => state.projects.selectedProject)
 

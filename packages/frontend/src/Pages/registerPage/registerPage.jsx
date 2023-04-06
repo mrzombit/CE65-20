@@ -1,18 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./registerPage.css";
-import { AiOutlineCheckCircle, AiFillCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import ConditionalLink from "../../components/common/conditionalLink";
+import { useSelector } from "react-redux";
 
 function RegisterPage() {
-  const [user, setUser] = useState();
+  const user = useSelector(state => state.users.user);
   const { register, handleSubmit } = useForm();
-  const [auth, setAuth] = useState({ token: "", status: false, username: "" })
   const navigate = useNavigate();
 
   const doSubmit = (input) => {
@@ -26,9 +25,8 @@ function RegisterPage() {
     axios.post("http://localhost:5000/user/signup"
       , params,)
       .then(res => {
-        const result = JSON.stringify(res)
         console.log(res)
-        if (res.status == 200) {
+        if (res.status === 200) {
           navigate('/Login');
         }
       })
@@ -52,60 +50,60 @@ function RegisterPage() {
           <p className="head-font-re">Register</p>
           <p className="low-font-re">Create your account</p>
           <form onSubmit={handleSubmit(doSubmit)}>
-            <div class="form-group text-field-re my-4">
+            <div className="form-group text-field-re my-4">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="exampleInputName1"
                 aria-describedby="nameHelp"
                 {...register('name', { required: true })}
                 required />
               <label>Name</label>
             </div>
-            <div class="form-group text-field-re my-4">
+            <div className="form-group text-field-re my-4">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="exampleInputSurname1"
                 aria-describedby="surnameHelp"
                 {...register('surname', { required: true })}
                 required />
               <label>Surname</label>
             </div>
-            <div class="form-group text-field-re my-4">
+            <div className="form-group text-field-re my-4">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="exampleInputUsername1"
                 aria-describedby="usernameHelp"
                 {...register('username', { required: true })}
                 required />
               <label>Username</label>
             </div>
-            <div class="form-group text-field-re my-4">
+            <div className="form-group text-field-re my-4">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 {...register('email', { required: true })}
                 required />
               <label>Email</label>
             </div>
-            <div class="form-group text-field-re my-4">
+            <div className="form-group text-field-re my-4">
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="exampleInputPassword1"
                 aria-describedby="passwordHelp"
                 {...register('password', { required: true })}
                 required />
               <label>Password</label>
             </div>
-            <div class="form-group text-field-re my-4">
+            <div className="form-group text-field-re my-4">
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="exampleInputPassword2"
                 aria-describedby="passwordHelp"
                 {...register('comfirmPassword', { required: true })}
@@ -124,7 +122,7 @@ function RegisterPage() {
                 </Link>
               </div>
               <ConditionalLink condition={user} to="/Workspace" style={{ textDecoration: "none" }} >
-                <button type="submit" class="btn login-butt">
+                <button type="submit" className="btn login-butt">
                   Sign up
                 </button>
               </ConditionalLink>

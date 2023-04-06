@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './editInputOnSidebar.css'
 
 const editInputOnSidebar = (props) => {
-    const [resultDisplay, setResultDisplay] = useState(false)
     return (
         <div>
             {props.resultDisplay ?

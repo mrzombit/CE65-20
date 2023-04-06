@@ -1,6 +1,5 @@
 import React from "react";
 import "./projectCard.css";
-import { CiShop } from "react-icons/ci";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
 
 function projectCard(props) {

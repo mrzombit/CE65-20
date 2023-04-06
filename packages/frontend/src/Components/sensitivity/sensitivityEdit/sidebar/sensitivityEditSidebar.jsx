@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineDoubleLeft } from "react-icons/ai";
 import "./sensitivityEditSidebar.css";
 

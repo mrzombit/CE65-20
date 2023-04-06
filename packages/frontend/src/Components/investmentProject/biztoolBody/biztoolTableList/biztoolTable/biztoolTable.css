@@ -61,7 +61,7 @@
     position: absolute;
     box-sizing:border-box;
     top:40%;
-    left:250px;
+    left:150px;
     transform: translateY(-50%);
   }
   .icon:hover{
