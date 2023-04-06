@@ -91,16 +91,16 @@ const BiztoolRow = (props) => {
                     <InputCell
                         handleFunction={props.handleFunction}
                         data={props.data.amount}
-                        type="money"
+                        type="number"
                         colIndex={1}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
                         width={columnStyles[1].width} />
-                    <DropdownCell
+                    <InputCell
                         handleFunction={props.handleFunction}
-                        data={{ cost_increase: props.data.cost_increase, cost_increase_period_id: props.data.cost_increase_period_id }}
-                        type="cost-increase-dropdown"
+                        data={props.data.cost}
+                        type="money"
                         colIndex={2}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
@@ -115,15 +115,24 @@ const BiztoolRow = (props) => {
                         onCellChange={props.onCellChange}
                         address={props.address}
                         width={columnStyles[3].width} />
-                    <NumbersTableCell
+                    <DropdownCell
                         handleFunction={props.handleFunction}
-                        data={props.data.number}
-                        type="numbers-table"
+                        data={{ cost_increase: props.data.cost_increase, cost_increase_period_id: props.data.cost_increase_period_id }}
+                        type="cost-increase-dropdown"
                         colIndex={4}
                         tableType={props.type}
                         onCellChange={props.onCellChange}
                         address={props.address}
                         width={columnStyles[4].width} />
+                    <InputCell
+                        handleFunction={props.handleFunction}
+                        data={props.data.start_date}
+                        type="date"
+                        colIndex={5}
+                        tableType={props.type}
+                        onCellChange={props.onCellChange}
+                        address={props.address}
+                        width={columnStyles[5].width} />
                 </div>
             }
             {props.type === BIZTOOL_PAGE_CONFIG.revenue.type.service &&
@@ -436,11 +445,11 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[4].width}
                     />
-                    <div className='border border-primary d-flex' style={{width: `${columnStyles[5].width}px`}}>
+                    <div className='border border-primary d-flex' style={{ width: `${columnStyles[5].width}px` }}>
                         <button
-                        onClick={() => props.setRepaymentPopupStateFunction()}
-                        className='mx-4 my-1'
-                        style={{width: `${columnStyles[5].width-50}px`, backgroundColor: "#3448ad", color: "#ffffff"}}
+                            onClick={() => props.setRepaymentPopupStateFunction()}
+                            className='mx-4 my-1'
+                            style={{ width: `${columnStyles[5].width - 50}px`, backgroundColor: "#3448ad", color: "#ffffff" }}
                         >ดูรายละอียดการชำระเงิน</button>
                     </div>
                 </div>

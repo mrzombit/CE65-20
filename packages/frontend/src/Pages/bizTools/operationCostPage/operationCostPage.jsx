@@ -47,6 +47,12 @@ function OperationCostPage() {
               return { ...eachRow, amount: Number(value) }
             }
             else if (columnIndex === 2) {
+              return { ...eachRow, cost: Number(value) }
+            }
+            else if (columnIndex === 3) {
+              return { ...eachRow, period_id: value }
+            }
+            else if (columnIndex === 4) {
               return value.type === 'cost-increase-dropdown' ? {
                 ...eachRow,
                 cost_increase: value.cost_increase,
@@ -55,13 +61,8 @@ function OperationCostPage() {
                 cost_increase_period_id: value.cost_increase_period_id
               }
             }
-            else if (columnIndex === 3) {
-              return { ...eachRow, period_id: value }
-            }
-            else if (columnIndex === 4) {
-              const shallowNumbersTrends = eachRow.number
-              shallowNumbersTrends[value.index] = Number(value.value)
-              return { ...eachRow, number: shallowNumbersTrends }
+            else if (columnIndex === 5) {
+              return { ...eachRow, start_date: value }
             }
           }
           return eachRow
@@ -81,32 +82,60 @@ function OperationCostPage() {
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
 
+  // const addRowHandleOld = (tableType, tableId) => {
+  //   const shallowNumber = []
+  //   for(let i = 0; i<InitialPeriodMonths([
+  //     "มกราคม",
+  //     "กุมภาพันธ์",
+  //     "มีนาคม",
+  //     "เมษายน",
+  //     "พฤษภาคม",
+  //     "มิถุนายน",
+  //     "กรกฏาคม",
+  //     "สิงหาคม",
+  //     "กันยายน",
+  //     "ตุลาคม",
+  //     "พฤศจิกายน",
+  //     "ธันวาคม",
+  //   ],
+  //     selectedProject.model_config.start_date,
+  //     selectedProject.model_config.projection_period).length; i++){
+  //       shallowNumber.push(1)
+  //     }
+  //   const initialRow = {
+  //     name: "",
+  //     amount: 0,
+  //     period_id: "63de92ebd63688ac8b7ed999",
+  //     number: shallowNumber,
+  //     start_date: new Date(),
+  //     cost_increase: 0,
+  //     cost_increase_period_id: "63de932fd63688ac8b7ed99f",
+  //   }
+  //   let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
+  //   shallowTables = shallowTables.map(eachTable => {
+  //     if (eachTable._id === tableId) eachTable.fixed_costs.push(initialRow)
+  //     return eachTable
+  //   })
+
+  //   const shallowSelectedProject = {
+  //     ...selectedProject,
+  //     expense: {
+  //       ...selectedProject.expense,
+  //       fixed_cost_tables: shallowTables
+  //     }
+  //   }
+
+  //   dispatch(projectUpdated(shallowSelectedProject))
+  //   dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
+  // }
   const addRowHandle = (tableType, tableId) => {
-    const shallowNumber = []
-    for(let i = 0; i<InitialPeriodMonths([
-      "มกราคม",
-      "กุมภาพันธ์",
-      "มีนาคม",
-      "เมษายน",
-      "พฤษภาคม",
-      "มิถุนายน",
-      "กรกฏาคม",
-      "สิงหาคม",
-      "กันยายน",
-      "ตุลาคม",
-      "พฤศจิกายน",
-      "ธันวาคม",
-    ],
-      selectedProject.model_config.start_date,
-      selectedProject.model_config.projection_period).length; i++){
-        shallowNumber.push(1)
-      }
     const initialRow = {
       name: "",
       amount: 0,
+      cost: 0,
       period_id: "63de92ebd63688ac8b7ed999",
-      number: shallowNumber,
-      start_date: new Date(),
+      number: [],
+      start_date: selectedProject.model_config.start_date,
       cost_increase: 0,
       cost_increase_period_id: "63de932fd63688ac8b7ed99f",
     }
@@ -127,7 +156,6 @@ function OperationCostPage() {
     dispatch(projectUpdated(shallowSelectedProject))
     dispatch(updateProject({ id: selectedProject._id, data: shallowSelectedProject }))
   }
-
   const tableHeaderOnChange = (tableType, tableId, value) => {
 
     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))

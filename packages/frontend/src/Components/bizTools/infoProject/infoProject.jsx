@@ -52,7 +52,7 @@ function infoProject(props) {
   const [projectionPeriod, setprojectionPeriod] = useState()
   const [saleTrends, setSaleTrends] = useState()
   const [selectedBusinessGoals, setselectedBusinessGoals] = useState()
-  const [fixedCostTables, setFixedCostTables] = useState()
+  // const [fixedCostTables, setFixedCostTables] = useState()
 
   const getCurrencyById = async (id) => {
     let shallowSelectedCurrency = {}
@@ -130,6 +130,35 @@ function infoProject(props) {
     setCounter(counter + 1)
   }, [isLoaded, selectedCurrency, selectedIndustries, imageName, doSubmitCheck, projectionPeriod])
 
+  // const doSubmitOld = (event) => {
+  //   if (file) uploadData()
+  //   const ToUploadProjectShallow = {
+  //     ...selectedProject,
+  //     user_id: selectedProject.user_id,
+  //     name: event.name,
+  //     industry_ids: selectedIndustryIds,
+  //     description: event.description,
+  //     logo_url: imageUrl !== '' ? imageUrl : selectedProject.logo_url,
+  //     created_date: selectedProject.created_date,
+  //     modified_date: new Date(),
+  //     model_config: {
+  //       projection_period: projectionPeriod,
+  //       start_date: event.start_date,
+  //       currency_id: selectedCurrencyId,
+  //       working_hours: Number(event.working_hours),
+  //       income_tax_rate: Number(event.income_tax_rate),
+  //       discounting_rate: Number(event.discounting_rate),
+  //     },
+  //     sale_trends: JSON.parse(JSON.stringify(saleTrends)),
+  //     business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals)),
+  //     expense: {
+  //       ...selectedProject.expense,
+  //       fixed_cost_tables: fixedCostTables
+  //     }
+  //   }
+  //   setDoSubmitCheck(true)
+  //   setProjectShallow(ToUploadProjectShallow)
+  // }
   const doSubmit = (event) => {
     if (file) uploadData()
     const ToUploadProjectShallow = {
@@ -151,15 +180,10 @@ function infoProject(props) {
       },
       sale_trends: JSON.parse(JSON.stringify(saleTrends)),
       business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals)),
-      expense: {
-        ...selectedProject.expense,
-        fixed_cost_tables: fixedCostTables
-      }
     }
     setDoSubmitCheck(true)
     setProjectShallow(ToUploadProjectShallow)
   }
-
   const uploadData = async () => {
     const formData = new FormData();
     formData.append("image", file);
@@ -186,6 +210,57 @@ function infoProject(props) {
     setSelectedIndustryIds(shallowSelectedIndustryIds)
   }
 
+  // const onProjectionPeriodChangeOld = (e) => {
+  //   let shallowSaleTrends = []
+  //   if (e.target.value !== '') {
+  //     for (let i = 0; i < e.target.value; i++) {
+  //       if (i <= projectionPeriod - 1) {
+  //         shallowSaleTrends.push(saleTrends[i])
+  //       }
+  //       else {
+  //         let shallowSaleTrend = {
+  //           year: i + 1,
+  //           trend: 0,
+  //           description: "",
+  //         }
+  //         shallowSaleTrends.push(shallowSaleTrend)
+
+  //       }
+  //     }
+  //     let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
+  //     shallowTables = shallowTables.map((eachTable => {
+  //       eachTable.fixed_costs.map(eachRow => {
+  //         const shallowNumbersTrends = []
+  //         for (let i = 0; i < InitialPeriodMonths([
+  //           "มกราคม",
+  //           "กุมภาพันธ์",
+  //           "มีนาคม",
+  //           "เมษายน",
+  //           "พฤษภาคม",
+  //           "มิถุนายน",
+  //           "กรกฏาคม",
+  //           "สิงหาคม",
+  //           "กันยายน",
+  //           "ตุลาคม",
+  //           "พฤศจิกายน",
+  //           "ธันวาคม",
+  //         ],
+  //           selectedProject.model_config.start_date,
+  //           selectedProject.model_config.projection_period).length; i++) {
+  //           if(i< eachRow.number.length) shallowNumbersTrends.push(eachRow.number[i])
+  //           else shallowNumbersTrends.push(1)
+  //         }
+  //         return { ...eachRow, number: shallowNumbersTrends }
+  //       })
+  //       return eachTable
+  //     }
+  //     ))
+      
+  //     setFixedCostTables(shallowTables)
+  //     setSaleTrends(shallowSaleTrends)
+  //     setprojectionPeriod(e.target.value)
+  //   }
+  // }
   const onProjectionPeriodChange = (e) => {
     let shallowSaleTrends = []
     if (e.target.value !== '') {
@@ -203,41 +278,10 @@ function infoProject(props) {
 
         }
       }
-      let shallowTables = JSON.parse(JSON.stringify(selectedProject.expense.fixed_cost_tables))
-      shallowTables = shallowTables.map((eachTable => {
-        eachTable.fixed_costs.map(eachRow => {
-          const shallowNumbersTrends = []
-          for (let i = 0; i < InitialPeriodMonths([
-            "มกราคม",
-            "กุมภาพันธ์",
-            "มีนาคม",
-            "เมษายน",
-            "พฤษภาคม",
-            "มิถุนายน",
-            "กรกฏาคม",
-            "สิงหาคม",
-            "กันยายน",
-            "ตุลาคม",
-            "พฤศจิกายน",
-            "ธันวาคม",
-          ],
-            selectedProject.model_config.start_date,
-            selectedProject.model_config.projection_period).length; i++) {
-            if(i< eachRow.number.length) shallowNumbersTrends.push(eachRow.number[i])
-            else shallowNumbersTrends.push(1)
-          }
-          return { ...eachRow, number: shallowNumbersTrends }
-        })
-        return eachTable
-      }
-      ))
-      
-      setFixedCostTables(shallowTables)
       setSaleTrends(shallowSaleTrends)
       setprojectionPeriod(e.target.value)
     }
   }
-
   const [selectBusinessGoalState, setSelectBusinessGoalState] = useState(false)
   const [setCashflowState, setSetCashflowState] = useState(false)
   const [cashflowStateType, setCashflowStateType] = useState()

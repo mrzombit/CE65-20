@@ -97,6 +97,7 @@ export interface Project extends Document {
             text_color: string,
             fixed_costs: [{
                 name: string,
+                cost: Number,
                 amount: Number,
                 period_id: string,
                 number: [],

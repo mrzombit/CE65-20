@@ -80,6 +80,15 @@ const BIZTOOL_PAGE_CONFIG = {
           },
           {
             colId: 2,
+            title: "จำนวน(หน่วย)",
+            width: 100,
+            type: "number",
+            backgroundColor: "#ffffff",
+            color: "#000000",
+            editable: true,
+          },
+          {
+            colId: 3,
             title: "จำนวน(บาท)",
             width: 100,
             type: "money",
@@ -88,7 +97,16 @@ const BIZTOOL_PAGE_CONFIG = {
             editable: true,
           },
           {
-            colId: 3,
+            colId: 4,
+            title: "รอบการชำระค่าใช้จ่าย",
+            width: 150,
+            type: "dropdown",
+            backgroundColor: "#ffffff",
+            color: "#000000",
+            editable: true,
+          },
+          {
+            colId: 5,
             title: "อัตราเพิ่มขึ้น",
             width: 200,
             type: "percent",
@@ -97,49 +115,12 @@ const BIZTOOL_PAGE_CONFIG = {
             editable: true,
           },
           {
-            colId: 4,
-            title: "รอบละ(เดือน)",
+            colId: 6,
+            title: "วันที่เริ่มมีค่าใช้จ่าย",
             width: 150,
-            type: "dropdown",
+            type: "date",
             backgroundColor: "#ffffff",
             color: "#000000",
-            enumData: [
-              {
-                title: 1,
-                value: 1,
-              },
-              {
-                title: 3,
-                value: 2,
-              },
-              {
-                title: 12,
-                value: 3,
-              },
-            ],
-            editable: true,
-          },
-          {
-            colId: 5,
-            title: "จำนวน(หน่วย)",
-            width: 600,
-            type: "cost-table",
-            backgroundColor: "#ffffff",
-            color: "#000000",
-            enumData: [
-              {
-                title: 1,
-                value: 1,
-              },
-              {
-                title: 3,
-                value: 2,
-              },
-              {
-                title: 12,
-                value: 3,
-              },
-            ],
             editable: true,
           },
         ],
