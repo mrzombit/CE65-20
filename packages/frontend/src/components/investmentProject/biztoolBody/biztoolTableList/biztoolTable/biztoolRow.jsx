@@ -90,7 +90,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[0].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
-                        data={props.data.amount}
+                        data={props.data.unit}
                         type="number"
                         colIndex={1}
                         tableType={props.type}
@@ -99,7 +99,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[1].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
-                        data={props.data.cost}
+                        data={props.data.amount}
                         type="money"
                         colIndex={2}
                         tableType={props.type}

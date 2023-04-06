@@ -44,10 +44,10 @@ function OperationCostPage() {
               return { ...eachRow, name: value }
             }
             else if (columnIndex === 1) {
-              return { ...eachRow, amount: Number(value) }
+              return { ...eachRow, unit: Number(value) }
             }
             else if (columnIndex === 2) {
-              return { ...eachRow, cost: Number(value) }
+              return { ...eachRow, amount: Number(value) }
             }
             else if (columnIndex === 3) {
               return { ...eachRow, period_id: value }
@@ -131,8 +131,8 @@ function OperationCostPage() {
   const addRowHandle = (tableType, tableId) => {
     const initialRow = {
       name: "",
+      unit: 0,
       amount: 0,
-      cost: 0,
       period_id: "63de92ebd63688ac8b7ed999",
       number: [],
       start_date: selectedProject.model_config.start_date,

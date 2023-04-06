@@ -95,7 +95,7 @@ export class CreateProjectDTO {
             text_color: string,
             fixed_costs: [{
                 name: string,
-                cost: Number,
+                unit: Number,
                 amount: Number,
                 period_id: string,
                 number: [],
