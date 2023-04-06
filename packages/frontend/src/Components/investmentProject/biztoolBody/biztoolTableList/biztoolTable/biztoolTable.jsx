@@ -19,7 +19,7 @@ const BiztoolTable = (props) => {
 
   return (
     <div key={eachTable._id} className="mb-4 table-overflow-style">
-      <div key={`${eachTable._id}-div2`}name="Column Headers" className="d-flex" onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+      <div key={`${eachTable._id}-div2`} name="Column Headers" className="d-flex" onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
         {(props.type !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
           props.type !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
           props.type !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) ?
@@ -172,7 +172,7 @@ const BiztoolTable = (props) => {
             onCellChange={props.onCellChange}
             address={
               {
-                tableId: eachTable._id,
+                tableId: '',
                 rowId: eachRow._id,
               }}
             tableStyle={props.tableStyle}
@@ -185,12 +185,12 @@ const BiztoolTable = (props) => {
             key={eachRow._id}
             type={props.type}
             data={eachRow}
-            onCellChange={props.onCellChange}
             address={
               {
-                tableId: eachTable._id,
+                tableId: '',
                 rowId: eachRow._id,
               }}
+            onCellChange={props.onCellChange}
             tableStyle={props.tableStyle}
           />
         ))}
@@ -202,11 +202,6 @@ const BiztoolTable = (props) => {
             type={props.type}
             data={eachRow}
             onCellChange={props.onCellChange}
-            address={
-              {
-                tableId: `${index}`,
-                rowId: eachRow._id,
-              }}
             tableStyle={props.tableStyle}
           />
         ))}
@@ -219,11 +214,12 @@ const BiztoolTable = (props) => {
           tableType={props.type}
           address={props.address}
         />
-        <button type="button"
+        {props.type !== BIZTOOL_PAGE_CONFIG.miscellaneous.equityRepayment && <button type="button"
           className="text-start add-row-button"
           style={{ width: `${widthArr.reduce((partialSum, a) => partialSum + a, 0)}px` }}
           onClick={() => props.addRowHandle(props.type, eachTable._id)}
         >+ เพิ่มรายการใหม่</button>
+        }
       </div>
     </div>
   );

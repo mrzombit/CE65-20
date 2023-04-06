@@ -112,8 +112,7 @@ export class CreateProjectDTO {
             date: Date,
         }],
         equity_repayment: [{
-            name: string,
-            share: Number,
+            equity_contribution_id: string,
             repayment:
             {
                 period_id: string,

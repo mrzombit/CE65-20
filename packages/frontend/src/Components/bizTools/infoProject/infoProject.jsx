@@ -18,7 +18,7 @@ import timeToShow from "../../common/timeToShow";
 import BiztoolPopup from "../../common/biztoolPopup";
 import BusinessGoalContent from "../../projects/businessGoal/businessGoalContent";
 import CashflowContent from "../../projects/businessGoal/cashflowContent";
-import InitialPeriodMonths from "../../investmentProject/initialPeriodMonths";
+// import InitialPeriodMonths from "../../investmentProject/initialPeriodMonths";
 
 function infoProject(props) {
   const animatedComponents = makeAnimated();

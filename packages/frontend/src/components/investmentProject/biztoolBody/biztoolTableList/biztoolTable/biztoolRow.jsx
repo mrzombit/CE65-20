@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import BIZTOOL_PAGE_CONFIG from '../../../../../pages/bizTools/pageConfig'
 import InputCell from './biztoolCell/inputCell'
 import DropdownCell from './biztoolCell/dropdownCell';
-import NumbersTableCell from './biztoolCell/numbersTableCell';
 import RepaymentsTable from './biztoolCell/repaymentsTable';
 import SeasonalTrendsTable from './biztoolCell/seasonalTrendsTable';
 import OptionCell from './biztoolCell/optionCell';
@@ -156,7 +155,7 @@ const BiztoolRow = (props) => {
                         width={columnStyles[0].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
-                        data={{unit: props.data.unit, unitName: props.data.unit_name}}
+                        data={{ unit: props.data.unit, unitName: props.data.unit_name }}
                         type="unit"
                         colIndex={1}
                         tableType={props.type}
@@ -305,6 +304,7 @@ const BiztoolRow = (props) => {
             }
             {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
+
                     <OptionCell
                         showOption={showOption}
                         colIndex={'option'}
@@ -343,13 +343,12 @@ const BiztoolRow = (props) => {
             }
             {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
-
                     <OptionCell
-                        showOption={showOption}
+                        showOption={false}
+                        isTable={true}
                         colIndex={'option'}
                         tableType={props.type}
                         address={props.address}
-                        handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
                         handleFunction={props.handleFunction}
@@ -357,8 +356,6 @@ const BiztoolRow = (props) => {
                         type="text"
                         colIndex={0}
                         tableType={props.type}
-                        onCellChange={props.onCellChange}
-                        address={props.address}
                         width={columnStyles[0].width} />
                     <InputCell
                         handleFunction={props.handleFunction}
@@ -366,8 +363,6 @@ const BiztoolRow = (props) => {
                         type="percent"
                         colIndex={1}
                         tableType={props.type}
-                        onCellChange={props.onCellChange}
-                        address={props.address}
                         width={columnStyles[1].width} />
                     <RepaymentsTable
                         handleFunction={props.handleFunction}
@@ -375,8 +370,6 @@ const BiztoolRow = (props) => {
                         type="repayments-table"
                         colIndex={2}
                         tableType={props.type}
-                        onCellChange={props.onCellChange}
-                        address={props.address}
                         width={columnStyles[2].width} />
                 </div>
             }

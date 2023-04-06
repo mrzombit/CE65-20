@@ -114,8 +114,7 @@ export const ProjectSchema = new mongoose.Schema({
             date: Date,
         }],
         equity_repayment: [{
-            name: String,
-            share: Number,
+            equity_contribution_id: String,
             repayment:
             {
                 period_id: String,

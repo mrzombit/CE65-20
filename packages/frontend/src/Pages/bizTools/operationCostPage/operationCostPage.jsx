@@ -7,7 +7,7 @@ import BIZTOOL_PAGE_CONFIG from "../pageConfig";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjectById, projectUpdated, updateProject } from "../../../features/projectsSlice";
-import InitialPeriodMonths from "../../../components/investmentProject/initialPeriodMonths";
+// import InitialPeriodMonths from "../../../components/investmentProject/initialPeriodMonths";
 
 
 function OperationCostPage() {
