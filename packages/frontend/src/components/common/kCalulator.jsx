@@ -1,4 +1,4 @@
-export default function KCalculator(allData, myInvest) {
+export default function KCalculator(allData, myInvest, isOwner) {
     const debts = allData.debt_issuance_tables[0].debt_issuances.map(each => {
         return each.amount
     }) //array
@@ -11,6 +11,6 @@ export default function KCalculator(allData, myInvest) {
     let totalInvests = 0
     totalInvests = invests.reduce((partialSum, a) => partialSum + a, 0)
     const totalAmount = totalDebts+totalInvests
-    const share = (myInvest*100)/totalAmount
-    return totalAmount!==0?share:0
+    const share = !isOwner?(myInvest*100)/totalAmount:((myInvest+totalDebts)*100)/totalAmount
+    return totalAmount!==0?parseFloat(share).toFixed(2):0
 }

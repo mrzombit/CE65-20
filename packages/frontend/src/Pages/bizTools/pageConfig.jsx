@@ -313,7 +313,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "รายชื่อผู้ถือหุ้น",
-              width: 300,
+              width: 200,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -345,7 +345,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "รายชื่อผู้รับปันผล",
-              width: 300,
+              width: 200,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -377,7 +377,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 1,
               title: "การกู้ยืม",
-              width: 300,
+              width: 200,
               type: "text",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -386,7 +386,7 @@ const BIZTOOL_PAGE_CONFIG = {
             {
               colId: 2,
               title: "จำนวน(บาท)",
-              width: 120,
+              width: 220,
               type: "money",
               backgroundColor: "#ffffff",
               color: "#000000",
@@ -435,7 +435,7 @@ const BIZTOOL_PAGE_CONFIG = {
             },
             {
               colId: 6,
-              title: "การชำระเงิน",
+              title: "การชำระเงินต้น",
               width: 250,
               type: "text",
               backgroundColor: "#ffffff",

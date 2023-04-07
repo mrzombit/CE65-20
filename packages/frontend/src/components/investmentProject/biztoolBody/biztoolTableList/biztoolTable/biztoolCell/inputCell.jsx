@@ -23,8 +23,7 @@ const InputCell = (props) => {
           textAlign: `start`,
         }}
         disabled={props.disabled?true:false}
-        onKeyPress={(props.type === 'number' || props.type === 'money' || props.type === 'date' || props.type === 'unit') ? (e) => !/[0-9\b]+/.test(e.key) && e.preventDefault() :
-          (props.type === 'percent') ? (e) => !/([0-9\b]*[.])+/.test(e.key) && e.preventDefault() : null}
+        onKeyPress={(props.type=='percent' || props.type === 'number' || props.type === 'money' || props.type === 'date' || props.type === 'unit') ? (e) => !/[0-9\b]+/.test(e.key) && e.preventDefault() :null}
         onChange={e =>
           props.type === 'date' ?
             props.tableType !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment ?

@@ -314,6 +314,7 @@ const BiztoolRow = (props) => {
                         handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
+                        disabled={props.data.name!=='ฉัน'?false:true}
                         handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
@@ -364,7 +365,7 @@ const BiztoolRow = (props) => {
                     <InputCell
                         disabled ={true}
                         handleFunction={props.handleFunction}
-                        data={KCalculator(props.allData, props.data.amount)}
+                        data={KCalculator(props.allData, props.data.amount, props.data.name==='ฉัน')}
                         type="percent"
                         colIndex={1}
                         tableType={props.type}

@@ -5,7 +5,7 @@ function timeToShow(type, date) {
         const month = date.slice(5, 7)
         const day = date.slice(8, 10)
         if (type === "input-date") {
-            return `${year}-${day}-${month}`
+            return `${year}-${month}-${day}`
         }
         console.log(date);
     } else {

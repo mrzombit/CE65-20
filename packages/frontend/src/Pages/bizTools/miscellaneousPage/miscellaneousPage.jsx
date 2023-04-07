@@ -98,7 +98,7 @@ function MiscellaneousPage() {
               //edit
               console.log(JSON.stringify(value));
               const shallowDate = new Date(value.startDate)
-              return { ...eachRow, repayment: {period_id: value.periodId, start_date: shallowDate} }
+              return { ...eachRow, repayment: { period_id: value.periodId, start_date: shallowDate } }
             }
           }
           return eachRow
@@ -111,20 +111,22 @@ function MiscellaneousPage() {
       shallowDebtIssuanceTables = shallowDebtIssuanceTables.map((eachTable => {
         let shallowRows = eachTable.debt_issuances
         shallowRows = shallowRows.map(eachRow => {
-          if (columnIndex === 0) {
-            return { ...eachRow, name: value }
-          }
-          else if (columnIndex === 1) {
-            return { ...eachRow, amount: value }
-          }
-          else if (columnIndex === 2) {
-            return { ...eachRow, start_date: value }
-          }
-          else if (columnIndex === 3) {
-            return { ...eachRow, apr: value }
-          }
-          else if (columnIndex === 4) {
-            return { ...eachRow, period_id: value }
+          if (eachRow._id === rowId) {
+            if (columnIndex === 0) {
+              return { ...eachRow, name: value }
+            }
+            else if (columnIndex === 1) {
+              return { ...eachRow, amount: value!==''?value:0 }
+            }
+            else if (columnIndex === 2) {
+              return { ...eachRow, start_date: value }
+            }
+            else if (columnIndex === 3) {
+              return { ...eachRow, apr: value }
+            }
+            else if (columnIndex === 4) {
+              return { ...eachRow, period_id: value }
+            }
           }
           return eachRow
         })
@@ -135,9 +137,9 @@ function MiscellaneousPage() {
     let shallowSelectedProject = {
       ...selectedProject,
       miscellaneous: {
-        equity_contribution: tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution?
-        shallowEquityContributionTables[0].equity_contributions:
-        shallowEquityRepaymentTables[0].equity_repayments
+        equity_contribution: tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution ?
+          shallowEquityContributionTables[0].equity_contributions :
+          shallowEquityRepaymentTables[0].equity_repayments
         ,
         debt_issuance: shallowDebtIssuanceTables[0].debt_issuances,
       }
@@ -157,7 +159,7 @@ function MiscellaneousPage() {
         repayment: {
           period_id: "63de932fd63688ac8b7ed99f",
           start_date: new Date(),
-      }
+        }
       },
       debt_issuance: {
         name: `การกู้ยืม${tableData.debt_issuance_tables[0].debt_issuances.length > 0 ? ` (${tableData.debt_issuance_tables[0].debt_issuances.length})` : ''}`,
