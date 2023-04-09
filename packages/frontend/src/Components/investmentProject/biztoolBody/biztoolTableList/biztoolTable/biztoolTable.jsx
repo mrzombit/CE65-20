@@ -196,22 +196,36 @@ const BiztoolTable = (props) => {
           />
         ))}
       {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
-        eachTable.debt_issuances.map((eachRow) => (
-          <BiztoolRow
-            setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
-            handleRowOptionFunction={props.handleRowOptionFunction}
-            key={eachRow._id}
-            type={props.type}
-            data={eachRow}
-            onCellChange={props.onCellChange}
-            address={
-              {
-                tableId: '',
-                rowId: eachRow._id,
-              }}
-            tableStyle={props.tableStyle}
-          />
-        ))}
+        <div className="d-flex">
+          <div>
+          {eachTable.debt_issuances.map((eachRow) => (
+            <BiztoolRow
+              setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
+              handleRowOptionFunction={props.handleRowOptionFunction}
+              key={eachRow._id}
+              type={props.type}
+              data={eachRow}
+              onCellChange={props.onCellChange}
+              address={
+                {
+                  tableId: '',
+                  rowId: eachRow._id,
+                }}
+              tableStyle={props.tableStyle}
+            />
+          ))
+          }
+          </div>
+         {eachTable.debt_issuances.length !== 0 && <div className="border border-primary mh-100 d-flex align-items-center">
+          <div className=' d-flex justify-content-center ' style={{ width: `${columnStyles[5].width}px` }}>
+            <button
+              onClick={() => props.setRepaymentPopupStateFunction()}
+              style={{ width: `${columnStyles[5].width - 50}px`, backgroundColor: "#3448ad", color: "#ffffff", height: '45px'}}
+            >ดูรายละอียดการชำระเงิน</button>
+          </div>
+          </div>}
+        </div>
+      }
       <div className="d-flex">
         <OptionCell
           showOption={false}

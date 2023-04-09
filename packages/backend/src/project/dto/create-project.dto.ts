@@ -124,8 +124,7 @@ export class CreateProjectDTO {
             start_date: Date,
             payments: [
                 {
-                    name: string,
-                    date: Date,
+                    year: Number,
                     amount: Number,
                 }
             ]

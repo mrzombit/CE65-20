@@ -126,8 +126,7 @@ export interface Project extends Document {
             start_date: Date,
             payments: [
                 {
-                    name: string,
-                    date: Date,
+                    year: Number,
                     amount: Number,
                 }
             ]

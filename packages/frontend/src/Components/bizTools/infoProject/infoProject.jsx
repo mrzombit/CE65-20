@@ -53,6 +53,7 @@ function infoProject(props) {
   const [saleTrends, setSaleTrends] = useState()
   const [selectedBusinessGoals, setselectedBusinessGoals] = useState()
   // const [fixedCostTables, setFixedCostTables] = useState()
+  const [debtIssuanceRows, setDebtIssuanceRows] = useState()
 
   const getCurrencyById = async (id) => {
     let shallowSelectedCurrency = {}
@@ -105,6 +106,7 @@ function infoProject(props) {
       setIndustryOptions(shallowIndustryOptions)
       setprojectionPeriod(selectedProject.model_config.projection_period)
       setSaleTrends(selectedProject.sale_trends)
+      setDebtIssuanceRows(JSON.parse(JSON.stringify(selectedProject.miscellaneous.debt_issuance)))
       setselectedBusinessGoals(JSON.parse(JSON.stringify(selectedProject.business_goals ? selectedProject.business_goals : [])))
       setCounter(counter + 1)
     }
@@ -180,6 +182,11 @@ function infoProject(props) {
       },
       sale_trends: JSON.parse(JSON.stringify(saleTrends)),
       business_goals: JSON.parse(JSON.stringify(selectedBusinessGoals)),
+      miscellaneous: {
+        ...selectedProject.miscellaneous,
+        debt_issuance: debtIssuanceRows
+
+      }
     }
     setDoSubmitCheck(true)
     setProjectShallow(ToUploadProjectShallow)
@@ -255,15 +262,15 @@ function infoProject(props) {
   //       return eachTable
   //     }
   //     ))
-      
+
   //     setFixedCostTables(shallowTables)
   //     setSaleTrends(shallowSaleTrends)
   //     setprojectionPeriod(e.target.value)
   //   }
   // }
   const onProjectionPeriodChange = (e) => {
-    let shallowSaleTrends = []
     if (e.target.value !== '') {
+      let shallowSaleTrends = []
       for (let i = 0; i < e.target.value; i++) {
         if (i <= projectionPeriod - 1) {
           shallowSaleTrends.push(saleTrends[i])
@@ -278,6 +285,27 @@ function infoProject(props) {
 
         }
       }
+
+      let shallowDebtIssuances = []
+      shallowDebtIssuances = JSON.parse(JSON.stringify(debtIssuanceRows)).map((eachDebtIssuance, index) => {
+        const shallowDebtIssuancePayments = []
+        for (let i = 0; i < e.target.value; i++) {
+          if (i <= projectionPeriod - 1) {
+            shallowDebtIssuancePayments.push(eachDebtIssuance.payments[i])
+          }
+          else {
+            let shallowDebtIssuancePayment = {
+              year: i + 1,
+              amount: 0,
+            }
+            shallowDebtIssuancePayments.push(shallowDebtIssuancePayment)
+          }
+        }
+        eachDebtIssuance.payments = shallowDebtIssuancePayments
+        return eachDebtIssuance
+      })
+
+      setDebtIssuanceRows(shallowDebtIssuances)
       setSaleTrends(shallowSaleTrends)
       setprojectionPeriod(e.target.value)
     }
@@ -504,7 +532,7 @@ function infoProject(props) {
           <div className="d-flex mt-2">
             <div className="w-100 ">
               <div className="text-center">แนวโน้มยอดขาย</div>
-              {saleTrends ? saleTrends.map((eachTrend,index) =>
+              {saleTrends ? saleTrends.map((eachTrend, index) =>
                 <div className="d-flex" key={index}>
                   <div className="w-50 sale-trend-box">{`ปีที่ ${eachTrend.year}`}</div>
                   <input

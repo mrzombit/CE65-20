@@ -5,7 +5,7 @@ import DropdownCell from './biztoolCell/dropdownCell';
 import RepaymentsTable from './biztoolCell/repaymentsTable';
 import SeasonalTrendsTable from './biztoolCell/seasonalTrendsTable';
 import OptionCell from './biztoolCell/optionCell';
-import KCalculator from '../../../../common/kCalulator';
+import KCalulateFunctions from '../../../../common/kCalulator';
 
 const BiztoolRow = (props) => {
 
@@ -365,7 +365,7 @@ const BiztoolRow = (props) => {
                     <InputCell
                         disabled ={true}
                         handleFunction={props.handleFunction}
-                        data={KCalculator(props.allData, props.data.amount, props.data.name==='ฉัน')}
+                        data={KCalulateFunctions.getEquityShare(props.allData, props.data.amount, props.data.name==='ฉัน')}
                         type="percent"
                         colIndex={1}
                         tableType={props.type}
@@ -439,13 +439,6 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[4].width}
                     />
-                    <div className='border border-primary d-flex' style={{ width: `${columnStyles[5].width}px` }}>
-                        <button
-                            onClick={() => props.setRepaymentPopupStateFunction()}
-                            className='mx-4 my-1'
-                            style={{ width: `${columnStyles[5].width - 50}px`, backgroundColor: "#3448ad", color: "#ffffff" }}
-                        >ดูรายละอียดการชำระเงิน</button>
-                    </div>
                 </div>
             }
         </div>

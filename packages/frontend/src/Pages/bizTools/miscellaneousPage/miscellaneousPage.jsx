@@ -116,7 +116,7 @@ function MiscellaneousPage() {
               return { ...eachRow, name: value }
             }
             else if (columnIndex === 1) {
-              return { ...eachRow, amount: value!==''?value:0 }
+              return { ...eachRow, amount: value !== '' ? value : 0 }
             }
             else if (columnIndex === 2) {
               return { ...eachRow, start_date: value }
@@ -126,6 +126,18 @@ function MiscellaneousPage() {
             }
             else if (columnIndex === 4) {
               return { ...eachRow, period_id: value }
+            }
+            else if (columnIndex === 5) {
+              const shallowPayments = []
+              eachRow.payments.map((eachPayment, paymentIndex) => {
+                if (paymentIndex === value.year - 1) { 
+                  eachPayment = {
+                    year: value.year,
+                    amount: Number(value.amount)}
+                 }
+                shallowPayments.push(eachPayment)
+              })
+              return { ...eachRow, payments: shallowPayments }
             }
           }
           return eachRow
@@ -167,7 +179,7 @@ function MiscellaneousPage() {
         apr: 0,
         period_id: "63de932fd63688ac8b7ed99f",
         start_date: new Date(),
-        payments: []
+        payments: [...Array(selectedProject.model_config.projection_period).fill(0).map((x,index) => ({ year: index+1, amount: 0 }))]
       },
     }
     if (tableType === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution) {
@@ -239,7 +251,7 @@ function MiscellaneousPage() {
     <div>
       <BiztoolPopup
         preTitle={`รายละเอียดการชำระเงินกู้: ${selectedProject.name}`}
-        content={<PaymentsTable data={tableData ? tableData.debt_issuance_tables : null} onCellChange={onCellChange} />}
+        content={<PaymentsTable data={tableData ? tableData.debt_issuance_tables[0].debt_issuances : null} onCellChange={onCellChange} />}
         trigger={repaymentPopupState}
         close={() => setRepaymentPopupState(false)}
       />

@@ -126,8 +126,7 @@ export const ProjectSchema = new mongoose.Schema({
             start_date: Date,
             payments: [
                 {
-                    name: String,
-                    date: Date,
+                    year: Number,
                     amount: Number,
                 }
             ]
