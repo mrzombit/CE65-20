@@ -90,7 +90,7 @@ const BIZTOOL_PAGE_CONFIG = {
           {
             colId: 3,
             title: "จำนวน(บาท)",
-            width: 100,
+            width: 200,
             type: "money",
             backgroundColor: "#ffffff",
             color: "#000000",
