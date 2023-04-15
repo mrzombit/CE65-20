@@ -16,6 +16,7 @@ import { BusinessGoalModule } from './business-goal/business-goal.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { StorageModule } from './storage/storage.module';
 import { MediaModule } from './media/media.module';
+import { ProjectTemplateModule } from './project-template/project-template.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { MediaModule } from './media/media.module';
     UserModule,
     AuthModule,
     BusinessGoalModule,
+    ProjectTemplateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

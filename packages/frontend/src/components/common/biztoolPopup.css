@@ -8,10 +8,14 @@
   top: 0px;
   left: 0px;
   display: flex;
+  transition: 1.2s;
+
 }
 .popup-card {
-  width: 630px;
-  height: 574px;
+  min-width: 630px;
+  max-width: 1030px;
+  min-height: 574px;
+  max-height: 774px;
   background-color: white;
   margin: auto;
   border-radius: 20px;
@@ -20,6 +24,9 @@
   padding: 20px;
   flex-direction: column;
   text-align: left;
+  /* overflow-y: scroll; */
+  transition: 1.2s;
+
 }
 
 .new-invest-form {
@@ -68,7 +75,7 @@
 
 .popup-content{
   /* max-width: 590px; */
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   min-height: 400px;
 }

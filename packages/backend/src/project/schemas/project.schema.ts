@@ -131,6 +131,6 @@ export const ProjectSchema = new mongoose.Schema({
                 }
             ]
         }],
-        ffcReason: String,
     },
+    ffcReason: String,
 });
