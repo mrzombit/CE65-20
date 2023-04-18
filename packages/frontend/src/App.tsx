@@ -38,6 +38,8 @@ import { fetchCurrencies } from "./features/currenciesSlice";
 import { fetchIndustries } from "./features/industriesSlice";
 import { fetchPeriods } from "./features/periodsSlice";
 import { fetchSubscriptionPlans } from "./features/substriptionPlansSlice";
+import { fetchProjectTemplates } from "./features/projectTemplatesSlice";
+import CreateNewProject from "./pages/createNewProjectPage/createNewProject";
 
 function App() {
   type RootState = ReturnType<typeof store.getState>;
@@ -52,6 +54,7 @@ function App() {
     dispatch(fetchCurrencies());
     dispatch(fetchIndustries());
     dispatch(fetchPeriods());
+    dispatch(fetchProjectTemplates());
     dispatch(fetchSubscriptionPlans());
   }, []);
 
@@ -69,6 +72,7 @@ function App() {
               <Route path="/Account" element={<AccountPage />} />
               <Route path="/Subscription" element={<SubscriptionPage />} />
               <Route path="/WorkSpace" element={<WorkSpacePage />} />
+              <Route path="/CreateProject" element={<CreateNewProject />} />
               <Route path="/Compare" element={<ComparePage />} />
               <Route path="/ProjectConfig" element={<ProjectConfigPage />} />
               <Route path="/TotalInvestment" element={<TotalInvestmentPage />} />

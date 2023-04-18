@@ -9,6 +9,7 @@ const DELETE_URL = "http://localhost:5000/project/delete?projectID="
 const initialState = {
     projects: [],
     selectedProject: {},
+    shallowCreateProject: {},
     status: 'idle',
     error: null
 }
@@ -58,7 +59,10 @@ const projectsSlice = createSlice({
         },
         setSelectedProject(state,action){
             state.selectedProject = action.payload
-        }
+        },
+        setShallowCreateProject(state,action){
+            state.shallowCreateProject = action.payload
+        },
     },
     extraReducers(builder) {
         builder
@@ -101,7 +105,7 @@ const projectsSlice = createSlice({
 
 })
 
-export const { projectUpdated, setSelectedProject } = projectsSlice.actions
+export const { projectUpdated, setSelectedProject, setShallowCreateProject } = projectsSlice.actions
 
 export default projectsSlice.reducer
 

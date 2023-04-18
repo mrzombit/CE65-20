@@ -21,6 +21,7 @@ const AddProjectForm = () => {
   const [selectBusinessGoalState, setSelectBusinessGoalState] = useState(false)
   const [setCashflowState, setSetCashflowState] = useState(false)
   const [cashflowStateType, setCashflowStateType] = useState()
+  const [count, setCount] = useState(0)
   const [currenCashflowData, setCurrenCashflowData] = useState()
   const handleCashflowState = (type, data) => {
     setCashflowStateType(type === 'yearly' ? 'รายปี' : 'รายเดือน')
@@ -28,6 +29,12 @@ const AddProjectForm = () => {
     setSetCashflowState(true)
   }
   //CashflowContent
+  const imgUrlList = [
+    "coffee.png",
+    "drumbel.png",
+    "store.png",
+    "golf.png"
+  ]
 
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
@@ -42,14 +49,42 @@ const AddProjectForm = () => {
   const [selectedIndustryIds, setSelectedIndustryIds] = useState([])
 
   const [file, setFile] = useState()
-  const [imageUrl, setImageUrl] = useState("")
+  const [imageUrl, setImageUrl] = useState(imgUrlList[0])
+  const [dosubmit, setDosubmit] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [event, setEvent] = useState()
   const [projectionPeriod, setprojectionPeriod] = useState(0)
-  const [saleTrends, setsaleTrends] = useState([])
+  const [saleTrends, setsaleTrends] = useState([
+    {
+      year: 1,
+      trend: 100,
+      description: "",
+    },
+    {
+      year: 2,
+      trend: 100,
+      description: "",
+    },
+    {
+      year: 3,
+      trend: 100,
+      description: "",
+    },
+    {
+      year: 4,
+      trend: 100,
+      description: "",
+    },
+    {
+      year: 5,
+      trend: 100,
+      description: "",
+    },
+  ])
   const [selectedBusinessGoals, setselectedBusinessGoals] = useState([])
 
   useEffect(() => {
-    if (imageUrl === "") {
+    if (!isLoaded) {
       const shallowIndustryOptions = industries.map((each) => {
         return { value: each._id, label: each.name.th }
       })
@@ -58,8 +93,14 @@ const AddProjectForm = () => {
       })
       setIndustryOptions(shallowIndustryOptions)
       setCurrencyOptions(shallowCurrencyOptions)
+      setIsLoaded(true)
+      // setCount(count+1)
     }
-    else {
+    // else if (count !== 10) {
+    //   alert(count)
+    //   setCount(count+1)
+    // }
+    else if (dosubmit) {
       const projectShallow = {
         user_id: user_id,
         name: event.name,
@@ -106,7 +147,7 @@ const AddProjectForm = () => {
       dispatch(setSelectedProject(projectShallow))
       navigate('/ProjectConfig')
     }
-  }, [industries, currencies, imageUrl, projectionPeriod])
+  }, [count, isLoaded, industryOptions, currencyOptions, dosubmit, projectionPeriod])
 
   const doSubmit = (data) => {
     uploadData(data)
@@ -114,15 +155,22 @@ const AddProjectForm = () => {
 
   }
 
-  const uploadData = (data) => {
+  const uploadData = async (data) => {
     const formData = new FormData();
-    formData.append("image", file);
-    axios.post("http://localhost:5000/", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    }).then(res => {
-      setImageUrl(res.data.filename)
+    if (file) {
+      formData.append("image", file);
+      await axios.post("http://localhost:5000/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then(res => {
+        setImageUrl(res.data.filename)
+        setEvent(data)
+        setDosubmit(true)
+      })
+    }
+    else {
       setEvent(data)
-    })
+      setDosubmit(true)
+    }
   }
 
 
@@ -244,7 +292,6 @@ const AddProjectForm = () => {
                     id="getFiles"
                     style={{ display: "none" }}
                     onChange={(e) => onUploadChange(e)}
-                    required
                   />
                 </div>
               </div>
@@ -252,7 +299,7 @@ const AddProjectForm = () => {
                 <div className="input-container">
                   <BizTextInfo title="วันเริ่มดำเนินธุรกิจ" />
                   <input
-                    placeholder="MM/DD/YYYY"
+                    defaultValue={new Date()}
                     className="input-newInvest-pj-small"
                     type="date"
                     // onClick={() => ca}
@@ -263,6 +310,7 @@ const AddProjectForm = () => {
                 <div className="input-container">
                   <BizTextInfo title="ระยะเวลาประเมินธุรกิจ" />
                   <input
+                    defaultValue={5}
                     onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                     placeholder="เช่น 5 ปี"
                     className="input-newInvest-pj-small"
@@ -277,7 +325,7 @@ const AddProjectForm = () => {
 
                   <Select
                     closeMenuOnSelect={false}
-                    components={animatedComponents}
+                    defaultValue={currencyOptions[1]}
                     name="currency_id"
                     options={currencyOptions}
                     className="basic-multi-select"
@@ -288,6 +336,7 @@ const AddProjectForm = () => {
                 <div className="input-container">
                   <BizTextInfo title="ชั่วโมงทำงาน/วัน" />
                   <input
+                    defaultValue={'8%'}
                     onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                     placeholder="8 ชม./วัน"
                     className="input-newInvest-pj-small"
@@ -325,6 +374,7 @@ const AddProjectForm = () => {
               <div className="input-container">
                 <BizTextInfo title="ภาษีเงินได้ (%)" />
                 <input
+                  defaultValue={'15%'}
                   onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                   placeholder="15%"
                   className="input-newInvest-pj-small"
@@ -336,6 +386,7 @@ const AddProjectForm = () => {
               <div className="input-container">
                 <BizTextInfo title="อัตราเงินคิดลด (%)" />
                 <input
+                  defaultValue={'8%'}
                   onKeyPress={(e) => !/[0-9\b]+/.test(e.key) && e.preventDefault()}
                   placeholder="8%"
                   className="input-newInvest-pj-small"

@@ -71,7 +71,6 @@ const BiztoolRow = (props) => {
             }
             {props.type === BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
-
                     <OptionCell
                         showOption={showOption}
                         colIndex={'option'}

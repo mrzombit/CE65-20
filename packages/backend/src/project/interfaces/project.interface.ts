@@ -131,6 +131,6 @@ export interface Project extends Document {
                 }
             ]
         }],
-        ffcReason: string,
     };
+    ffcReason: string;
 }

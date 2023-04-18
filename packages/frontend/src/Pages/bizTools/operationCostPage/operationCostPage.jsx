@@ -208,7 +208,10 @@ function OperationCostPage() {
       if (eachTable._id === tableId) {
         let shallowRows = []
         eachTable.fixed_costs.forEach(eachRow => {
-          if (eachRow._id !== rowId) shallowRows.push(eachRow)
+          if (eachRow._id !== rowId) 
+          {
+            shallowRows.push(eachRow)
+          }
         })
         eachTable.fixed_costs = shallowRows
       }

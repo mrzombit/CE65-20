@@ -18,6 +18,7 @@ import BiztoolPopup from "../../components/common/biztoolPopup";
 import AddProjectForm from "../../components/projects/AddProjectForm";
 import BiztoolOption from "../../components/common/biztoolOption";
 import ProjectOptionMenu from "./projectOptionMenu";
+import CreateProjectTemplate from "../createNewProjectPage/createProjectTemplate";
 
 function WorkSpacePage() {
   const [newProjectPopupState, setNewProjectPopupState] = useState(false);
@@ -88,10 +89,12 @@ function WorkSpacePage() {
     <div id='workspace-id'>
       <BiztoolPopup
         leftTitle="สร้างโปรเจกธุรกิจใหม่"
-        content={<AddProjectForm />}
+        // content={<AddProjectForm />}
+        content={<CreateProjectTemplate />}
         trigger={newProjectPopupState}
         close={() => setNewProjectPopupState(false)}
       />
+      
       <BiztoolOption
         left={optionAddress.left}
         top={optionAddress.top}

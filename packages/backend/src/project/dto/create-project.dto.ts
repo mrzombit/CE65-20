@@ -129,6 +129,6 @@ export class CreateProjectDTO {
                 }
             ]
         }],
-        ffcReason: string,
     };
+    ffcReason: string;
 }

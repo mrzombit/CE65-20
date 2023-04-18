@@ -6,7 +6,7 @@ const OptionCell = (props) => {
     return (
         <div>
             {props.showOption ? <div className="option-cell"
-                onClick={() => !props.isTable ? props.handleRowOptionFunction(props.tableType, props.address.tableI!==undefined?props.address.tableId:'', props.address.rowId)
+                onClick={() => !props.isTable ? props.handleRowOptionFunction(props.tableType, props.address.tableId!==undefined?props.address.tableId:'', props.address.rowId)
                     :props.handleTableOptionFunction(props.tableType, props.address.tableId)}>
                 {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                 <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />

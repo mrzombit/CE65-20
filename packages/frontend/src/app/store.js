@@ -5,6 +5,7 @@ import currenciesReducer from '../features/currenciesSlice'
 import industriesReducer from '../features/industriesSlice'
 import periodsReducer from '../features/periodsSlice'
 import projectsReducer from '../features/projectsSlice'
+import projectTemplatesReducer from '../features/projectTemplatesSlice'
 import subscriptionPlansReducer from '../features/substriptionPlansSlice'
 import transactionsReducer from '../features/transactionsSlice'
 import usersReducer from '../features/usersSlice'
@@ -17,6 +18,7 @@ export default configureStore({
     industries: industriesReducer,
     periods: periodsReducer,
     projects: projectsReducer,
+    projectTemplates: projectTemplatesReducer,
     subscriptionPlans: subscriptionPlansReducer,
     transactions: transactionsReducer,
     users: usersReducer,

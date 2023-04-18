@@ -44,6 +44,15 @@ const SeasonalTrendsTable = (props) => {
             )
           }
         />
+        <input
+          disabled={true}
+          value={'%'}
+          style={{
+            width: `70px`,
+            textAlign: `start`,
+          }}
+          className="column border border-primary biztool-input-cell text-align-start"
+        />
         </div>
       )}
     </div>
