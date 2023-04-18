@@ -23,29 +23,33 @@ const profitLossStatement = () => {
     const input = document.getElementById("divToPrint");
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
+      // const pdf = new jsPDF();
+      var pdf = new jsPDF("p", "mm", "a4");
+      var width = pdf.internal.pageSize.getWidth();
+      var height = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, "JPEG", 0, 0, width, height);
       pdf.output('dataurlnewwindow');
       pdf.save("cashflow_statement.pdf");
 
     });
   };
+
+
   return (
     <div className="d-flex">
       <BizSidebar />
-      <div className="p-4 biztool-body-width">
-        <StatementHearder 
-        title="Income Statement" 
-        sensitivityPath="/Sensitivity/income"
-        listPath="/ProfitLossStatements"
-        chartPath="/Chart/income"
+      <div className="">
+        <StatementHearder
+          title="Income Statement"
+          sensitivityPath="/Sensitivity/income"
+          listPath="/ProfitLossStatements"
+          chartPath="/Chart/income"
         />
-        <div>
-          <div className="">
-            <button onClick={printDocument}>Print</button>
-          </div>
-          <hr></hr>
-          <div id="divToPrint" className="d-flex ">
+        <div className="">
+          <button onClick={printDocument}>Print</button>
+        </div>
+        <div className="doc-center scrollable">
+          <div id="divToPrint" className=" page">
             <IncomeDocument />
           </div>
         </div>

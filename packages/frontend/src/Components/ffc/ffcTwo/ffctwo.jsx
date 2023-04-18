@@ -18,7 +18,7 @@ function ffctwo() {
           </div>
           <div className="">
             <FFCCard
-              type="total=investment"
+              type="total-investment"
               tableName="Capital need"
             />
             <FFCCard

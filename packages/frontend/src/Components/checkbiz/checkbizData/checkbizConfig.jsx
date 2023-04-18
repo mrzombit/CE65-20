@@ -48,7 +48,6 @@ const CHECKBIZ_CONFIG = {
     income: {
         list: [
             {
-
                 name: "รายได้",
                 total: [],
                 data: [

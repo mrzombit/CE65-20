@@ -22,7 +22,7 @@ import EditInputOnSidebar from "../../../../components/checkbiz/sidebarEditdata/
 // import BIZTOOL_PAGE_CONFIG from "../../../bizTools/pageConfig";
 
 const incomeChartPage = (props) => {
-  
+
   // const [newRevenuePerService, setNewRevenuePerService] = useState(null);
   // const config = BIZTOOL_PAGE_CONFIG.revenue
   // const [tableService, setTableService] = useState();
@@ -34,13 +34,18 @@ const incomeChartPage = (props) => {
   //   setMessage(event.target.value);
   //   console.log("value is:", event.target.value);
   // };
-  
+
   // const yearRange = [1, 2, 3, 4];
 
   // const totalRevenue = [15000,17000,15000];
   // const totalFixedCost = [17000,15000,10000];
   const totalRevenue = [];
   const totalFixedCost = [];
+
+  const totalRevenue_MIN = [];
+  const totalFixedCost_MIN = [];
+  // const totalIncome = [];
+  // const totalIncome = totalRevenue.map((revenue, index) => revenue - totalFixedCost[index]);
 
   const dispatch = useDispatch();
   const selectedProject = useSelector(
@@ -49,8 +54,8 @@ const incomeChartPage = (props) => {
   const [isLoaded, setIsLoaded] = useState({ user: false, projects: false });
   const [reload, setReload] = useState(false);
 
-  
-  
+
+
   useEffect(() => {
 
     if (isLoaded.projects) {
@@ -61,10 +66,14 @@ const incomeChartPage = (props) => {
       dispatch(fetchProjectById(selectedProject._id));
       setReload(true);
     }
+    setModelConfig(selectedProject.model_config);
     setTableRevenueData(selectedProject.revenue);
     setTableExpenseData(selectedProject.expense);
   }, [selectedProject]);
 
+  const [modelConfig, setModelConfig] = useState(
+    selectedProject.model_config
+  );
   const [tableRevenueData, setTableRevenueData] = useState(
     selectedProject.revenue
   );
@@ -81,6 +90,9 @@ const incomeChartPage = (props) => {
     );
     let shallowFixedCostTables = JSON.parse(
       JSON.stringify(selectedProject.expense.fixed_cost_tables)
+    );
+    let shallowInvestmentTables = JSON.parse(
+      JSON.stringify(selectedProject.expense.investment_tables)
     );
 
     shallowServiceTables = shallowServiceTables.map((eachTableService) => {
@@ -133,6 +145,44 @@ const incomeChartPage = (props) => {
       }
     );
 
+    // shallowInvestmentTables = shallowInvestmentTables.map(
+    //   (eachTableInvestment) => {
+    //     if (eachTableInvestment._id === tableID) {
+    //       eachTableInvestment.investments = eachTableInvestment.investments.map(
+    //         (eachInvestment) => {
+    //           if (eachInvestment._id === unitID) {
+    //             if (eachInvestment.amount !== amountPerUnit) {
+    //               eachInvestment.amount = amountPerUnit;
+    //             }
+    //           }
+    //           return eachInvestment;
+    //         }
+    //       );
+    //     }
+    //     return eachTableInvestment;
+    //   }
+    // );
+
+    // Find the index of the table with the matching ID
+    const tableIndex = shallowInvestmentTables.findIndex((table) => table._id === tableID);
+
+    // Update the investment table if found
+    if (tableIndex !== -1) {
+      shallowInvestmentTables[tableIndex] = {
+        ...shallowInvestmentTables[tableIndex],
+        investments: shallowInvestmentTables[tableIndex].investments.map((eachInvestment) => {
+          if (eachInvestment._id === unitID) {
+            if (eachInvestment.amount !== amountPerUnit) {
+              eachInvestment.amount = amountPerUnit;
+            }
+          }
+          return eachInvestment;
+        }),
+      };
+    }
+
+
+
     let shallowSelectedProject = {
       ...selectedProject,
       revenue: {
@@ -141,6 +191,7 @@ const incomeChartPage = (props) => {
       },
       expense: {
         fixed_cost_tables: shallowFixedCostTables,
+        investment_tables: shallowInvestmentTables,
       },
     };
     dispatch(projectUpdated(shallowSelectedProject));
@@ -171,12 +222,93 @@ const incomeChartPage = (props) => {
     return sum_product_revenue;
   }
 
+  // function calculateRevenue() {
+  //   let totalValue = 0;
+  //   let sum_product_revenue = 0;
+  //   let sum_service_revenue = 0;
+  //   tableRevenueData.product_tables.forEach((tableProduct) => {
+  //     tableProduct.products.forEach((eachProduct) => {
+  //       sum_product_revenue += eachProduct.revenue_per_unit;
+  //     });
+  //     tableRevenueData.service_tables.forEach((tableService) => {
+  //       tableService.services.forEach((eachService) => {
+  //         sum_service_revenue += (eachService.revenue_per_service - (eachService.revenue_per_service * eachService.cost_per_service / 100));
+  //       });
+  //     });
+  //   });
+  //   totalValue = sum_product_revenue + sum_service_revenue
+
+  //   totalRevenue.push(totalValue);
+  //   for (let i = 1; i < modelConfig.projection_period; i++) {
+  //     // totalValue += totalValue*(increase / 100)
+  //     // increase += increase
+  //     totalRevenue.push(totalValue);
+  //   }
+
+  //   return totalValue;
+  // }
+
   function calculateRevenue() {
     let totalValue = 0;
-    totalValue = calculateRevenue_service() + calculateRevenue_product();
+    let totalValue_MIN = 0;
+
+    let sum_product_revenue = 0; //max
+    let sum_product_revenue_MIN = 0;
+
+    let sum_service_revenue = 0;
+    let sum_service_revenue_MIN = 0;
+
+    tableRevenueData.product_tables.forEach((tableProduct) => {
+      tableProduct.products.forEach((eachProduct) => {
+        if (eachProduct.revenue_per_unit && typeof eachProduct.revenue_per_unit === "string") {
+          if (eachProduct.revenue_per_unit.includes("-")) {
+            let [min, max] = eachProduct.revenue_per_unit.split("-").map(Number);
+            sum_product_revenue += max
+            sum_product_revenue_MIN += min
+            console.log("G")
+          } else {
+            sum_product_revenue += eachProduct.revenue_per_unit
+            sum_product_revenue_MIN += eachProduct.revenue_per_unit
+          }
+        }
+      });
+    });
+    tableRevenueData.service_tables.forEach((tableService) => {
+      tableService.services.forEach((eachService) => {
+
+        sum_service_revenue += (eachService.revenue_per_service - (eachService.revenue_per_service * eachService.cost_per_service / 100));
+        // if (eachService.revenue_per_service && typeof eachService.revenue_per_service === "string") {
+        //   if (eachService.revenue_per_service.includes("-")) {
+        //     // let [min, max] = eachProduct.revenue_per_unit.split("-").map(Number);
+        //     // sum_product_revenue += max
+        //     // sum_product_revenue_MIN += min
+        //     console.log("GG")
+        //   } else {
+        //     sum_service_revenue += eachService.revenue_per_service
+        //     sum_service_revenue_MIN += eachService.revenue_per_service
+        //   }
+        // }
+
+      });
+    });
+
+    totalValue = sum_product_revenue + sum_service_revenue
+    totalValue_MIN = sum_product_revenue_MIN + sum_service_revenue
+
     totalRevenue.push(totalValue);
+    totalRevenue_MIN.push(totalValue_MIN);
+
+    for (let i = 1; i < modelConfig.projection_period; i++) {
+      // totalValue += totalValue*(increase / 100)
+      // increase += increase
+      totalRevenue.push(totalValue);
+      totalRevenue_MIN.push(totalValue_MIN);
+    }
+
     return totalValue;
   }
+
+
 
   function calculateFixedCost() {
     let sum_fixed_cost = 0;
@@ -189,11 +321,40 @@ const incomeChartPage = (props) => {
   }
 
   function calculateTotalFixdcost() {
-    let totalValue = 0;
-    totalValue = calculateFixedCost();
-    totalFixedCost.push(totalValue);
-    return totalValue;
+    let sum_fixed_cost = 0;
+    let sum_investment = 0;
+    let increase = 0;
+    // modelConfig.projection_period
+
+    tableExpenseData.fixed_cost_tables.forEach((tableFixedCost) => {
+      tableFixedCost.fixed_costs.forEach((eachFixedCost) => {
+        sum_fixed_cost += eachFixedCost.amount;
+        increase = eachFixedCost.cost_increase
+      });
+    });
+
+    tableExpenseData.investment_tables.forEach((table) => {
+      table.investments.forEach((eachData) => {
+        sum_investment += eachData.amount
+      })
+    })
+
+    // ปีแรก
+    // totalFixedCost.push(sum_fixed_cost + sum_investment);
+    totalFixedCost.push(sum_fixed_cost);
+
+    for (let i = 1; i < modelConfig.projection_period; i++) {
+      sum_fixed_cost += sum_fixed_cost * (increase / 100)
+      increase += increase
+      totalFixedCost.push(sum_fixed_cost);
+    }
+
   }
+
+  // function netIncome() {
+  //   return totalRevenue.map((revenue, index) => revenue - totalFixedCost[index]);
+
+  // }
 
   return (
     <div>
@@ -211,9 +372,11 @@ const incomeChartPage = (props) => {
           <div>
             <CombinationCharts
               data_type="revenue"
-              total_service_revenue={totalRevenue}
+              totalRevenue={totalRevenue}
               total_fixed_cost={totalFixedCost}
+              totalRevenue_MIN={totalRevenue_MIN}
             />
+            {console.log("totalFixedCost : " + totalFixedCost)}
           </div>
         </div>
 
@@ -239,8 +402,20 @@ const incomeChartPage = (props) => {
                   <div>{calculateRevenue() - calculateFixedCost()}</div>
                 </div>
               </div>
-              <div className="table-name-side-text">รายได้การบริการ/วัน</div>
 
+
+              <div className="table-name-side-text">รายได้การบริการ/วัน</div>
+              <div className="">
+                <div>
+                  <EditInputOnSidebar
+                    name="รวมรายได้จากการบริการ/วัน"
+                    type="text"
+                    defaultValue={calculateRevenue_service()}
+                    className="chart-input"
+                    resultDisplay={true}
+                  />
+                </div>
+              </div>
               {tableRevenueData.service_tables.map((tableService) => (
                 <div key={tableService._id}>
                   {/* <div className="total-text">{tableService.name}</div> */}
@@ -265,21 +440,18 @@ const incomeChartPage = (props) => {
                   ))}
                 </div>
               ))}
-              <div className="">
-                <div>
-                  <EditInputOnSidebar
-                    name="รวมรายได้จากการบริการ/วัน"
-                    type="text"
-                    defaultValue={calculateRevenue_service()}
-                    className="chart-input"
-                    resultDisplay={true}
-                  />
-                </div>
-              </div> 
+
 
               <div className="table-name-side-text">
                 รายได้การขายสินค้า/วัน
               </div>
+              <EditInputOnSidebar
+                name="รวมรายได้จากการขายสินค้า/วัน"
+                type="text"
+                defaultValue={calculateRevenue_product()}
+                className="chart-input"
+                resultDisplay={true}
+              />
               {tableRevenueData.product_tables.map((tableProduct) => (
                 <div key={tableProduct._id}>
                   {/* <div className="total-text">{tableProduct.name}</div> */}
@@ -304,15 +476,16 @@ const incomeChartPage = (props) => {
                   ))}
                 </div>
               ))}
+
+
+              <div className="table-name-side-text">รายจ่าย/วัน</div>
               <EditInputOnSidebar
-                name="รวมรายได้จากการขายสินค้า/วัน"
+                name="รวมรายจ่าย"
                 type="text"
-                defaultValue={calculateRevenue_product()}
+                defaultValue={calculateFixedCost()}
                 className="chart-input"
                 resultDisplay={true}
               />
-
-              <div className="table-name-side-text">รายจ่าย/วัน</div>
               {tableExpenseData.fixed_cost_tables.map((tableFixedCost) => (
                 <div key={tableFixedCost._id}>
                   {/* <div className="total-text">{tableFixedCost.name}</div> */}
@@ -337,13 +510,7 @@ const incomeChartPage = (props) => {
                   ))}
                 </div>
               ))}
-              <EditInputOnSidebar
-                name="รวมรายจ่าย"
-                type="text"
-                defaultValue={calculateFixedCost()}
-                className="chart-input"
-                resultDisplay={true}
-              />
+
             </div>
           ) : (
             <div className="sen-sidebar2">

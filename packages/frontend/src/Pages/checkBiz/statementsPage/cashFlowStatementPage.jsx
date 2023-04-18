@@ -17,18 +17,18 @@ const cashFlowStatement = () => {
   // function onDocumentLoadSuccess({ numPages }) {
   //   setNumPages(numPages);
   // }
-
   const printDocument = () => {
     const input = document.getElementById("divToPrint");
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
+      // const pdf = new jsPDF();
+      var pdf = new jsPDF("p", "mm", "a4");
+      var width = pdf.internal.pageSize.getWidth();
+      var height = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, "JPEG", 0, 0, width, height);
       pdf.output('dataurlnewwindow');
       pdf.save("cashflow_statement.pdf");
-      ///////to png
-      // var newTab = window.open("about:blank", "image from canvas");
-      // newTab.document.write("<img src='" + imgData + "' alt='from canvas'/>");
+
     });
   };
 
@@ -36,22 +36,20 @@ const cashFlowStatement = () => {
     <div className="d-flex">
       <BizSidebar />
       <div className="p-4 biztool-body-width">
-        <StatementHearder 
-        title="Cash Flow Statement" 
-        sensitivityPath="/Sensitivity/cashflow"
-        listPath="/CashFlowStatements"
-        chartPath="/Chart/cashflow"
+        <StatementHearder
+          title="Cash Flow Statement"
+          sensitivityPath="/Sensitivity/cashflow"
+          listPath="/CashFlowStatements"
+          chartPath="/Chart/cashflow"
         />
         <div>
           <div className="">
             <button onClick={printDocument}>Print</button>
           </div>
-          <hr></hr>
-          {/* <div id="divToPrint" style={{ width: "600px" }}> */}
-          <div id="divToPrint" className="d-flex ">
-            {/* <div>Note: Here the dimensions of div are same as A4</div> */}
-            {/* <StatementHearder title="Cash Flow Statement" /> */}
-            <CashFlowDocument />
+          <div className="doc-center scrollable">
+            <div id="divToPrint" className="page">
+              <CashFlowDocument />
+            </div>
           </div>
         </div>
       </div>

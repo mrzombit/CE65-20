@@ -17,17 +17,17 @@ function ffcFour() {
             <TitleFFC title="กระแสเงินสด" />
           </div>
           <div className="">
-            <FFCCard
+            {/* <FFCCard
               type="revenue"
               tableName="CFO"
             />
             <FFCCard
               type="expense"
               tableName="CFI"
-            />
+            /> */}
             <FFCCard
-              type="expense"
-              tableName="CFF"
+              type="cash-flows"
+              tableName="Cashflows"
             />
           </div>
         </div>

@@ -269,8 +269,8 @@ const cashflowChartPage = (props) => {
           <StatementHearder
             title="Cashflow Statement"
             sensitivityPath="/Sensitivity/income"
-            listPath="/ProfitLossStatements"
-            chartPath="/Chart/incom"
+            listPath="/CashFlowStatements"
+            chartPath="/Chart/cashflow"
           />
           <div>
             <CombinationCharts
