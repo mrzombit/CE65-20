@@ -7,14 +7,14 @@ const BiztoolButton = (props) => {
     <div className=''>
       {props.componentStyle === "filled" &&
         <div
-          onClick={props.handleFunction(props.data)}
+          onClick={() => props.handleFunction(props.data)}
           className='btn filled-biztool-button'
         >
           <div>{props.title}</div>
         </div>}
       {props.componentStyle === "lighted" &&
         <div
-          onClick={props.handleFunction}
+          onClick={() => props.handleFunction(props.data)}
           className='lighted-biztool-button'
         >
           {props.title}
