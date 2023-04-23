@@ -348,7 +348,7 @@ const incomeChartPage = (props) => {
       increase += increase
       totalFixedCost.push(sum_fixed_cost);
     }
-
+    // return sum_fixed_cost
   }
 
   // function netIncome() {
@@ -384,7 +384,7 @@ const incomeChartPage = (props) => {
           {sidebar ? (
             <div className="sen-sidebar">
               <div className="sen-sidebar-show" onClick={showSidebar}>
-                <AiOutlineDoubleLeft />
+                {/* <AiOutlineDoubleLeft /> */}
               </div>
               <div className="total-text">
                 <div className="d-flex justify-content-between">

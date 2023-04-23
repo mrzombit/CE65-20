@@ -5,15 +5,52 @@ export default function CombinationCharts(props) {
 	const [chartData, setChartData] = useState({});
 	const [chartOptions, setChartOptions] = useState({});
 
-	let totalRevenue = props.totalRevenue;
-	let totalFixedCost = props.total_fixed_cost;
 
-	// let totalRevenue_MIN = props.totalRevenue_MIN;
+	// const [totalRevenue, setTotalRevenue] = useState([]);
+	// const [totalFixedCost, setTotalFixedCos] = useState([]);
+	// const [totalRevenue_MIN, setTotalRevenue_MIN] = useState([]);
+	// const [netIncome, setNetIncome] = useState([]);
+	// const [netIncome_MIN, setNetIncome_MIN] = useState([]);
 
-	// let netIncome = totalRevenue.map((revenue, index) => revenue - totalFixedCost[index]);
-	// let netIncome_MIN = totalRevenue_MIN.map((revenue, index) => revenue - totalFixedCost[index]);
+	// // if (props.data_type === "revenue" || props.data_type === "expense") {
+	// 	setTotalRevenue(props.totalRevenue);
+	// 	setTotalFixedCos(props.total_fixed_cost);
+	// 	setNetIncome(totalRevenue.map((revenue, index) => revenue - totalFixedCost[index]));
 
-	
+	// 	setTotalRevenue_MIN(props.totalRevenue_MIN);
+	// 	setNetIncome_MIN(totalRevenue_MIN.map((revenue, index) => revenue - totalFixedCost[index]));
+	// // }
+
+	let totalRevenue = [];
+	let totalFixedCost = [];
+	let totalRevenue_MIN = [];
+	let totalCFO = [];
+	let totalCFI = [];
+	let totalCFF = [];
+
+	let inv_names = [];
+	let inv_amounts = [];
+	let expese_names = [];
+	let expense_amounts = [];
+	let revenue_service_names = [];
+	let revenue_service_amounts = [];
+	let revenue_product_names = [];
+	let revenue_product_amounts = [];
+
+	let sumInv = []
+
+	totalRevenue = props.totalRevenue;
+	totalFixedCost = props.total_fixed_cost;
+	totalRevenue_MIN = props.totalRevenue_MIN;
+	totalCFO = props.totalCFO;
+	totalCFI = props.totalCFI;
+	totalCFF = props.totalCFF;
+
+	inv_names = props.inv_names; 
+	inv_amounts = props.inv_amounts; 
+
+
+
 
 
 	// let pj_period = [];
@@ -38,6 +75,8 @@ export default function CombinationCharts(props) {
 		const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
 		const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 		if (props.data_type === "revenue") {
+			let netIncome = totalRevenue.map((revenue, index) => revenue - totalFixedCost[index]);
+			let netIncome_MIN = totalRevenue_MIN.map((revenue, index) => revenue - totalFixedCost[index]);
 			const data = {
 				labels: ["2020", "2021", "2022", "2023"],
 				datasets: [
@@ -121,12 +160,12 @@ export default function CombinationCharts(props) {
 				if (d.label === "กระแสเงินสดจ่าย") {
 					d.data = totalFixedCost
 				}
-				// if (d.label === "กำไร(ขาดทุน)") {
-				// 	d.data = netIncome
-				// }
-				// if (d.label === "กำไร(ขาดทุน)-min") {
-				// 	d.data = netIncome_MIN
-				// }
+				if (d.label === "กำไร(ขาดทุน)") {
+					d.data = netIncome
+				}
+				if (d.label === "กำไร(ขาดทุน)-min") {
+					d.data = netIncome_MIN
+				}
 				return shallowData
 			})
 
@@ -135,27 +174,242 @@ export default function CombinationCharts(props) {
 
 			setChartData(shallowData[0]);
 			setChartOptions(options);
+
 		}
-		if (props.data_type === "expense") {
+
+		if (props.data_type === "cashflow") {
+			let CfoCfi = totalCFO.map((cfo, index) => cfo + totalCFI[index]);
+			let netCashflow = totalCFF.map((cff, index) => cff + CfoCfi[index]);
 			const data = {
-				labels: ['ช่างทำผม 1', 'ช่างทำผม 2', 'ค่าน้ำ', 'ค่าไฟ'],
+				labels: ["2020", "2021", "2022", "2023"],
 				datasets: [
 					{
+						type: 'line',
+						label: 'Net Cashflow',
+						borderColor: documentStyle.getPropertyValue('--blue-500'),
+						borderWidth: 2,
+						fill: false,
+						tension: 0.4,
+						data: [50, 25, 12, 48]
+					},
+					// {
+					// 	type: 'line',
+					// 	label: 'กำไร(ขาดทุน)-min',
+					// 	// borderColor: documentStyle.getPropertyValue('--blue-500'),
+					// 	borderColor: "#cccccc",
+					// 	borderWidth: 2,
+					// 	fill: false,
+					// 	tension: 0.4,
+					// 	data: [0, 0, 0, 0]
+					// },
+					{
 						type: 'bar',
-						label: 'กระแสเงินสดจ่าย',
-						data: [15000, 15000, 7000, 3000],
+						label: 'CFI',
+						data: [200, 8400, 2400, 7500],
+						backgroundColor: 'rgba(175, 192, 192, 0.2)',
+						borderColor: 'rgb(75, 192, 192)',
+						borderWidth: 1,
+					},
+					{
+						type: 'bar',
+						label: 'CFO',
+						data: [200, 8400, 2400, 7500],
 						backgroundColor: 'rgba(75, 192, 192, 0.2)',
 						borderColor: 'rgb(75, 192, 192)',
 						borderWidth: 1,
 					},
-					// {
-					// 	type: 'bar',
-					// 	label: 'กระแสเงินสดจ่าย',
-					// 	data: [400, 320, 240, 140],
-					// 	backgroundColor: 'rgba(153, 102, 255, 0.2)',
-					// 	borderColor: 'rgb(153, 102, 255)',
-					// 	borderWidth: 1
-					// }
+
+					{
+						type: 'bar',
+						label: 'CFF',
+						data: [4000, 3200, 2400, 1400],
+						backgroundColor: 'rgba(153, 102, 255, 0.2)',
+						borderColor: 'rgb(153, 102, 255)',
+						borderWidth: 1
+					}
+				]
+			};
+
+			const options = {
+				maintainAspectRatio: false,
+				aspectRatio: 0.6,
+				plugins: {
+					legend: {
+						labels: {
+							color: textColor
+						}
+					}
+				},
+				scales: {
+					x: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
+					},
+					y: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
+					}
+				}
+			};
+
+			let shallowData = data
+
+			shallowData = shallowData.datasets.map(d => {
+				// if (data.labels !== pj_period) {
+				// 	shallowData.labels = pj_period
+				// }
+				if (d.label === "CFO" && totalCFO !== []) {
+					d.data = totalCFO
+				}
+				if (d.label === "CFI" && totalCFI !== []) {
+					d.data = totalCFI
+				}
+				if (d.label === "CFF" && totalCFF !== []) {
+					d.data = totalCFF
+				}
+				if (d.label === "Net Cashflow") {
+					d.data = netCashflow
+				}
+				// if (d.label === "กำไร(ขาดทุน)-min") {
+				// 	d.data = netIncome_MIN
+				// }
+				// return shallowData
+			})
+
+
+			setChartData(data);
+			// setChartData(shallowData[0]);
+			setChartOptions(options);
+
+		}
+		if (props.data_type === "total-investment") {
+			if (inv_amounts.length !== 0) {
+				sumInv = inv_amounts.reduce((result, number) => result + number);
+			}
+			const data = {
+				labels: ["2020", "2021", "2022", "2023"],
+				datasets: [
+					{
+						type: 'line',
+						label: 'ราคาสุทธิ',
+						borderColor: documentStyle.getPropertyValue('--blue-500'),
+						borderWidth: 2,
+						fill: false,
+						tension: 0.4,
+						data: [50, 25, 12, 48]
+					},
+					{
+						type: 'bar',
+						label: 'ราคา/หน่วย',
+						data: [200, 8400, 2400, 7500],
+						backgroundColor: 'rgba(175, 192, 192, 0.2)',
+						borderColor: 'rgb(75, 192, 192)',
+						borderWidth: 1,
+					},
+
+				]
+			};
+
+			const options = {
+				maintainAspectRatio: false,
+				aspectRatio: 0.6,
+				plugins: {
+					legend: {
+						labels: {
+							color: textColor
+						}
+					}
+				},
+				scales: {
+					x: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
+					},
+					y: {
+						ticks: {
+							color: textColorSecondary
+						},
+						grid: {
+							color: surfaceBorder
+						}
+					}
+				}
+			};
+
+			let shallowData = data
+			let shallowDatalabels = data.labels
+			let shallowDataDatasets = data.datasets
+
+			shallowDatalabels = inv_names
+			shallowDataDatasets = shallowDataDatasets.map(d => {
+				if (d.label === "ราคา/หน่วย" && totalCFO !== []) {
+					d.data = inv_amounts
+				}
+				if (d.label === "ราคาสุทธิ" && totalCFO !== []) {
+					d.data = sumInv
+				}
+			})
+			shallowData = {
+				...data,
+				labels: shallowDatalabels,
+				datasets: shallowDataDatasets
+			}
+
+			setChartData(data);
+			// setChartData(shallowData[0]);
+			setChartOptions(options);
+
+		}
+		if (props.data_type === "expense") {
+			const data = {
+				labels: ["2020", "2021", "2022", "2023"],
+				datasets: [
+					{
+						type: 'line',
+						label: 'Net Cashflow',
+						borderColor: documentStyle.getPropertyValue('--blue-500'),
+						borderWidth: 2,
+						fill: false,
+						tension: 0.4,
+						data: [50, 25, 12, 48]
+					},
+					{
+						type: 'bar',
+						label: 'CFI',
+						data: [200, 8400, 2400, 7500],
+						backgroundColor: 'rgba(175, 192, 192, 0.2)',
+						borderColor: 'rgb(75, 192, 192)',
+						borderWidth: 1,
+					},
+					{
+						type: 'bar',
+						label: 'CFO',
+						data: [200, 8400, 2400, 7500],
+						backgroundColor: 'rgba(75, 192, 192, 0.2)',
+						borderColor: 'rgb(75, 192, 192)',
+						borderWidth: 1,
+					},
+
+					{
+						type: 'bar',
+						label: 'CFF',
+						data: [4000, 3200, 2400, 1400],
+						backgroundColor: 'rgba(153, 102, 255, 0.2)',
+						borderColor: 'rgb(153, 102, 255)',
+						borderWidth: 1
+					}
 				]
 			};
 
@@ -192,9 +446,12 @@ export default function CombinationCharts(props) {
 
 
 			setChartData(data);
+			// setChartData(shallowData[0]);
 			setChartOptions(options);
+
 		}
-	}, [totalRevenue, totalFixedCost]);
+
+	}, [totalRevenue, totalFixedCost, totalCFO, totalCFI, totalCFF,]);
 
 	return (
 		<div className="card">

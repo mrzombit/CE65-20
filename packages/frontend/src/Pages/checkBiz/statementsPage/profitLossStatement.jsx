@@ -29,7 +29,7 @@ const profitLossStatement = () => {
       var height = pdf.internal.pageSize.getHeight();
       pdf.addImage(imgData, "JPEG", 0, 0, width, height);
       pdf.output('dataurlnewwindow');
-      pdf.save("cashflow_statement.pdf");
+      pdf.save("income_statement.pdf");
 
     });
   };
