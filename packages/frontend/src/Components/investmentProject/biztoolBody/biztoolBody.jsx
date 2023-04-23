@@ -13,13 +13,15 @@ const BiztoolBody = (props) => {
   return (
     <div className='biztool-body p-2'>
       {props.type.page === BIZTOOL_PAGE_CONFIG.revenue.type.page && <div className='biztool-body-flex '>
-        <div >
-          <div className='revenue-table-header'>บริการ/การผลิต</div>
+        <div className='my-3'>
+          <div className='revenue-table-header mb-1'>บริการ/การผลิต</div>
+          <div className='ml-4 mb-3'>
           <BiztoolAddTable
             type={props.type.service}
             title="+ ตารางใหม่"
             handleFunction={props.handleServiceFunction}
           />
+          </div>
           <BiztoolTableList
             handleTableOptionFunction={props.handleTableOptionFunction}
             handleRowOptionFunction={props.handleRowOptionFunction}
@@ -33,12 +35,14 @@ const BiztoolBody = (props) => {
           />
         </div>
         <div>
-          <div className='revenue-table-header'>การขายสินค้า</div>
+          <div className='revenue-table-header mb-1'>การขายสินค้า</div>
+          <div className='ml-4 mb-3'>
           <BiztoolAddTable
             type={props.type.product}
             title="+ ตารางใหม่"
             handleFunction={props.handleProductFunction}
           />
+          </div>
           <BiztoolTableList
             handleTableOptionFunction={props.handleTableOptionFunction}
             handleRowOptionFunction={props.handleRowOptionFunction}
@@ -54,8 +58,8 @@ const BiztoolBody = (props) => {
       </div>}
 
       {props.type.page === BIZTOOL_PAGE_CONFIG.miscellaneous.type.page && <div className='biztool-body-flex '>
-        <div >
-          <div className='miscellaneous-table-header'>ผู้ถือหุ้น</div>
+      <div className='my-3'>
+          <div className='miscellaneous-table-header mb-1'>ผู้ถือหุ้น</div>
           <BiztoolTableList
             handleRowOptionFunction={props.handleRowOptionFunction}
             addRowHandle={props.addRowHandle}
@@ -66,7 +70,7 @@ const BiztoolBody = (props) => {
           />
         </div>
         <div>
-          <div className='miscellaneous-table-header'>ผู้รับปันผล</div>
+          <div className='miscellaneous-table-header mb-1'>ผู้รับปันผล</div>
           <BiztoolTableList
             handleRowOptionFunction={props.handleRowOptionFunction}
             addRowHandle={props.addRowHandle}
@@ -78,7 +82,7 @@ const BiztoolBody = (props) => {
           />
         </div>
         <div>
-          <div className='miscellaneous-table-header'>เงินกู้และการชำระเงินกู้</div>
+          <div className='miscellaneous-table-header mb-1'>เงินกู้และการชำระเงินกู้</div>
           <BiztoolTableList
             handleRowOptionFunction={props.handleRowOptionFunction}
             addRowHandle={props.addRowHandle}

@@ -28,13 +28,22 @@
 }
 
 .biztool-header-cell {
-    background-color: black;
+    background-color: rgb(34, 16, 88);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     border:#343434;
-    border-radius: 0% !important;
+    height: 45px;
+
+}
+
+.biztool-header-cell.leftCorner {
+  border-radius: 10px 0px 0px 0px;
+}
+
+.biztool-header-cell.rightCorner {
+  border-radius: 0px 10px 0px 0px;
 }
 
 .biztool-header-cell-input:hover {
@@ -68,13 +77,6 @@
     cursor: pointer;
   }
   
-  .biztool-input-cell {
-    border-radius: 0% !important;
-  }
-  .biztool-input-cell-no-border {
-    border-radius: 0% !important;
-    border: none !important;
-  }
 
   .add-row-button{
     border: none;
@@ -94,4 +96,14 @@
 
   .table-overflow-style{
     overflow: scroll;
+  }
+
+  .lastRow .leftCorner{
+    border: 2px solid firebrick;
+    border-radius: 0px 0px 10px 0px;
+  }
+
+  .lastRow .rightCorner{
+    border: 2px solid firebrick;
+    border-radius: 0px 0px 0px 10px;
   }
