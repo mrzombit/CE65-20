@@ -12,7 +12,7 @@ function ProjectConfigPage() {
   return (
     <div className="d-flex">
       <BizSidebar />
-      <div className="">x
+      <div className="m-5">
         <BiztoolHeader type={config.type} title={config.title} />
         <InfoProject/>
       </div>

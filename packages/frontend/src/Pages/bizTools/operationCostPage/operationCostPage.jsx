@@ -256,7 +256,7 @@ function OperationCostPage() {
         <BiztoolHeader
           type={config.type}
           title={config.title}
-          handleFunction={() => addTableHandleFunction}
+          handleFunction={addTableHandleFunction}
         />
         <BiztoolBody
           handleTableOptionFunction={handleTableOptionFunction}

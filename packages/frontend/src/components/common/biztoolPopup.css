@@ -12,9 +12,9 @@
 
 }
 .popup-card {
-  min-width: 630px;
+  min-width: 430px;
   max-width: 1030px;
-  min-height: 574px;
+  min-height: 274px;
   max-height: 774px;
   background-color: white;
   margin: auto;
@@ -28,6 +28,7 @@
   transition: 1.2s;
 
 }
+
 
 .new-invest-form {
   /* display: flex; */
@@ -92,5 +93,6 @@
 .title-header-style{
   color: #313A58;
   font-weight: 600;
-  font-size:x-large;
+  font-size:large;
+  text-align: center;
 }

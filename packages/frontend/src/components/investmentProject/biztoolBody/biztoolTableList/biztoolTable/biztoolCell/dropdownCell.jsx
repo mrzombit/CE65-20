@@ -54,7 +54,7 @@ const DropdownCell = (props) => {
   //date. setFullYear(date. getFullYear() + 1)
 
   return (
-    <div style={{ width: `${props.width}px` }}>
+    <div style={{ width: `${props.width}px`, borderRaduis: `${props.lastRow ?`lastRow ${props.corner}`:"none"}`}}>
       {isLoaded && <>{props.type === 'period-dropdown' &&
         <Dropdown
           onSelect={(valueKey) => props.tableType !== BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment ?

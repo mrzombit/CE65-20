@@ -1,7 +1,7 @@
 const INPUT_TYPES= {
     industry: "industry",
     name: "name",
-    description: "descriptiont",
+    description: "description",
     startDate: "start-date",
     projectionPeriod: "projection-periodt",
     taxRate: "tax-ratet",

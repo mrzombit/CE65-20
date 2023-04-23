@@ -20,7 +20,7 @@ const BiztoolRow = (props) => {
     }));
 
     return (
-        <div>
+        <div className={`eachRow-div-style ${props.lastRow?"lastRow":""}`}>
             {props.type === BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
                 <div className='d-flex' onMouseEnter={() => setShowOption(true)} onMouseLeave={() => setShowOption(false)}>
                     <OptionCell
@@ -31,6 +31,8 @@ const BiztoolRow = (props) => {
                         handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
+                       lastRow={props.lastRow}
+                       corner="leftCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
@@ -58,6 +60,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[2].width} />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="rightCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         tableType={props.type}
@@ -79,6 +83,8 @@ const BiztoolRow = (props) => {
                         handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="leftCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
@@ -124,6 +130,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[4].width} />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="rightCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         type="date"
@@ -145,6 +153,8 @@ const BiztoolRow = (props) => {
                         handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="leftCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
@@ -208,6 +218,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[7].width} /> */}
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="rightCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.start_date}
                         type="date"
@@ -229,6 +241,8 @@ const BiztoolRow = (props) => {
                         handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="leftCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
@@ -292,6 +306,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[3].width} />
                     <SeasonalTrendsTable
+                        lastRow={props.lastRow}
+                        corner="rightCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.seasonal_trends}
                         type="seasonal-trends-table"
@@ -313,6 +329,8 @@ const BiztoolRow = (props) => {
                         handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="leftCorner"
                         disabled={props.data.name!=='ฉัน'?false:true}
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -332,6 +350,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="rightCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.date}
                         type="date"
@@ -352,6 +372,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                     />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="leftCorner"
                         disabled ={true}
                         handleFunction={props.handleFunction}
                         data={props.data.name}
@@ -372,6 +394,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[1].width} />
                     <RepaymentsTable
+                        lastRow={props.lastRow}
+                        corner="rightCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.repayment}
                         type="repayments-table"
@@ -393,6 +417,8 @@ const BiztoolRow = (props) => {
                         handleRowOptionFunction={props.handleRowOptionFunction}
                     />
                     <InputCell
+                        lastRow={props.lastRow}
+                        corner="leftCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.name}
                         type="text"
@@ -429,6 +455,8 @@ const BiztoolRow = (props) => {
                         address={props.address}
                         width={columnStyles[3].width} />
                     <DropdownCell
+                        lastRow={props.lastRow}
+                        corner="rightCorner"
                         handleFunction={props.handleFunction}
                         data={props.data.period_id}
                         type="period-dropdown"

@@ -57,7 +57,7 @@ const BiztoolTable = (props) => {
                 </div>
                 <input
                   type='text'
-                  className="biztool-header-cell-input biztool-header-cell column border border-dark"
+                  className={`biztool-header-cell-input biztool-header-cell ${index === 0 ? "leftCorner" : index === props.tableStyle.column.length-1 ? "rightCorner" : ""} column border border-dark`}
                   style={{
                     width: `${columnStyles[index].width}px`,
                   }}
@@ -71,7 +71,7 @@ const BiztoolTable = (props) => {
               props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance) &&
               <div
                 type='text'
-                className="biztool-header-cell column border border-dark"
+                className={`biztool-header-cell ${index === 0 ? "leftCorner" : index === props.tableStyle.column.length-1  ? "rightCorner" : ""} column border border-dark`}
                 style={{
                   width: `${columnStyles[index].width}px`,
                 }}
@@ -81,7 +81,7 @@ const BiztoolTable = (props) => {
             }
             {index !== 0 && (
               <div
-                className="biztool-header-cell column border border-dark"
+                className={`biztool-header-cell ${index === 0 ? "leftCorner" : index === props.tableStyle.column.length-1 ? "rightCorner" : ""} column border border-dark`}
                 style={{
                   minWidth: `${columnStyles[index].width}px`,
                 }}
@@ -94,8 +94,8 @@ const BiztoolTable = (props) => {
       </div>
 
       {props.type === BIZTOOL_PAGE_CONFIG.totalInvestment.type.page &&
-        eachTable.investments.map((eachRow) => (
-          <BiztoolRow
+        eachTable.investments.map((eachRow, index) => (
+          <BiztoolRow lastRow={index === eachTable.investments.length-1 ? true: false}
             handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachRow._id}
@@ -111,8 +111,8 @@ const BiztoolTable = (props) => {
           />
         ))}
       {props.type === BIZTOOL_PAGE_CONFIG.operationCost.type.page &&
-        eachTable.fixed_costs.map((eachRow) => (
-          <BiztoolRow
+        eachTable.fixed_costs.map((eachRow, index) => (
+          <BiztoolRow lastRow={index === eachTable.fixed_costs.length-1 ? true: false}
             handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachRow._id}
@@ -128,8 +128,8 @@ const BiztoolTable = (props) => {
           />
         ))}
       {props.type === BIZTOOL_PAGE_CONFIG.revenue.type.service &&
-        eachTable.services.map((eachRow) => (
-          <BiztoolRow
+        eachTable.services.map((eachRow, index) => (
+          <BiztoolRow lastRow={index === eachTable.services.length-1 ? true: false}
             handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachRow._id}
@@ -145,8 +145,8 @@ const BiztoolTable = (props) => {
           />
         ))}
       {props.type === BIZTOOL_PAGE_CONFIG.revenue.type.product &&
-        eachTable.products.map((eachRow) => (
-          <BiztoolRow
+        eachTable.products.map((eachRow, index) => (
+          <BiztoolRow lastRow={index === eachTable.products.length-1 ? true: false}
             handleRowOptionFunction={props.handleRowOptionFunction}
             handleFunction={props.handleFunction}
             key={eachRow._id}
@@ -163,8 +163,8 @@ const BiztoolTable = (props) => {
         ))}
 
       {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityContribution &&
-        eachTable.equity_contributions.map((eachRow) => (
-          <BiztoolRow
+        eachTable.equity_contributions.map((eachRow, index) => (
+          <BiztoolRow lastRow={index === eachTable.equity_contributions.length-1 ? true: false}
             handleRowOptionFunction={props.handleRowOptionFunction}
             key={eachRow._id}
             type={props.type}
@@ -179,8 +179,8 @@ const BiztoolTable = (props) => {
           />
         ))}
       {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.equityRepayment &&
-        eachTable.equity_repayments.map((eachRow) => (
-          <BiztoolRow
+        eachTable.equity_repayments.map((eachRow, index) => (
+          <BiztoolRow lastRow={index === eachTable.equity_repayments.length-1 ? true: false}
             handleRowOptionFunction={props.handleRowOptionFunction}
             key={eachRow._id}
             type={props.type}
@@ -198,31 +198,31 @@ const BiztoolTable = (props) => {
       {props.type === BIZTOOL_PAGE_CONFIG.miscellaneous.type.debtIssuance &&
         <div className="d-flex">
           <div>
-          {eachTable.debt_issuances.map((eachRow) => (
-            <BiztoolRow
-              setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
-              handleRowOptionFunction={props.handleRowOptionFunction}
-              key={eachRow._id}
-              type={props.type}
-              data={eachRow}
-              onCellChange={props.onCellChange}
-              address={
-                {
-                  tableId: '',
-                  rowId: eachRow._id,
-                }}
-              tableStyle={props.tableStyle}
-            />
-          ))
-          }
+            {eachTable.debt_issuances.map((eachRow, index) => (
+              <BiztoolRow lastRow={index === eachTable.debt_issuances.length-1 ? true: false}
+                setRepaymentPopupStateFunction={props.setRepaymentPopupStateFunction}
+                handleRowOptionFunction={props.handleRowOptionFunction}
+                key={eachRow._id}
+                type={props.type}
+                data={eachRow}
+                onCellChange={props.onCellChange}
+                address={
+                  {
+                    tableId: '',
+                    rowId: eachRow._id,
+                  }}
+                tableStyle={props.tableStyle}
+              />
+            ))
+            }
           </div>
-         {eachTable.debt_issuances.length !== 0 && <div className="border border-primary mh-100 d-flex align-items-center">
-          <div className=' d-flex justify-content-center ' style={{ width: `${columnStyles[5].width}px` }}>
-            <button
-              onClick={() => props.setRepaymentPopupStateFunction()}
-              style={{ width: `${columnStyles[5].width - 50}px`, backgroundColor: "#3448ad", color: "#ffffff", height: '45px'}}
-            >ดูรายละอียดการชำระเงิน</button>
-          </div>
+          {eachTable.debt_issuances.length !== 0 && <div className="border border-primary mh-100 d-flex align-items-center">
+            <div className=' d-flex justify-content-center ' style={{ width: `${columnStyles[5].width}px` }}>
+              <button
+                onClick={() => props.setRepaymentPopupStateFunction()}
+                style={{ width: `${columnStyles[5].width - 50}px`, backgroundColor: "#3448ad", color: "#ffffff", height: '45px' }}
+              >ดูรายละอียดการชำระเงิน</button>
+            </div>
           </div>}
         </div>
       }

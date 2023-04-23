@@ -12,7 +12,7 @@ const InputCell = (props) => {
 
 
   return (
-    <div className='d-flex' style={{ width: `${props.width}px` }}>
+    <div className='d-flex' style={{ width: `${props.width}px` , borderRaduis: `${props.lastRow ?`lastRow ${props.corner}`:"none"}`}}>
       <input
         type={props.type === 'date' ? 'date' : 'text'}
         id='this-cell-input'

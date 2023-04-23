@@ -339,8 +339,8 @@ function RevenuePage() {
           type={config.type}
           tableStyle={config.tableStyle}
           tableData={tableData}
-          handleServiceFunction={() => addServiceTableHandleFunction}
-          handleProductFunction={() => addProductTableHandleFunction}
+          handleServiceFunction={addServiceTableHandleFunction}
+          handleProductFunction={addProductTableHandleFunction}
         />
       </div>
     </div>

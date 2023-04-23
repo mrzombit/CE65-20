@@ -123,16 +123,65 @@
     font-size: 40px;
     font-weight: bold;
 }
+.create-project-img-style{
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 10px;
+    border: 2px solid rgb(76, 38, 159);
+}
 
 .create-project-inputs-style{
-    background-color: #a993cf;
+    background-color: #f0ecff;
     height: 500px;
     width: 600px;
+    padding: 10px;
+    border-radius: 10px 0px 0px 10px;
 }
 
 .create-project-descriptions-style{
     height: 500px;
     background-color: #7b7387;
     width: 800px;
+}
+.create-project-finish-style{
+    height: 500px;
+    background-color: #ffffff;
+    width: 800px;
+}
+.each-cp-input-header{
+    padding-left: 2px;
+    font-size: 20px;
+    color: #6a1fed;
+}
 
+.each-cp-text-input{
+    width: 400px;
+    border: #8c57e8;
+    background-color: rgb(255, 255, 255);
+}
+
+.each-cp-text-inputarea{
+    padding: 10px;
+    border-radius: 10px;
+    width: 400px;
+    height: 300px;
+    border: #8c57e8;
+    background-color: rgb(255, 255, 255);
+}
+
+.popup-img-div{
+    margin-top:40px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-img{
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.text-align-center{
+    text-align: center;
 }

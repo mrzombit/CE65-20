@@ -7,6 +7,19 @@
     align-items: center;
     color: white;
     font-weight: 600;
+    max-height: 45px;
+}
+.sale-trend-box-danger{
+    background-color: #ec1c1c;
+    min-width: 290px;
+    border-radius: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    max-height: 45px;
 }
 
 .business-goal-box {
