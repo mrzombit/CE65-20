@@ -35,7 +35,7 @@ const incomeChartPage = (props) => {
   //   console.log("value is:", event.target.value);
   // };
 
-  // const yearRange = [1, 2, 3, 4];
+  const yearRange = [];
 
   // const totalRevenue = [15000,17000,15000];
   // const totalFixedCost = [17000,15000,10000];
@@ -210,7 +210,7 @@ const incomeChartPage = (props) => {
         sum_service_revenue += eachService.revenue_per_service;
       });
     });
-    return sum_service_revenue;
+    // return sum_service_revenue;
   }
   function calculateRevenue_product() {
     let sum_product_revenue = 0;
@@ -219,7 +219,7 @@ const incomeChartPage = (props) => {
         sum_product_revenue += eachProduct.revenue_per_unit;
       });
     });
-    return sum_product_revenue;
+    // return sum_product_revenue;
   }
 
   // function calculateRevenue() {
@@ -247,6 +247,15 @@ const incomeChartPage = (props) => {
 
   //   return totalValue;
   // }
+
+  function calculateYearRange() {
+    // modelConfig.projection_period
+    let yearStart = parseInt(modelConfig.start_date.slice(0, 4));
+    for (let i = 0; i < modelConfig.projection_period; i++) {
+      yearRange.push(yearStart);
+      yearStart += 1;
+    }
+  }
 
   function calculateRevenue() {
     let totalValue = 0;
@@ -305,7 +314,7 @@ const incomeChartPage = (props) => {
       totalRevenue_MIN.push(totalValue_MIN);
     }
 
-    return totalValue;
+    // return totalValue;
   }
 
 
@@ -317,7 +326,7 @@ const incomeChartPage = (props) => {
         sum_fixed_cost += eachFixedCost.amount;
       });
     });
-    return sum_fixed_cost;
+    // return sum_fixed_cost;
   }
 
   function calculateTotalFixdcost() {
@@ -365,16 +374,19 @@ const incomeChartPage = (props) => {
         >
           <StatementHearder
             title="Income Statement"
+            type="chart"
             sensitivityPath="/Sensitivity/income"
             listPath="/ProfitLossStatements"
             chartPath="/Chart/incom"
           />
           <div>
+            <div>{calculateYearRange()}</div>
             <CombinationCharts
-              data_type="revenue"
+              data_type="income"
               totalRevenue={totalRevenue}
               total_fixed_cost={totalFixedCost}
               totalRevenue_MIN={totalRevenue_MIN}
+              yearRange={yearRange}
             />
             {console.log("totalFixedCost : " + totalFixedCost)}
           </div>
@@ -386,6 +398,9 @@ const incomeChartPage = (props) => {
               <div className="sen-sidebar-show" onClick={showSidebar}>
                 {/* <AiOutlineDoubleLeft /> */}
               </div>
+
+              
+              
               <div className="total-text">
                 <div className="d-flex justify-content-between">
                   <div>รายได้รวม</div>

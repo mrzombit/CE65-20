@@ -26,7 +26,7 @@ function ffcFour() {
               tableName="CFI"
             /> */}
             <FFCCard
-              type="cash-flows"
+              type="cashflow"
               tableName="Cashflows"
             />
           </div>

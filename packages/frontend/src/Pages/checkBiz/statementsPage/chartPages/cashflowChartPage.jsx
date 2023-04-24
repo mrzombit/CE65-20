@@ -42,6 +42,7 @@ const cashflowChartPage = (props) => {
   const totalCFO = [];
   const totalCFI = [0, 0, 0];
   const totalCFF = [];
+  const yearRange = [];
 
   const dispatch = useDispatch();
   const selectedProject = useSelector(
@@ -330,9 +331,6 @@ const cashflowChartPage = (props) => {
         sum_investment += eachData.amount
       })
     })
-
-    // ปีแรก
-    // totalFixedCost.push(sum_fixed_cost + sum_investment);
     totalCFI.unshift(-sum_investment);
 
   }
@@ -349,6 +347,15 @@ const cashflowChartPage = (props) => {
         totalCFF.push(-eachData.amount);
       })
     });
+
+    function calculateYearRange() {
+      // modelConfig.projection_period
+      let yearStart = parseInt(modelConfig.start_date.slice(0, 4));
+      for (let i = 0; i < modelConfig.projection_period; i++) {
+        yearRange.push(yearStart);
+        yearStart += 1;
+      }
+    }
 
     // tableMiscellaneousData.equity_contribution.forEach((table) => {
     //   sum_equity += table.amount;
@@ -418,7 +425,14 @@ const cashflowChartPage = (props) => {
   // if (groups.cfo.includes(str)) {
 
   // }
-
+  function calculateYearRange() {
+    // modelConfig.projection_period
+    let yearStart = parseInt(modelConfig.start_date.slice(0, 4));
+    for (let i = 0; i < modelConfig.projection_period; i++) {
+      yearRange.push(yearStart);
+      yearStart += 1;
+    }
+  }
 
   return (
     <div>
@@ -430,16 +444,19 @@ const cashflowChartPage = (props) => {
         >
           <StatementHearder
             title="Cashflow Statement"
+            type="chart"
             sensitivityPath="/Sensitivity/income"
             listPath="/CashFlowStatements"
             chartPath="/Chart/cashflow"
           />
           <div>
+            <div>{calculateYearRange()}</div>
             <CombinationCharts
               data_type="cashflow"
               totalCFO={totalCFO}
               totalCFI={totalCFI}
               totalCFF={totalCFF}
+              yearRange={yearRange}
             />
           </div>
         </div>

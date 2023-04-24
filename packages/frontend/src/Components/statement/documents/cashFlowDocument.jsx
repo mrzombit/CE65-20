@@ -17,6 +17,9 @@ const cashFlowDocument = () => {
   let totalInvestment = 0;
   let totalRevenue = [];
   let totalfixedCost = [];
+  const totalCFO = [];
+  const totalCFI = [0, 0, 0];
+  const totalCFF = [];
   let mock = [1000, 1000, 1000, 1000]
 
   const dispatch = useDispatch();
@@ -36,13 +39,17 @@ const cashFlowDocument = () => {
       setReload(true);
     }
     setprojectName(selectedProject.name)
+    setModelConfig(selectedProject.model_config);
     setTableRevenueData(selectedProject.revenue);
     setTableExpenseData(selectedProject.expense);
-    setTableModelConfigData(selectedProject.model_config);
+    setTableMiscellaneousData(selectedProject.miscellaneous);
   }, [selectedProject]);
 
   const [projectName, setprojectName] = useState(
     selectedProject.name
+  );
+  const [modelConfig, setModelConfig] = useState(
+    selectedProject.model_config
   );
   const [tableRevenueData, setTableRevenueData] = useState(
     selectedProject.revenue
@@ -50,9 +57,10 @@ const cashFlowDocument = () => {
   const [tableExpenseData, setTableExpenseData] = useState(
     selectedProject.expense
   );
-  const [tableModelConfigData, setTableModelConfigData] = useState(
-    selectedProject.expense
+  const [tableMiscellaneousData, setTableMiscellaneousData] = useState(
+    selectedProject.miscellaneous
   );
+
 
   function calculateInitialInvestment() {
     let total = 0
@@ -141,6 +149,80 @@ const cashFlowDocument = () => {
     let result = 0
     result = calculateCFO() + calculateCFI() + calculateCFF()
     return result
+  }
+  ///////////////////////////////////////////////////
+  function total_CFO() {
+    let sum_fixed_cost = 0;
+    let increase = 0;
+    let sum_service_revenue = 0;
+    let sum_product_revenue = 0;
+
+    tableRevenueData.service_tables.forEach((tableService) => {
+      tableService.services.forEach((eachService) => {
+        sum_service_revenue += eachService.revenue_per_service;
+      });
+    });
+
+    tableRevenueData.product_tables.forEach((tableProduct) => {
+      tableProduct.products.forEach((eachProduct) => {
+        sum_product_revenue += eachProduct.revenue_per_unit;
+      });
+    });
+
+    tableExpenseData.fixed_cost_tables.map((tableFixedCost) => {
+      tableFixedCost.fixed_costs.map((eachFixedCost) => {
+        sum_fixed_cost += eachFixedCost.amount;
+        increase = eachFixedCost.cost_increase
+      });
+    });
+
+
+
+    // ปีแรก
+    // totalFixedCost.push(sum_fixed_cost + sum_investment);
+    totalCFO.push(sum_service_revenue + sum_product_revenue - sum_fixed_cost);
+
+    for (let i = 1; i < modelConfig.projection_period; i++) {
+      sum_fixed_cost += sum_fixed_cost * (increase / 100)
+      increase += increase
+      totalCFO.push(sum_service_revenue + sum_product_revenue - sum_fixed_cost);
+    }
+    // return sum_fixed_cost
+  }
+  function total_CFI() {
+    let sum_investment = 0;
+    tableExpenseData.investment_tables.map((table) => {
+      table.investments.map((eachData) => {
+        sum_investment += eachData.amount
+      })
+    })
+    totalCFI.unshift(-sum_investment);
+
+  }
+  function total_CFF() {
+    let total = 0;
+    let increase = 0;
+    let sum_debt = 0;
+    let sum_equity = 0;
+
+    tableMiscellaneousData.debt_issuance.forEach((table) => {
+      table.payments.map((eachData) => {
+        //year?
+        // sum_debt += eachData.amount;
+        totalCFF.push(-eachData.amount);
+      })
+    });
+
+    // tableMiscellaneousData.equity_contribution.forEach((table) => {
+    //   sum_equity += table.amount;
+    // });
+
+
+
+    // for (let i = 1; i < modelConfig.projection_period; i++) {
+    //   totalCFF.push(sum_equity - sum_debt);
+    // }
+
   }
 
   //////////////////////////////////////////// FFC 5
@@ -240,6 +322,10 @@ const cashFlowDocument = () => {
 
           <tbody>
             <th className="dov-name-cell">กระแสเงินสดจากกิจกรรมดำเนินงาน</th>
+            {/* <div>{total_income()}</div>
+            <div>{total_CFO()}</div>
+            <div>{total_CFI()}</div>
+            <div>{total_CFF()}</div> */}
             <tr>
               <td className="dov-name-cell">ต้นทุนทางการเงิน</td>
               {yearRange.map((i) => (
@@ -255,11 +341,20 @@ const cashFlowDocument = () => {
             <th className="dov-name-cell">กระแสเงินสดจากกิจกรรมลงทุน</th>
             <tr>
               <td className="dov-name-cell">ค่าใช้จ่ายการลงทุน</td>
+              {calculateInitialInvestment()}
               {yearRange.map((i) => (
                 <td scope="col" className="dov-money-cell">{totalInvestment.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
               ))}
             </tr>
             <th className="dov-name-cell">กระแสเงินสดจากกิจกรรมจัดหาเงิน</th>
+            <tr>
+              <td className="dov-name-cell">เงินสดรับจากการกู้ยืม</td>
+              {(calculateCashFlows(totalInvestment, 0.7, 4)).map(eachYear => (
+                // yearRange.map((i) => (
+                <td scope="col" className="dov-money-cell">{eachYear.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                // ))
+              ))}
+            </tr>
             <tr>
               <td className="dov-name-cell">เงินสดจ่ายจากการชำระเงินกู้</td>
               {(calculateCashFlows(totalInvestment, 0.7, 4)).map(eachYear => (
@@ -268,22 +363,14 @@ const cashFlowDocument = () => {
                 // ))
               ))}
             </tr>
-            <tr>
-              <td className="dov-name-cell">เงินสดรับจากการขายหุ้น</td>
-              {(calculateCashFlows(totalInvestment, 0.7, 4)).map(eachYear => (
-                // yearRange.map((i) => (
-                <td scope="col" className="dov-money-cell">{eachYear.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                // ))
-              ))}
-            </tr>
-            <tr>
+            {/* <tr>
               <td className="dov-name-cell">เงินสดจ่ายจากเงินปันผล</td>
               {(calculateCashFlows(totalInvestment, 0.7, 4)).map(eachYear => (
                 // yearRange.map((i) => (
                 <td scope="col" className="dov-money-cell">{eachYear.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 // ))
               ))}
-            </tr>
+            </tr> */}
             <tr>
               <th className="dov-name-cell">กระแสเงินสดสุทธิ</th>
               {(calculateCashFlows(totalInvestment, 0.7, 4)).map(eachYear => (
