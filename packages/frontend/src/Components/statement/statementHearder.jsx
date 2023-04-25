@@ -21,19 +21,21 @@ const statementHearder = (props) => {
             </Link>
           </div>
 
-          <div className="d-flex col">
+          <div className={props.type == "chart" ? "statement-header-chart" : "statement-header"}>
             <IconContext.Provider value={{ color: "#9fa7c2" }}>
               <Link to={props.sensitivityPath} >
                 {/* <button>sensitivity</button> */}
               </Link>
-              &nbsp;
-              <Link to={props.listPath}>
-                <FaThList />
-              </Link>
-              &nbsp;
-              <Link to={props.chartPath}>
-                <BsFillBarChartFill />
-              </Link>
+              <div>
+                &nbsp;
+                <Link to={props.listPath}>
+                  <FaThList />
+                </Link>
+                &nbsp;
+                <Link to={props.chartPath}>
+                  <BsFillBarChartFill />
+                </Link>
+              </div>
             </IconContext.Provider>
           </div>
         </div>

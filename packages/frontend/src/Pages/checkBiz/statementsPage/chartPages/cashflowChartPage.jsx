@@ -12,6 +12,7 @@ import {
   updateProject,
 } from "../../../../features/projectsSlice";
 import EditInputOnSidebar from "../../../../components/checkbiz/sidebarEditdata/editInputOnSidebar";
+import checkbizFormula from "../../../../components/checkbiz/checkbizFormula/checkbizFormula";
 
 // import * as cbf from "../../../../components/checkbiz/checkbizFormula/checkbizFormula_try";
 // import BarChart from "../../../../components/statement/charts/barChart";
@@ -22,6 +23,16 @@ import EditInputOnSidebar from "../../../../components/checkbiz/sidebarEditdata/
 // import BIZTOOL_PAGE_CONFIG from "../../../bizTools/pageConfig";
 
 const cashflowChartPage = (props) => {
+
+  const cbf = checkbizFormula();
+  const { totalRevenue, totalRevenue_MIN} = cbf.calculateRevenue();
+  const totalFixedCost = cbf.calculateTotalFixdcost();
+  const yearRange = cbf.calculateYearRange();
+  const totalCFO = cbf.calculateCFO();
+  const totalCFI = cbf.calculateCFI();
+  const totalCFF = cbf.calculateCFF();
+
+
   // const [newRevenuePerService, setNewRevenuePerService] = useState(null);
   // const config = BIZTOOL_PAGE_CONFIG.revenue
   // const [tableService, setTableService] = useState();
@@ -37,9 +48,12 @@ const cashflowChartPage = (props) => {
 
   // const totalRevenue = [15000,17000,15000];
   // const totalFixedCost = [17000,15000,10000];
-  const totalRevenue = [];
-  const totalFixedCost = [];
-  const totalCFO = [];
+  
+  // const totalFixedCost = [];
+  // const totalCFO = [];
+  // const totalCFI = [0, 0, 0];
+  // const totalCFF = [];
+  // const yearRange = [];
 
   const dispatch = useDispatch();
   const selectedProject = useSelector(
@@ -50,6 +64,7 @@ const cashflowChartPage = (props) => {
 
 
   useEffect(() => {
+
     if (isLoaded.projects) {
       dispatch(fetchProjectById(selectedProject._id));
       setIsLoaded({ user: true, project: true });
@@ -58,17 +73,25 @@ const cashflowChartPage = (props) => {
       dispatch(fetchProjectById(selectedProject._id));
       setReload(true);
     }
+    setModelConfig(selectedProject.model_config);
     setTableRevenueData(selectedProject.revenue);
     setTableExpenseData(selectedProject.expense);
+    setTableMiscellaneousData(selectedProject.miscellaneous);
   }, [selectedProject]);
 
+  const [modelConfig, setModelConfig] = useState(
+    selectedProject.model_config
+  );
   const [tableRevenueData, setTableRevenueData] = useState(
     selectedProject.revenue
   );
   const [tableExpenseData, setTableExpenseData] = useState(
     selectedProject.expense
   );
-  
+  const [tableMiscellaneousData, setTableMiscellaneousData] = useState(
+    selectedProject.miscellaneous
+  );
+
   const onValChange = (tableID, unitID, amountPerUnit) => {
     let shallowServiceTables = JSON.parse(
       JSON.stringify(selectedProject.revenue.service_tables)
@@ -78,6 +101,9 @@ const cashflowChartPage = (props) => {
     );
     let shallowFixedCostTables = JSON.parse(
       JSON.stringify(selectedProject.expense.fixed_cost_tables)
+    );
+    let shallowInvestmentTables = JSON.parse(
+      JSON.stringify(selectedProject.expense.investment_tables)
     );
 
     shallowServiceTables = shallowServiceTables.map((eachTableService) => {
@@ -130,6 +156,44 @@ const cashflowChartPage = (props) => {
       }
     );
 
+    // shallowInvestmentTables = shallowInvestmentTables.map(
+    //   (eachTableInvestment) => {
+    //     if (eachTableInvestment._id === tableID) {
+    //       eachTableInvestment.investments = eachTableInvestment.investments.map(
+    //         (eachInvestment) => {
+    //           if (eachInvestment._id === unitID) {
+    //             if (eachInvestment.amount !== amountPerUnit) {
+    //               eachInvestment.amount = amountPerUnit;
+    //             }
+    //           }
+    //           return eachInvestment;
+    //         }
+    //       );
+    //     }
+    //     return eachTableInvestment;
+    //   }
+    // );
+
+    // Find the index of the table with the matching ID
+    const tableIndex = shallowInvestmentTables.findIndex((table) => table._id === tableID);
+
+    // Update the investment table if found
+    if (tableIndex !== -1) {
+      shallowInvestmentTables[tableIndex] = {
+        ...shallowInvestmentTables[tableIndex],
+        investments: shallowInvestmentTables[tableIndex].investments.map((eachInvestment) => {
+          if (eachInvestment._id === unitID) {
+            if (eachInvestment.amount !== amountPerUnit) {
+              eachInvestment.amount = amountPerUnit;
+            }
+          }
+          return eachInvestment;
+        }),
+      };
+    }
+
+
+
     let shallowSelectedProject = {
       ...selectedProject,
       revenue: {
@@ -138,6 +202,7 @@ const cashflowChartPage = (props) => {
       },
       expense: {
         fixed_cost_tables: shallowFixedCostTables,
+        investment_tables: shallowInvestmentTables,
       },
     };
     dispatch(projectUpdated(shallowSelectedProject));
@@ -146,116 +211,10 @@ const cashflowChartPage = (props) => {
     );
   };
 
+
   const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => setSidebar(!sidebar);
 
-  function calculateRevenue_service() {
-    let sum_service_revenue = 0;
-    tableRevenueData.service_tables.forEach((tableService) => {
-      tableService.services.forEach((eachService) => {
-        sum_service_revenue += eachService.revenue_per_service;
-      });
-    });
-    return sum_service_revenue;
-  }
-  function calculateRevenue_product() {
-    let sum_product_revenue = 0;
-    tableRevenueData.product_tables.forEach((tableProduct) => {
-      tableProduct.products.forEach((eachProduct) => {
-        sum_product_revenue += eachProduct.revenue_per_unit;
-      });
-    });
-    return sum_product_revenue;
-  }
-
-  function calculateRevenue() {
-    let totalValue = 0;
-    totalValue = calculateRevenue_service() + calculateRevenue_product();
-    totalRevenue.push(totalValue);
-    return totalValue;
-  }
-
-  function calculateFixedCost() {
-    let sum_fixed_cost = 0;
-    tableExpenseData.fixed_cost_tables.forEach((tableFixedCost) => {
-      tableFixedCost.fixed_costs.forEach((eachFixedCost) => {
-        sum_fixed_cost += eachFixedCost.amount;
-      });
-    });
-    return sum_fixed_cost;
-  }
-
-  function calculateTotalFixdcost() {
-    let totalValue = 0;
-    totalValue = calculateFixedCost();
-    totalFixedCost.push(totalValue);
-    return totalValue;
-  }
-
-  function total_income() {
-    let totalValue = 0
-    totalValue = calculateRevenue() - calculateFixedCost()
-    totalCFO.push(totalValue)
-    return totalValue
-}
-
-
-  ///////////////////////////////////////////
-  const [groups, setGroups] = useState({
-    cfo: ["ลูกหนี้การค้า", ""],
-    cfi: ["ลงทุน"],
-    cff: [],
-  });
-
-  const newGroups = {
-    cfo: {
-      income: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-      expense: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-    },
-    cfi: {
-      income: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-      expense: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-    },
-    cff: {
-      income: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-      expense: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-    },
-  };
-
-  // const str = 'ลงทุ';
-  // if (groups.cfo.includes(str)) {
-
-  // }
 
 
   return (
@@ -268,15 +227,19 @@ const cashflowChartPage = (props) => {
         >
           <StatementHearder
             title="Cashflow Statement"
+            type="chart"
             sensitivityPath="/Sensitivity/income"
             listPath="/CashFlowStatements"
             chartPath="/Chart/cashflow"
           />
           <div>
+ 
             <CombinationCharts
-              data_type="revenue"
-              total_service_revenue={totalCFO   }
-              // total_fixed_cost={totalFixedCost}
+              data_type="cashflow"
+              totalCFO={totalCFO}
+              totalCFI={totalCFI}
+              totalCFF={totalCFF}
+              yearRange={yearRange}
             />
           </div>
         </div>
@@ -285,25 +248,28 @@ const cashflowChartPage = (props) => {
           {sidebar ? (
             <div className="sen-sidebar">
               <div className="sen-sidebar-show" onClick={showSidebar}>
-                <AiOutlineDoubleLeft />
+                {/* <AiOutlineDoubleLeft /> */}
               </div>
-              <div className="total-text">
+
+              {/* <div className="total-text">
                 <div className="d-flex justify-content-between">
                   <div>CFO</div>
-                  <div>
-                    {total_income()}
-                  </div>
+                  <div>{total_income()}</div>
+                  <div>{total_CFO()}</div>
+                  <div>{total_CFI()}</div>
+                  <div>{total_CFF()}</div>
+                  <div>{calculateTotalFixdcost()}</div>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div>CFI</div>
-                  {/* <div>{calculateTotalFixdcost()}</div> */}
+              
                 </div>
                 <div className="d-flex justify-content-between">
-                  <div>CFF</div>
-                  {/* <div>{calculateRevenue() - calculateFixedCost()}</div> */}
+                  <div>CFF</div>         
                 </div>
 
               </div>
+              
               <div className="total-text">
                 <div className="d-flex justify-content-between">
                   <div>กระแสเงินสดสุทธิ</div>
@@ -318,9 +284,9 @@ const cashflowChartPage = (props) => {
                   <div></div>
                 </div>
 
-              </div>
+              </div> */}
 
-              <div className="table-name-side-text">กระแสเงินสดจากกิจกรรมดำเนินงาน(CFO)</div>
+              <div className="table-name-side-text">กระแสเงินสดจากกิจกรรมดำเนินงาน (CFO)</div>
               {tableRevenueData.service_tables.map((tableService) => (
                 <div key={tableService._id}>
                   {/* <div className="total-text">{tableService.name}</div> */}
@@ -405,51 +371,88 @@ const cashflowChartPage = (props) => {
                 </div>
               </div>
 
-              <div className="table-name-side-text">กระแสเงินสดจากกิจกรรมลงทุน(CFI)</div>
-              {tableRevenueData.service_tables.map((tableService) => (
-                <div key={tableService._id}>
-                  {tableService.services.map((eachService) => (
-                    <div key={eachService._id}>
-                      {eachService.name !== "" && groups.cfi.includes(eachService.name) ? (
-                        <>
-                          {console.log(groups.cfi + "==" + eachService.name)}
+              <div className="table-name-side-text">กระแสเงินสดจากกิจกรรมลงทุน (CFI)</div>
+              {
+                // tableExpenseData.investment_tables.forEach((table) => {
+                //   table.investments.forEach((eachData) => {
+                //     sum_investment += eachData.amount
+                //   })
+                // })
+
+                tableExpenseData.investment_tables.map((table) => (
+                  <div key={table._id}>
+                    {/* <div className="total-text">{tableProduct.name}</div> */}
+                    {table.investments.map((eachData) => (
+                      <div key={eachData._id}>
+                        {eachData.name !== "" && (
                           <EditInputOnSidebar
-                            name={eachService.name}
+                            name={eachData.name}
                             type="text"
-                            defaultValue={eachService.revenue_per_service}
+                            defaultValue={eachData.amount}
                             className="chart-input"
                             onChange={(event) =>
                               onValChange(
-                                tableService._id,
-                                eachService._id,
+                                table._id,
+                                eachData._id,
                                 event.target.value
                               )
                             }
                           />
-                        </>
-                      ) : null}
-                    </div>
-                  ))}
-                </div>
-              ))}
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ))
 
-              {/* <EditInputOnSidebar
-                name="รวมรายได้จากการขายสินค้า/วัน"
-                type="text"
-                defaultValue={calculateRevenue_product()}
-                className="chart-input"
-                resultDisplay={true}
-              /> */}
+              }
+              {/* tableMiscellaneousData */}
+              <div className="table-name-side-text">กระแสเงินสดจากกิจกรรมจัดหาเงิน (CFF)</div>
+              {
+                tableMiscellaneousData.debt_issuance.map((table) => (
+                  <div key={table._id}>
+                    {/* <div className="total-text">{table.name}</div> */}
+                    {table.payments.map((eachData) => (
+                      <div key={eachData._id}>
+                        <EditInputOnSidebar
+                          name={`ชำระหนี้ ปีที่ ${eachData.year}`}
+                          type="text"
+                          defaultValue={eachData.amount}
+                          className="chart-input"
+                        // onChange={(event) =>
+                        //   onValChange(
+                        //     table._id,
+                        //     eachData._id,
+                        //     event.target.value
+                        //   )
+                        // }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))
 
-              <div className="table-name-side-text">กระแสเงินสดจากกิจกรรม(CFF)</div>
+              }
+              {
+                tableMiscellaneousData.equity_contribution.map((table) => (
+                  <div key={table._id}>
+                    <EditInputOnSidebar
+                      name={`เงินสดรับจาการกู้ยืม โดย${table.name}`}
+                      type="text"
+                      defaultValue={table.amount}
+                      className="chart-input"
+                    // onChange={(event) =>
+                    //   onValChange(
+                    //     table._id,
+                    //     eachData._id,
+                    //     event.target.value
+                    //   )
+                    // }
+                    />
+                  </div>
+                ))
 
-              {/* <EditInputOnSidebar
-                name="รวมรายจ่าย"
-                type="text"
-                defaultValue={calculateFixedCost()}
-                className="chart-input"
-                resultDisplay={true}
-              /> */}
+              }
+
             </div>
           ) : (
             <div className="sen-sidebar2">

@@ -1,3 +1,14 @@
+.statement-header {
+  display: flex;
+  justify-content: space-between;
+  width: 64vw;
+}
+.statement-header-chart {
+  display: flex;
+  justify-content: space-between;
+  width: 48vw;
+}
+
 /* cash flow document */
 .docA4 {
   /* width: 1240px;

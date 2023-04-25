@@ -4,6 +4,7 @@ import jsPDF from "jspdf";
 import CashFlowDocument from "../../../components/statement/documents/cashFlowDocument";
 import StatementHearder from "../../../components/statement/statementHearder";
 import BizSidebar from "../../../components/bizTools/bizSidebar/bizSidebar";
+import { BiPrinter } from 'react-icons/bi';
 
 // import Html from "react-pdf-html";
 // import ExportPdfComponent from "../../../components/statement/ExportPdfComponent";
@@ -37,14 +38,14 @@ const cashFlowStatement = () => {
       <BizSidebar />
       <div className="p-4 biztool-body-width">
         <StatementHearder
-          title="Cash Flow Statement"
+          title="CashFlow Statement"
           sensitivityPath="/Sensitivity/cashflow"
           listPath="/CashFlowStatements"
           chartPath="/Chart/cashflow"
         />
         <div>
-          <div className="">
-            <button onClick={printDocument}>Print</button>
+          <div className="block-print">
+            <button className="btn print-state" onClick={printDocument}><BiPrinter />&nbsp;พิมพ์ข้อมูล</button>
           </div>
           <div className="doc-center scrollable">
             <div id="divToPrint" className="page">

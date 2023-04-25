@@ -5,6 +5,7 @@ import BizSidebar from '../../../components/bizTools/bizSidebar/bizSidebar'
 import StatementHearder from '../../../components/statement/statementHearder';
 import "./statementsPage.css";
 import IncomeDocument from '../../../components/statement/documents/incomeDocument';
+import { BiPrinter } from 'react-icons/bi';
 
 // import Html from "react-pdf-html";
 // import ExportPdfComponent from "../../../components/statement/ExportPdfComponent";
@@ -29,24 +30,24 @@ const profitLossStatement = () => {
       var height = pdf.internal.pageSize.getHeight();
       pdf.addImage(imgData, "JPEG", 0, 0, width, height);
       pdf.output('dataurlnewwindow');
-      pdf.save("cashflow_statement.pdf");
+      pdf.save("income_statement.pdf");
 
     });
   };
 
 
   return (
-    <div className="d-flex">
+    <div className="d-flex ">
       <BizSidebar />
-      <div className="">
+      <div className="p-4 chart-pages-body">
         <StatementHearder
           title="Income Statement"
           sensitivityPath="/Sensitivity/income"
           listPath="/ProfitLossStatements"
           chartPath="/Chart/income"
         />
-        <div className="">
-          <button onClick={printDocument}>Print</button>
+        <div className="block-print">
+          <button className="btn print-state" onClick={printDocument}><BiPrinter/>&nbsp;พิมพ์ข้อมูล</button>
         </div>
         <div className="doc-center scrollable">
           <div id="divToPrint" className=" page">
