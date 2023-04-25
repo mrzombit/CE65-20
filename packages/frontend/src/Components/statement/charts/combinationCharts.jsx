@@ -263,7 +263,6 @@ export default function CombinationCharts(props) {
 						}
 					}
 				},
-				height: "200px"
 			};
 
 			// let shallowData = data
@@ -718,10 +717,8 @@ export default function CombinationCharts(props) {
 	}, [totalRevenue, totalFixedCost, totalCFO, totalCFI, totalCFF,]);
 
 	return (
-		<div style={{ height: "300px" }}>
 			<div className="card">
 				<Chart type="line" data={chartData} options={chartOptions} />
 			</div>
-		</div>
 	)
 }

@@ -15,6 +15,7 @@ import {
     updateProject,
 } from "../../../features/projectsSlice";
 import EditInputOnSidebar from "../../checkbiz/sidebarEditdata/editInputOnSidebar";
+import checkbizFormula from "../../checkbiz/checkbizFormula/checkbizFormula";
 
 // import BarChart from '../../statement/charts/barChart';
 // import CombinationChartsMinMax from '../../statement/charts/combinationChartsMinMax';
@@ -27,6 +28,18 @@ import EditInputOnSidebar from "../../checkbiz/sidebarEditdata/editInputOnSideba
 // import BIZTOOL_PAGE_CONFIG from '../../../pages/bizTools/pageConfig';
 
 const ffcCard = (props) => {
+
+    const cbf = checkbizFormula();
+    const { totalRevenue, totalRevenue_MIN } = cbf.calculateRevenue();
+    const totalFixedCost = cbf.calculateTotalFixdcost();
+    const yearRange = cbf.calculateYearRange();
+    const totalCFO = cbf.calculateCFO();
+    const totalCFI = cbf.calculateCFI();
+    const totalCFF = cbf.calculateCFF();
+    let CfoCfi = totalCFO.map((cfo, index) => cfo + totalCFI[index]);
+    let netCashflow = totalCFF.map((cff, index) => cff + CfoCfi[index]);
+
+
     // const [tableName, setTableName] = useState("");
     // const [newRevenuePerService, setNewRevenuePerService] = useState(null);
     // const config = BIZTOOL_PAGE_CONFIG.revenue
@@ -44,13 +57,13 @@ const ffcCard = (props) => {
 
 
     const [chart, setChart] = useState(false);
-    const totalRevenue = [];
-    const totalFixedCost = [];
-    const totalCFO = [];
-    const totalCFI = [0, 0, 0];
-    const totalCFF = [];
+    // const totalRevenue = [];
+    // const totalFixedCost = [];
+    // const totalCFO = [];
+    // const totalCFI = [0, 0, 0];
+    // const totalCFF = [];
     let totalInvestment = 0;
-    const yearRange = [2565, 2566, 2567, 2568];
+    // const yearRange = [2565, 2566, 2567, 2568];
 
     const inv_names = [];
     const inv_amounts = [];
@@ -271,11 +284,11 @@ const ffcCard = (props) => {
         return result
     }
 
-    function netCashflow() {
-        let result = 0
-        result = calculateCFO() + calculateCFI() + calculateCFF()
-        return result
-    }
+    // function netCashflow() {
+    //     let result = 0
+    //     result = calculateCFO() + calculateCFI() + calculateCFF()
+    //     return result
+    // }
     ////////////////////////////////////////////
     function total_CFO() {
         let sum_fixed_cost = 0;
@@ -527,18 +540,12 @@ const ffcCard = (props) => {
                             }
                             {props.type == "cashflow" &&
                                 <div>
-                                    <div>{total_CFO()}</div>
-                                    <div>{total_CFI()}</div>
-                                    <div>{total_CFF()}</div>
                                     <CombinationCharts
                                         className="combination-charts"
                                         data_type={props.type}
-                                        // total_service_revenue={totalRevenue}
-                                        // total_fixed_cost={totalFixedCost}
-                                        // projection_period={4}
-                                        totalCFO={totalCFO}
-                                        totalCFI={totalCFI}
-                                        totalCFF={totalCFF}
+                                        totalCFO={calculateCFO()}
+                                        totalCFI={calculateCFI()}
+                                        totalCFF={calculateCFF()}
                                         inv_names={inv_names}
                                     // inv_amounts={inv_amounts}
                                     />

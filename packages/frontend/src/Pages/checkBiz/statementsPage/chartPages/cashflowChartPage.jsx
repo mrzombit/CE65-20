@@ -12,6 +12,7 @@ import {
   updateProject,
 } from "../../../../features/projectsSlice";
 import EditInputOnSidebar from "../../../../components/checkbiz/sidebarEditdata/editInputOnSidebar";
+import checkbizFormula from "../../../../components/checkbiz/checkbizFormula/checkbizFormula";
 
 // import * as cbf from "../../../../components/checkbiz/checkbizFormula/checkbizFormula_try";
 // import BarChart from "../../../../components/statement/charts/barChart";
@@ -22,6 +23,16 @@ import EditInputOnSidebar from "../../../../components/checkbiz/sidebarEditdata/
 // import BIZTOOL_PAGE_CONFIG from "../../../bizTools/pageConfig";
 
 const cashflowChartPage = (props) => {
+
+  const cbf = checkbizFormula();
+  const { totalRevenue, totalRevenue_MIN} = cbf.calculateRevenue();
+  const totalFixedCost = cbf.calculateTotalFixdcost();
+  const yearRange = cbf.calculateYearRange();
+  const totalCFO = cbf.calculateCFO();
+  const totalCFI = cbf.calculateCFI();
+  const totalCFF = cbf.calculateCFF();
+
+
   // const [newRevenuePerService, setNewRevenuePerService] = useState(null);
   // const config = BIZTOOL_PAGE_CONFIG.revenue
   // const [tableService, setTableService] = useState();
@@ -37,12 +48,12 @@ const cashflowChartPage = (props) => {
 
   // const totalRevenue = [15000,17000,15000];
   // const totalFixedCost = [17000,15000,10000];
-  const totalRevenue = [];
-  const totalFixedCost = [];
-  const totalCFO = [];
-  const totalCFI = [0, 0, 0];
-  const totalCFF = [];
-  const yearRange = [];
+  
+  // const totalFixedCost = [];
+  // const totalCFO = [];
+  // const totalCFI = [0, 0, 0];
+  // const totalCFF = [];
+  // const yearRange = [];
 
   const dispatch = useDispatch();
   const selectedProject = useSelector(
@@ -204,235 +215,7 @@ const cashflowChartPage = (props) => {
   const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => setSidebar(!sidebar);
 
-  function calculateRevenue_service() {
-    let sum_service_revenue = 0;
-    tableRevenueData.service_tables.forEach((tableService) => {
-      tableService.services.forEach((eachService) => {
-        sum_service_revenue += eachService.revenue_per_service;
-      });
-    });
-    return sum_service_revenue;
-  }
-  function calculateRevenue_product() {
-    let sum_product_revenue = 0;
-    tableRevenueData.product_tables.forEach((tableProduct) => {
-      tableProduct.products.forEach((eachProduct) => {
-        sum_product_revenue += eachProduct.revenue_per_unit;
-      });
-    });
-    return sum_product_revenue;
-  }
 
-  function calculateRevenue() {
-    let totalValue = 0;
-    totalValue = calculateRevenue_service() + calculateRevenue_product();
-    totalRevenue.push(totalValue);
-    return totalValue;
-  }
-
-  function calculateFixedCost() {
-    let sum_fixed_cost = 0;
-    tableExpenseData.fixed_cost_tables.forEach((tableFixedCost) => {
-      tableFixedCost.fixed_costs.forEach((eachFixedCost) => {
-        sum_fixed_cost += eachFixedCost.amount;
-      });
-    });
-    return sum_fixed_cost;
-  }
-
-  function calculateTotalFixdcost() {
-    let totalValue = 0;
-    totalValue = calculateFixedCost();
-    totalFixedCost.push(totalValue);
-    return totalValue;
-  }
-
-  function calculateTotalFixdcost() {
-    let sum_fixed_cost = 0;
-    let sum_investment = 0;
-    let increase = 0;
-    // modelConfig.projection_period
-
-    tableExpenseData.fixed_cost_tables.forEach((tableFixedCost) => {
-      tableFixedCost.fixed_costs.forEach((eachFixedCost) => {
-        sum_fixed_cost += eachFixedCost.amount;
-        increase = eachFixedCost.cost_increase
-      });
-    });
-
-    tableExpenseData.investment_tables.forEach((table) => {
-      table.investments.forEach((eachData) => {
-        sum_investment += eachData.amount
-      })
-    })
-
-    // ปีแรก
-    // totalFixedCost.push(sum_fixed_cost + sum_investment);
-    totalFixedCost.push(sum_fixed_cost);
-
-    for (let i = 1; i < modelConfig.projection_period; i++) {
-      sum_fixed_cost += sum_fixed_cost * (increase / 100)
-      increase += increase
-      totalFixedCost.push(sum_fixed_cost);
-    }
-    // return sum_fixed_cost
-  }
-
-
-  function total_income() {
-    let totalValue = 0
-    totalValue = calculateRevenue() - calculateFixedCost()
-    // totalCFO.push(totalValue)
-    return totalValue
-  }
-
-  function total_CFO() {
-    let sum_fixed_cost = 0;
-    let increase = 0;
-    let sum_service_revenue = 0;
-    let sum_product_revenue = 0;
-
-    tableRevenueData.service_tables.forEach((tableService) => {
-      tableService.services.forEach((eachService) => {
-        sum_service_revenue += eachService.revenue_per_service;
-      });
-    });
-
-    tableRevenueData.product_tables.forEach((tableProduct) => {
-      tableProduct.products.forEach((eachProduct) => {
-        sum_product_revenue += eachProduct.revenue_per_unit;
-      });
-    });
-
-    tableExpenseData.fixed_cost_tables.map((tableFixedCost) => {
-      tableFixedCost.fixed_costs.map((eachFixedCost) => {
-        sum_fixed_cost += eachFixedCost.amount;
-        increase = eachFixedCost.cost_increase
-      });
-    });
-
-
-
-    // ปีแรก
-    // totalFixedCost.push(sum_fixed_cost + sum_investment);
-    totalCFO.push(sum_service_revenue + sum_product_revenue - sum_fixed_cost);
-
-    for (let i = 1; i < modelConfig.projection_period; i++) {
-      sum_fixed_cost += sum_fixed_cost * (increase / 100)
-      increase += increase
-      totalCFO.push(sum_service_revenue + sum_product_revenue - sum_fixed_cost);
-    }
-    // return sum_fixed_cost
-  }
-  function total_CFI() {
-    let sum_investment = 0;
-    tableExpenseData.investment_tables.map((table) => {
-      table.investments.map((eachData) => {
-        sum_investment += eachData.amount
-      })
-    })
-    totalCFI.unshift(-sum_investment);
-
-  }
-  function total_CFF() {
-    let total = 0;
-    let increase = 0;
-    let sum_debt = 0;
-    let sum_equity = 0;
-
-    tableMiscellaneousData.debt_issuance.forEach((table) => {
-      table.payments.map((eachData) => {
-        //year?
-        // sum_debt += eachData.amount;
-        totalCFF.push(-eachData.amount);
-      })
-    });
-
-    function calculateYearRange() {
-      // modelConfig.projection_period
-      let yearStart = parseInt(modelConfig.start_date.slice(0, 4));
-      for (let i = 0; i < modelConfig.projection_period; i++) {
-        yearRange.push(yearStart);
-        yearStart += 1;
-      }
-    }
-
-    // tableMiscellaneousData.equity_contribution.forEach((table) => {
-    //   sum_equity += table.amount;
-    // });
-
-
-
-    // for (let i = 1; i < modelConfig.projection_period; i++) {
-    //   totalCFF.push(sum_equity - sum_debt);
-    // }
-
-  }
-
-  ///////////////////////////////////////////
-  const [groups, setGroups] = useState({
-    cfo: ["ลูกหนี้การค้า", ""],
-    cfi: ["ลงทุน"],
-    cff: [],
-  });
-
-  const newGroups = {
-    cfo: {
-      income: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-      expense: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-    },
-    cfi: {
-      income: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-      expense: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-    },
-    cff: {
-      income: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-      expense: [
-        {
-          name: '',
-          amount: 0,
-        }
-      ],
-    },
-  };
-
-  // const str = 'ลงทุ';
-  // if (groups.cfo.includes(str)) {
-
-  // }
-  function calculateYearRange() {
-    // modelConfig.projection_period
-    let yearStart = parseInt(modelConfig.start_date.slice(0, 4));
-    for (let i = 0; i < modelConfig.projection_period; i++) {
-      yearRange.push(yearStart);
-      yearStart += 1;
-    }
-  }
 
   return (
     <div>
@@ -450,7 +233,7 @@ const cashflowChartPage = (props) => {
             chartPath="/Chart/cashflow"
           />
           <div>
-            <div>{calculateYearRange()}</div>
+ 
             <CombinationCharts
               data_type="cashflow"
               totalCFO={totalCFO}
@@ -467,7 +250,8 @@ const cashflowChartPage = (props) => {
               <div className="sen-sidebar-show" onClick={showSidebar}>
                 {/* <AiOutlineDoubleLeft /> */}
               </div>
-              <div className="total-text">
+
+              {/* <div className="total-text">
                 <div className="d-flex justify-content-between">
                   <div>CFO</div>
                   <div>{total_income()}</div>
@@ -478,14 +262,14 @@ const cashflowChartPage = (props) => {
                 </div>
                 <div className="d-flex justify-content-between">
                   <div>CFI</div>
-                  {/* <div>{calculateTotalFixdcost()}</div> */}
+              
                 </div>
                 <div className="d-flex justify-content-between">
-                  <div>CFF</div>
-                  {/* <div>{calculateRevenue() - calculateFixedCost()}</div> */}
+                  <div>CFF</div>         
                 </div>
 
               </div>
+              
               <div className="total-text">
                 <div className="d-flex justify-content-between">
                   <div>กระแสเงินสดสุทธิ</div>
@@ -500,7 +284,7 @@ const cashflowChartPage = (props) => {
                   <div></div>
                 </div>
 
-              </div>
+              </div> */}
 
               <div className="table-name-side-text">กระแสเงินสดจากกิจกรรมดำเนินงาน (CFO)</div>
               {tableRevenueData.service_tables.map((tableService) => (
