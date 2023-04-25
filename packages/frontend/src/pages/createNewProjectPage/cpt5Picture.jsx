@@ -1,4 +1,5 @@
 import React from 'react'
+import './cptStyle.css'
 
 const CPT5Picture = (props) => {
   return (

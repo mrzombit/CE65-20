@@ -342,7 +342,7 @@ const CreateNewProject = (props) => {
     if (validate(INPUT_TYPES.saleTrend, { index: index, value: value })) dispatch(setShallowCreateProject(shallowProject))
   }
   return (
-    <div className=' m-3 mt-5'>
+    <div className=' m-5 mt-5'>
       <div className='fw-bold'>สร้างโปรเจกธุรกิจใหม่</div>
       <div className='fw-bold'>{`ขั้นตอนที่ ${currentStep}/5 :`}</div>
       <div className='step-header-style'>{stepHeader[currentStep]}</div>

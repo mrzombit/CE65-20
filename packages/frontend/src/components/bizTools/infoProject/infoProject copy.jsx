@@ -381,7 +381,7 @@ function infoProject(props) {
     } else if (typeInput === INPUT_TYPES.saleTrend) {
       if (value.value === '') {
         let shallowSaleTrend = error.saleTrends
-        shallowSaleTrend[value.index] = "กรุณากรอกเปอร์เซ็นยอดขายธุรกิจของคุณ"
+        shallowSaleTrend[value.index] = "กรุณากรอกเปอร์เซ็นยอดขายทางการตลาดธุรกิจของคุณ"
         setError({
           ...error,
           saleTrends: shallowSaleTrend

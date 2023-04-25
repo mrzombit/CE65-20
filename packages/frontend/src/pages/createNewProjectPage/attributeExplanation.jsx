@@ -8,7 +8,7 @@ import CPT5Picture from './cpt5Picture'
 
 const AttributeExplaination = (props) => {
     return (
-        <div>
+        <div className='create-project-descriptions-style'>
             {props.industry == true &&
                <CPT0Industry/>
             }

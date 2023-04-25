@@ -10,9 +10,9 @@ const CPTPage = (props) => {
     let onInputChange = props.onInputChange
 
     useEffect(() => {
-    
+
     }, [props.file])
-    
+
     return (
         <div className='d-flex' style={{ maxHeight: '500px' }}>
             <div className='create-project-inputs-style'>
@@ -172,10 +172,10 @@ const CPTPage = (props) => {
                             <div className='mb-2'>
 
                                 <div className='each-cp-input-header'>รูปภาพปัจจุบัน</div>
-                                {props.imageName!=="" ?
-                                <img src={`${props.previewImage}`} className='create-project-img-style' />
-                                :<img src={`${WEB_URL}${props.data.logo_url}`} className='create-project-img-style' />}
-                                <div>ภาพที่เลือก : {props.imageName!=="" ? props.imageName : "คุณยังไม่ได้เลือกรูปภาพ"} </div>
+                                {props.imageName !== "" ?
+                                    <img src={`${props.previewImage}`} className='create-project-img-style' />
+                                    : <img src={`${WEB_URL}${props.data.logo_url}`} className='create-project-img-style' />}
+                                <div>ภาพที่เลือก : {props.imageName !== "" ? props.imageName : "คุณยังไม่ได้เลือกรูปภาพ"} </div>
                                 {/* <div>ภาพที่เลือก : {props.} </div> */}
                                 <div>
                                     <button
@@ -195,12 +195,11 @@ const CPTPage = (props) => {
                         }
                     </div>)}
             </div>
-            <div style={{ width: "2px", height: "500px", backgroundColor: "#7b7387" }}></div>
-            {props.inputs[0] !== INPUT_TYPES.picture ? <div className='create-project-descriptions-style'>
+            <div style={{ width: "2px", height: "500px" }}></div>
+            {props.inputs[0] !== INPUT_TYPES.picture ?
 
-                คำอธิบายเกี่ยวกับ Input ...
-                {props.description}
-            </div> :
+                props.description 
+                :
                 <div className='create-project-finish-style d-flex justify-content-center align-items-center'>
                     <div className=''>
                         <div className='d-flex justify-content-center step-header-style'>โปรเจกธุรกิจของคุณพร้อมใช้งานแล้ว !</div>
